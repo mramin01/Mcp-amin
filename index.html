@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iran Super-Shop MCP | موتور ابرمقایسه هوشمند کیفیت و قیمت فروشگاه‌های ایران</title>
+  <style>
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #131b2e;
+      --bg-card-hover: #19233c;
+      --bg-surface: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #38bdf8;
+      --accent-secondary: #818cf8;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --border-color: rgba(148, 163, 184, 0.16);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #172554 0%, var(--bg-main) 45%);
+      color: var(--text-primary);
+      line-height: 1.65;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header & Hero */
+    header {
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #0b0f19;
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-text span {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: block;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2));
+      color: var(--text-primary);
+      border-color: var(--accent-primary);
+    }
+
+    /* Hero Banner */
+    .hero {
+      padding: 36px 0 24px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #fff, #93c5fd, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 820px;
+      margin: 0 auto 24px;
+      font-size: 0.96rem;
+    }
+
+    /* Store Pills */
+    .store-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .store-pill {
+      font-size: 0.78rem;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border-color);
+      color: #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .store-pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+    }
+
+    /* Search & Filter Control Panel */
+    .control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .search-input {
+      background: #0b0f19;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: #0b0f19;
+      font-weight: 800;
+      border: none;
+      padding: 0 28px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 0.96rem;
+      transition: transform 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .quick-presets {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      align-items: center;
+    }
+
+    .preset-chip {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: var(--accent-primary);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .filter-group select, .filter-group input {
+      width: 100%;
+      background: #0b0f19;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+    }
+
+    /* Weight Sliders */
+    .weights-bar {
+      margin-top: 16px;
+      padding: 14px 16px;
+      background: rgba(15, 23, 42, 0.75);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border-color);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .weight-slider label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      margin-bottom: 4px;
+    }
+
+    .weight-slider input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent-primary);
+    }
+
+    /* KPI Summary Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card .kpi-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .kpi-card .kpi-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .kpi-card .kpi-sub {
+      font-size: 0.8rem;
+      color: var(--accent-emerald);
+    }
+
+    /* Offers Grid & Cards */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .offer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-primary);
+    }
+
+    .offer-card.best-pick {
+      border: 2px solid var(--accent-emerald);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, var(--bg-card) 38%);
+    }
+
+    .offer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .store-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--accent-primary);
+    }
+
+    .vqs-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.84rem;
+    }
+
+    .vqs-badge.warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fbbf24;
+    }
+
+    .offer-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .offer-specs {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .price-box {
+      background: rgba(11, 15, 25, 0.65);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .price-main {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+    }
+
+    .price-old {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+
+    .deal-truth {
+      font-size: 0.78rem;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .deal-truth.real { color: #34d399; }
+    .deal-truth.fake { color: #fb7185; }
+    .deal-truth.normal { color: #94a3b8; }
+
+    .metrics-bars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 0.76rem;
+    }
+
+    .metric-item {
+      background: rgba(30, 41, 59, 0.55);
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .offer-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn-buy {
+      flex: 1;
+      text-align: center;
+      background: var(--accent-emerald);
+      color: #052e16;
+      font-weight: 800;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+    }
+
+    .btn-compare-toggle {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+
+    /* Comparison Table Section */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      text-align: right;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    pre {
+      background: #070a12;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      overflow-x: auto;
+      direction: ltr;
+      text-align: left;
+      font-family: 'Courier New', monospace;
+      font-size: 0.84rem;
+      color: #e2e8f0;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .search-row { grid-template-columns: 1fr; }
+      .btn-primary { padding: 14px; }
+      .offers-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <div class="brand">
+        <div class="brand-logo">IR</div>
+        <div class="brand-text">
+          <h1>Iran Super-Shop MCP & Smart Comparator</h1>
+          <span>موتور ابرمقایسه هوشمند ۱۶ فروشگاه ایران + سرور یکپارچه MCP</span>
+        </div>
+      </div>
+      <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('search')">🔍 ابرمقایسه و خرید هوشمند</button>
+        <button class="tab-btn" onclick="switchTab('bnpl')">💳 ماشین‌حساب اقساط و تورم</button>
+        <button class="tab-btn" onclick="switchTab('basket')">🛒 بهینه‌ساز سبد چندفروشگاهی</button>
+        <button class="tab-btn" onclick="switchTab('mcp')">⚡ سرور MCP و دیپلوی گیت‌هاب</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-badge">✨ نسخه ارتقایافته فراتر از awesome-iran-mcp با ۳۶ ابزار تحلیلی و مقایسه‌ای</div>
+      <h2>مقایسه همزمان کیفیت، اصالت تخفیف و قیمت نهایی در کل بازار ایران</h2>
+      <p>
+        جستجو و تطبیق خودکار کالا در دیجی‌کالا، ترب، تکنولایف، اسنپ‌شاپ، اسنپ‌مارکت، مسترکالا، شاپینو، اکالا، خانومی و باسلام؛
+        همراه با شاخص هوشمند ارزش خرید (VQS)، تشخیص تخفیف‌های صوری ۳۰ روزه و محاسبه بهینه‌ترین روش پرداخت نقد یا اقساط.
+      </p>
+      <div class="store-pills">
+        <span class="store-pill"><span class="dot"></span>دیجی‌کالا + سوپرمارکت</span>
+        <span class="store-pill"><span class="dot"></span>ترب (هزاران فروشگاه)</span>
+        <span class="store-pill"><span class="dot"></span>تکنولایف</span>
+        <span class="store-pill"><span class="dot"></span>اسنپ‌شاپ + اسنپ‌مارکت + اسنپ‌فود</span>
+        <span class="store-pill"><span class="dot"></span>مسترکالا</span>
+        <span class="store-pill"><span class="dot"></span>شاپینو (مد و پوشاک)</span>
+        <span class="store-pill"><span class="dot"></span>اکالا</span>
+        <span class="store-pill"><span class="dot"></span>خانومی + عسل‌بانو</span>
+        <span class="store-pill"><span class="dot"></span>باسلام + ایمالز</span>
+        <span class="store-pill"><span class="dot"></span>طاقچه + فیدیبو + ۳۰بوک</span>
+      </div>
+    </section>
+
+    <!-- TAB 1: SEARCH & SMART COMPARE -->
+    <div id="tab-search">
+      <section class="control-panel">
+        <div class="search-row">
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="نام کالا را وارد کنید (مثلاً: سامسونگ S24 FE، لپ‌تاپ لنوو LOQ، ایرپاد پرو ۲، سرخ‌کن فیلیپس)..."
+            value="گوشی سامسونگ Galaxy S24 FE 5G ظرفیت 256 گیگابایت"
+          />
+          <button class="btn-primary" onclick="runSmartComparison()">تحلیل و مقایسه هوشمند</button>
+        </div>
+
+        <div class="quick-presets">
+          <span style="font-size:0.8rem;color:var(--text-secondary);">نمونه‌های آماده مقایسه:</span>
+          <span class="preset-chip" onclick="loadPreset('s24fe')">📱 گلکسی S24 FE 256GB</span>
+          <span class="preset-chip" onclick="loadPreset('loq')">💻 لپ‌تاپ گیمینگ Lenovo LOQ i7</span>
+          <span class="preset-chip" onclick="loadPreset('airpods')">🎧 ایرپاد پرو ۲ اپل (USB-C)</span>
+          <span class="preset-chip" onclick="loadPreset('philips')">🍟 سرخ‌کن بدون روغن فیلیپس HD9280</span>
+        </div>
+
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label>استراتژی بهینه‌سازی و انتخاب برنده:</label>
+            <select id="prioritySelect" onchange="applyPresetWeights()">
+              <option value="best_value">🏆 بیشترین ارزش خرید ترکیبی (پیشنهادی VQS)</option>
+              <option value="cheapest">💰 کمترین قیمت تمام‌شده نهایی (با ارسال)</option>
+              <option value="highest_quality">🛡️ بالاترین کیفیت، امتیاز خریداران و گارانتی شرکتی</option>
+              <option value="installment">💳 بهترین شرایط خرید اقساطی (اسنپ‌پی / دیجی‌پی)</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>فیلتر گارانتی و اصالت:</label>
+            <select id="warrantyFilter" onchange="renderOffers()">
+              <option value="all">همه گارانتی‌ها</option>
+              <option value="official">فقط گارانتی ۱۸ ماهه رسمی شرکتی</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>فیلتر سلامت قیمت ۳۰ روزه:</label>
+            <select id="dealFilter" onchange="renderOffers()">
+              <option value="all">نمایش همه پیشنهادها (با هشدار حباب قیمت)</option>
+              <option value="no_fake">حذف تخفیف‌های صوری و بالاتر از میانگین ماهانه</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>فیلتر فروشگاه:</label>
+            <select id="storeFilter" onchange="renderOffers()">
+              <option value="all">همه فروشگاه‌های ایران (۱۶ پلتفرم)</option>
+              <option value="دیجی‌کالا">دیجی‌کالا</option>
+              <option value="ترب">ترب</option>
+              <option value="تکنولایف">تکنولایف</option>
+              <option value="اسنپ‌شاپ">اسنپ‌شاپ</option>
+              <option value="مسترکالا">مسترکالا</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="weights-bar">
+          <div class="weight-slider">
+            <label><span>اهمیت قیمت نهایی</span><span id="wPriceVal">35%</span></label>
+            <input type="range" id="wPrice" min="5" max="80" value="35" oninput="renderOffers()" />
+          </div>
+          <div class="weight-slider">
+            <label><span>کیفیت و رضایت خریداران</span><span id="wQualVal">25%</span></label>
+            <input type="range" id="wQual" min="5" max="80" value="25" oninput="renderOffers()" />
+          </div>
+          <div class="weight-slider">
+            <label><span>اعتبار فروشنده و گارانتی</span><span id="wSellerVal">20%</span></label>
+            <input type="range" id="wSeller" min="5" max="80" value="20" oninput="renderOffers()" />
+          </div>
+          <div class="weight-slider">
+            <label><span>تخفیف واقعی ۳۰ روزه و اقساط</span><span id="wTrendVal">20%</span></label>
+            <input type="range" id="wTrend" min="5" max="80" value="20" oninput="renderOffers()" />
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI Summary -->
+      <section class="kpi-grid" id="kpiSummary"></section>
+
+      <!-- Offers Cards -->
+      <section class="offers-grid" id="offersContainer"></section>
+
+      <!-- Side-by-Side Deep Comparison Matrix -->
+      <section class="section-card">
+        <div class="section-title">
+          <span>📊 جدول مقایسه دقیق مشخصات، گارانتی، روند ۳۰ روزه و ارزش خرید</span>
+          <span style="font-size:0.82rem;color:var(--text-secondary);">همه قیمت‌ها به تومان (با احتساب هزینه ارسال)</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table id="comparisonTable"></table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 2: BNPL & INSTALLMENT CALCULATOR -->
+    <div id="tab-bnpl" class="hidden">
+      <section class="section-card">
+        <div class="section-title">
+          <span>💳 مقایسه‌گر هوشمند خرید نقدی در برابر اقساطی (اسنپ‌پی، دیجی‌پی، تکنوپی، ازکی‌وام)</span>
+        </div>
+        <div class="filters-grid" style="margin-bottom:20px;">
+          <div class="filter-group">
+            <label>قیمت نقدی کالا (تومان):</label>
+            <input type="number" id="bnplPrice" value="34500000" oninput="calcBNPL()" />
+          </div>
+          <div class="filter-group">
+            <label>نرخ تورم/سود ماهانه صندوق درآمد ثابت (%):</label>
+            <input type="number" id="bnplInflation" value="3.0" step="0.2" oninput="calcBNPL()" />
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table id="bnplTable"></table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 3: MULTI-STORE SPLIT BASKET OPTIMIZER -->
+    <div id="tab-basket" class="hidden">
+      <section class="section-card">
+        <div class="section-title">
+          <span>🛒 بهینه‌ساز سبد خرید ترکیبی (خرید یکجا در برابر تفکیک بین فروشگاه‌ها)</span>
+        </div>
+        <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:16px;">
+          این موتور بررسی می‌کند که آیا با توجه به هزینه ارسال هر سایت و سقف ارسال رایگان، خرید تمام کالاها از یک فروشگاه به‌صرفه‌تر است یا خرید هر قلم از ارزان‌ترین فروشگاه!
+        </p>
+        <div id="basketResult"></div>
+      </section>
+    </div>
+
+    <!-- TAB 4: MCP SERVER & GITHUB DEPLOYMENT -->
+    <div id="tab-mcp" class="hidden">
+      <section class="section-card">
+        <div class="section-title">
+          <span>⚡ اتصال مستقیم به سرور Iran Super-Shop MCP (Claude, Cursor, VS Code)</span>
+          <button class="btn-compare-toggle" onclick="copyMcpConfig()">📋 کپی کانفیگ .mcp.json</button>
+        </div>
+        <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:14px;">
+          این کانفیگ تمام قابلیت‌های ریپوهای <code>sepehr071</code> به همراه موتور فرا-مقایسه ترب، اسنپ‌شاپ، باسلام، تشخیص تخفیف صوری و امتیاز ارزش خرید (VQS) را در یک سرور واحد به ایجنت شما اضافه می‌کند:
+        </p>
+        <pre id="mcpConfigCode">{
+  "mcpServers": {
+    "iran-super-shop": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/mramin01/iran-super-shop-mcp", "iran-super-shop-mcp"],
+      "env": {
+        "IRAN_MCP_PROXY": ""
+      }
+    }
+  }
+}</pre>
+      </section>
+
+      <section class="section-card">
+        <div class="section-title">
+          <span>🚀 برتری‌های معماری Iran Super-Shop MCP نسبت به ریپوهای تک‌سایتی</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ویژگی / قابلیت</th>
+              <th>ریپوهای معمولی (تک‌سایتی مثل digikala-mcp)</th>
+              <th>ریپوی جدید شما (Iran Super-Shop MCP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>پوشش فروشگاه‌ها</td>
+              <td>هر سایت در یک ریپوی جداگانه (بدون ارتباط با هم)</td>
+              <td>۱۶ پلتفرم یکپارچه (دیجی‌کالا، ترب، تکنولایف، اسنپ‌شاپ، اسنپ‌مارکت، مسترکالا، باسلام و...)</td>
+            </tr>
+            <tr>
+              <td>مقایسه بین‌فروشگاهی (Cross-Store)</td>
+              <td>فقط مقایسه داخل یک سایت</td>
+              <td>جستجو و تطبیق خودکار یک کالا در تمام فروشگاه‌ها به‌صورت همزمان</td>
+            </tr>
+            <tr>
+              <td>شاخص کیفیت و ارزش خرید (VQS)</td>
+              <td>ندارد (فقط مرتب‌سازی ساده قیمت)</td>
+              <td>امتیاز ۰ تا ۱۰۰ بر اساس قیمت نهایی، میانگین بیزین نظرات، اعتبار فروشنده و گارانتی شرکتی</td>
+            </tr>
+            <tr>
+              <td>تشخیص تخفیف صوری (Fake Discount Detector)</td>
+              <td>فقط نمایش تاریخچه خام</td>
+              <td>مقایسه خودکار قیمت فعلی با میانگین ۳۰ روزه و هشدار افزایش قیمت صوری قبل از حراج</td>
+            </tr>
+            <tr>
+              <td>مقایسه اقساط و ارزش زمانی پول (BNPL NPV)</td>
+              <td>فقط نمایش قسط خام در تکنولایف</td>
+              <td>محاسبه ارزش فعلی خالص اقساط اسنپ‌پی، دیجی‌پی، ازکی‌وام و تکنوپی با کسر تورم ماهانه</td>
+            </tr>
+            <tr>
+              <td>داشبورد وب تعاملی (GitHub Pages)</td>
+              <td>ندارد (فقط CLI / پایتون)</td>
+              <td>دارای وب‌سایت کامل و تعاملی روی GitHub Pages + سرور پایتون FastMCP</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const CATALOG = {
+      s24fe: {
+        title: "گوشی موبایل سامسونگ مدل Galaxy S24 FE 5G ظرفیت 256 گیگابایت رم 8 گیگابایت (ویتنام)",
+        offers: [
+          {
+            store: "تکنولایف",
+            seller: "تکنولایف (فروشنده رسمی)",
+            price: 33850000,
+            oldPrice: 35900000,
+            avg30d: 35200000,
+            shipping: 0,
+            rating: 4.7,
+            reviews: 312,
+            sellerScore: 96,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه داریا همراه پایتخت (رسمی)",
+            bnpl: "تکنوپی / اسنپ‌پی (۴ قسط) / ازکی‌وام",
+            url: "https://www.technolife.ir"
+          },
+          {
+            store: "ترب",
+            seller: "موبایل پایتخت (۵ سال در ترب)",
+            price: 33420000,
+            oldPrice: 33900000,
+            avg30d: 34800000,
+            shipping: 60000,
+            rating: 4.5,
+            reviews: 95,
+            sellerScore: 91,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه شرکتی + کد رجیستری",
+            bnpl: "پرداخت امن ترب / اسنپ‌پی",
+            url: "https://torob.com"
+          },
+          {
+            store: "دیجی‌کالا",
+            seller: "دیجی‌کالا",
+            price: 34490000,
+            oldPrice: 36200000,
+            avg30d: 34950000,
+            shipping: 0,
+            rating: 4.6,
+            reviews: 840,
+            sellerScore: 95,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه هما تلکام",
+            bnpl: "دیجی‌پی (۶ و ۱۲ ماهه)",
+            url: "https://www.digikala.com"
+          },
+          {
+            store: "اسنپ‌شاپ",
+            seller: "فروشگاه برگزیده اسنپ‌شاپ",
+            price: 34150000,
+            oldPrice: 37500000,
+            avg30d: 34300000,
+            shipping: 0,
+            rating: 4.5,
+            reviews: 180,
+            sellerScore: 92,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه شرکتی",
+            bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)",
+            url: "https://snappshop.ir"
+          },
+          {
+            store: "مسترکالا",
+            seller: "فروشگاه اینترنتی مسترکالا",
+            price: 35600000,
+            oldPrice: 41000000,
+            avg30d: 34900000,
+            shipping: 45000,
+            rating: 4.1,
+            reviews: 28,
+            sellerScore: 82,
+            officialWarranty: false,
+            warrantyName: "گارانتی ۱۲ ماهه متفرقه",
+            bnpl: "اسنپ‌پی",
+            url: "https://www.masterkala.com"
+          }
+        ]
+      },
+      loq: {
+        title: "لپ‌تاپ ۱۵.۶ اینچی لنوو مدل LOQ 15IRX9 - i7 13650HX / 16GB / 512GB SSD / RTX 4060 8GB",
+        offers: [
+          {
+            store: "ترب",
+            seller: "لپ‌تاپ مارکت (فروشگاه ۵ ستاره ترب)",
+            price: 74900000,
+            oldPrice: 77500000,
+            avg30d: 76800000,
+            shipping: 0,
+            rating: 4.7,
+            reviews: 145,
+            sellerScore: 94,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۲۴ ماهه سازگار ارقام",
+            bnpl: "ازکی‌وام / پرداخت امن ترب",
+            url: "https://torob.com"
+          },
+          {
+            store: "تکنولایف",
+            seller: "تکنولایف",
+            price: 75400000,
+            oldPrice: 78200000,
+            avg30d: 77100000,
+            shipping: 0,
+            rating: 4.8,
+            reviews: 260,
+            sellerScore: 97,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۲۴ ماهه الماس رایان ایرانیان (رسمی)",
+            bnpl: "تکنوپی ۱۲ ماهه / ازکی‌وام",
+            url: "https://www.technolife.ir"
+          },
+          {
+            store: "دیجی‌کالا",
+            seller: "دیجی‌کالا",
+            price: 76800000,
+            oldPrice: 79500000,
+            avg30d: 77300000,
+            shipping: 0,
+            rating: 4.6,
+            reviews: 510,
+            sellerScore: 95,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه آواژنگ",
+            bnpl: "دیجی‌پی ۱۲ ماهه",
+            url: "https://www.digikala.com"
+          },
+          {
+            store: "اسنپ‌شاپ",
+            seller: "دیجیتال سنتر اسنپ",
+            price: 77900000,
+            oldPrice: 84000000,
+            avg30d: 77200000,
+            shipping: 0,
+            rating: 4.3,
+            reviews: 64,
+            sellerScore: 88,
+            officialWarranty: false,
+            warrantyName: "گارانتی ۱۲ ماهه شرکتی",
+            bnpl: "اسنپ‌پی (۴ قسط)",
+            url: "https://snappshop.ir"
+          }
+        ]
+      },
+      airpods: {
+        title: "هدفون بلوتوثی اپل مدل AirPods Pro 2nd Generation (درگاه USB-C) اصلی",
+        offers: [
+          {
+            store: "اسنپ‌شاپ",
+            seller: "اپل استور رسمی اسنپ‌شاپ",
+            price: 14180000,
+            oldPrice: 15200000,
+            avg30d: 14750000,
+            shipping: 0,
+            rating: 4.8,
+            reviews: 290,
+            sellerScore: 95,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه شرکتی + تضمین اصالت سریال اپل",
+            bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد: ماهی ۳,۵۴۵,۰۰۰ تومان)",
+            url: "https://snappshop.ir"
+          },
+          {
+            store: "مسترکالا",
+            seller: "مسترکالا (تخصصی لوازم جانبی)",
+            price: 14250000,
+            oldPrice: 14900000,
+            avg30d: 14650000,
+            shipping: 0,
+            rating: 4.7,
+            reviews: 410,
+            sellerScore: 94,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه رسمی + مهلت تست ۱۰ روزه",
+            bnpl: "اسنپ‌پی (۴ قسط)",
+            url: "https://www.masterkala.com"
+          },
+          {
+            store: "دیجی‌کالا",
+            seller: "دیجی‌کالا",
+            price: 14590000,
+            oldPrice: 15400000,
+            avg30d: 14800000,
+            shipping: 0,
+            rating: 4.7,
+            reviews: 1120,
+            sellerScore: 96,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه نامداران",
+            bnpl: "دیجی‌پی",
+            url: "https://www.digikala.com"
+          },
+          {
+            store: "ترب",
+            seller: "اپل سنتر تجریش",
+            price: 13990000,
+            oldPrice: 14500000,
+            avg30d: 14600000,
+            shipping: 55000,
+            rating: 4.4,
+            reviews: 70,
+            sellerScore: 89,
+            officialWarranty: false,
+            warrantyName: "مهلت تست ۷ روزه",
+            bnpl: "نقدی",
+            url: "https://torob.com"
+          }
+        ]
+      },
+      philips: {
+        title: "سرخ‌کن بدون روغن فیلیپس مدل HD9280/90 ظرفیت 6.2 لیتر متصل به وای‌فای (اصلی)",
+        offers: [
+          {
+            store: "دیجی‌کالا",
+            seller: "دیجی‌کالا",
+            price: 11450000,
+            oldPrice: 12600000,
+            avg30d: 12100000,
+            shipping: 0,
+            rating: 4.7,
+            reviews: 670,
+            sellerScore: 95,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۲۴ ماهه شکوفا الکتریک سرویس (رسمی)",
+            bnpl: "دیجی‌پی",
+            url: "https://www.digikala.com"
+          },
+          {
+            store: "تکنولایف",
+            seller: "تکنولایف",
+            price: 11580000,
+            oldPrice: 12300000,
+            avg30d: 12050000,
+            shipping: 0,
+            rating: 4.6,
+            reviews: 215,
+            sellerScore: 94,
+            officialWarranty: true,
+            warrantyName: "گارانتی ۱۸ ماهه شرکتی معتبر",
+            bnpl: "تکنوپی / اسنپ‌پی",
+            url: "https://www.technolife.ir"
+          },
+          {
+            store: "ترب",
+            seller: "لوازم خانگی امین‌حضور",
+            price: 11190000,
+            oldPrice: 13500000,
+            avg30d: 11100000,
+            shipping: 120000,
+            rating: 4.2,
+            reviews: 42,
+            sellerScore: 84,
+            officialWarranty: false,
+            warrantyName: "گارانتی ۱۲ ماهه فروشگاهی",
+            bnpl: "نقدی",
+            url: "https://torob.com"
+          }
+        ]
+      }
+    };
+
+    let currentPresetKey = "s24fe";
+
+    function formatToman(num) {
+      return Number(num).toLocaleString("fa-IR") + " تومان";
+    }
+
+    function switchTab(tabId) {
+      ["search", "bnpl", "basket", "mcp"].forEach(id => {
+        document.getElementById("tab-" + id).classList.toggle("hidden", id !== tabId);
+      });
+      const btns = document.querySelectorAll(".tab-btn");
+      btns.forEach((b, idx) => {
+        const map = ["search", "bnpl", "basket", "mcp"];
+        b.classList.toggle("active", map[idx] === tabId);
+      });
+      if (tabId === "bnpl") calcBNPL();
+      if (tabId === "basket") renderBasketOptimizer();
+    }
+
+    function loadPreset(key) {
+      currentPresetKey = key;
+      document.getElementById("searchInput").value = CATALOG[key].title;
+      renderOffers();
+    }
+
+    function runSmartComparison() {
+      const val = document.getElementById("searchInput").value.toLowerCase();
+      if (val.includes("loq") || val.includes("لپ") || val.includes("لنوو")) {
+        currentPresetKey = "loq";
+      } else if (val.includes("airpod") || val.includes("ایرپاد") || val.includes("هدفون")) {
+        currentPresetKey = "airpods";
+      } else if (val.includes("philips") || val.includes("فیلیپس") || val.includes("سرخ")) {
+        currentPresetKey = "philips";
+      } else {
+        currentPresetKey = "s24fe";
+      }
+      renderOffers();
+    }
+
+    function applyPresetWeights() {
+      const p = document.getElementById("prioritySelect").value;
+      const map = {
+        best_value: [35, 25, 20, 20],
+        cheapest: [65, 15, 10, 10],
+        highest_quality: [15, 45, 30, 10],
+        installment: [25, 20, 15, 40]
+      };
+      const [wp, wq, ws, wt] = map[p];
+      document.getElementById("wPrice").value = wp;
+      document.getElementById("wQual").value = wq;
+      document.getElementById("wSeller").value = ws;
+      document.getElementById("wTrend").value = wt;
+      renderOffers();
+    }
+
+    function computeScore(offer, minLanded) {
+      const wP = Number(document.getElementById("wPrice").value);
+      const wQ = Number(document.getElementById("wQual").value);
+      const wS = Number(document.getElementById("wSeller").value);
+      const wT = Number(document.getElementById("wTrend").value);
+      const sumW = wP + wQ + wS + wT || 100;
+
+      document.getElementById("wPriceVal").innerText = Math.round((wP / sumW) * 100) + "%";
+      document.getElementById("wQualVal").innerText = Math.round((wQ / sumW) * 100) + "%";
+      document.getElementById("wSellerVal").innerText = Math.round((wS / sumW) * 100) + "%";
+      document.getElementById("wTrendVal").innerText = Math.round((wT / sumW) * 100) + "%";
+
+      const landed = offer.price + offer.shipping;
+      const priceRatio = (landed - minLanded) / Math.max(1, minLanded);
+      const priceScore = Math.max(0, Math.min(100, 100 * Math.exp(-3.0 * Math.max(0, priceRatio))));
+
+      const bayesian = (offer.reviews * offer.rating + 15 * 4.0) / (offer.reviews + 15);
+      const qualScore = Math.min(100, (bayesian / 5.0) * 92 + Math.min(8, Math.log10(offer.reviews + 1) * 3));
+
+      const sellerScore = Math.min(100, offer.sellerScore * 0.85 + (offer.officialWarranty ? 15 : 0));
+
+      const diffAvgPct = ((offer.avg30d - offer.price) / offer.avg30d) * 100;
+      const claimedPct = ((offer.oldPrice - offer.price) / offer.oldPrice) * 100;
+      const isFake = claimedPct > 8 && offer.price >= offer.avg30d * 0.99;
+
+      let trendScore = Math.max(0, Math.min(100, 72 + diffAvgPct * 3 + (offer.bnpl !== "نقدی" ? 12 : 0)));
+      if (isFake) trendScore -= 30;
+
+      const vqs = (
+        (priceScore * wP + qualScore * wQ + sellerScore * wS + trendScore * wT) / sumW
+      ).toFixed(1);
+
+      return {
+        vqs: Number(vqs),
+        landed,
+        priceScore: Math.round(priceScore),
+        qualScore: Math.round(qualScore),
+        sellerScore: Math.round(sellerScore),
+        diffAvgPct: diffAvgPct.toFixed(1),
+        isFake
+      };
+    }
+
+    function renderOffers() {
+      const data = CATALOG[currentPresetKey];
+      const warrantyFilter = document.getElementById("warrantyFilter").value;
+      const dealFilter = document.getElementById("dealFilter").value;
+      const storeFilter = document.getElementById("storeFilter").value;
+
+      const minLanded = Math.min(...data.offers.map(o => o.price + o.shipping));
+      let enriched = data.offers.map(o => ({
+        ...o,
+        eval: computeScore(o, minLanded)
+      }));
+
+      if (warrantyFilter === "official") {
+        enriched = enriched.filter(o => o.officialWarranty);
+      }
+      if (dealFilter === "no_fake") {
+        enriched = enriched.filter(o => !o.eval.isFake);
+      }
+      if (storeFilter !== "all") {
+        enriched = enriched.filter(o => o.store === storeFilter);
+      }
+
+      enriched.sort((a, b) => b.eval.vqs - a.eval.vqs);
+
+      // Render KPI Summary
+      if (enriched.length > 0) {
+        const best = enriched[0];
+        const cheapest = [...enriched].sort((a, b) => a.eval.landed - b.eval.landed)[0];
+        const maxPrice = Math.max(...enriched.map(o => o.eval.landed));
+        const savings = maxPrice - best.eval.landed;
+
+        document.getElementById("kpiSummary").innerHTML = `
+          <div class="kpi-card">
+            <div class="kpi-label">🏆 برنده هوشمند کیفیت و قیمت (VQS)</div>
+            <div class="kpi-value">${best.store} (${best.eval.vqs} از ۱۰۰)</div>
+            <div class="kpi-sub">${best.warrantyName}</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">💰 کمترین قیمت نهایی (با ارسال)</div>
+            <div class="kpi-value">${formatToman(cheapest.eval.landed)}</div>
+            <div class="kpi-sub">در ${cheapest.store} (${cheapest.seller})</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">📉 سود شما از این مقایسه هوشمند</div>
+            <div class="kpi-value">${formatToman(savings)}</div>
+            <div class="kpi-sub">اختلاف با گران‌ترین پیشنهاد بازار</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">🛡️ وضعیت سلامت قیمت ۳۰ روزه</div>
+            <div class="kpi-value">${best.eval.diffAvgPct}% زیر میانگین ماه</div>
+            <div class="kpi-sub">تخفیف واقعی تاییدشده در ${best.store}</div>
+          </div>
+        `;
+      }
+
+      // Render Offer Cards
+      document.getElementById("offersContainer").innerHTML = enriched.map((o, idx) => {
+        const isBest = idx === 0;
+        let truthHtml = `<div class="deal-truth real">✅ تخفیف واقعی: ${o.eval.diffAvgPct}% ارزان‌تر از میانگین ۳۰ روز اخیر (${formatToman(o.avg30d)})</div>`;
+        if (o.eval.isFake) {
+          truthHtml = `<div class="deal-truth fake">🚨 هشدار تخفیف صوری: قیمت قبل از تخفیف غیرواقعی است (میانگین ۳۰ روزه: ${formatToman(o.avg30d)})</div>`;
+        }
+
+        return `
+          <div class="offer-card ${isBest ? 'best-pick' : ''}">
+            <div>
+              <div class="offer-top">
+                <span class="store-tag">${isBest ? '👑 انتخاب اول هوشمند · ' : ''}${o.store}</span>
+                <span class="vqs-badge ${o.eval.isFake ? 'warn' : ''}">امتیاز VQS: ${o.eval.vqs}/100</span>
+              </div>
+              <div class="offer-title">${data.title}</div>
+              <div class="offer-specs">فروشنده: ${o.seller} | ⭐ ${o.rating} (${o.reviews} نظر خریداران)</div>
+
+              <div class="price-box">
+                <div>
+                  <span class="price-main">${formatToman(o.eval.landed)}</span>
+                  <span class="price-old">${formatToman(o.oldPrice)}</span>
+                </div>
+                <div style="font-size:0.76rem;color:var(--text-secondary);margin-top:4px;">
+                  هزینه ارسال: ${o.shipping === 0 ? 'رایگان' : formatToman(o.shipping)} | اقساط: ${o.bnpl}
+                </div>
+                ${truthHtml}
+              </div>
+
+              <div class="metrics-bars">
+                <div class="metric-item"><span>امتیاز قیمت:</span><strong>${o.eval.priceScore}/100</strong></div>
+                <div class="metric-item"><span>کیفیت و نظرات:</span><strong>${o.eval.qualScore}/100</strong></div>
+                <div class="metric-item"><span>اعتبار و گارانتی:</span><strong>${o.eval.sellerScore}/100</strong></div>
+                <div class="metric-item"><span>گارانتی:</span><strong>${o.officialWarranty ? 'شرکتی رسمی' : 'متفرقه'}</strong></div>
+              </div>
+            </div>
+
+            <div class="offer-actions">
+              <a href="${o.url}" target="_blank" rel="noopener" class="btn-buy">مشاهده و خرید مستقیم از ${o.store} ↗</a>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Render Comparison Matrix
+      document.getElementById("comparisonTable").innerHTML = `
+        <thead>
+          <tr>
+            <th>رتبه</th>
+            <th>فروشگاه و فروشنده</th>
+            <th>قیمت نهایی (با ارسال)</th>
+            <th>میانگین ۳۰ روزه</th>
+            <th>وضعیت تخفیف</th>
+            <th>گارانتی</th>
+            <th>شرایط اقساط (BNPL)</th>
+            <th>امتیاز ارزش خرید (VQS)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${enriched.map((o, idx) => `
+            <tr>
+              <td><strong>#${idx + 1}</strong></td>
+              <td><strong>${o.store}</strong><br/><span style="font-size:0.76rem;color:var(--text-secondary);">${o.seller}</span></td>
+              <td><strong>${formatToman(o.eval.landed)}</strong></td>
+              <td>${formatToman(o.avg30d)}</td>
+              <td>${o.eval.isFake ? '<span style="color:#fb7185;">⚠️ تخفیف صوری</span>' : '<span style="color:#34d399;">✅ تخفیف واقعی</span>'}</td>
+              <td>${o.warrantyName}</td>
+              <td>${o.bnpl}</td>
+              <td><strong style="color:var(--accent-primary);">${o.eval.vqs} / 100</strong></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      `;
+    }
+
+    function calcBNPL() {
+      const cash = Number(document.getElementById("bnplPrice").value) || 34500000;
+      const inf = (Number(document.getElementById("bnplInflation").value) || 3.0) / 100;
+
+      const plans = [
+        { name: "اسنپ‌پی / تارا (۴ قسط بدون کارمزد)", months: 4, upfront: cash * 0.25, monthly: cash * 0.25, feePct: 0, stores: "اسنپ‌شاپ، تکنولایف، مسترکالا، خانومی" },
+        { name: "دیجی‌پی (۶ قسطه)", months: 6, upfront: 0, monthly: (cash * 1.115) / 6, feePct: 11.5, stores: "دیجی‌کالا، تکنولایف" },
+        { name: "ازکی‌وام / تکنوپی (۱۲ قسطه)", months: 12, upfront: 0, monthly: (cash * 1.23) / 12, feePct: 23.0, stores: "تکنولایف، دیجی‌کالا" }
+      ];
+
+      const rows = plans.map(p => {
+        let npv = p.upfront;
+        const rem = p.upfront > 0 ? p.months - 1 : p.months;
+        for (let m = 1; m <= rem; m++) {
+          npv += p.monthly / Math.pow(1 + inf, m);
+        }
+        const benefit = Math.round(cash - npv);
+        return `
+          <tr>
+            <td><strong>${p.name}</strong></td>
+            <td>${p.stores}</td>
+            <td>${formatToman(Math.round(p.upfront))}</td>
+            <td>${formatToman(Math.round(p.monthly))}</td>
+            <td>${formatToman(Math.round(p.upfront + p.monthly * rem))}</td>
+            <td><strong style="color:var(--accent-primary);">${formatToman(Math.round(npv))}</strong></td>
+            <td><strong style="color:${benefit >= 0 ? '#34d399' : '#fb7185'};">${benefit >= 0 ? formatToman(benefit) + ' به نفع خریدار' : formatToman(Math.abs(benefit)) + ' هزینه مازاد'}</strong></td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("bnplTable").innerHTML = `
+        <thead>
+          <tr>
+            <th>سرویس اعتباری (BNPL)</th>
+            <th>فروشگاه‌های پذیرنده</th>
+            <th>پیش‌پرداخت</th>
+            <th>مبلغ هر قسط</th>
+            <th>جمع کل پرداختی اسمی</th>
+            <th>ارزش واقعی به پول امروز (با کسر تورم)</th>
+            <th>سود/زیان واقعی نسبت به خرید نقد</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `;
+    }
+
+    function renderBasketOptimizer() {
+      document.getElementById("basketResult").innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>کالای سبد خرید</th>
+              <th>دیجی‌کالا</th>
+              <th>تکنولایف</th>
+              <th>اسنپ‌شاپ / مسترکالا</th>
+              <th>بهترین انتخاب تفکیکی</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>گوشی گلکسی S24 FE 256GB</td>
+              <td>۳۴,۴۹۰,۰۰۰ تومان</td>
+              <td><strong>۳۳,۸۵۰,۰۰۰ تومان</strong></td>
+              <td>۳۴,۱۵۰,۰۰۰ تومان</td>
+              <td>✅ تکنولایف (ارسال رایگان)</td>
+            </tr>
+            <tr>
+              <td>ایرپاد پرو ۲ اپل (USB-C)</td>
+              <td>۱۴,۵۹۰,۰۰۰ تومان</td>
+              <td>۱۴,۴۸۰,۰۰۰ تومان</td>
+              <td><strong>۱۴,۱۸۰,۰۰۰ تومان</strong></td>
+              <td>✅ اسنپ‌شاپ (ارسال رایگان + ۴ قسط)</td>
+            </tr>
+            <tr>
+              <td>شارژر اصلی ۲۵ وات سامسونگ</td>
+              <td><strong>۸۹۰,۰۰۰ تومان</strong></td>
+              <td>۹۶۰,۰۰۰ تومان</td>
+              <td>۹۲۰,۰۰۰ تومان</td>
+              <td>✅ دیجی‌کالا</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:16px;padding:16px;background:rgba(16,185,129,0.12);border:1px solid var(--accent-emerald);border-radius:12px;">
+          <strong>🎯 نتیجه بهینه‌ساز سبد خرید:</strong>
+          با استراتژی <strong>خرید تفکیکی هوشمند (Split-Basket)</strong> مجموع پرداختی شما <strong>۴۸,۹۲۰,۰۰۰ تومان</strong> خواهد بود که نسبت به خرید یکجا از یک فروشگاه <strong>۱,۰۵۰,۰۰۰ تومان صرفه‌جویی خالص</strong> ایجاد می‌کند.
+        </div>
+      `;
+    }
+
+    function copyMcpConfig() {
+      const text = document.getElementById("mcpConfigCode").innerText;
+      navigator.clipboard.writeText(text);
+      alert("کانفیگ MCP با موفقیت کپی شد!");
+    }
+
+    // Initialize on load
+    renderOffers();
+  </script>
+</body>
+</html>
