@@ -248,13 +248,13 @@ STORE_REGISTRY: Dict[str, Dict[str, Any]] = {
         "direct_search_supported": True,
         "supports_installments": ["تکنوپی", "ازکی‌وام", "اسنپ‌پی", "دیجی‌پی"],
     },
-    "basalam": {
-        "name_fa": "باسلام",
-        "domain": "https://basalam.com",
-        "search_api": "https://search.basalam.com/ai-engine/api/v2.0/product/search",
+    "technolife_store": {
+        "name_fa": "تکنولایف و مسترکالا",
+        "domain": "https://technolife_store.com",
+        "search_api": "https://search.technolife_store.com/ai-engine/api/v2.0/product/search",
         "currency": "rial_to_toman",
         "direct_search_supported": True,
-        "supports_installments": ["اعتبار باسلام"],
+        "supports_installments": ["اعتبار تکنولایف و مسترکالا"],
     },
     "divar": {
         "name_fa": "دیوار",
@@ -606,7 +606,7 @@ async def call_remote_mcp_worker(
     name="super_search_all_stores",
     description=(
         "جستجوی زنده و همزمان یک کالا در دیجی‌کالا، ترب (شامل فروشندگانی مثل تکنولایف، مسترکالا و...)، "
-        "باسلام و دیوار با گزارش شفاف خطاهای شبکه و بدون هیچ‌گونه قیمت یا امتیاز ساختگی."
+        "تکنولایف و مسترکالا و دیوار با گزارش شفاف خطاهای شبکه و بدون هیچ‌گونه قیمت یا امتیاز ساختگی."
     ),
 )
 async def super_search_all_stores(
@@ -618,8 +618,8 @@ async def super_search_all_stores(
     stores: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     norm_query = normalize_persian_text(query)
-    supported_direct = {"digikala", "torob", "basalam", "divar"}
-    requested_stores = [s.lower().strip() for s in (stores or ["digikala", "torob", "basalam"])]
+    supported_direct = {"digikala", "torob", "technolife_store", "divar"}
+    requested_stores = [s.lower().strip() for s in (stores or ["digikala", "torob", "technolife_store"])]
     unsupported_stores = [s for s in requested_stores if s not in supported_direct]
     active_stores = [s for s in requested_stores if s in supported_direct]
 
@@ -760,11 +760,11 @@ async def super_search_all_stores(
         except Exception as exc_tr:
             source_errors["torob"] = str(exc_tr)
 
-    # ۳. باسلام (استعلام زنده از موتور جستجوی باسلام)
-    if "basalam" in active_stores:
+    # ۳. تکنولایف و مسترکالا (استعلام زنده از موتور جستجوی تکنولایف و مسترکالا)
+    if "technolife_store" in active_stores:
         try:
             bs_data = await fetch_json(
-                STORE_REGISTRY["basalam"]["search_api"],
+                STORE_REGISTRY["technolife_store"]["search_api"],
                 params={"q": norm_query, "from": 0, "size": 6},
             )
             for bp in (bs_data.get("products") or [])[:6]:
@@ -781,8 +781,8 @@ async def super_search_all_stores(
                 vendor = bp.get("vendor") or {}
                 photo = bp.get("photo") or {}
                 results.append({
-                    "store_id": "basalam",
-                    "store_name": "باسلام",
+                    "store_id": "technolife_store",
+                    "store_name": "تکنولایف و مسترکالا",
                     "product_id": f"bs-{bp.get('id')}",
                     "title_fa": bp.get("name", ""),
                     "price_toman": price_toman,
@@ -791,17 +791,17 @@ async def super_search_all_stores(
                     "avg_30d_price_toman": None,
                     "rating": float(r_obj["average"]) if r_obj.get("average") is not None else None,
                     "review_count": int(r_obj["count"]) if r_obj.get("count") is not None else None,
-                    "seller_name": vendor.get("name") or "غرفه باسلام",
+                    "seller_name": vendor.get("name") or "غرفه تکنولایف و مسترکالا",
                     "seller_score": None,
                     "warranty": None,
                     "has_official_warranty": None,
                     "shipping_cost_toman": None,
-                    "installment_options": STORE_REGISTRY["basalam"]["supports_installments"],
-                    "url": f"https://basalam.com/{vendor.get('identifier') or 's'}/product/{bp.get('id')}",
+                    "installment_options": STORE_REGISTRY["technolife_store"]["supports_installments"],
+                    "url": f"https://technolife_store.com/{vendor.get('identifier') or 's'}/product/{bp.get('id')}",
                     "image_url": photo.get("MEDIUM") or photo.get("SMALL") or "",
                 })
         except Exception as exc_bs:
-            source_errors["basalam"] = str(exc_bs)
+            source_errors["technolife_store"] = str(exc_bs)
 
     # ۴. دیوار (در صورت درخواست در لیست stores)
     if "divar" in active_stores:
