@@ -422,6 +422,21 @@
       border-color: var(--text);
     }
 
+    .source-status-bar {
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      font-size: 0.72rem;
+      color: var(--sub);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .market-summary {
       background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
       color: #fff;
@@ -447,7 +462,7 @@
 
     .ms-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 6px;
       background: rgba(255, 255, 255, 0.14);
       padding: 8px 10px;
@@ -457,7 +472,7 @@
 
     .ms-stat strong {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       margin-top: 2px;
     }
 
@@ -769,6 +784,7 @@
 </head>
 <body>
 
+  <!-- iOS Compact Top Bar -->
   <header class="ios-header">
     <div class="brand-wrap">
       <div class="brand-icon">؟</div>
@@ -790,9 +806,10 @@
           <span style="font-size:0.72rem;color:var(--blue);font-weight:700;">خرید هوشمند با هوش مصنوعی</span>
         </div>
         <p class="hero-desc">
-          بگو چی لازم داری؛ هوش مصنوعی به صورت <strong>لحظه‌ای و زنده</strong> دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و هزاران فروشگاه)، باسلام، شاپینو، خانومی و دیوار رو می‌گرده و بهترین‌ها رو با <strong>قیمت واقعی همین ثانیه</strong> پیشنهاد می‌ده.
+          بگو چی لازم داری؛ به صورت <strong>لحظه‌ای و زنده</strong> دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و هزاران فروشگاه)، باسلام و دیوار رو می‌گرده و بهترین‌ها رو با <strong>قیمت واقعی همین ثانیه</strong> پیشنهاد می‌ده.
         </p>
 
+        <!-- Category & Budget Bar -->
         <div class="cat-budget-bar">
           <button class="budget-pill-btn" onclick="toggleBudgetDrawer()" id="budgetBtnLabel">
             💰 بودجه: بدون سقف ▾
@@ -804,6 +821,7 @@
           <button class="cat-pill" id="cat-home" onclick="selectCategory('home', 'سرخ کن بدون روغن')">🏠 لوازم خانه</button>
         </div>
 
+        <!-- Collapsible Budget Selector ("حداکثر چقدر بپردازی؟") -->
         <div class="budget-drawer hidden" id="budgetDrawer">
           <div class="budget-drawer-top">
             <span>حداکثر چقدر می‌خوای بپردازی؟</span>
@@ -826,6 +844,7 @@
           </div>
         </div>
 
+        <!-- Search Input Box -->
         <form onsubmit="event.preventDefault(); runLiveSearch();">
           <div class="search-box">
             <span>🔍</span>
@@ -842,6 +861,7 @@
           </div>
         </form>
 
+        <!-- "شاید بخوای…" Presets -->
         <div class="suggestions-label">شاید بخوای…</div>
         <div class="suggestions-grid">
           <div class="sug-card" onclick="runPreset('گوشی موبایل سامسونگ', 70000000, 'digital')">
@@ -871,6 +891,7 @@
         </div>
       </section>
 
+      <!-- Segmented Sorting -->
       <div class="ios-segmented">
         <button class="seg-item active" id="sort-best" onclick="changeSort('best')">🏆 بهترین ارزش</button>
         <button class="seg-item" id="sort-cheap" onclick="changeSort('cheap')">💰 ارزان‌ترین</button>
@@ -878,23 +899,32 @@
         <button class="seg-item" id="sort-discount" onclick="changeSort('discount')">🔥 بیشترین تخفیف</button>
       </div>
 
+      <!-- Source Filter Pills -->
       <div class="source-chips">
         <button class="src-chip active" id="src-all" onclick="changeSourceFilter('all')">همه منابع زنده</button>
         <button class="src-chip" id="src-torob" onclick="changeSourceFilter('torob')">🟢 ترب (تکنولایف، مسترکالا و...)</button>
         <button class="src-chip" id="src-digikala" onclick="changeSourceFilter('digikala')">🔴 دیجی‌کالا</button>
         <button class="src-chip" id="src-basalam" onclick="changeSourceFilter('basalam')">🟠 باسلام</button>
-        <button class="src-chip" id="src-divar" onclick="changeSourceFilter('divar')">🟣 دیوار (نو و کارکرده)</button>
+        <button class="src-chip" id="src-divar" onclick="changeSourceFilter('divar')">🟣 دیوار (کارکرده/نو)</button>
       </div>
 
+      <!-- Source Connection Status Bar -->
+      <div id="sourceStatusBar"></div>
+
+      <!-- Live Market Summary & Fair Price Box -->
       <div id="marketSummaryBox"></div>
 
+      <!-- Loading Indicator -->
       <div id="loadingBox" class="loading-box hidden">
         <div class="spinner"></div>
         <div style="font-weight:800;font-size:0.88rem;" id="loadingText">در حال استعلام قیمت لحظه‌ای از سرورهای زنده دیجی‌کالا، ترب، باسلام و دیوار...</div>
-        <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">بدون هیچ قیمت پیش‌فرض؛ تمام اعداد مستقیماً از APIهای زنده دریافت می‌شوند</div>
+        <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">بدون هیچ قیمت یا امتیاز پیش‌فرض؛ تمام داده‌ها مستقیماً از APIهای زنده دریافت می‌شوند</div>
       </div>
 
+      <!-- Live Product Cards Container -->
       <div id="resultsContainer"></div>
+
+      <!-- Direct Portal Links to All Iranian Stores for Current Query -->
       <div id="directPortalsContainer"></div>
     </div>
 
@@ -921,28 +951,28 @@
       <div class="hero-card">
         <div class="hero-headline">💳 ماشین‌حساب هوشمند خرید قسطی (اسنپ‌پی، دیجی‌پی، تکنوپی)</div>
         <p class="hero-desc">
-          مقایسه خرید نقدی با طرح‌های اقساطی ۴ قسطه (بدون کارمزد) و ۱۲ ماهه با لحاظ ارزش زمانی پول و تورم ماهانه:
+          مقایسه خرید نقدی با طرح‌های اقساطی ۴ قسطه (بدون کارمزد) و ۶/۱۲ ماهه با لحاظ ارزش زمانی پول و تورم ماهانه (شامل تورم ۰٪):
         </p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
           <div>
-            <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">قیمت لحظه‌ای کالا (تومان)</label>
-            <input type="number" id="bnplAmount" value="75000000" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
+            <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">قیمت کالا (تومان)</label>
+            <input type="number" id="bnplAmount" value="75000000" oninput="onBnplUserInput()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
           </div>
           <div>
             <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">تورم/سود ماهانه (%)</label>
-            <input type="number" id="bnplInf" value="3.0" step="0.5" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
+            <input type="number" id="bnplInf" value="3.0" min="0" step="0.5" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
           </div>
         </div>
         <div id="bnplCardsOut" style="margin-top:12px;"></div>
       </div>
     </div>
 
-    <!-- TAB 4: ALL 22 MCP SERVERS -->
+    <!-- TAB 4: MCP SERVERS CONFIG & CATALOG -->
     <div id="tab-mcp" class="hidden">
       <div class="hero-card">
-        <div class="hero-headline">⚡ مرکز فرماندهی سرورهای MCP شما (Mcp-amin)</div>
+        <div class="hero-headline">⚡ مرکز فرماندهی ۱۱ سرور فعال در کانفیگ MCP (Mcp-amin)</div>
         <p class="hero-desc">
-          ترکیب کامل تمام ۱۹ سرور <code>sepehr071/awesome-iran-mcp</code> و ۳ سرور کلودفلر زنده <code>mmdju</code> (دیجی‌کالا، ترب، دیوار) در ریپوزیتوری اختصاصی شما:
+          کانفیگ یکپارچه شامل ۳ ورکر کلودفلر زنده (دیجی‌کالا، ترب، دیوار) و ۸ پکیج پایتونی MCP برای اجرای مستقیم در Claude Desktop و Cursor:
         </p>
         <pre id="mcpConfigBlock">{
   "mcpServers": {
@@ -968,13 +998,14 @@
     "okala": { "command": "uvx", "args": ["okala-mcp"] }
   }
 }</pre>
-        <button class="btn-search" id="copyConfigBtn" style="width:100%;margin-top:10px;padding:11px;" onclick="copyMcpConfig()">📋 کپی کانفیگ یکپارچه MCP برای Claude / Cursor</button>
+        <button class="btn-search" style="width:100%;margin-top:10px;padding:11px;" id="copyMcpBtn" onclick="copyMcpConfig()">📋 کپی کانفیگ ۱۱ سرور MCP برای Claude / Cursor</button>
       </div>
 
       <div class="hero-card" id="allMcpServersCatalog"></div>
     </div>
   </main>
 
+  <!-- iOS Bottom Sheet Modal for Deep Product Inspection -->
   <div id="inspectModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeInspectModal()">
     <div class="modal-sheet">
       <div class="sheet-handle"></div>
@@ -986,6 +1017,7 @@
     </div>
   </div>
 
+  <!-- iOS Fixed Bottom Tab Bar -->
   <nav class="ios-tabbar">
     <button class="tab-btn active" id="nav-search" onclick="switchTab('search')">
       <span class="tab-icon">🔍</span>
@@ -1006,6 +1038,42 @@
   </nav>
 
   <script>
+    // =========================================================================
+    // ۱. توابع امنیتی (XSS Escaping و بررسی سخت‌گیرانه پروتکل HTTPS برای لینک‌ها)
+    // =========================================================================
+    function escapeHtml(value) {
+      if (value === null || value === undefined) return "";
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function sanitizeHttpsUrl(rawUrl, fallbackUrl = "https://torob.com") {
+      if (!rawUrl || typeof rawUrl !== "string") return fallbackUrl;
+      try {
+        const parsed = new URL(rawUrl.trim());
+        if (parsed.protocol === "https:") {
+          return parsed.href;
+        }
+      } catch (_) {}
+      return fallbackUrl;
+    }
+
+    // Event Delegation برای دکمه‌های باز کردن مودال جزئیات (بدون نیاز به inline onclick با uid)
+    document.addEventListener("click", function (ev) {
+      const btn = ev.target && ev.target.closest ? ev.target.closest("[data-inspect-uid]") : null;
+      if (btn) {
+        const uid = btn.getAttribute("data-inspect-uid");
+        if (uid) openInspectModal(uid);
+      }
+    });
+
+    // =========================================================================
+    // ۲. تنظیمات سرورهای زنده و مدیریت وضعیت (State & Concurrency Control)
+    // =========================================================================
     const ENDPOINTS = {
       digikala: "https://digikala-mcp.mmdju.workers.dev/mcp",
       torob: "https://torob-mcp.mmdju3.workers.dev/mcp",
@@ -1014,7 +1082,9 @@
     };
 
     const sessionIds = { digikala: null, torob: null, divar: null };
-    let activeSearchToken = 0;
+    let activeSearchController = null;
+    let currentSearchToken = 0;
+    let bnplUserEdited = false;
 
     let state = {
       query: "گوشی آیفون 16",
@@ -1022,32 +1092,16 @@
       category: "all",
       sort: "best",
       sourceFilter: "all",
+      showOverBudgetAnyway: false,
       items: [],
       divarStats: null,
-      torobRange: null
+      torobRange: null,
+      sourceStatuses: {}
     };
-
-    // جلوگیری از آسیب‌پذیری XSS هنگام درج در HTML
-    function escapeHtml(str) {
-      if (str === null || str === undefined) return "";
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function safeUrl(url, fallback = "#") {
-      if (!url || typeof url !== "string") return fallback;
-      const trimmed = url.trim();
-      if (/^https?:\/\//i.test(trimmed)) return escapeHtml(trimmed);
-      return fallback;
-    }
 
     function cleanSearchQuery(raw) {
       if (!raw) return "";
-      let s = " " + raw.replace(/\u200c/g, " ").replace(/[()（）]/g, " ") + " ";
+      let s = " " + raw + " ";
       s = s
         .replace(/تا\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ")
         .replace(/زیر\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ");
@@ -1061,7 +1115,7 @@
     }
 
     function formatToman(n) {
-      if (!n || isNaN(n) || n <= 0) return "نامشخص";
+      if (n === null || n === undefined || isNaN(n) || Number(n) <= 0) return "نامشخص";
       return Math.round(Number(n)).toLocaleString("fa-IR") + " تومان";
     }
 
@@ -1071,33 +1125,47 @@
       return "تا " + toman.toLocaleString("fa-IR") + " تومان";
     }
 
-    function parseMcpPayload(rawText) {
-      if (!rawText) throw new Error("پاسخ خالی از سرور");
-      let rpcObj = null;
+    // =========================================================================
+    // ۳. کلاینت استاندارد JSON-RPC 2.0 برای سرورهای Streamable HTTP MCP
+    //    - دارای تایم‌اوت مستقل به ازای هر درخواست HTTP
+    //    - ارسال استاندارد notifications/initialized پس از initialize
+    //    - بدون تکرار اشتباه روی 429 یا تطابق تصادفی متن محصول
+    // =========================================================================
+    function extractJsonRpcObject(rawText) {
+      if (!rawText) return null;
       const trimmed = rawText.trim();
-
       if (trimmed.startsWith("{")) {
-        rpcObj = JSON.parse(trimmed);
-      } else {
-        const lines = trimmed.split(/\r?\n/);
-        for (let i = lines.length - 1; i >= 0; i--) {
-          const line = lines[i].trim();
-          if (line.startsWith("data:")) {
-            const jsonStr = line.replace(/^data:\s*/, "").trim();
-            if (!jsonStr) continue;
-            try {
-              const parsed = JSON.parse(jsonStr);
-              if (parsed && (parsed.result || parsed.error)) {
-                rpcObj = parsed;
-                break;
-              }
-            } catch (_) {}
-          }
+        try {
+          return JSON.parse(trimmed);
+        } catch (_) {
+          return null;
         }
       }
+      const lines = trimmed.split(/\r?\n/);
+      for (let i = lines.length - 1; i >= 0; i--) {
+        const line = lines[i].trim();
+        if (line.startsWith("data:")) {
+          const jsonStr = line.replace(/^data:\s*/, "").trim();
+          if (!jsonStr) continue;
+          try {
+            const parsed = JSON.parse(jsonStr);
+            if (parsed && (parsed.result !== undefined || parsed.error !== undefined)) {
+              return parsed;
+            }
+          } catch (_) {}
+        }
+      }
+      return null;
+    }
 
+    function parseMcpPayload(rawText) {
+      const rpcObj = extractJsonRpcObject(rawText);
       if (!rpcObj) throw new Error("فرمت پاسخ MCP قابل پارس نبود");
-      if (rpcObj.error) throw new Error(rpcObj.error.message || "خطای برگشتی از MCP");
+      if (rpcObj.error) {
+        const err = new Error(rpcObj.error.message || "خطای برگشتی از MCP");
+        err.rpcCode = rpcObj.error.code;
+        throw err;
+      }
 
       const result = rpcObj.result || {};
       if (result.structuredContent) return result.structuredContent;
@@ -1114,11 +1182,47 @@
       return result;
     }
 
-    async function callMcpTool(serviceKey, toolName, args, timeoutMs = 8500) {
-      const url = ENDPOINTS[serviceKey];
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), timeoutMs);
+    async function fetchWithPerRequestTimeout(url, options, timeoutMs = 8000, parentSignal = null) {
+      const reqCtrl = new AbortController();
+      const timer = setTimeout(() => reqCtrl.abort(new Error("Timeout")), timeoutMs);
+      const onParentAbort = () => reqCtrl.abort(new Error("SearchCancelled"));
 
+      if (parentSignal) {
+        if (parentSignal.aborted) {
+          clearTimeout(timer);
+          throw new Error("SearchCancelled");
+        }
+        parentSignal.addEventListener("abort", onParentAbort, { once: true });
+      }
+
+      try {
+        const res = await fetch(url, { ...options, signal: reqCtrl.signal });
+        clearTimeout(timer);
+        if (parentSignal) parentSignal.removeEventListener("abort", onParentAbort);
+        return res;
+      } catch (err) {
+        clearTimeout(timer);
+        if (parentSignal) parentSignal.removeEventListener("abort", onParentAbort);
+        throw err;
+      }
+    }
+
+    function isSessionInitRequired(httpStatus, rawText) {
+      if (httpStatus === 429 || httpStatus >= 500) return false;
+      const rpcObj = extractJsonRpcObject(rawText);
+      if (rpcObj && rpcObj.error) {
+        const msg = String(rpcObj.error.message || "").toLowerCase();
+        return msg.includes("not initialized") || msg.includes("session") || msg.includes("initialize");
+      }
+      if (httpStatus === 400 || httpStatus === 404) {
+        const lower = String(rawText || "").slice(0, 300).toLowerCase();
+        return lower.includes("not initialized") || lower.includes("mcp-session-id");
+      }
+      return false;
+    }
+
+    async function callMcpTool(serviceKey, toolName, args, timeoutMs = 8000, parentSignal = null) {
+      const url = ENDPOINTS[serviceKey];
       const makeHeaders = () => {
         const h = {
           "content-type": "application/json",
@@ -1130,8 +1234,9 @@
         return h;
       };
 
-      try {
-        let res = await fetch(url, {
+      let res = await fetchWithPerRequestTimeout(
+        url,
+        {
           method: "POST",
           headers: makeHeaders(),
           body: JSON.stringify({
@@ -1139,20 +1244,26 @@
             id: Date.now() + Math.floor(Math.random() * 1000),
             method: "tools/call",
             params: { name: toolName, arguments: args }
-          }),
-          signal: controller.signal
-        });
+          })
+        },
+        timeoutMs,
+        parentSignal
+      );
 
-        const sid = res.headers.get("mcp-session-id");
-        if (sid) sessionIds[serviceKey] = sid;
+      if (res.status === 429) {
+        throw new Error("محدودیت نرخ درخواست (HTTP 429)؛ چند ثانیه دیگر تلاش کنید");
+      }
 
-        let text = await res.text();
+      const sid = res.headers && res.headers.get ? res.headers.get("mcp-session-id") : null;
+      if (sid) sessionIds[serviceKey] = sid;
 
-        if (!res.ok || text.includes("session") || text.includes("initialize") || text.includes("Not initialized")) {
-          // پاک کردن سشن منقضی قبلی قبل از Handshake مجدد
-          sessionIds[serviceKey] = null;
+      let text = await res.text();
 
-          const initRes = await fetch(url, {
+      // فقط در صورتی که واقعاً خطای پروتکلی عدم مقداردهی نشست (Not initialized) رخ داده باشد Handshake انجام شود
+      if (isSessionInitRequired(res.status, text)) {
+        const initRes = await fetchWithPerRequestTimeout(
+          url,
+          {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -1165,15 +1276,37 @@
               params: {
                 protocolVersion: "2025-03-26",
                 capabilities: {},
-                clientInfo: { name: "chibekharim-amin", version: "2.1.0" }
+                clientInfo: { name: "chibekharim-amin", version: "2.0.0" }
               }
-            }),
-            signal: controller.signal
-          });
-          const newSid = initRes.headers.get("mcp-session-id");
-          if (newSid) sessionIds[serviceKey] = newSid;
+            })
+          },
+          timeoutMs,
+          parentSignal
+        );
 
-          res = await fetch(url, {
+        const newSid = initRes.headers && initRes.headers.get ? initRes.headers.get("mcp-session-id") : null;
+        if (newSid) sessionIds[serviceKey] = newSid;
+
+        // ارسال اعلان استاندارد notifications/initialized مطابق پروتکل MCP
+        try {
+          await fetchWithPerRequestTimeout(
+            url,
+            {
+              method: "POST",
+              headers: makeHeaders(),
+              body: JSON.stringify({
+                jsonrpc: "2.0",
+                method: "notifications/initialized"
+              })
+            },
+            4000,
+            parentSignal
+          );
+        } catch (_) {}
+
+        res = await fetchWithPerRequestTimeout(
+          url,
+          {
             method: "POST",
             headers: makeHeaders(),
             body: JSON.stringify({
@@ -1181,63 +1314,86 @@
               id: 2,
               method: "tools/call",
               params: { name: toolName, arguments: args }
-            }),
-            signal: controller.signal
-          });
-          text = await res.text();
-        }
-
-        clearTimeout(timer);
-        return parseMcpPayload(text);
-      } catch (err) {
-        clearTimeout(timer);
-        throw err;
+            })
+          },
+          timeoutMs,
+          parentSignal
+        );
+        text = await res.text();
       }
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      return parseMcpPayload(text);
     }
 
+    // =========================================================================
+    // ۴. موتور جستجوی موازی بدون Race Condition و بدون هیچ داده ساختگی
+    // =========================================================================
     async function runLiveSearch() {
       const q = document.getElementById("searchInput").value.trim();
       if (!q) return;
 
-      const currentToken = ++activeSearchToken;
-      state.query = q;
-      state.items = [];
-      state.divarStats = null;
-      state.torobRange = null;
+      // لغو فوری جستجوی قبلی در حال اجرا برای جلوگیری از قاطی شدن نتایج دو کوئری
+      if (activeSearchController) {
+        activeSearchController.abort();
+      }
+      const searchCtrl = new AbortController();
+      activeSearchController = searchCtrl;
+      const myToken = ++currentSearchToken;
 
-      const localItems = [];
-      let localDivarStats = null;
-      let localTorobRange = null;
+      state.query = q;
+      state.showOverBudgetAnyway = false;
 
       document.getElementById("loadingBox").classList.remove("hidden");
       document.getElementById("loadingText").innerText = `در حال دریافت قیمت‌های لحظه‌ای و واقعی «${q}» از دیجی‌کالا، ترب، باسلام و دیوار...`;
       document.getElementById("resultsContainer").innerHTML = "";
       document.getElementById("marketSummaryBox").innerHTML = "";
+      document.getElementById("sourceStatusBar").innerHTML = "";
       renderDirectPortals(q);
 
       const hardMax = state.budgetToman > 0 ? Math.round(state.budgetToman * 1.10) : undefined;
+      const apiQuery = cleanSearchQuery(q);
+
+      const localItems = [];
+      let localDivarStats = null;
+      let localTorobRange = null;
+      const localStatuses = {
+        torob: { name: "ترب", ok: false, count: 0, error: null },
+        digikala: { name: "دیجی‌کالا", ok: false, count: 0, error: null },
+        basalam: { name: "باسلام", ok: false, count: 0, error: null },
+        divar: { name: "دیوار", ok: false, count: 0, error: null }
+      };
 
       const tasks = [
-        // الف) ترب
+        // الف) استعلام زنده از ترب (Torob MCP)
         (async () => {
           try {
-            const apiQuery = cleanSearchQuery(q);
             const args = { query: apiQuery, available_only: true, limit: 12 };
             if (hardMax) args.max_price_toman = hardMax;
 
-            const calls = [callMcpTool("torob", "search_products", args)];
+            const calls = [callMcpTool("torob", "search_products", args, 8000, searchCtrl.signal)];
             if (state.budgetToman > 0) {
-              calls.push(callMcpTool("torob", "find_best_value", {
-                query: apiQuery,
-                budget_toman: state.budgetToman,
-                include_delivery: true,
-                limit: 6
-              }));
+              calls.push(
+                callMcpTool(
+                  "torob",
+                  "find_best_value",
+                  { query: apiQuery, budget_toman: state.budgetToman, include_delivery: true, limit: 6 },
+                  8000,
+                  searchCtrl.signal
+                )
+              );
             }
 
             const settled = await Promise.allSettled(calls);
             const searchData = settled[0]?.status === "fulfilled" ? settled[0].value : null;
             const bestValData = settled[1]?.status === "fulfilled" ? settled[1].value : null;
+
+            if (!searchData && !bestValData) {
+              throw settled[0]?.reason || new Error("عدم پاسخ از سرور ترب");
+            }
 
             if (searchData && searchData.price_range_toman) {
               localTorobRange = searchData.price_range_toman;
@@ -1253,94 +1409,111 @@
             let firstDetailsUrl = null;
             let firstTitle = apiQuery;
             let firstImg = "";
+            let firstShopKey = "";
 
             for (const p of mergedProducts) {
-              const prk = p.prk || "";
+              const prk = p.prk ? String(p.prk) : "";
               if (prk && seenPrks.has(prk)) continue;
               if (prk) seenPrks.add(prk);
 
               const price = Number(p.price_toman || p.cheapest_price_toman || 0);
               if (price <= 0) continue;
-              if (hardMax && price > hardMax) continue;
 
+              const shopName = p.shop_name || "فروشگاه عضو ترب";
               if (!firstPrk && prk) {
                 firstPrk = prk;
                 firstDetailsUrl = p.details_url || null;
                 firstTitle = p.name_fa || p.name_en || q;
                 firstImg = p.image || "";
+                firstShopKey = `${shopName.trim()}|${price}`;
               }
 
               const safeUid = "tr-" + String(prk || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
               localItems.push({
                 uid: safeUid,
                 source: "torob",
-                sourceLabel: `ترب · ${p.shop_name || "ارزان‌ترین فروشنده"}`,
-                shopName: p.shop_name || "فروشگاه عضو ترب",
+                sourceLabel: `ترب · ${shopName}`,
+                shopName: shopName,
                 title: p.name_fa || p.name_en || q,
                 priceToman: price,
                 oldPriceToman: null,
                 discountPct: 0,
-                rating: 4.6,
+                rating: null,       // بدون امتیاز ساختگی؛ ترب در جستجو امتیاز ستاره‌ای محصول نمی‌دهد
                 ratingCount: null,
                 image: p.image || "",
                 url: p.url || `https://torob.com/search/?query=${encodeURIComponent(apiQuery)}`,
                 prk: prk || null,
                 detailsUrl: p.details_url || null,
-                badges: p.badges || []
+                badges: Array.isArray(p.badges) ? p.badges : []
               });
+              localStatuses.torob.count++;
             }
 
+            // استخراج سایر فروشندگان متمایز برای کالای اول (با حذف تکراریِ فروشنده اول)
             if (firstPrk) {
               try {
-                const det = await callMcpTool("torob", "product_details", {
-                  prk: firstPrk,
-                  details_url: firstDetailsUrl || undefined,
-                  max_offers: 6
-                }, 5500);
-                for (const [idx, off] of ((det && det.offers) || []).slice(0, 5).entries()) {
+                const det = await callMcpTool(
+                  "torob",
+                  "product_details",
+                  { prk: firstPrk, details_url: firstDetailsUrl || undefined, max_offers: 6 },
+                  5500,
+                  searchCtrl.signal
+                );
+                const seenSellerKeys = new Set([firstShopKey]);
+                for (const [idx, off] of ((det && det.offers) || []).slice(0, 6).entries()) {
                   const offPrice = Number(off.price_toman || 0);
                   if (offPrice <= 0) continue;
-                  if (hardMax && offPrice > hardMax) continue;
+                  const sName = (off.shop_name || "فروشگاه").trim();
+                  const sellerKey = `${sName}|${offPrice}`;
+                  if (seenSellerKeys.has(sellerKey)) continue;
+                  seenSellerKeys.add(sellerKey);
+
+                  const realScore = off.shop_score !== undefined && off.shop_score !== null ? Number(off.shop_score) : null;
+                  const realVotes = off.shop_votes !== undefined && off.shop_votes !== null ? Number(off.shop_votes) : null;
+
                   localItems.push({
                     uid: `troff-${idx}-${String(firstPrk).replace(/[^a-zA-Z0-9_-]/g, "")}`,
                     source: "torob",
-                    sourceLabel: `${off.shop_name || "فروشگاه"} (${off.shop_city || "ایران"})`,
-                    shopName: `${off.shop_name || "فروشگاه"} · ${off.shop_city || "ایران"}${off.free_shipping ? " (ارسال رایگان)" : ""}`,
+                    sourceLabel: `ترب · ${sName}${off.shop_city ? " (" + off.shop_city + ")" : ""}`,
+                    shopName: `${sName}${off.shop_city ? " · " + off.shop_city : ""}${off.free_shipping ? " (ارسال رایگان)" : ""}`,
                     title: det.name_fa || firstTitle,
                     priceToman: offPrice,
                     oldPriceToman: null,
                     discountPct: 0,
-                    rating: Number(off.shop_score || 4.6),
-                    ratingCount: Number(off.shop_votes || 35),
+                    rating: realScore,
+                    ratingCount: realVotes,
                     image: det.image || firstImg,
                     url: off.buy_url || off.url || det.url,
                     prk: firstPrk,
                     detailsUrl: firstDetailsUrl,
                     badges: off.free_shipping ? ["ارسال رایگان"] : []
                   });
+                  localStatuses.torob.count++;
                 }
               } catch (_) {}
             }
+
+            localStatuses.torob.ok = true;
           } catch (e) {
-            console.warn("Torob MCP warning:", e);
+            localStatuses.torob.error = e.message || "خطای ارتباط";
           }
         })(),
 
-        // ب) دیجی‌کالا
+        // ب) استعلام زنده از دیجی‌کالا (Digikala MCP)
         (async () => {
           try {
-            const apiQuery = cleanSearchQuery(q);
             const args = { query: apiQuery, only_marketable: true, limit: 12 };
             if (hardMax) args.max_price_toman = hardMax;
-            const data = await callMcpTool("digikala", "search_digikala", args);
+            const data = await callMcpTool("digikala", "search_digikala", args, 8000, searchCtrl.signal);
             const items = (data && data.items) || [];
             for (const it of items) {
               const price = Number(it.price_toman || (it.price_rial ? it.price_rial / 10 : 0));
               if (price <= 0) continue;
-              if (hardMax && price > hardMax) continue;
+              const safeId = String(it.id || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+              const hasRealRating = it.rating_stars !== null && it.rating_stars !== undefined && Number(it.rating_stars) > 0;
               localItems.push({
-                uid: "dk-" + String(it.id).replace(/[^a-zA-Z0-9_-]/g, ""),
-                dkpId: it.id,
+                uid: "dk-" + safeId,
+                dkpId: Number(it.id) || null,
                 source: "digikala",
                 sourceLabel: `دیجی‌کالا · ${it.seller || "دیجی‌کالا"}`,
                 shopName: it.seller || "دیجی‌کالا",
@@ -1348,60 +1521,65 @@
                 priceToman: price,
                 oldPriceToman: it.price_before_toman ? Number(it.price_before_toman) : null,
                 discountPct: Number(it.discount_percent || 0),
-                rating: Number(it.rating_stars || 4.4),
-                ratingCount: Number(it.rating_count || 0),
+                rating: hasRealRating ? Number(it.rating_stars) : null,
+                ratingCount: it.rating_count !== undefined && it.rating_count !== null ? Number(it.rating_count) : null,
                 image: it.image || "",
-                url: it.url || `https://www.digikala.com/product/dkp-${it.id}/`,
-                badges: it.badges || []
+                url: it.url || `https://www.digikala.com/product/dkp-${safeId}/`,
+                badges: Array.isArray(it.badges) ? it.badges : []
               });
+              localStatuses.digikala.count++;
             }
+            localStatuses.digikala.ok = true;
           } catch (e) {
-            console.warn("Digikala MCP warning:", e);
+            localStatuses.digikala.error = e.message || "خطای ارتباط";
           }
         })(),
 
-        // ج) باسلام
+        // ج) استعلام زنده از باسلام (Basalam Live AI Search)
         (async () => {
           try {
-            const apiQuery = cleanSearchQuery(q);
             const bUrl = `${ENDPOINTS.basalam}?q=${encodeURIComponent(apiQuery)}&from=0&size=8`;
-            const res = await fetch(bUrl);
-            if (res.ok) {
-              const bData = await res.json();
-              for (const bp of (bData.products || [])) {
-                const price = Math.round(Number(bp.price || 0) / 10);
-                if (price <= 0) continue;
-                if (hardMax && price > hardMax) continue;
-                const oldP = bp.primaryPrice ? Math.round(Number(bp.primaryPrice) / 10) : null;
-                const disc = oldP && oldP > price ? Math.round(((oldP - price) / oldP) * 100) : 0;
-                localItems.push({
-                  uid: "bs-" + String(bp.id).replace(/[^a-zA-Z0-9_-]/g, ""),
-                  source: "basalam",
-                  sourceLabel: `باسلام · ${(bp.vendor && bp.vendor.name) || "غرفه‌دار"}`,
-                  shopName: (bp.vendor && bp.vendor.name) || "غرفه باسلام",
-                  title: bp.name || q,
-                  priceToman: price,
-                  oldPriceToman: oldP,
-                  discountPct: disc,
-                  rating: Number((bp.rating && bp.rating.average) || 4.5),
-                  ratingCount: Number((bp.rating && bp.rating.count) || 0),
-                  image: (bp.photo && (bp.photo.MEDIUM || bp.photo.SMALL)) || "",
-                  url: `https://basalam.com/${(bp.vendor && bp.vendor.identifier) || "s"}/product/${bp.id}`,
-                  badges: ["ضمانت بازگشت ۷ روزه"]
-                });
-              }
+            const res = await fetchWithPerRequestTimeout(bUrl, { method: "GET" }, 6500, searchCtrl.signal);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const bData = await res.json();
+            for (const bp of (bData.products || [])) {
+              const price = Math.round(Number(bp.price || 0) / 10);
+              if (price <= 0) continue;
+              const oldP = bp.primaryPrice ? Math.round(Number(bp.primaryPrice) / 10) : null;
+              const disc = oldP && oldP > price ? Math.round(((oldP - price) / oldP) * 100) : 0;
+              const safeId = String(bp.id || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+              const vendorIdent = String((bp.vendor && bp.vendor.identifier) || "s").replace(/[^a-zA-Z0-9_-]/g, "");
+              const avgRating = bp.rating && bp.rating.average ? Number(bp.rating.average) : null;
+              const cntRating = bp.rating && bp.rating.count !== undefined ? Number(bp.rating.count) : null;
+              localItems.push({
+                uid: "bs-" + safeId,
+                source: "basalam",
+                sourceLabel: `باسلام · ${(bp.vendor && bp.vendor.name) || "غرفه‌دار"}`,
+                shopName: (bp.vendor && bp.vendor.name) || "غرفه باسلام",
+                title: bp.name || q,
+                priceToman: price,
+                oldPriceToman: oldP,
+                discountPct: disc,
+                rating: avgRating,
+                ratingCount: cntRating,
+                image: (bp.photo && (bp.photo.MEDIUM || bp.photo.SMALL)) || "",
+                url: `https://basalam.com/${vendorIdent}/product/${safeId}`,
+                badges: []
+              });
+              localStatuses.basalam.count++;
             }
+            localStatuses.basalam.ok = true;
           } catch (e) {
-            console.warn("Basalam API warning:", e);
+            localStatuses.basalam.error = e.message || "محدودیت CORS/شبکه";
           }
         })(),
 
-        // د) دیوار
+        // د) استعلام زنده از دیوار (Divar MCP)
         (async () => {
           try {
             const [mPrice, adsData] = await Promise.allSettled([
-              callMcpTool("divar", "market_price", { query: cleanSearchQuery(q), city: "tehran" }, 6500),
-              callMcpTool("divar", "search_ads", { query: cleanSearchQuery(q), city: "tehran", has_photo: true, limit: 6 }, 6500)
+              callMcpTool("divar", "market_price", { query: apiQuery, city: "tehran" }, 6500, searchCtrl.signal),
+              callMcpTool("divar", "search_ads", { query: apiQuery, city: "tehran", has_photo: true, limit: 6 }, 6500, searchCtrl.signal)
             ]);
 
             if (mPrice.status === "fulfilled" && mPrice.value && mPrice.value.price_stats) {
@@ -1411,102 +1589,159 @@
               for (const ad of adsData.value.items) {
                 const price = Number(ad.price_toman || 0);
                 if (price <= 0) continue;
-                if (hardMax && price > hardMax) continue;
+                const safeToken = String(ad.token || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
                 localItems.push({
-                  uid: "dv-" + String(ad.token).replace(/[^a-zA-Z0-9_-]/g, ""),
-                  divarToken: ad.token,
+                  uid: "dv-" + safeToken,
+                  divarToken: safeToken,
                   source: "divar",
-                  sourceLabel: `دیوار تهران · ${ad.district || "آگهی تاییدشده"}`,
-                  shopName: `دیوار (${ad.district || "تهران"} · ${ad.time_ago || "جدید"})`,
+                  sourceLabel: `دیوار تهران · ${ad.district || "آگهی"}`,
+                  shopName: `دیوار (${ad.district || "تهران"}${ad.time_ago ? " · " + ad.time_ago : ""})`,
                   title: ad.title || q,
                   priceToman: price,
                   oldPriceToman: null,
                   discountPct: 0,
-                  rating: 4.2,
+                  rating: null,     // دیوار امتیاز ستاره‌ای ندارد
                   ratingCount: null,
                   image: ad.image || "",
-                  url: ad.url || `https://divar.ir/v/${ad.token}`,
-                  badges: ad.badges || ["آگهی دیوار"]
+                  url: ad.url || `https://divar.ir/v/${safeToken}`,
+                  badges: Array.isArray(ad.badges) ? ad.badges : []
                 });
+                localStatuses.divar.count++;
               }
+              localStatuses.divar.ok = true;
+            } else if (mPrice.status === "rejected" && adsData.status === "rejected") {
+              throw adsData.reason || new Error("خطای ارتباط با دیوار");
             }
           } catch (e) {
-            console.warn("Divar MCP warning:", e);
+            localStatuses.divar.error = e.message || "خطای ارتباط";
           }
         })()
       ];
 
       await Promise.allSettled(tasks);
 
-      // جلوگیری از Race Condition اگر جستجوی جدیدتری شروع شده باشد
-      if (currentToken !== activeSearchToken) return;
+      // اگر در حین اجرا جستجوی جدیدتری آغاز شده باشد، نتایج این جستجوی قدیمی را نادیده بگیر
+      if (myToken !== currentSearchToken || searchCtrl.signal.aborted) {
+        return;
+      }
 
       state.items = localItems;
       state.divarStats = localDivarStats;
       state.torobRange = localTorobRange;
+      state.sourceStatuses = localStatuses;
 
       document.getElementById("loadingBox").classList.add("hidden");
+      renderSourceStatusBar();
       renderResults();
     }
 
+    function renderSourceStatusBar() {
+      const bar = document.getElementById("sourceStatusBar");
+      const st = state.sourceStatuses || {};
+      const keys = Object.keys(st);
+      if (!keys.length) {
+        bar.innerHTML = "";
+        return;
+      }
+      const pills = keys.map(k => {
+        const s = st[k];
+        if (s.ok) {
+          return `<span style="color:var(--green);font-weight:700;">● ${escapeHtml(s.name)} (${s.count})</span>`;
+        }
+        return `<span style="color:var(--muted);" title="${escapeHtml(s.error || '')}">○ ${escapeHtml(s.name)} (${escapeHtml(s.error || 'عدم پاسخ')})</span>`;
+      }).join(" · ");
+
+      bar.innerHTML = `<div class="source-status-bar"><span>وضعیت منابع زنده:</span><span>${pills}</span></div>`;
+    }
+
+    // =========================================================================
+    // ۵. امتیازدهی بدون داده ساختگی و فیلتر دقیق بودجه
+    // =========================================================================
     function scoreAndSortItems(rawItems) {
       if (!rawItems.length) return [];
 
       let list = rawItems.filter(it => state.sourceFilter === "all" || it.source === state.sourceFilter);
       if (!list.length) return [];
 
-      const prices = list.map(i => i.priceToman).filter(p => p > 0);
-      const minPrice = Math.min(...prices);
-      const sortedPrices = prices.slice().sort((a, b) => a - b);
-      const medianPrice = sortedPrices[Math.floor(sortedPrices.length / 2)] || minPrice;
+      const qText = (state.query || "").toLowerCase();
+      const accessoryWords = ["قاب", "گلس", "کاور", "محافظ", "برچسب", "کیف", "بند", "کابل", "مبدل"];
+      const userWantsAccessory = accessoryWords.some(w => qText.includes(w));
+
+      const sortedPrices = list.map(i => i.priceToman).filter(p => p > 0).sort((a, b) => a - b);
+      const p75Price = sortedPrices[Math.floor(sortedPrices.length * 0.75)] || sortedPrices[0] || 1;
 
       list = list.map(item => {
-        const isAccessoryOutlier = medianPrice > 5000000 && item.priceToman < medianPrice * 0.12;
-        const refMin = isAccessoryOutlier ? item.priceToman : minPrice;
+        const titleStr = (item.title || "").toLowerCase();
+        const hasAccTitle = !userWantsAccessory && accessoryWords.some(w => titleStr.startsWith(w + " ") || titleStr.includes(" " + w + " "));
+        const isPriceOutlier = !userWantsAccessory && p75Price > 3000000 && item.priceToman < p75Price * 0.22;
+        return {
+          ...item,
+          isAccessoryOutlier: Boolean(hasAccTitle || isPriceOutlier)
+        };
+      });
 
+      const mainPrices = list.filter(i => !i.isAccessoryOutlier && i.priceToman > 0).map(i => i.priceToman);
+      const minMainPrice = mainPrices.length > 0 ? Math.min(...mainPrices) : (sortedPrices[0] || 1);
+
+      list = list.map(item => {
+        const refMin = item.isAccessoryOutlier ? item.priceToman : minMainPrice;
         const priceRatio = Math.max(0, (item.priceToman - refMin) / Math.max(1, refMin));
         let priceScore = 100 * Math.exp(-1.8 * priceRatio);
-        if (isAccessoryOutlier) priceScore = 52;
+        if (item.isAccessoryOutlier) priceScore = 35;
 
-        const votes = item.ratingCount || 20;
-        const bayesRating = (votes * (item.rating || 4.4) + 15 * 4.2) / (votes + 15);
-        const qualScore = Math.min(100, (bayesRating / 5.0) * 92 + Math.min(8, Math.log10(votes + 1) * 3));
+        // فقط در صورتی که امتیاز واقعی از سمت فروشگاه وجود داشته باشد وارد فرمول VQS می‌شود
+        const hasRealRating = typeof item.rating === "number" && item.rating > 0;
+        let vqs = 0;
 
-        // نرمال‌سازی صحیح وزن‌ها (۰.۴۲ + ۰.۳۰ + ۰.۲۰ + ۰.۰۸ = ۱.۰۰)
-        const discountScore = Math.min(100, (item.discountPct || 0) * 4);
-        const sourceTrust = item.source === "digikala" ? 95 : item.source === "torob" ? 94 : item.source === "basalam" ? 90 : 84;
+        if (hasRealRating) {
+          const votes = typeof item.ratingCount === "number" && item.ratingCount > 0 ? item.ratingCount : 5;
+          const bayesRating = (votes * item.rating + 10 * 4.0) / (votes + 10);
+          const qualScore = Math.min(100, (bayesRating / 5.0) * 92 + Math.min(8, Math.log10(votes + 1) * 3));
+          const discountBonus = Math.min(10, (item.discountPct || 0) * 0.5);
+          vqs = Number(Math.min(99.5, priceScore * 0.62 + qualScore * 0.30 + discountBonus).toFixed(1));
+        } else {
+          // توزیع وزن روی قیمت واقعی و درصد تخفیف واقعی (بدون ساختن عدد جعلی برای امتیاز)
+          const discountBonus = Math.min(10, (item.discountPct || 0) * 0.5);
+          vqs = Number(Math.min(98.0, priceScore * 0.90 + discountBonus).toFixed(1));
+        }
 
-        const vqs = Number(
-          Math.min(99.5, priceScore * 0.42 + qualScore * 0.30 + sourceTrust * 0.20 + discountScore * 0.08).toFixed(1)
-        );
+        if (item.isAccessoryOutlier) {
+          vqs = Number(Math.min(59.0, vqs).toFixed(1));
+        }
 
         const withinBudget = state.budgetToman <= 0 || item.priceToman <= state.budgetToman;
         const withinFlex10 = state.budgetToman > 0 && item.priceToman > state.budgetToman && item.priceToman <= state.budgetToman * 1.10;
+        const overBudgetMoreThan10 = state.budgetToman > 0 && item.priceToman > state.budgetToman * 1.10;
 
         return {
           ...item,
           vqs,
           withinBudget,
           withinFlex10,
-          isAccessoryOutlier
+          overBudgetMoreThan10
         };
       });
 
-      // اعمال دقیق فیلتر سقف بودجه (+۱۰٪ انعطاف)
-      if (state.budgetToman > 0) {
+      // اعمال سخت‌گیرانه فیلتر بودجه (مگر اینکه کاربر دکمه «نمایش گزینه‌های بالاتر از بودجه با برچسب هشدار» را زده باشد)
+      if (state.budgetToman > 0 && !state.showOverBudgetAnyway) {
         list = list.filter(i => i.withinBudget || i.withinFlex10);
       }
 
       list.sort((a, b) => {
+        if (a.isAccessoryOutlier !== b.isAccessoryOutlier) {
+          return a.isAccessoryOutlier ? 1 : -1;
+        }
         if (state.budgetToman > 0 && a.withinBudget !== b.withinBudget) {
           return a.withinBudget ? -1 : 1;
         }
         if (state.sort === "cheap") {
-          if (a.isAccessoryOutlier !== b.isAccessoryOutlier) return a.isAccessoryOutlier ? 1 : -1;
           return a.priceToman - b.priceToman;
         }
         if (state.sort === "rating") {
-          return (b.rating || 0) - (a.rating || 0) || b.vqs - a.vqs;
+          const aHas = typeof a.rating === "number" && a.rating > 0;
+          const bHas = typeof b.rating === "number" && b.rating > 0;
+          if (aHas !== bHas) return aHas ? -1 : 1;
+          return (b.rating || 0) - (a.rating || 0) || (b.ratingCount || 0) - (a.ratingCount || 0) || b.vqs - a.vqs;
         }
         if (state.sort === "discount") {
           return (b.discountPct || 0) - (a.discountPct || 0) || b.vqs - a.vqs;
@@ -1518,19 +1753,55 @@
     }
 
     function renderResults() {
-      const list = scoreAndSortItems(state.items);
       const container = document.getElementById("resultsContainer");
       const summaryBox = document.getElementById("marketSummaryBox");
+
+      const statuses = Object.values(state.sourceStatuses || {});
+      const anySourceSucceeded = statuses.some(s => s.ok);
+
+      // ۱. اگر تمام سرورها با خطای شبکه یا CORS مواجه شدند، پیام دقیق خطای ارتباط نمایش داده شود
+      if (!state.items.length && statuses.length > 0 && !anySourceSucceeded) {
+        summaryBox.innerHTML = "";
+        container.innerHTML = `
+          <div class="p-card" style="text-align:center;padding:22px;border-color:var(--red);">
+            <div style="font-weight:800;color:var(--red);margin-bottom:6px;">⚠️ خطا در برقراری ارتباط با سرورهای قیمت زنده</div>
+            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:12px;">
+              مرورگر نتوانست به سرورهای کلودفلر یا API فروشگاه‌ها متصل شود (احتمالاً به دلیل محدودیت اینترنت، فیلترشکن یا محدودیت نرخ درخواست 429).
+            </div>
+            <button class="btn-search" onclick="runLiveSearch()">🔄 تلاش مجدد</button>
+          </div>
+        `;
+        return;
+      }
+
+      const list = scoreAndSortItems(state.items);
+
+      // ۲. اگر کالا در بازار پیدا شده ولی همه بالاتر از سقف بودجه کاربر هستند
+      if (!list.length && state.items.length > 0 && state.budgetToman > 0) {
+        const allPrices = state.items.map(i => i.priceToman).filter(p => p > 0);
+        const minAvailable = allPrices.length ? Math.min(...allPrices) : 0;
+        summaryBox.innerHTML = "";
+        container.innerHTML = `
+          <div class="p-card" style="text-align:center;padding:22px;">
+            <div style="font-weight:800;margin-bottom:6px;">هیچ کالایی در سقف بودجه ${escapeHtml(formatToman(state.budgetToman))} (+۱۰٪) یافت نشد</div>
+            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:12px;">
+              کمترین قیمت لحظه‌ای یافت‌شده برای «${escapeHtml(state.query)}» در بازار <strong>${escapeHtml(formatToman(minAvailable))}</strong> است.
+            </div>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+              <button class="btn-search" onclick="showAllWithOverBudgetBadge()">نمایش نتایج با برچسب «بالاتر از بودجه»</button>
+              <button class="btn-inspect" onclick="setBudget(0)">حذف محدودیت بودجه</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
 
       if (!list.length) {
         summaryBox.innerHTML = "";
         container.innerHTML = `
           <div class="p-card" style="text-align:center;padding:22px;">
-            <div style="font-weight:800;margin-bottom:6px;">نتیجه‌ای در این فیلتر/بودجه پیدا نشد</div>
-            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:12px;">
-              سقف بودجه را روی «بدون سقف» بگذارید یا از دکمه‌های مستقیم فروشگاه‌ها در پایین صفحه استفاده کنید.
-            </div>
-            <button class="btn-search" onclick="setBudget(0); changeSourceFilter('all');">نمایش همه قیمت‌ها (بدون محدودیت بودجه)</button>
+            <div style="font-weight:800;margin-bottom:6px;">نتیجه‌ای در این منبع پیدا نشد</div>
+            <button class="btn-search" onclick="changeSourceFilter('all')">نمایش همه منابع</button>
           </div>
         `;
         return;
@@ -1538,54 +1809,69 @@
 
       const mainItems = list.filter(i => !i.isAccessoryOutlier);
       const pool = mainItems.length > 0 ? mainItems : list;
-      const cheapest = pool.slice().sort((a, b) => a.priceToman - b.priceToman)[0];
-      const bestPick = pool[0];
 
-      document.getElementById("bnplAmount").value = bestPick.priceToman;
+      // تفکیک قیمت کالای نو در فروشگاه‌ها از قیمت آگهی‌های کارکرده دیوار
+      const storePool = pool.filter(i => i.source !== "divar");
+      const activePool = storePool.length > 0 ? storePool : pool;
+      const storeMin = Math.min(...activePool.map(i => i.priceToman));
+      const storeMax = Math.max(...activePool.map(i => i.priceToman));
+      const bestPick = activePool[0];
 
-      const fairMin = state.divarStats?.fair_price_range_toman?.min || cheapest.priceToman;
+      // فقط در صورتی که کاربر خودش دستی مبلغ اقساط را تغییر نداده باشد، مبلغ کالای اول جایگذاری شود
+      if (!bnplUserEdited) {
+        document.getElementById("bnplAmount").value = bestPick.priceToman;
+      }
+
+      const divarRange = state.divarStats && state.divarStats.fair_price_range_toman;
+      const divarRangeText = divarRange && divarRange.min && divarRange.max
+        ? `از ${formatToman(divarRange.min)} تا ${formatToman(divarRange.max)}`
+        : "استعلام در تب دیوار";
 
       summaryBox.innerHTML = `
         <div class="market-summary">
           <div class="ms-top">
             <span>📡 گزارش زنده بازار برای «${escapeHtml(state.query)}»</span>
-            <span>${list.length} پیشنهاد واقعی دریافت شد</span>
+            <span>${list.length} پیشنهاد واقعی</span>
           </div>
-          <div class="ms-title">👑 بهترین انتخاب: ${escapeHtml(bestPick.shopName)} (${formatToman(bestPick.priceToman)})</div>
+          <div class="ms-title">👑 پیشنهاد اول: ${escapeHtml(bestPick.shopName)} (${escapeHtml(formatToman(bestPick.priceToman))})</div>
           <div class="ms-stats">
             <div class="ms-stat">
-              <span>کف قیمت زنده</span>
-              <strong>${formatToman(cheapest.priceToman)}</strong>
+              <span>بازه قیمت نو (فروشگاه‌ها)</span>
+              <strong>از ${escapeHtml(formatToman(storeMin))} تا ${escapeHtml(formatToman(storeMax))}</strong>
             </div>
             <div class="ms-stat">
-              <span>بازه منصفانه بازار</span>
-              <strong>${formatToman(fairMin)}</strong>
-            </div>
-            <div class="ms-stat">
-              <span>تعداد منابع زنده</span>
-              <strong>دیجی‌کالا · ترب · باسلام · دیوار</strong>
+              <span>بازه قیمت آگهی/کارکرده (دیوار)</span>
+              <strong>${escapeHtml(divarRangeText)}</strong>
             </div>
           </div>
         </div>
       `;
 
       container.innerHTML = list.map((item, idx) => {
-        const isTop = idx === 0;
-        const imgTag = item.image
-          ? `<img src="${safeUrl(item.image)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
+        const isTop = idx === 0 && !item.overBudgetMoreThan10;
+        const safeImgUrl = item.image ? sanitizeHttpsUrl(item.image, "") : "";
+        const imgTag = safeImgUrl
+          ? `<img src="${escapeHtml(safeImgUrl)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
           : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🛍️</div>`;
 
-        const overBadge = item.withinFlex10
-          ? `<span class="badge-over">✨ تا ۱۰٪ بالاتر از بودجه</span>`
-          : "";
+        let budgetBadge = "";
+        if (item.withinFlex10) {
+          budgetBadge = `<span class="badge-over">✨ تا ۱۰٪ بالاتر از بودجه</span>`;
+        } else if (item.overBudgetMoreThan10) {
+          budgetBadge = `<span class="p-discount-pill">⚠️ بالاتر از سقف بودجه</span>`;
+        }
 
         const oldPriceHtml = item.oldPriceToman && item.oldPriceToman > item.priceToman
-          ? `<span class="p-price-old">${formatToman(item.oldPriceToman)}</span>`
+          ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>`
           : "";
 
         const discountHtml = item.discountPct > 0
-          ? `<span class="p-discount-pill">${Number(item.discountPct)}% تخفیف</span>`
+          ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>`
           : `<span style="font-size:0.72rem;color:var(--green);font-weight:700;">✔ قیمت لحظه‌ای</span>`;
+
+        const ratingHtml = typeof item.rating === "number" && item.rating > 0
+          ? `<span>⭐ ${escapeHtml(item.rating)}${item.ratingCount ? ` (${escapeHtml(item.ratingCount)} نظر)` : ''}</span>`
+          : `<span style="color:var(--muted);">بدون امتیاز ثبت‌شده</span>`;
 
         const inspectBtnLabel = item.source === "torob"
           ? "🏪 همه فروشنده‌ها و نمودار قیمت"
@@ -1593,13 +1879,15 @@
           ? "📊 تاریخچه قیمت ۳۰ روزه و مشخصات"
           : "🔍 جزئیات و بررسی قیمت";
 
+        const safeHref = sanitizeHttpsUrl(item.url, "https://torob.com");
+
         return `
-          <div class="p-card ${isTop ? 'top-pick' : ''} ${item.withinFlex10 ? 'over-budget' : ''}">
+          <div class="p-card ${isTop ? 'top-pick' : ''} ${(item.withinFlex10 || item.overBudgetMoreThan10) ? 'over-budget' : ''}">
             <div class="p-top-row">
               <span class="badge-store">${isTop ? '🏆 انتخاب اول · ' : ''}${escapeHtml(item.sourceLabel)}</span>
               <div style="display:flex;gap:4px;align-items:center;">
-                ${overBadge}
-                <span class="badge-vqs">ارزش خرید: ${item.vqs}/100</span>
+                ${budgetBadge}
+                <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
               </div>
             </div>
 
@@ -1609,7 +1897,7 @@
                 <div class="p-title">${escapeHtml(item.title)}</div>
                 <div class="p-meta">
                   <span>🏪 ${escapeHtml(item.shopName)}</span>
-                  ${item.rating ? `<span>⭐ ${Number(item.rating)}${item.ratingCount ? ` (${Number(item.ratingCount)} نظر)` : ''}</span>` : ''}
+                  ${ratingHtml}
                 </div>
               </div>
             </div>
@@ -1617,17 +1905,17 @@
             <div class="p-price-box">
               <div>
                 ${oldPriceHtml}
-                <span class="p-price-main">${formatToman(item.priceToman)}</span>
+                <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
               </div>
               ${discountHtml}
             </div>
 
             <div class="p-actions">
-              <a href="${safeUrl(item.url)}" target="_blank" rel="noopener" class="btn-buy-direct">
+              <a href="${escapeHtml(safeHref)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">
                 <span>مشاهده و خرید مستقیم</span>
                 <span>↗</span>
               </a>
-              <button class="btn-inspect" onclick="openInspectModal('${escapeHtml(item.uid)}')">
+              <button type="button" class="btn-inspect" data-inspect-uid="${escapeHtml(item.uid)}">
                 ${inspectBtnLabel}
               </button>
             </div>
@@ -1636,6 +1924,14 @@
       }).join("");
     }
 
+    function showAllWithOverBudgetBadge() {
+      state.showOverBudgetAnyway = true;
+      renderResults();
+    }
+
+    // =========================================================================
+    // ۶. پنجره کالبدشکافی زنده محصول با Escape کامل HTML و لینک‌های امن
+    // =========================================================================
     async function openInspectModal(uid) {
       const item = state.items.find(x => x.uid === uid);
       if (!item) return;
@@ -1652,6 +1948,8 @@
         </div>
       `;
 
+      const safeItemUrl = sanitizeHttpsUrl(item.url, "https://torob.com");
+
       try {
         if (item.source === "torob" && item.prk) {
           const [detailsRes, histRes] = await Promise.allSettled([
@@ -1665,31 +1963,34 @@
 
           body.innerHTML = `
             <div style="background:var(--blue-soft);padding:12px;border-radius:12px;margin-bottom:12px;font-size:0.78rem;">
-              <div><strong>📊 تحلیل قیمت در کل فروشگاه‌های ایران (${Number(det.offer_count || offers.length)} فروشگاه فعال):</strong></div>
+              <div><strong>📊 تحلیل قیمت در کل فروشگاه‌های ایران (${escapeHtml(det.offer_count || offers.length)} فروشگاه فعال):</strong></div>
               <div style="margin-top:4px;">
-                کف قیمت: <strong>${formatToman(det.price_range_toman?.min || item.priceToman)}</strong> |
-                سقف قیمت: <strong>${formatToman(det.price_range_toman?.max || item.priceToman)}</strong>
+                کف قیمت: <strong>${escapeHtml(formatToman(det.price_range_toman?.min || item.priceToman))}</strong> |
+                سقف قیمت: <strong>${escapeHtml(formatToman(det.price_range_toman?.max || item.priceToman))}</strong>
               </div>
               ${hist.reading ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">📈 روند قیمت: ${escapeHtml(hist.reading)}</div>` : ''}
             </div>
 
             <div style="font-weight:800;font-size:0.84rem;margin-bottom:8px;">🏪 لیست زنده فروشندگان این کالا (به ترتیب ارزان‌ترین):</div>
-            ${offers.length > 0 ? offers.map(off => `
-              <div class="seller-offer-item">
-                <div>
-                  <div style="font-weight:800;font-size:0.82rem;">${escapeHtml(off.shop_name \vert{}\vert{} "فروشگاه")} (${escapeHtml(off.shop_city || "ایران")})</div>
-                  <div style="font-size:0.72rem;color:var(--sub);">
-                    ⭐ امتیاز فروشگاه: ${escapeHtml(off.shop_score || "تاییدشده")}
-                    ${off.free_shipping ? ' · 🚚 ارسال رایگان' : ''}
-                    ${off.same_day_delivery ? ' · ⚡ ارسال امروز' : ''}
+            ${offers.length > 0 ? offers.map(off => {
+              const safeBuyUrl = sanitizeHttpsUrl(off.buy_url || off.url || item.url, safeItemUrl);
+              return `
+                <div class="seller-offer-item">
+                  <div>
+                    <div style="font-weight:800;font-size:0.82rem;">${escapeHtml(off.shop_name || "فروشگاه")} (${escapeHtml(off.shop_city || "ایران")})</div>
+                    <div style="font-size:0.72rem;color:var(--sub);">
+                      ⭐ امتیاز فروشگاه: ${escapeHtml(off.shop_score || "ثبت‌نشده")}
+                      ${off.free_shipping ? ' · 🚚 ارسال رایگان' : ''}
+                      ${off.same_day_delivery ? ' · ⚡ ارسال امروز' : ''}
+                    </div>
+                  </div>
+                  <div style="text-align:left;">
+                    <div style="font-weight:900;font-size:0.88rem;color:var(--green);">${escapeHtml(formatToman(off.price_toman))}</div>
+                    <a href="${escapeHtml(safeBuyUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:0.74rem;color:var(--blue);font-weight:800;">خرید مستقیم ↗</a>
                   </div>
                 </div>
-                <div style="text-align:left;">
-                  <div style="font-weight:900;font-size:0.88rem;color:var(--green);">${formatToman(off.price_toman)}</div>
-                  <a href="${safeUrl(off.buy_url || off.url || item.url)}" target="_blank" rel="noopener" style="font-size:0.74rem;color:var(--blue);font-weight:800;">خرید مستقیم ↗</a>
-                </div>
-              </div>
-            `).join("") : `<div>لیست فروشندگان در صفحه اصلی ترب قابل مشاهده است. <a href="${safeUrl(item.url)}" target="_blank" rel="noopener">ورود به صفحه ترب ↗</a></div>`}
+              `;
+            }).join("") : `<div>لیست فروشندگان در صفحه اصلی ترب قابل مشاهده است. <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer">ورود به صفحه ترب ↗</a></div>`}
           `;
         } else if (item.source === "digikala" && item.dkpId) {
           const [detRes, chartRes] = await Promise.allSettled([
@@ -1699,36 +2000,37 @@
 
           const det = detRes.status === "fulfilled" ? detRes.value : {};
           const chart = chartRes.status === "fulfilled" ? chartRes.value : {};
-          const lowest30 = det.lowest_price_30d_toman || chart.cheapest_in_window_toman || item.priceToman;
-          const isGoodTime = item.priceToman <= lowest30 * 1.03;
+          const lowest30 = det.lowest_price_30d_toman || chart.cheapest_in_window_toman || null;
+          const hasHistory = lowest30 !== null && Number(lowest30) > 0;
+          const isGoodTime = hasHistory && item.priceToman <= Number(lowest30) * 1.03;
 
           body.innerHTML = `
             <div style="background:${isGoodTime ? 'var(--green-soft)' : 'var(--orange-soft)'};padding:12px;border-radius:12px;margin-bottom:12px;font-size:0.78rem;">
               <div style="font-weight:800;color:${isGoodTime ? 'var(--green)' : 'var(--orange)'};">
-                ${isGoodTime ? '💎 زمان عالی برای خرید: در کف قیمت ۳۰ روز اخیر قرار دارد!' : '⚖️ قیمت فعلی بالاتر از کف ۳۰ روز اخیر است'}
+                ${!hasHistory ? 'ℹ️ تاریخچه ۳۰ روزه برای این کالا ثبت نشده است' : isGoodTime ? '💎 در کف قیمت ۳۰ روز اخیر قرار دارد!' : '⚖️ قیمت فعلی بالاتر از کف ۳۰ روز اخیر است'}
               </div>
               <div style="margin-top:4px;">
-                قیمت فعلی: <strong>${formatToman(item.priceToman)}</strong> |
-                کف قیمت ۳۰ روزه: <strong>${formatToman(lowest30)}</strong>
+                قیمت فعلی: <strong>${escapeHtml(formatToman(item.priceToman))}</strong>
+                ${hasHistory ? ` | کف قیمت ۳۰ روزه: <strong>${escapeHtml(formatToman(lowest30))}</strong>` : ''}
               </div>
               <div style="margin-top:4px;">
-                🛡️ گارانتی: <strong>${escapeHtml(det.warranty || "گارانتی اصالت و سلامت فیزیکی")}</strong> |
+                🛡️ گارانتی: <strong>${escapeHtml(det.warranty || "مطابق صفحه محصول")}</strong> |
                 🏪 فروشنده: <strong>${escapeHtml(det.seller || item.shopName)}</strong>
               </div>
-              ${det.cheaper_offer ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">💡 فروشنده ارزان‌تر در دیجی‌کالا: ${escapeHtml(det.cheaper_offer.seller)} با قیمت ${formatToman(det.cheaper_offer.price_toman)}</div>` : ''}
+              ${det.cheaper_offer ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">💡 فروشنده ارزان‌تر در دیجی‌کالا: ${escapeHtml(det.cheaper_offer.seller)} با قیمت ${escapeHtml(formatToman(det.cheaper_offer.price_toman))}</div>` : ''}
             </div>
 
             ${Array.isArray(det.comments) && det.comments.length > 0 ? `
               <div style="font-weight:800;font-size:0.84rem;margin-bottom:6px;">💬 خلاصه نظرات خریداران واقعی:</div>
               ${det.comments.map(c => `
                 <div class="seller-offer-item" style="display:block;">
-                  <div style="font-size:0.76rem;font-weight:700;">⭐ ${Number(c.rate || 5)} · ${escapeHtml(c.title || "خریدار")}</div>
+                  <div style="font-size:0.76rem;font-weight:700;">⭐ ${escapeHtml(c.rate ?? "-")} · ${escapeHtml(c.title || "خریدار")}</div>
                   <div style="font-size:0.74rem;color:var(--sub);margin-top:2px;">${escapeHtml(c.body || "")}</div>
                 </div>
               `).join("")}
             ` : ''}
 
-            <a href="${safeUrl(item.url)}" target="_blank" rel="noopener" class="btn-buy-direct" style="margin-top:10px;">
+            <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="margin-top:10px;">
               باز کردن صفحه کامل محصول در دیجی‌کالا ↗
             </a>
           `;
@@ -1737,16 +2039,16 @@
             <div style="padding:12px;background:var(--card-2);border-radius:12px;font-size:0.82rem;margin-bottom:12px;">
               <div><strong>نام کالا:</strong> ${escapeHtml(item.title)}</div>
               <div style="margin-top:6px;"><strong>فروشنده:</strong> ${escapeHtml(item.shopName)}</div>
-              <div style="margin-top:6px;"><strong>قیمت لحظه‌ای:</strong> ${formatToman(item.priceToman)}</div>
+              <div style="margin-top:6px;"><strong>قیمت لحظه‌ای:</strong> ${escapeHtml(formatToman(item.priceToman))}</div>
             </div>
-            <a href="${safeUrl(item.url)}" target="_blank" rel="noopener" class="btn-buy-direct">ورود به صفحه خرید ↗</a>
+            <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">ورود به صفحه خرید ↗</a>
           `;
         }
       } catch (e) {
         body.innerHTML = `
           <div style="padding:12px;font-size:0.8rem;">
-            برای مشاهده جزئیات کامل و فروشندگان، مستقیماً وارد صفحه کالا شوید:
-            <a href="${safeUrl(item.url)}" target="_blank" rel="noopener" class="btn-buy-direct" style="margin-top:10px;">باز کردن صفحه محصول ↗</a>
+            خطا در دریافت جزئیات تکمیلی (${escapeHtml(e.message || "خطای شبکه")}). می‌توانید مستقیماً وارد صفحه کالا شوید:
+            <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="margin-top:10px;">باز کردن صفحه محصول ↗</a>
           </div>
         `;
       }
@@ -1756,6 +2058,9 @@
       document.getElementById("inspectModal").classList.add("hidden");
     }
 
+    // =========================================================================
+    // ۷. دریافت شگفت‌انگیزهای زنده امروز (تب ۲)
+    // =========================================================================
     let dealsLoaded = false;
     async function loadLiveDeals() {
       document.getElementById("dealsLoading").classList.remove("hidden");
@@ -1778,7 +2083,7 @@
               price: d.price_toman,
               oldPrice: d.price_before_toman,
               discount: d.discount_percent || 0,
-              url: d.url || `https://www.digikala.com/product/dkp-${d.id}/`
+              url: sanitizeHttpsUrl(d.url || `https://www.digikala.com/product/dkp-${d.id}/`, "https://www.digikala.com")
             });
           }
         }
@@ -1794,17 +2099,17 @@
               price: d.price_toman,
               oldPrice: null,
               discount: d.discount_percent || 0,
-              url: d.url || "https://torob.com"
+              url: sanitizeHttpsUrl(d.url, "https://torob.com")
             });
           }
         }
       }
 
       document.getElementById("dealsLoading").classList.add("hidden");
-      dealsLoaded = deals.length > 0;
+      dealsLoaded = true;
 
       if (!deals.length) {
-        container.innerHTML = `<div class="p-card" style="text-align:center;">برای مشاهده تخفیف‌ها دکمه بروزرسانی زنده را بزنید.</div>`;
+        container.innerHTML = `<div class="p-card" style="text-align:center;">خطا در دریافت تخفیف‌ها یا عدم پاسخ سرور. دکمه بروزرسانی زنده را بزنید.</div>`;
         return;
       }
 
@@ -1812,20 +2117,23 @@
         <div class="p-card">
           <div class="p-top-row">
             <span class="badge-store">🔥 ${escapeHtml(d.store)}</span>
-            ${d.discount ? `<span class="p-discount-pill">${Number(d.discount)}% تخفیف واقعی</span>` : ''}
+            ${d.discount ? `<span class="p-discount-pill">${escapeHtml(d.discount)}% تخفیف</span>` : ''}
           </div>
           <div class="p-title" style="margin-bottom:8px;">${escapeHtml(d.title)}</div>
           <div class="p-price-box">
             <div>
-              ${d.oldPrice ? `<span class="p-price-old">${formatToman(d.oldPrice)}</span>` : ''}
-              <span class="p-price-main">${formatToman(d.price)}</span>
+              ${d.oldPrice ? `<span class="p-price-old">${escapeHtml(formatToman(d.oldPrice))}</span>` : ''}
+              <span class="p-price-main">${escapeHtml(formatToman(d.price))}</span>
             </div>
-            <a href="${safeUrl(d.url)}" target="_blank" rel="noopener" class="btn-buy-direct" style="padding:8px 14px;">خرید مستقیم ↗</a>
+            <a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="padding:8px 14px;">خرید مستقیم ↗</a>
           </div>
         </div>
       `).join("");
     }
 
+    // =========================================================================
+    // ۸. لینک‌های مستقیم به فروشگاه‌های ایران (با Escape کامل HTML)
+    // =========================================================================
     function renderDirectPortals(q) {
       const enc = encodeURIComponent(q);
       const portals = [
@@ -1845,20 +2153,32 @@
             🔗 مشاهده مستقیم صفحه جستجوی «${escapeHtml(q)}» در سایر فروشگاه‌های ایران:
           </div>
           <div class="cross-links-grid">
-            ${portals.map(p => `<a href="${safeUrl(p.url)}" target="_blank" rel="noopener" class="cross-link-item">${escapeHtml(p.name)} ↗</a>`).join("")}
+            ${portals.map(p => `<a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="cross-link-item">${escapeHtml(p.name)} ↗</a>`).join("")}
           </div>
         </div>
       `;
     }
 
+    // =========================================================================
+    // ۹. ماشین‌حساب اقساط (پشتیبانی از تورم ۰٪ و حفظ مقدار دستی کاربر)
+    // =========================================================================
+    function onBnplUserInput() {
+      bnplUserEdited = true;
+      renderBnplCalc();
+    }
+
     function renderBnplCalc() {
-      const cash = Number(document.getElementById("bnplAmount").value) || 75000000;
-      const inf = (Number(document.getElementById("bnplInf").value) || 3.0) / 100;
+      const cashRaw = Number(document.getElementById("bnplAmount").value);
+      const cash = Number.isFinite(cashRaw) && cashRaw > 0 ? cashRaw : 75000000;
+
+      const infStr = String(document.getElementById("bnplInf").value).trim();
+      const parsedInf = infStr === "" ? 3.0 : Number(infStr);
+      const inf = (Number.isFinite(parsedInf) && parsedInf >= 0 ? parsedInf : 3.0) / 100.0;
 
       const plans = [
         { title: "اسنپ‌پی / تارا (۴ قسط بدون کارمزد)", months: 4, up: cash * 0.25, m: cash * 0.25, stores: "اسنپ‌شاپ، تکنولایف، مسترکالا، خانومی، شاپینو" },
-        { title: "دیجی‌پی (۶ قسطه)", months: 6, up: 0, m: (cash * 1.115) / 6, stores: "دیجی‌کالا، تکنولایف" },
-        { title: "ازکی‌وام / تکنوپی (۱۲ قسطه)", months: 12, up: 0, m: (cash * 1.23) / 12, stores: "تکنولایف، دیجی‌کالا" }
+        { title: "طرح اعتباری ۶ قسطه (نمونه با کارمزد ۱۱.۵٪)", months: 6, up: 0, m: (cash * 1.115) / 6, stores: "دیجی‌کالا، تکنولایف" },
+        { title: "طرح اعتباری ۱۲ قسطه (نمونه با کارمزد ۲۳٪)", months: 12, up: 0, m: (cash * 1.23) / 12, stores: "تکنولایف، دیجی‌کالا" }
       ];
 
       document.getElementById("bnplCardsOut").innerHTML = plans.map(p => {
@@ -1871,11 +2191,11 @@
             <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.84rem;">
               <span>${escapeHtml(p.title)}</span>
               <span style="color:${benefit >= 0 ? 'var(--green)' : 'var(--orange)'};">
-                ${benefit >= 0 ? formatToman(benefit) + ' به نفع شما' : formatToman(Math.abs(benefit)) + ' کارمزد واقعی'}
+                ${benefit >= 0 ? escapeHtml(formatToman(benefit)) + ' به نفع شما' : escapeHtml(formatToman(Math.abs(benefit))) + ' کارمزد واقعی'}
               </span>
             </div>
             <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">
-              پیش‌پرداخت: <strong>${formatToman(p.up)}</strong> | هر قسط: <strong>${formatToman(p.m)}</strong>
+              پیش‌پرداخت: <strong>${escapeHtml(formatToman(p.up))}</strong> | هر قسط: <strong>${escapeHtml(formatToman(p.m))}</strong>
             </div>
             <div style="font-size:0.72rem;color:var(--sub);margin-top:2px;">فروشگاه‌ها: ${escapeHtml(p.stores)}</div>
           </div>
@@ -1885,50 +2205,48 @@
 
     function renderMcpCatalog() {
       const servers = [
-        { name: "mmdju/digikala-mcp (Worker زنده)", tools: 19, desc: "جستجوی زنده دیجی‌کالا، تاریخچه قیمت، فروشندگان و شگفت‌انگیزها" },
-        { name: "mmdju/torob-mcp (Worker زنده)", tools: 15, desc: "جستجوی زنده ترب در هزاران فروشگاه، جزئیات فروشنده‌ها و نمودار قیمت" },
-        { name: "mmdju/divar-mcp (Worker زنده)", tools: 7, desc: "استعلام قیمت منصفانه بازار (market_price) و آگهی‌های دیوار" },
-        { name: "sepehr071/digikala-mcp", tools: 23, desc: "جستجوی کاتالوگ دیجی‌کالا، سوپرمارکت، قیمت طلا و اقساط" },
-        { name: "sepehr071/technolife-mcp", tools: 19, desc: "جستجوی GraphQL تکنولایف (technolife.com/searchapi)، قیمت نقد و اقساط" },
-        { name: "sepehr071/snapp-mcp", tools: 21, desc: "اسنپ‌فود و اسنپ‌مارکت با محاسبه هزینه واقعی (بسته‌بندی + پیک - تخفیف)" },
-        { name: "sepehr071/masterkala-mcp", tools: 14, desc: "گجت و لوازم جانبی موبایل در مسترکالا" },
-        { name: "sepehr071/shopino-mcp", tools: 14, desc: "موتور جستجوی مد و پوشاک از هزاران فروشگاه شاپینو" },
-        { name: "sepehr071/khanoumi-mcp & asalbanoo-mcp", tools: 24, desc: "مقایسه لوازم آرایشی، مراقبت پوست و عطر در خانومی و عسل‌بانو" },
-        { name: "sepehr071/okala-mcp", tools: 16, desc: "سوپرمارکت‌های اکالا و افق کوروش" },
-        { name: "sepehr071/taaghche, fidibo, 30book", tools: 37, desc: "مقایسه کتاب‌های چاپی، الکترونیکی و صوتی" },
-        { name: "sepehr071/mrbilit, flytoday, jabama, otaghak", tools: 80, desc: "پرواز، قطار، هتل و اجاره ویلا" },
-        { name: "sepehr071/paziresh24 & doctoreto", tools: 26, desc: "نوبت‌دهی پزشکان و کلینیک‌ها" }
+        { name: "digikala-live (mmdju/digikala-mcp)", tools: 19, desc: "ورکر زنده دیجی‌کالا: جستجو، تاریخچه قیمت، فروشندگان و شگفت‌انگیزها" },
+        { name: "torob-live (mmdju/torob-mcp)", tools: 15, desc: "ورکر زنده ترب: جستجو در هزاران فروشگاه، فروشنده‌ها و نمودار قیمت" },
+        { name: "divar-live (mmdju/divar-mcp)", tools: 7, desc: "ورکر زنده دیوار: استعلام قیمت بازار (market_price) و آگهی‌ها" },
+        { name: "iran-super-shop (Mcp-amin)", tools: 7, desc: "سرور پایتونی تجمیع‌کننده، بهینه‌ساز سبد خرید و تحلیلگر اقساط" },
+        { name: "technolife (sepehr071/technolife-mcp)", tools: 19, desc: "جستجوی GraphQL تکنولایف، قیمت نقد و اقساط" },
+        { name: "snapp (sepehr071/snapp-mcp)", tools: 21, desc: "اسنپ‌فود و اسنپ‌مارکت با محاسبه هزینه واقعی سفارش" },
+        { name: "masterkala (sepehr071/masterkala-mcp)", tools: 14, desc: "گجت و لوازم جانبی موبایل در مسترکالا" },
+        { name: "shopino (sepehr071/shopino-mcp)", tools: 14, desc: "موتور جستجوی مد و پوشاک شاپینو" },
+        { name: "khanoumi (sepehr071/khanoumi-mcp)", tools: 12, desc: "لوازم آرایشی، مراقبت پوست و عطر در خانومی" },
+        { name: "asalbanoo (sepehr071/asalbanoo-mcp)", tools: 12, desc: "محصولات آرایشی و بهداشتی عسل‌بانو" },
+        { name: "okala (sepehr071/okala-mcp)", tools: 16, desc: "سوپرمارکت‌های اکالا و افق کوروش" }
       ];
 
       document.getElementById("allMcpServersCatalog").innerHTML = `
-        <div style="font-weight:800;font-size:0.9rem;margin-bottom:10px;">📦 تمام منابع و ریپوهای یکپارچه‌شده (۳۱۵+ ابزار MCP):</div>
+        <div style="font-weight:800;font-size:0.9rem;margin-bottom:10px;">📦 فهرست ۱۱ سرور تعریف‌شده در کانفیگ بالا (۱۵۶ ابزار فعال):</div>
         ${servers.map(s => `
           <div class="seller-offer-item">
             <div>
               <div style="font-weight:800;font-size:0.8rem;">${escapeHtml(s.name)}</div>
               <div style="font-size:0.72rem;color:var(--sub);">${escapeHtml(s.desc)}</div>
             </div>
-            <span class="badge-vqs">${Number(s.tools)} ابزار</span>
+            <span class="badge-vqs">${escapeHtml(s.tools)} ابزار</span>
           </div>
         `).join("")}
       `;
     }
 
+    // =========================================================================
+    // ۱۰. کنترلرهای رابط کاربری و مدیریت کامل ریست و کلیپ‌بورد
+    // =========================================================================
     function toggleBudgetDrawer() {
       document.getElementById("budgetDrawer").classList.toggle("hidden");
     }
 
-    function syncBudgetUI(amount) {
-      [0, 2000000, 5000000, 20000000, 70000000, 150000000].forEach(val => {
-        const el = document.getElementById("bopt-" + val);
-        if (el) el.classList.toggle("active", val === amount);
-      });
-      document.getElementById("budgetBtnLabel").innerText = `💰 بودجه: ${formatMillionLabel(amount)} ▾`;
-    }
-
     function setBudget(amount) {
       state.budgetToman = Number(amount) || 0;
-      syncBudgetUI(state.budgetToman);
+      state.showOverBudgetAnyway = false;
+      [0, 2000000, 5000000, 20000000, 70000000, 150000000].forEach(val => {
+        const el = document.getElementById("bopt-" + val);
+        if (el) el.classList.toggle("active", val === state.budgetToman);
+      });
+      document.getElementById("budgetBtnLabel").innerText = `💰 بودجه: ${formatMillionLabel(state.budgetToman)} ▾`;
       document.getElementById("budgetDrawer").classList.add("hidden");
       runLiveSearch();
     }
@@ -1952,7 +2270,12 @@
 
     function runPreset(q, budget, cat) {
       state.budgetToman = budget || 0;
-      syncBudgetUI(state.budgetToman);
+      state.showOverBudgetAnyway = false;
+      document.getElementById("budgetBtnLabel").innerText = `💰 بودجه: ${formatMillionLabel(state.budgetToman)} ▾`;
+      [0, 2000000, 5000000, 20000000, 70000000, 150000000].forEach(val => {
+        const el = document.getElementById("bopt-" + val);
+        if (el) el.classList.toggle("active", val === state.budgetToman);
+      });
       ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === (cat || "all"));
@@ -1984,16 +2307,45 @@
     }
 
     function resetNewSearch() {
+      if (activeSearchController) {
+        activeSearchController.abort();
+      }
+      currentSearchToken++;
+      bnplUserEdited = false;
+
       state.budgetToman = 0;
       state.sourceFilter = "all";
       state.category = "all";
-      syncBudgetUI(0);
-      ["all", "torob", "digikala", "basalam", "divar"].forEach(k => {
-        document.getElementById("src-" + k).classList.toggle("active", k === "all");
+      state.sort = "best";
+      state.showOverBudgetAnyway = false;
+      state.items = [];
+      state.divarStats = null;
+      state.torobRange = null;
+      state.sourceStatuses = {};
+
+      document.getElementById("budgetBtnLabel").innerText = "💰 بودجه: بدون سقف ▾";
+      document.getElementById("customBudgetInput").value = "";
+      [0, 2000000, 5000000, 20000000, 70000000, 150000000].forEach(val => {
+        const el = document.getElementById("bopt-" + val);
+        if (el) el.classList.toggle("active", val === 0);
       });
       ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
-        document.getElementById("cat-" + c).classList.toggle("active", c === "all");
+        const el = document.getElementById("cat-" + c);
+        if (el) el.classList.toggle("active", c === "all");
       });
+      ["all", "torob", "digikala", "basalam", "divar"].forEach(k => {
+        const el = document.getElementById("src-" + k);
+        if (el) el.classList.toggle("active", k === "all");
+      });
+      ["best", "cheap", "rating", "discount"].forEach(k => {
+        const el = document.getElementById("sort-" + k);
+        if (el) el.classList.toggle("active", k === "best");
+      });
+
+      document.getElementById("loadingBox").classList.add("hidden");
+      document.getElementById("resultsContainer").innerHTML = "";
+      document.getElementById("marketSummaryBox").innerHTML = "";
+      document.getElementById("sourceStatusBar").innerHTML = "";
       clearInput();
     }
 
@@ -2015,24 +2367,30 @@
 
     async function copyMcpConfig() {
       const text = document.getElementById("mcpConfigBlock").innerText;
-      const btn = document.getElementById("copyConfigBtn");
+      const btn = document.getElementById("copyMcpBtn");
       try {
-        await navigator.clipboard.writeText(text);
-        btn.innerText = "✅ کانفیگ یکپارچه MCP کپی شد!";
-        setTimeout(() => {
-          btn.innerText = "📋 کپی کانفیگ یکپارچه MCP برای Claude / Cursor";
-        }, 2200);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          throw new Error("Clipboard API unavailable");
+        }
+        if (btn) btn.innerText = "✅ کانفیگ با موفقیت کپی شد!";
       } catch (_) {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-        btn.innerText = "✅ کانفیگ یکپارچه MCP کپی شد!";
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          if (btn) btn.innerText = "✅ کانفیگ کپی شد!";
+        } catch (err) {
+          if (btn) btn.innerText = "⚠️ لطفاً متن بالا را دستی انتخاب و کپی کنید";
+        }
       }
     }
 
+    // اجرای اولیه
     renderMcpCatalog();
     renderBnplCalc();
     runLiveSearch();
