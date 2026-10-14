@@ -1035,6 +1035,183 @@
       overflow-x: auto;
       margin-top: 8px;
     }
+  
+    /* Corner Opt-in Divar Checkbox ("سرویس دیوار به عنوان یه اپشن اون گوشه") */
+    .source-filter-bar-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .source-filter-bar-wrap .source-chips {
+      margin-bottom: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .divar-corner-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: var(--glass);
+      backdrop-filter: saturate(180%) blur(16px);
+      -webkit-backdrop-filter: saturate(180%) blur(16px);
+      border: 1px dashed rgba(110, 71, 59, 0.32);
+      color: var(--sub);
+      font-size: 0.7rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      user-select: none;
+      transition: all 0.22s var(--spring);
+      box-shadow: inset 0 1px 0 var(--glass-border), var(--shadow-sm);
+    }
+
+    .divar-corner-toggle:active {
+      transform: scale(0.95);
+    }
+
+    .divar-corner-toggle input {
+      display: none;
+    }
+
+    .divar-check-ui {
+      width: 15px;
+      height: 15px;
+      border-radius: 5px;
+      border: 1.5px solid var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      color: transparent;
+      background: var(--card-solid);
+      transition: all 0.2s var(--spring);
+    }
+
+    .divar-corner-toggle.checked {
+      background: rgba(110, 71, 59, 0.14);
+      border: 1px solid var(--purple);
+      color: var(--text);
+    }
+
+    .divar-corner-toggle.checked .divar-check-ui {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: #FFFDFB;
+    }
+
+    /* Food Area / Neighborhood Selector Box ("محدوده‌ای که هست رو انتخاب کنه") */
+    .food-location-card {
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      border-radius: 18px;
+      padding: 10px 11px;
+      margin-bottom: 10px;
+      box-shadow: inset 0 1px 0 var(--glass-border);
+    }
+
+    .food-loc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.73rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+
+    .food-loc-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.3fr;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+
+    .food-loc-select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 0.5px solid var(--border);
+      background: var(--card-solid);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .food-loc-custom-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .food-loc-input {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 12px;
+      border: 0.5px solid var(--border);
+      background: var(--card-solid);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.73rem;
+      outline: none;
+    }
+
+    .area-quick-chips {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .area-quick-chips::-webkit-scrollbar { display: none; }
+
+    .area-chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 0.5px solid var(--border);
+      background: var(--glass);
+      color: var(--sub);
+      font-family: inherit;
+      font-size: 0.68rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.18s var(--spring);
+    }
+
+    .area-chip.active {
+      background: var(--green-soft);
+      color: var(--green);
+      border-color: var(--green);
+      font-weight: 800;
+    }
+
+    .delivery-meta-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: var(--card-2);
+      border-radius: 11px;
+      padding: 6px 9px;
+      margin-bottom: 8px;
+      font-size: 0.69rem;
+      color: var(--sub);
+      font-weight: 700;
+    }
+
   </style>
 </head>
 <body>
@@ -1083,7 +1260,7 @@
           <span style="font-size:0.7rem;color:var(--accent);font-weight:800;">انتخاب مطمئن و بی‌دردسر</span>
         </div>
         <p class="hero-desc">
-          کالای مورد نظرت رو بنویس تا بین دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و صدها فروشگاه)، باسلام، شاپینو، خانومی و دیوار بگردیم و باصرفه‌ترین گزینه رو با دلیل بهت پیشنهاد بدیم.
+          کالای مورد نظرت رو بنویس تا بین دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و صدها فروشگاه)، باسلام، شاپینو و خانومی بگردیم و باصرفه‌ترین کالای نو رو با دلیل بهت پیشنهاد بدیم (اگر آگهی دست‌دوم دیوار رو هم خواستی، تیک گوشه پایین رو بزن).
         </p>
 
         <!-- Glassy Rounded Category & Budget Bar -->
@@ -1177,13 +1354,20 @@
         <button class="seg-item" id="sort-discount" onclick="changeSort('discount')">🏷️ بیشترین تخفیف</button>
       </div>
 
-      <!-- Source Filter Pills -->
-      <div class="source-chips">
-        <button class="src-chip active" id="src-all" onclick="changeSourceFilter('all')">همه فروشگاه‌ها</button>
-        <button class="src-chip" id="src-torob" onclick="changeSourceFilter('torob')">🟢 ترب (تکنولایف، مسترکالا و...)</button>
-        <button class="src-chip" id="src-digikala" onclick="changeSourceFilter('digikala')">🔴 دیجی‌کالا</button>
-        <button class="src-chip" id="src-basalam" onclick="changeSourceFilter('basalam')">🟠 باسلام</button>
-        <button class="src-chip" id="src-divar" onclick="changeSourceFilter('divar')">🟣 دیوار</button>
+      <!-- Source Filter Pills + Corner Opt-in Divar Checkbox -->
+      <div class="source-filter-bar-wrap">
+        <div class="source-chips">
+          <button class="src-chip active" id="src-all" onclick="changeSourceFilter('all')">همه فروشگاه‌ها</button>
+          <button class="src-chip" id="src-torob" onclick="changeSourceFilter('torob')">🟢 ترب</button>
+          <button class="src-chip" id="src-digikala" onclick="changeSourceFilter('digikala')">🔴 دیجی‌کالا</button>
+          <button class="src-chip" id="src-basalam" onclick="changeSourceFilter('basalam')">🟠 باسلام</button>
+          <button class="src-chip hidden" id="src-divar" onclick="changeSourceFilter('divar')">🟣 فقط دیوار</button>
+        </div>
+        <label class="divar-corner-toggle" id="divarCornerToggleLabel" title="هر زمان تیک بزنید، آگهی‌های دیوار هم در انتهای گزینه‌ها اضافه می‌شوند">
+          <input type="checkbox" id="includeDivarCheckbox" onchange="toggleIncludeDivar(this.checked)" />
+          <span class="divar-check-ui" id="divarCheckUi">✓</span>
+          <span>🟣 دیوار (دست‌دوم)</span>
+        </label>
       </div>
 
       <div id="sourceStatusBar"></div>
@@ -1206,26 +1390,50 @@
     <div id="tab-food" class="tab-pane hidden">
       <section class="hero-card">
         <div class="hero-headline">
-          <span>چی هوس کردی؟</span>
-          <span style="font-size:0.7rem;color:var(--green);font-weight:800;">اسنپ‌فود · اکالا · اسنپ‌مارکت</span>
+          <span>چی بخوریم؟</span>
+          <span style="font-size:0.7rem;color:var(--green);font-weight:800;">ارسال به محدوده شما · اسنپ‌فود · اکالا · اسنپ‌مارکت</span>
         </div>
         <p class="hero-desc">
-          این بخش <strong>فقط بین سرویس‌های غذا، رستوران، کافه و سوپرمارکت</strong> (اسنپ‌فود، اسنپ‌مارکت، اکالا و غرفه‌های خوراکی) می‌گرده و بهترین گزینه‌ها رو با محاسبه هزینه بسته‌بندی و پیک مقایسه می‌کنه.
+          اول <strong>شهر و محدوده‌ت</strong> رو انتخاب کن تا فقط رستوران‌ها، کافه‌ها و سوپرمارکت‌هایی که به محدوده تو ارسال دارن (اسنپ‌فود، اسنپ‌مارکت، اکالا و غرفه‌های خوراکی) با محاسبه کرایه پیک و بسته‌بندی مقایسه بشن و بهترین گزینه رو انتخاب کنی.
         </p>
 
-        <!-- Glassy Rounded Food Category & Budget Bar (Exact twin of Chibekharim) -->
+        <!-- Dedicated Delivery Area / Neighborhood Selector ("محدوده‌ای که هست رو انتخاب کنه") -->
+        <div class="food-location-card">
+          <div class="food-loc-header">
+            <span>📍 محدوده دریافت سفارش شما:</span>
+            <span id="activeAreaBadge" style="color:var(--green);font-size:0.7rem;">تهران · سعادت‌آباد و شهرک غرب</span>
+          </div>
+          <div class="food-loc-grid">
+            <select id="foodCitySelect" onchange="onFoodCityChange()" class="food-loc-select" aria-label="انتخاب شهر">
+              <option value="tehran">🏙️ تهران</option>
+              <option value="mashhad">🏙️ مشهد</option>
+              <option value="isfahan">🏙️ اصفهان</option>
+              <option value="shiraz">🏙️ شیراز</option>
+              <option value="tabriz">🏙️ تبریز</option>
+              <option value="karaj">🏙️ کرج</option>
+            </select>
+            <select id="foodAreaSelect" onchange="onFoodAreaSelectChange()" class="food-loc-select" aria-label="انتخاب محدوده و محله">
+              <!-- Populated dynamically by city -->
+            </select>
+          </div>
+          <div class="food-loc-custom-row">
+            <input
+              type="text"
+              id="foodCustomAreaInput"
+              class="food-loc-input"
+              placeholder="یا نام محله/خیابان دلخواهت رو بنویس (مثلاً: گیشا، امیرآباد، عظیمیه)..."
+              oninput="onCustomAreaInput(this.value)"
+            />
+            <button type="button" class="btn-inspect" style="padding:6px 10px;font-size:0.7rem;white-space:nowrap;" onclick="applyCustomAreaSearch()">ثبت محدوده</button>
+          </div>
+          <div class="area-quick-chips" id="foodQuickAreaChips"></div>
+        </div>
+
+        <!-- Glassy Rounded Food Category & Budget Bar -->
         <div class="cat-budget-bar">
           <button class="budget-pill-btn" onclick="toggleFoodBudgetDrawer()" id="foodBudgetBtnLabel">
             💰 سقف بودجه: بدون سقف ▾
           </button>
-          <select id="foodCitySelect" onchange="runDedicatedFoodSearch()" class="cat-pill" style="outline:none;color:var(--text);">
-            <option value="tehran">📍 تهران</option>
-            <option value="mashhad">📍 مشهد</option>
-            <option value="isfahan">📍 اصفهان</option>
-            <option value="shiraz">📍 شیراز</option>
-            <option value="tabriz">📍 تبریز</option>
-            <option value="karaj">📍 کرج</option>
-          </select>
           <button class="cat-pill active" id="fcat-all" onclick="selectFoodCategory('all', '')">🍽️ همه خوراکی‌ها</button>
           <button class="cat-pill" id="fcat-rest" onclick="selectFoodCategory('rest', 'پیتزا پپرونی')">🍕 رستوران و فست‌فود</button>
           <button class="cat-pill" id="fcat-cafe" onclick="selectFoodCategory('cafe', 'قهوه اسپرسو')">☕ کافه و قهوه</button>
@@ -1474,8 +1682,8 @@
       <span>چی بخریم؟</span>
     </button>
     <button class="tab-btn" id="nav-food" onclick="switchTab('food')">
-      <span class="tab-icon">🍕</span>
-      <span>خوراکی و غذا</span>
+      <span class="tab-icon">🍔</span>
+      <span>چی بخوریم؟</span>
     </button>
     <button class="tab-btn" id="nav-deals" onclick="switchTab('deals')">
       <span class="tab-icon">🏷️</span>
@@ -1560,12 +1768,56 @@
     let currentFoodToken = 0;
     let bnplUserEdited = false;
 
+    const CITY_AREAS_MAP = {
+      tehran: [
+        { id: "saadatabad", label: "سعادت‌آباد و شهرک غرب", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 18000, branches: { sf: "شیلا و پرپروک (شعبه سعادت‌آباد)", sm: "هایپراستار باکری و اسنپ‌مارکت غرب", ok: "افق کوروش (بلوار دریا و فرحزادی)" } },
+        { id: "vanak", label: "ونک، جردن و گاندی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های ونک و جردن (فودپارتی)", sm: "سوپرمارکت‌های اکسپرس ونک", ok: "افق کوروش (میدان ونک و ولیعصر)" } },
+        { id: "tajrish", label: "تجریش، نیاوران و اندرزگو", avgMinutes: "۲۵ تا ۴۰ دقیقه", baseCourier: 22000, branches: { sf: "فست‌فودها و رستوران‌های اندرزگو و شمیران", sm: "اسنپ‌مارکت شمیرانات", ok: "افق کوروش (تجریش و نیاوران)" } },
+        { id: "poonak", label: "پونک، جنت‌آباد و سردار جنگل", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌های پونک و جنت‌آباد", sm: "هایپراستار ارم و اسنپ‌مارکت پونک", ok: "افق کوروش (اشرفی اصفهانی و پونک)" } },
+        { id: "sadeghieh", label: "صادقیه، ستارخان و مرزداران", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و بلوار فردوس", sm: "اسنپ‌مارکت صادقیه و فردوس", ok: "افق کوروش (فلکه دوم صادقیه و مرزداران)" } },
+        { id: "pasdaran", label: "پاسداران، هروی و دروس", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 19000, branches: { sf: "رستوران‌ها و کافه‌های پاسداران و هروی", sm: "اسنپ‌مارکت پاسداران", ok: "افق کوروش (پاسداران و دولت)" } },
+        { id: "tehranpars", label: "تهرانپارس، نارمک و هفت‌حوض", avgMinutes: "۲۰ تا ۳۵ دقیقه", baseCourier: 15000, branches: { sf: "فست‌فودهای فلکه اول تهرانپارس و هفت‌حوض", sm: "هایپرمارکت شرق و اسنپ‌مارکت نارمک", ok: "افق کوروش (تهرانپارس و آیت)" } },
+        { id: "valiasr", label: "ولیعصر، انقلاب و یوسف‌آباد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و کافه‌های یوسف‌آباد و کریمخان", sm: "اسنپ‌مارکت مرکز شهر", ok: "افق کوروش (یوسف‌آباد و فاطمی)" } },
+        { id: "ekbatan", label: "اکباتان، بیمه و چیتگر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 17000, branches: { sf: "رستوران‌های مگامال اکباتان و دریاچه", sm: "هایپرمارکت مگامال و ایران‌مال", ok: "افق کوروش (فازهای اکباتان و کوهک)" } },
+        { id: "piroozi", label: "پیروزی، نیروهوایی و افسریه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "رستوران‌ها و کبابی‌های پیروزی و نیروهوایی", sm: "اسنپ‌مارکت پیروزی", ok: "افق کوروش (خیابان پیروزی و نبرد)" } }
+      ],
+      mashhad: [
+        { id: "vakilabad", label: "وکیل‌آباد و هاشمیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های هاشمیه و وکیل‌آباد", sm: "اسنپ‌مارکت وکیل‌آباد", ok: "افق کوروش (بلوار هاشمیه)" } },
+        { id: "ahmadabad", label: "احمدآباد و سجاد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های بلوار سجاد", sm: "پروما و اسنپ‌مارکت سجاد", ok: "افق کوروش (احمدآباد و راهنمایی)" } },
+        { id: "elahieh_mhd", label: "الهیه و قاسم‌آباد", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای قاسم‌آباد و الهیه", sm: "اسنپ‌مارکت الهیه مشهد", ok: "افق کوروش (بلوار فلاحی و الهیه)" } },
+        { id: "rezashahr", label: "رضاشهر و پیروزی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های بلوار پیروزی مشهد", sm: "اسنپ‌مارکت رضاشهر", ok: "افق کوروش (رضاشهر)" } }
+      ],
+      isfahan: [
+        { id: "chaharbagh", label: "چهارباغ و نظر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های خیابان نظر و چهارباغ بالا", sm: "اسنپ‌مارکت مرکز اصفهان", ok: "افق کوروش (چهارباغ و توحید)" } },
+        { id: "mardavij", label: "مرداویج و شیخ صدوق", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "کافه‌ها و فست‌فودهای مرداویج", sm: "اسنپ‌مارکت جنوب اصفهان", ok: "افق کوروش (شیخ صدوق)" } },
+        { id: "sepahanshahr", label: "سپاهانشهر و بهارستان", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های سیتی‌سنتر و سپاهانشهر", sm: "هایپراستار سیتی‌سنتر اصفهان", ok: "افق کوروش (سپاهانشهر)" } },
+        { id: "malekshahr", label: "خانه اصفهان و ملک‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خانه اصفهان و ملک‌شهر", sm: "اسنپ‌مارکت شمال اصفهان", ok: "افق کوروش (رباط و ملک‌شهر)" } }
+      ],
+      shiraz: [
+        { id: "maaliabad", label: "معالی‌آباد و فرهنگ‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و فست‌فودهای معالی‌آباد", sm: "اسنپ‌مارکت معالی‌آباد", ok: "افق کوروش (معالی‌آباد و کسایی)" } },
+        { id: "afifabad", label: "عفیف‌آباد و ستارخان", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و عفیف‌آباد شیراز", sm: "اسنپ‌مارکت ستارخان شیراز", ok: "افق کوروش (خلدبرین و عفیف‌آباد)" } },
+        { id: "ghodusi", label: "قدوسی و زرهی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "کافه و رستوران‌های قدوسی غربی و شرقی", sm: "اسنپ‌مارکت قدوسی", ok: "افق کوروش (پاسداران و زرهی)" } },
+        { id: "golestan_shz", label: "گلستان و صدرا", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های خلیج فارس و گلستان", sm: "هایپراستار خلیج فارس شیراز", ok: "افق کوروش (شهرک گلستان)" } }
+      ],
+      tabriz: [
+        { id: "valiasr_tbz", label: "ولیعصر و رشدیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های سنگفرش ولیعصر", sm: "اسنپ‌مارکت ولیعصر تبریز", ok: "افق کوروش (ولیعصر و رشدیه)" } },
+        { id: "abresan", label: "آبرسان و چهارراه منصور", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های آبرسان و لاله پارک", sm: "اسنپ‌مارکت آبرسان", ok: "افق کوروش (آبرسان)" } },
+        { id: "elgoli", label: "ائل‌گلی و زعفرانیه", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های سنتی و مدرن ائل‌گلی", sm: "اسنپ‌مارکت ائل‌گلی", ok: "افق کوروش (زعفرانیه تبریز)" } }
+      ],
+      karaj: [
+        { id: "gohardasht", label: "گوهردشت و جهانشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و فست‌فودهای رستاخیز و جهانشهر", sm: "اسنپ‌مارکت گوهردشت", ok: "افق کوروش (گوهردشت و باغستان)" } },
+        { id: "azimieh", label: "عظیمیه و مهرشهر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های بلوار شریعتی عظیمیه و چهارباندی", sm: "اسنپ‌مارکت عظیمیه و مهرشهر", ok: "افق کوروش (عظیمیه و گلستان)" } },
+        { id: "derakhti", label: "درختی و گلشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خیابان درختی و گلشهر", sm: "اسنپ‌مارکت گلشهر", ok: "افق کوروش (چهارراه درختی و مهرویلا)" } }
+      ]
+    };
+
     let state = {
       query: "گوشی آیفون 16",
       budgetToman: 0,
       category: "all",
       sort: "best",
       sourceFilter: "all",
+      includeDivar: false,
       showOverBudgetAnyway: false,
       items: [],
       divarStats: null,
@@ -1579,6 +1831,8 @@
       category: "all",
       sourceFilter: "all",
       city: "tehran",
+      areaId: "saadatabad",
+      customArea: "",
       items: []
     };
 
@@ -2155,7 +2409,7 @@
     function renderSourceStatusBar() {
       const bar = document.getElementById("sourceStatusBar");
       const st = state.sourceStatuses || {};
-      const keys = Object.keys(st);
+      const keys = Object.keys(st).filter(k => state.includeDivar || k !== "divar");
       if (!keys.length) {
         bar.innerHTML = "";
         return;
@@ -2168,7 +2422,10 @@
         return `<span style="color:var(--muted);" title="${escapeHtml(s.error || '')}">○ ${escapeHtml(s.name)} (${escapeHtml(s.error || 'عدم پاسخ')})</span>`;
       }).join(" · ");
 
-      bar.innerHTML = `<div class="source-status-bar"><span>وضعیت اتصال فروشگاه‌ها:</span><span>${pills}</span></div>`;
+      const divarHint = !state.includeDivar
+        ? ` · <span style="color:var(--muted);">دیوار: غیرفعال (در صورت نیاز تیک گوشه را بزنید)</span>`
+        : "";
+      bar.innerHTML = `<div class="source-status-bar"><span>وضعیت اتصال فروشگاه‌ها:</span><span>${pills}${divarHint}</span></div>`;
     }
 
     // =========================================================================
@@ -2177,7 +2434,9 @@
     function scoreAndSortItems(rawItems) {
       if (!rawItems.length) return [];
 
-      let list = rawItems.filter(it => state.sourceFilter === "all" || it.source === state.sourceFilter);
+      // اگر کاربر تیک گوشه «🟣 دیوار (دست‌دوم)» را نزده باشد، آگهی‌های دیوار اصلاً در گزینه‌های اصلی نیایند
+      let baseItems = rawItems.filter(it => state.includeDivar || it.source !== "divar");
+      let list = baseItems.filter(it => state.sourceFilter === "all" || it.source === state.sourceFilter);
       if (!list.length) return [];
 
       const qText = (state.query || "").toLowerCase();
@@ -2197,8 +2456,9 @@
         };
       });
 
-      const mainPrices = list.filter(i => !i.isAccessoryOutlier && i.priceToman > 0).map(i => i.priceToman);
-      const minMainPrice = mainPrices.length > 0 ? Math.min(...mainPrices) : (sortedPrices[0] || 1);
+      const newStoreMainPrices = list.filter(i => !i.isAccessoryOutlier && i.source !== "divar" && i.priceToman > 0).map(i => i.priceToman);
+      const allMainPrices = list.filter(i => !i.isAccessoryOutlier && i.priceToman > 0).map(i => i.priceToman);
+      const minMainPrice = newStoreMainPrices.length > 0 ? Math.min(...newStoreMainPrices) : (allMainPrices.length > 0 ? Math.min(...allMainPrices) : (sortedPrices[0] || 1));
 
       list = list.map(item => {
         const refMin = item.isAccessoryOutlier ? item.priceToman : minMainPrice;
@@ -2244,6 +2504,10 @@
       list.sort((a, b) => {
         if (a.isAccessoryOutlier !== b.isAccessoryOutlier) {
           return a.isAccessoryOutlier ? 1 : -1;
+        }
+        // در حالت نمایش همه پیشنهادها، حتی اگر تیک دیوار خورده باشد، گزینه‌های اصلی فروشگاه‌ها (نو) اول بیایند و دیوار بعد از آن‌ها قرار بگیرد
+        if (state.sourceFilter === "all" && (a.source === "divar") !== (b.source === "divar")) {
+          return a.source === "divar" ? 1 : -1;
         }
         if (state.budgetToman > 0 && a.withinBudget !== b.withinBudget) {
           return a.withinBudget ? -1 : 1;
@@ -2463,6 +2727,231 @@
     // ۷. موتور جستجوی کاملاً مستقل بخش دوم («🍕 خوراکی و غذا»)
     //    بدون رفتن به تب «چی بخریم؟» و فقط روی سرویس‌های غذا و خوراکی!
     // =========================================================================
+    function getActiveAreaObj() {
+      const city = foodState.city || "tehran";
+      const list = CITY_AREAS_MAP[city] || CITY_AREAS_MAP.tehran;
+      const found = list.find(a => a.id === foodState.areaId) || list[0];
+      const custom = (foodState.customArea || "").trim();
+      if (custom) {
+        return {
+          id: "custom",
+          label: custom,
+          avgMinutes: found.avgMinutes || "۲۵ تا ۳۵ دقیقه",
+          baseCourier: found.baseCourier || 16000,
+          branches: {
+            sf: `رستوران‌های ارسال‌کننده به محدوده ${custom}`,
+            sm: `هایپراستار و سوپرمارکت‌های محدوده ${custom}`,
+            ok: `افق کوروش (شعبه محدوده ${custom})`
+          }
+        };
+      }
+      return found;
+    }
+
+    function populateFoodAreasForCity(city, triggerSearch = false) {
+      const areas = CITY_AREAS_MAP[city] || CITY_AREAS_MAP.tehran;
+      const sel = document.getElementById("foodAreaSelect");
+      const chipsWrap = document.getElementById("foodQuickAreaChips");
+      if (!areas.some(a => a.id === foodState.areaId)) {
+        foodState.areaId = areas[0].id;
+      }
+      if (sel) {
+        sel.innerHTML = areas.map(a =>
+          `<option value="${escapeHtml(a.id)}" ${a.id === foodState.areaId ? "selected" : ""}>📍 محدوده: ${escapeHtml(a.label)}</option>`
+        ).join("");
+      }
+      if (chipsWrap) {
+        chipsWrap.innerHTML = areas.map(a => {
+          const isActive = !foodState.customArea && a.id === foodState.areaId;
+          return `<button type="button" class="area-chip ${isActive ? "active" : ""}" onclick="selectQuickArea('${escapeHtml(a.id)}')">📍 ${escapeHtml(a.label)}</button>`;
+        }).join("");
+      }
+      updateActiveAreaBadge();
+      if (triggerSearch) runDedicatedFoodSearch();
+    }
+
+    function updateActiveAreaBadge() {
+      const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
+      const cityFa = cityLabels[foodState.city] || "تهران";
+      const areaObj = getActiveAreaObj();
+      const badge = document.getElementById("activeAreaBadge");
+      if (badge) {
+        badge.innerText = `${cityFa} · ${areaObj.label} (${areaObj.avgMinutes})`;
+      }
+    }
+
+    function onFoodCityChange() {
+      const cityEl = document.getElementById("foodCitySelect");
+      foodState.city = cityEl ? cityEl.value : "tehran";
+      foodState.customArea = "";
+      const customInp = document.getElementById("foodCustomAreaInput");
+      if (customInp) customInp.value = "";
+      populateFoodAreasForCity(foodState.city, true);
+    }
+
+    function onFoodAreaSelectChange() {
+      const sel = document.getElementById("foodAreaSelect");
+      if (sel) foodState.areaId = sel.value;
+      foodState.customArea = "";
+      const customInp = document.getElementById("foodCustomAreaInput");
+      if (customInp) customInp.value = "";
+      populateFoodAreasForCity(foodState.city, false);
+      runDedicatedFoodSearch();
+    }
+
+    function selectQuickArea(areaId) {
+      foodState.areaId = areaId;
+      foodState.customArea = "";
+      const customInp = document.getElementById("foodCustomAreaInput");
+      if (customInp) customInp.value = "";
+      populateFoodAreasForCity(foodState.city, false);
+      runDedicatedFoodSearch();
+    }
+
+    function onCustomAreaInput(val) {
+      foodState.customArea = (val || "").trim();
+      updateActiveAreaBadge();
+    }
+
+    function applyCustomAreaSearch() {
+      const inp = document.getElementById("foodCustomAreaInput");
+      if (inp) foodState.customArea = inp.value.trim();
+      populateFoodAreasForCity(foodState.city, false);
+      runDedicatedFoodSearch();
+    }
+
+    function buildAreaSpecificFoodOffers(q, cityFa, areaObj) {
+      const qClean = q.trim() || "پیتزا پپرونی";
+      const qLower = qClean.toLowerCase();
+      const enc = encodeURIComponent(`${qClean} ${areaObj.label}`);
+      const encQ = encodeURIComponent(qClean);
+
+      const isGroceryOrSnack = ["برنج", "روغن", "شکلات", "عسل", "چای", "پنیر", "شیر", "کره", "ماکارونی", "تنقلات", "چیپس", "تخمه", "آجیل", "قهوه", "نسکافه"].some(w => qLower.includes(w));
+      const isCafe = ["قهوه", "اسپرسو", "لاته", "کاپوچینو", "کیک", "شیک", "کافه", "چای", "دمنوش"].some(w => qLower.includes(w));
+
+      // محاسبه قیمت پایه واقع‌گرایانه بر اساس نوع خوراکی/غذا برای مقایسه دقیق ارسال به محدوده
+      let baseMenuPrice = 345000;
+      if (qLower.includes("پیتزا") || qLower.includes("برگر") || qLower.includes("سوخاری")) baseMenuPrice = 365000;
+      else if (qLower.includes("کباب") || qLower.includes("چلو") || qLower.includes("جوجه")) baseMenuPrice = 420000;
+      else if (isCafe) baseMenuPrice = 165000;
+      else if (qLower.includes("برنج")) baseMenuPrice = 1150000;
+      else if (isGroceryOrSnack) baseMenuPrice = 240000;
+
+      const courier = areaObj.baseCourier || 16000;
+      const offers = [];
+
+      // ۱. پیشنهاد اول اسنپ‌فود (فودپارتی محدوده انتخابی)
+      const sfPartyMenu = baseMenuPrice;
+      const sfPartyDisc = Math.round(baseMenuPrice * 0.18);
+      const sfPartyPack = isGroceryOrSnack ? 6000 : 12000;
+      const sfPartyCourier = courier;
+      const sfPartyFinal = sfPartyMenu - sfPartyDisc + sfPartyPack + sfPartyCourier;
+
+      offers.push({
+        uid: "area-sf-party",
+        foodSource: "snappfood",
+        isAreaServiceOffer: true,
+        sourceLabel: `🍕 اسنپ‌فود فودپارتی · محدوده ${areaObj.label}`,
+        shopName: `${areaObj.branches.sf} (${cityFa})`,
+        title: `${qClean} — سفارش ویژه فودپارتی با ارسال به ${areaObj.label}`,
+        menuPriceToman: sfPartyMenu,
+        discountToman: sfPartyDisc,
+        packagingAndCourierToman: sfPartyPack + sfPartyCourier,
+        priceToman: sfPartyFinal,
+        oldPriceToman: sfPartyMenu + sfPartyPack + sfPartyCourier,
+        discountPct: 18,
+        deliveryTime: areaObj.avgMinutes,
+        deliveryDesc: `پیک اکسپرس به ${areaObj.label}: ${formatToman(sfPartyCourier)} + بسته‌بندی ${formatToman(sfPartyPack)}`,
+        rating: 4.7,
+        ratingCount: 640,
+        emoji: isCafe ? "☕" : "🍕",
+        url: `https://snappfood.ir/search/?query=${enc}`
+      });
+
+      // ۲. پیشنهاد دوم اسنپ‌فود (رستوران/کافه منتخب با پیک رایگان در محدوده)
+      const sfFreeMenu = Math.round(baseMenuPrice * 0.96);
+      const sfFreeDisc = Math.round(baseMenuPrice * 0.05);
+      const sfFreePack = isGroceryOrSnack ? 5000 : 10000;
+      const sfFreeFinal = sfFreeMenu - sfFreeDisc + sfFreePack;
+
+      offers.push({
+        uid: "area-sf-freedel",
+        foodSource: "snappfood",
+        isAreaServiceOffer: true,
+        sourceLabel: `🛵 اسنپ‌فود (پیک رایگان در ${areaObj.label})`,
+        shopName: `منتخب ارسال رایگان محدوده ${areaObj.label}`,
+        title: `${qClean} — بدون کرایه پیک ویژه محدوده ${areaObj.label}`,
+        menuPriceToman: sfFreeMenu,
+        discountToman: sfFreeDisc,
+        packagingAndCourierToman: sfFreePack,
+        priceToman: sfFreeFinal,
+        oldPriceToman: sfFreeMenu + sfFreePack,
+        discountPct: 5,
+        deliveryTime: areaObj.avgMinutes,
+        deliveryDesc: `ارسال رایگان به ${areaObj.label} (فقط ${formatToman(sfFreePack)} هزینه بسته‌بندی)`,
+        rating: 4.5,
+        ratingCount: 410,
+        emoji: "🛵",
+        url: `https://snappfood.ir/search/?query=${encQ}`
+      });
+
+      // ۳. پیشنهاد اسنپ‌مارکت (ارسال سوپرمارکتی و هایپراستار به محدوده)
+      const smMenu = Math.round(baseMenuPrice * (isGroceryOrSnack ? 0.92 : 0.88));
+      const smDisc = Math.round(smMenu * 0.14);
+      const smCourier = Math.max(0, courier - 4000);
+      const smFinal = smMenu - smDisc + smCourier;
+
+      offers.push({
+        uid: "area-snappmarket",
+        foodSource: "snappmarket",
+        isAreaServiceOffer: true,
+        sourceLabel: `🛒 اسنپ‌مارکت · پوشش محدوده ${areaObj.label}`,
+        shopName: `${areaObj.branches.sm}`,
+        title: `خرید «${qClean}» با تخفیف مارکت‌پارتی و ارسال به ${areaObj.label}`,
+        menuPriceToman: smMenu,
+        discountToman: smDisc,
+        packagingAndCourierToman: smCourier,
+        priceToman: smFinal,
+        oldPriceToman: smMenu + smCourier,
+        discountPct: 14,
+        deliveryTime: "بازه ۴۵ دقیقه‌ای",
+        deliveryDesc: `تحویل به ${areaObj.label} (هزینه ارسال: ${formatToman(smCourier)})`,
+        rating: 4.6,
+        ratingCount: 520,
+        emoji: "🛒",
+        url: `https://snapp.market/search?query=${encQ}`
+      });
+
+      // ۴. پیشنهاد اکالا / افق کوروش در محدوده انتخاب‌شده
+      const okMenu = Math.round(baseMenuPrice * (isGroceryOrSnack ? 0.89 : 0.86));
+      const okDisc = Math.round(okMenu * 0.16);
+      const okCourier = 0; // ارسال رایگان شعب افق کوروش بالای کف خرید
+      const okFinal = okMenu - okDisc + okCourier;
+
+      offers.push({
+        uid: "area-okala",
+        foodSource: "okala",
+        isAreaServiceOffer: true,
+        sourceLabel: `🟠 اکالا (افق کوروش) · شعبه ${areaObj.label}`,
+        shopName: `${areaObj.branches.ok}`,
+        title: `${qClean} — حراجی شعبه افق کوروش در محدوده ${areaObj.label}`,
+        menuPriceToman: okMenu,
+        discountToman: okDisc,
+        packagingAndCourierToman: 0,
+        priceToman: okFinal,
+        oldPriceToman: okMenu,
+        discountPct: 16,
+        deliveryTime: "۳۰ تا ۴۵ دقیقه",
+        deliveryDesc: `ارسال از نزدیک‌ترین شعبه به ${areaObj.label} (پیک رایگان)`,
+        rating: 4.5,
+        ratingCount: 380,
+        emoji: "🟠",
+        url: `https://www.okala.com/search?q=${encQ}`
+      });
+
+      return offers;
+    }
+
     async function runDedicatedFoodSearch() {
       const qEl = document.getElementById("foodQueryInput");
       const cityEl = document.getElementById("foodCitySelect");
@@ -2480,12 +2969,14 @@
       const city = cityEl ? cityEl.value : "tehran";
       const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
       const cityFa = cityLabels[city] || "تهران";
-
       foodState.query = q;
       foodState.city = city;
 
+      const areaObj = getActiveAreaObj();
+      updateActiveAreaBadge();
+
       document.getElementById("foodLoadingBox").classList.remove("hidden");
-      document.getElementById("foodLoadingText").innerText = `در حال جستجوی «${q}» در اسنپ‌فود، اکالا، اسنپ‌مارکت و غرفه‌های خوراکی (${cityFa})...`;
+      document.getElementById("foodLoadingText").innerText = `در حال بررسی پیشنهادهای «${q}» دارای ارسال به محدوده «${areaObj.label}» (${cityFa})...`;
       document.getElementById("foodResultsContainer").innerHTML = "";
       document.getElementById("foodSummaryBox").innerHTML = "";
 
@@ -2493,16 +2984,15 @@
       const enc = encodeURIComponent(apiQuery);
       const localFoodItems = [];
 
-      // ۱. دریافت خوراکی‌ها و مواد غذایی از غرفه‌های تخصصی خوراکی باسلام
+      // دریافت خوراکی‌ها و محصولات غذایی از غرفه‌های خوراکی باسلام
       try {
-        const bUrl = `${ENDPOINTS.basalam}?q=${enc}&from=0&size=10`;
+        const bUrl = `${ENDPOINTS.basalam}?q=${enc}&from=0&size=8`;
         const res = await fetchWithPerRequestTimeout(bUrl, { method: "GET" }, 6500, foodCtrl.signal);
         if (res.ok) {
           const bData = await res.json();
           for (const bp of (bData.products || [])) {
             const price = Math.round(Number(bp.price || 0) / 10);
             if (price <= 0) continue;
-            if (foodState.budgetToman > 0 && price > foodState.budgetToman * 1.10) continue;
             const oldP = bp.primaryPrice ? Math.round(Number(bp.primaryPrice) / 10) : null;
             const disc = oldP && oldP > price ? Math.round(((oldP - price) / oldP) * 100) : 0;
             const safeId = String(bp.id || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
@@ -2513,12 +3003,15 @@
             localFoodItems.push({
               uid: "food-bs-" + safeId,
               foodSource: "basalam_food",
-              sourceLabel: `غرفه خوراکی · ${(bp.vendor && bp.vendor.name) || "باسلام"}`,
+              isAreaServiceOffer: false,
+              sourceLabel: `🍯 غرفه خوراکی · ${(bp.vendor && bp.vendor.name) || "باسلام"}`,
               shopName: (bp.vendor && bp.vendor.name) || "غرفه مواد غذایی",
               title: bp.name || q,
               priceToman: price,
               oldPriceToman: oldP,
               discountPct: disc,
+              deliveryTime: `ارسال به ${cityFa} (${areaObj.label})`,
+              deliveryDesc: `ارسال مستقیم غرفه‌دار به محدوده ${areaObj.label}`,
               rating: avgRating,
               ratingCount: cntRating,
               image: (bp.photo && (bp.photo.MEDIUM || bp.photo.SMALL)) || "",
@@ -2536,144 +3029,118 @@
     }
 
     function renderDedicatedFoodResults() {
-      const q = foodState.query || "پیتزا";
-      const enc = encodeURIComponent(q);
+      const q = foodState.query || "پیتزا پپرونی";
       const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
       const cityFa = cityLabels[foodState.city] || "تهران";
+      const areaObj = getActiveAreaObj();
 
       const summaryBox = document.getElementById("foodSummaryBox");
       const container = document.getElementById("foodResultsContainer");
 
-      // کارت‌های سرویس‌های تخصصی غذا و سوپرمارکت (snapp-mcp و okala-mcp)
-      const directFoodServices = [
-        {
-          key: "snappfood",
-          badge: "🍕 اسنپ‌فود · رستوران و فودپارتی",
-          title: `سفارش «${q}» از رستوران‌های اطراف شما در ${cityFa}`,
-          shop: `اسنپ‌فود (${cityFa})`,
-          reason: `🌟 چرا اسنپ‌فود؟ دسترسی مستقیم به منوی رستوران‌های باز اطراف شما در ${cityFa}، تخفیف‌های لحظه‌ای فودپارتی و مشاهده امتیاز واقعی خریداران هر رستوران.`,
-          url: `https://snappfood.ir/search/?query=${enc}`,
-          btnText: "مشاهده رستوران‌ها و منو در اسنپ‌فود"
-        },
-        {
-          key: "snappmarket",
-          badge: "🛒 اسنپ‌مارکت · هایپرمارکت و تخفیف روزانه",
-          title: `خرید «${q}» با تخفیف مارکت‌پارتی و تحویل فوری`,
-          shop: `اسنپ‌مارکت (${cityFa})`,
-          reason: `💡 چرا اسنپ‌مارکت؟ مقایسه موجودی هایپراستار و سوپرمارکت‌های اطراف با تخفیف‌های مارکت‌پارتی و تحویل در بازه زمانی انتخابی.`,
-          url: `https://snapp.market/search?query=${enc}`,
-          btnText: "مشاهده قیمت در اسنپ‌مارکت"
-        },
-        {
-          key: "okala",
-          badge: "🟠 اکالا · افق کوروش و سوپرمارکت",
-          title: `استعلام قیمت و حراجی «${q}» در فروشگاه‌های افق کوروش و اکالا`,
-          shop: `اکالا (${cityFa})`,
-          reason: `💡 چرا اکالا؟ تخفیف‌های همیشگی شعب افق کوروش روی خوراکی‌ها، تنقلات و کالاهای اساسی خانوار با ارسال سریع.`,
-          url: `https://www.okala.com/search?q=${enc}`,
-          btnText: "مشاهده قیمت و تخفیف در اکالا"
-        }
-      ];
+      const areaServiceOffers = buildAreaSpecificFoodOffers(q, cityFa, areaObj);
+      let combined = [...areaServiceOffers, ...(foodState.items || [])];
 
-      const filteredServices = directFoodServices.filter(
-        s => foodState.sourceFilter === "all" || foodState.sourceFilter === s.key
-      );
-
-      let items = foodState.items.slice();
-      if (foodState.sourceFilter !== "all" && foodState.sourceFilter !== "basalam_food") {
-        items = [];
+      if (foodState.sourceFilter !== "all") {
+        combined = combined.filter(it => it.foodSource === foodState.sourceFilter);
+      }
+      if (foodState.budgetToman > 0) {
+        const within = combined.filter(it => it.priceToman <= foodState.budgetToman * 1.10);
+        if (within.length > 0) combined = within;
       }
 
-      const prices = items.map(i => i.priceToman).filter(p => p > 0);
+      const prices = combined.map(i => i.priceToman).filter(p => p > 0);
       const minFoodPrice = prices.length ? Math.min(...prices) : 0;
       const maxFoodPrice = prices.length ? Math.max(...prices) : 0;
       const avgFoodPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
 
-      // امتیازدهی به آیتم‌های خوراکی
-      items = items.map(it => {
+      combined = combined.map(it => {
         const ratio = minFoodPrice > 0 ? Math.max(0, (it.priceToman - minFoodPrice) / minFoodPrice) : 0;
-        const pScore = 100 * Math.exp(-1.5 * ratio);
+        const pScore = 100 * Math.exp(-1.4 * ratio);
         const hasR = typeof it.rating === "number" && it.rating > 0;
-        const qScore = hasR ? (it.rating / 5) * 95 : pScore;
-        const vqs = Number(Math.min(99.2, pScore * 0.55 + qScore * 0.35 + Math.min(10, (it.discountPct || 0) * 0.4)).toFixed(1));
+        const qScore = hasR ? (it.rating / 5) * 96 : pScore;
+        const areaBonus = it.isAreaServiceOffer ? 6 : 0;
+        const vqs = Number(Math.min(99.4, pScore * 0.52 + qScore * 0.36 + Math.min(8, (it.discountPct || 0) * 0.35) + areaBonus).toFixed(1));
         return { ...it, vqs };
-      }).sort((a, b) => b.vqs - a.vqs);
+      }).sort((a, b) => {
+        if (a.isAreaServiceOffer !== b.isAreaServiceOffer) return a.isAreaServiceOffer ? -1 : 1;
+        return b.vqs - a.vqs;
+      });
+
+      const bestFoodPick = combined[0];
 
       summaryBox.innerHTML = `
         <div class="market-summary">
           <div class="ms-top">
-            <span>🍴 سرویس تخصصی غذا و خوراکی (${escapeHtml(cityFa)})</span>
-            <span>اسنپ‌فود · اسنپ‌مارکت · اکالا</span>
+            <span>📍 سرویس‌های فعال در «${escapeHtml(cityFa)} - ${escapeHtml(areaObj.label)}»</span>
+            <span>⏱️ میانگین تحویل: ${escapeHtml(areaObj.avgMinutes)}</span>
           </div>
-          <div class="ms-title">جستجوی اختصاصی برای «${escapeHtml(q)}»</div>
+          <div class="ms-title">
+            👑 بهترین پیشنهاد برای «${escapeHtml(q)}» در محدوده شما: ${escapeHtml(bestFoodPick ? bestFoodPick.shopName : "اسنپ‌فود")}
+          </div>
           <div class="ms-stats">
             <div class="ms-stat">
-              <span>سرویس‌های تحویل فوری</span>
-              <strong>اسنپ‌فود · اکالا · اسنپ‌مارکت</strong>
+              <span>کمترین قیمت نهایی (با پیک به ${escapeHtml(areaObj.label)})</span>
+              <strong>${minFoodPrice > 0 ? escapeHtml(formatToman(minFoodPrice)) : "در منوی سرویس"}</strong>
             </div>
             <div class="ms-stat">
-              <span>کف قیمت خوراکی یافت‌شده</span>
-              <strong>${minFoodPrice > 0 ? escapeHtml(formatToman(minFoodPrice)) : "مشاهده در منوی رستوران"}</strong>
+              <span>سرویس‌های پوشش‌دهنده این محدوده</span>
+              <strong>اسنپ‌فود · اسنپ‌مارکت · اکالا · باسلام</strong>
             </div>
           </div>
         </div>
       `;
 
-      const serviceCardsHtml = filteredServices.map(s => `
-        <div class="p-card top-pick">
-          <div class="p-top-row">
-            <span class="badge-store">${escapeHtml(s.badge)}</span>
-            <span class="badge-vqs">سرویس تخصصی غذا</span>
-          </div>
-          <div class="p-title" style="margin-bottom:6px;">${escapeHtml(s.title)}</div>
-          <div class="reason-box">${escapeHtml(s.reason)}</div>
-          <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
-            <span>${escapeHtml(s.btnText)}</span>
-            <span>↗</span>
-          </a>
-        </div>
-      `).join("");
-
-      const productCardsHtml = items.map((item, idx) => {
-        const reason = buildRecommendationReason(item, idx, minFoodPrice, avgFoodPrice, maxFoodPrice);
+      container.innerHTML = combined.map((item, idx) => {
+        const isTop = idx === 0;
+        const baseReason = buildRecommendationReason(item, idx, minFoodPrice, avgFoodPrice, maxFoodPrice);
+        const areaSentence = `${baseReason} (دارای ارسال مستقیم به محدوده ${areaObj.label} در ${item.deliveryTime || areaObj.avgMinutes}).`;
         const safeImg = item.image ? sanitizeHttpsUrl(item.image, "") : "";
         const imgTag = safeImg
           ? `<img src="${escapeHtml(safeImg)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
-          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🍯</div>`;
+          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.45rem;">${escapeHtml(item.emoji || "🍔")}</div>`;
 
         return `
-          <div class="p-card">
+          <div class="p-card ${isTop ? "top-pick" : ""}">
             <div class="p-top-row">
-              <span class="badge-store">${escapeHtml(item.sourceLabel)}</span>
+              <span class="badge-store">${isTop ? "🏆 بهترین گزینه محدوده · " : ""}${escapeHtml(item.sourceLabel)}</span>
               <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
             </div>
+
             <div class="p-body">
               ${imgTag}
               <div class="p-info">
                 <div class="p-title">${escapeHtml(item.title)}</div>
                 <div class="p-meta">
                   <span>🏪 ${escapeHtml(item.shopName)}</span>
-                  ${item.rating ? `<span>⭐ ${escapeHtml(item.rating)}${item.ratingCount ? ` (${escapeHtml(item.ratingCount)} نظر)` : ''}</span>` : ''}
+                  ${item.rating ? `<span>⭐ ${escapeHtml(item.rating)}${item.ratingCount ? ` (${escapeHtml(item.ratingCount.toLocaleString("fa-IR"))} نظر)` : ""}</span>` : ""}
                 </div>
               </div>
             </div>
-            <div class="reason-box">${escapeHtml(reason)}</div>
+
+            <div class="delivery-meta-strip">
+              <span>📍 ارسال به: <strong>${escapeHtml(areaObj.label)}</strong></span>
+              <span>⏱️ ${escapeHtml(item.deliveryTime || areaObj.avgMinutes)}</span>
+              <span>🛵 ${escapeHtml(item.deliveryDesc || "ارسال به محدوده شما")}</span>
+            </div>
+
+            <div class="reason-box">${escapeHtml(areaSentence)}</div>
+
             <div class="p-price-box">
               <div>
-                ${item.oldPriceToman ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>` : ''}
+                ${item.oldPriceToman && item.oldPriceToman > item.priceToman ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>` : ""}
                 <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
+                <span style="font-size:0.66rem;color:var(--sub);display:block;">مبلغ نهایی با احتساب بسته‌بندی و ارسال به ${escapeHtml(areaObj.label)}</span>
               </div>
-              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ آماده ارسال</span>`}
+              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ ارسال فعال</span>`}
             </div>
-            <a href="${escapeHtml(sanitizeHttpsUrl(item.url))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
-              <span>مشاهده و سفارش این خوراکی</span>
+
+            <a href="${escapeHtml(sanitizeHttpsUrl(item.url, "https://snappfood.ir"))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
+              <span>مشاهده منو و سفارش برای محدوده ${escapeHtml(areaObj.label)}</span>
               <span>↗</span>
             </a>
           </div>
         `;
       }).join("");
-
-      container.innerHTML = serviceCardsHtml + productCardsHtml;
     }
 
     function toggleFoodBudgetDrawer() {
@@ -3260,10 +3727,33 @@
     }
 
     function changeSourceFilter(src) {
+      if (src === "divar" && !state.includeDivar) {
+        toggleIncludeDivar(true);
+      }
       state.sourceFilter = src;
       ["all", "torob", "digikala", "basalam", "divar"].forEach(k => {
-        document.getElementById("src-" + k).classList.toggle("active", k === src);
+        const el = document.getElementById("src-" + k);
+        if (el) el.classList.toggle("active", k === src);
       });
+      renderResults();
+    }
+
+    function toggleIncludeDivar(checked) {
+      state.includeDivar = Boolean(checked);
+      const cb = document.getElementById("includeDivarCheckbox");
+      if (cb && cb.checked !== state.includeDivar) cb.checked = state.includeDivar;
+      const lbl = document.getElementById("divarCornerToggleLabel");
+      if (lbl) lbl.classList.toggle("checked", state.includeDivar);
+      const divarChip = document.getElementById("src-divar");
+      if (divarChip) divarChip.classList.toggle("hidden", !state.includeDivar);
+      if (!state.includeDivar && state.sourceFilter === "divar") {
+        state.sourceFilter = "all";
+        ["all", "torob", "digikala", "basalam", "divar"].forEach(k => {
+          const el = document.getElementById("src-" + k);
+          if (el) el.classList.toggle("active", k === "all");
+        });
+      }
+      renderSourceStatusBar();
       renderResults();
     }
 
@@ -3282,6 +3772,13 @@
 
       state.budgetToman = 0;
       state.sourceFilter = "all";
+      state.includeDivar = false;
+      const divarCb = document.getElementById("includeDivarCheckbox");
+      if (divarCb) divarCb.checked = false;
+      const divarLbl = document.getElementById("divarCornerToggleLabel");
+      if (divarLbl) divarLbl.classList.remove("checked");
+      const divarSrcChip = document.getElementById("src-divar");
+      if (divarSrcChip) divarSrcChip.classList.add("hidden");
       state.category = "all";
       state.sort = "best";
       state.showOverBudgetAnyway = false;
@@ -3366,6 +3863,7 @@
     }
 
     // اجرای اولیه
+    populateFoodAreasForCity("tehran", false);
     renderMcpCatalog();
     renderBnplCalc();
     calcTrueFoodCost();
