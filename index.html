@@ -3,165 +3,311 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>امین شاپ | دستیار هوشمند مقایسه و خرید ایران</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>چی بخریم؟ | خرید هوشمند و مقایسه لحظه‌ای با هوش مصنوعی (Mcp-amin)</title>
   <style>
     :root {
-      --ios-bg: #F2F2F7;
-      --ios-card: #FFFFFF;
-      --ios-card-secondary: #F9F9FB;
-      --ios-text: #1C1C1E;
-      --ios-subtext: #6C6C70;
-      --ios-blue: #007AFF;
-      --ios-green: #34C759;
-      --ios-orange: #FF9500;
-      --ios-red: #FF3B30;
-      --ios-purple: #5856D6;
-      --ios-border: rgba(60, 60, 67, 0.12);
-      --ios-seg-bg: rgba(118, 118, 128, 0.12);
-      --ios-glass: rgba(255, 255, 255, 0.82);
-      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --bg: #F2F2F7;
+      --card: #FFFFFF;
+      --card-2: #F8F8FA;
+      --text: #1C1C1E;
+      --sub: #6C6C70;
+      --muted: #8E8E93;
+      --blue: #007AFF;
+      --blue-soft: rgba(0, 122, 255, 0.1);
+      --green: #34C759;
+      --green-soft: rgba(52, 199, 89, 0.12);
+      --orange: #FF9500;
+      --orange-soft: rgba(255, 149, 0, 0.12);
+      --red: #FF3B30;
+      --red-soft: rgba(255, 59, 48, 0.12);
+      --purple: #5856D6;
+      --border: rgba(60, 60, 67, 0.11);
+      --seg: rgba(118, 118, 128, 0.12);
+      --glass: rgba(255, 255, 255, 0.85);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
     body.dark {
-      --ios-bg: #000000;
-      --ios-card: #1C1C1E;
-      --ios-card-secondary: #2C2C2E;
-      --ios-text: #F2F2F7;
-      --ios-subtext: #98989D;
-      --ios-blue: #0A84FF;
-      --ios-green: #30D158;
-      --ios-orange: #FF9F0A;
-      --ios-red: #FF453A;
-      --ios-border: rgba(255, 255, 255, 0.12);
-      --ios-seg-bg: rgba(118, 118, 128, 0.24);
-      --ios-glass: rgba(28, 28, 30, 0.82);
-      --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --bg: #000000;
+      --card: #1C1C1E;
+      --card-2: #2C2C2E;
+      --text: #F2F2F7;
+      --sub: #98989D;
+      --muted: #636366;
+      --blue: #0A84FF;
+      --blue-soft: rgba(10, 132, 255, 0.16);
+      --green: #30D158;
+      --green-soft: rgba(48, 209, 88, 0.16);
+      --orange: #FF9F0A;
+      --orange-soft: rgba(255, 159, 10, 0.16);
+      --red: #FF453A;
+      --red-soft: rgba(255, 69, 58, 0.16);
+      --purple: #5E5CE6;
+      --border: rgba(255, 255, 255, 0.12);
+      --seg: rgba(118, 118, 128, 0.24);
+      --glass: rgba(28, 28, 30, 0.86);
+      --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Geeza Pro', 'Segoe UI', Tahoma, system-ui, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--ios-bg);
-      color: var(--ios-text);
-      padding-bottom: 92px;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      padding-bottom: 88px;
+      line-height: 1.55;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
-    /* Compact iOS Top Navigation Bar (52px) */
-    .ios-navbar {
+    /* Ultra-clean iOS Top Navigation Bar */
+    .ios-header {
       position: sticky;
       top: 0;
-      z-index: 90;
-      height: 54px;
-      background: var(--ios-glass);
+      z-index: 100;
+      height: 52px;
+      background: var(--glass);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 0.5px solid var(--ios-border);
+      border-bottom: 0.5px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
     }
 
-    .nav-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 800;
-      font-size: 1.02rem;
-      letter-spacing: -0.2px;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--ios-green);
-      box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
-    }
-
-    .nav-actions {
+    .brand-wrap {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .icon-btn {
-      background: var(--ios-seg-bg);
-      border: none;
-      color: var(--ios-text);
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.95rem;
+    }
+
+    .brand-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-sub {
+      font-size: 0.68rem;
+      color: var(--green);
+      font-weight: 700;
+      background: var(--green-soft);
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: var(--seg);
+      color: var(--text);
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
     }
 
     .container {
-      max-width: 680px;
+      max-width: 660px;
       margin: 0 auto;
-      padding: 14px 14px 24px;
+      padding: 14px 14px 28px;
     }
 
-    /* iOS Spotlight Search Box */
-    .search-card {
-      background: var(--ios-card);
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: var(--shadow-sm);
-      border: 0.5px solid var(--ios-border);
+    /* Hero Intro ("چی بخریم؟ دنبال چی می‌گردی؟") */
+    .hero-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      border: 0.5px solid var(--border);
       margin-bottom: 12px;
     }
 
-    .search-bar-wrap {
+    .hero-headline {
+      font-size: 1.15rem;
+      font-weight: 900;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      background: var(--ios-seg-bg);
-      border-radius: 12px;
-      padding: 4px 10px;
-      gap: 8px;
+      justify-content: space-between;
+    }
+
+    .hero-desc {
+      font-size: 0.78rem;
+      color: var(--sub);
+      margin-bottom: 12px;
+    }
+
+    /* Category Pills + Budget Trigger Row (Exact chibekharim style) */
+    .cat-budget-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .cat-budget-bar::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      border: 0.5px solid var(--border);
+      background: var(--card-2);
+      color: var(--sub);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .cat-pill.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .budget-pill-btn {
+      border: 1px solid var(--blue);
+      background: var(--blue-soft);
+      color: var(--blue);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Budget Drawer ("حداکثر چقدر بپردازی؟") */
+    .budget-drawer {
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
       margin-bottom: 10px;
     }
 
-    .search-icon {
-      color: var(--ios-subtext);
-      font-size: 1rem;
+    .budget-drawer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .b-opt {
+      border: 0.5px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 7px 6px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .b-opt.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .budget-custom-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .budget-input {
+      flex: 1;
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .budget-note {
+      font-size: 0.69rem;
+      color: var(--sub);
+      margin-top: 6px;
+    }
+
+    /* Spotlight Search Input */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--seg);
+      border-radius: 14px;
+      padding: 4px 10px;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .search-input {
       flex: 1;
       border: none;
       background: transparent;
-      color: var(--ios-text);
-      font-size: 0.96rem;
-      font-weight: 500;
-      padding: 8px 2px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 9px 2px;
       outline: none;
       min-width: 0;
     }
 
-    .clear-btn {
+    .clear-x {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: none;
       background: rgba(142, 142, 147, 0.35);
       color: #fff;
-      border: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
       font-size: 0.72rem;
       display: flex;
       align-items: center;
@@ -170,273 +316,256 @@
       flex-shrink: 0;
     }
 
-    .search-submit-btn {
-      background: var(--ios-blue);
+    .btn-search {
+      background: var(--blue);
       color: #fff;
       border: none;
-      padding: 8px 16px;
-      border-radius: 10px;
+      padding: 9px 16px;
+      border-radius: 11px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* "شاید بخوای…" Suggestion Grid */
+    .suggestions-label {
+      font-size: 0.74rem;
+      color: var(--sub);
       font-weight: 700;
-      font-size: 0.88rem;
-      cursor: pointer;
-      flex-shrink: 0;
+      margin-bottom: 6px;
     }
 
-    /* Quick Chips Horizontal Scroll */
-    .chips-scroll {
-      display: flex;
+    .suggestions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      scrollbar-width: none;
     }
-    .chips-scroll::-webkit-scrollbar { display: none; }
 
-    .chip {
-      background: var(--ios-card-secondary);
-      border: 0.5px solid var(--ios-border);
-      color: var(--ios-text);
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      white-space: nowrap;
+    .sug-card {
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      border-radius: 11px;
+      padding: 8px 10px;
       cursor: pointer;
-      flex-shrink: 0;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: transform 0.12s ease;
     }
 
-    .chip:active {
-      background: var(--ios-blue);
-      color: #fff;
+    .sug-card:active {
+      transform: scale(0.98);
+      background: var(--blue-soft);
     }
 
-    /* iOS Segmented Control */
-    .segmented-control {
+    .sug-cat {
+      font-size: 0.66rem;
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .sug-text {
+      font-size: 0.77rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* iOS Segmented Sort Control */
+    .ios-segmented {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      background: var(--ios-seg-bg);
+      background: var(--seg);
       padding: 3px;
-      border-radius: 11px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
     }
 
-    .seg-btn {
+    .seg-item {
       border: none;
       background: transparent;
-      color: var(--ios-subtext);
+      color: var(--sub);
       padding: 7px 4px;
-      border-radius: 8px;
+      border-radius: 9px;
       font-size: 0.74rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s ease;
       text-align: center;
       white-space: nowrap;
     }
 
-    .seg-btn.active {
-      background: var(--ios-card);
-      color: var(--ios-text);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    .seg-item.active {
+      background: var(--card);
+      color: var(--text);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
-    /* Filter Pills Row */
-    .subfilters-row {
+    /* Source Filter Chips (All | Torob | Digikala | Basalam | Divar) */
+    .source-chips {
       display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 6px;
       overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
       scrollbar-width: none;
     }
-    .subfilters-row::-webkit-scrollbar { display: none; }
+    .source-chips::-webkit-scrollbar { display: none; }
 
-    .filter-toggle {
-      background: var(--ios-card);
-      border: 0.5px solid var(--ios-border);
-      color: var(--ios-subtext);
-      padding: 6px 12px;
+    .src-chip {
+      border: 0.5px solid var(--border);
+      background: var(--card);
+      color: var(--sub);
+      padding: 5px 11px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .filter-toggle.active {
-      background: rgba(0, 122, 255, 0.12);
-      border-color: var(--ios-blue);
-      color: var(--ios-blue);
-    }
-
-    /* Status & Live Banner */
-    .status-strip {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.76rem;
-      color: var(--ios-subtext);
-      margin-bottom: 10px;
-      padding: 0 4px;
-    }
-
-    .spinner {
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--ios-border);
-      border-top-color: var(--ios-blue);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: inline-block;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Direct Multi-Store Instant Search Bar */
-    .instant-Portals {
-      background: var(--ios-card);
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 14px;
-      border: 0.5px solid var(--ios-border);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .instant-title {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--ios-subtext);
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .portal-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-    }
-
-    .portal-btn {
-      background: var(--ios-card-secondary);
-      border: 0.5px solid var(--ios-border);
-      border-radius: 10px;
-      padding: 7px 4px;
-      text-align: center;
       font-size: 0.73rem;
       font-weight: 700;
-      color: var(--ios-text);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
+      white-space: nowrap;
+      cursor: pointer;
     }
 
-    .portal-btn span.p-sub {
-      font-size: 0.63rem;
-      color: var(--ios-subtext);
-      font-weight: 500;
+    .src-chip.active {
+      background: var(--text);
+      color: var(--card);
+      border-color: var(--text);
     }
 
-    /* Winner Summary Banner */
-    .winner-banner {
+    /* Live Market Summary Strip */
+    .market-summary {
       background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
       color: #fff;
       border-radius: 18px;
       padding: 14px 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 8px 20px rgba(0, 122, 255, 0.22);
+      margin-bottom: 12px;
+      box-shadow: 0 6px 18px rgba(0, 122, 255, 0.22);
     }
 
-    .winner-banner .wb-top {
+    .ms-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.76rem;
+      font-size: 0.73rem;
       opacity: 0.92;
       margin-bottom: 4px;
     }
 
-    .winner-banner .wb-main {
-      font-size: 1.02rem;
+    .ms-title {
+      font-size: 0.96rem;
       font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .winner-banner .wb-sub {
-      font-size: 0.78rem;
-      opacity: 0.95;
-    }
-
-    /* iOS Product Offer Card */
-    .offer-card {
-      background: var(--ios-card);
-      border-radius: 18px;
-      padding: 15px;
-      margin-bottom: 12px;
-      border: 0.5px solid var(--ios-border);
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-
-    .offer-card.best {
-      border: 1.5px solid var(--ios-green);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .store-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--ios-blue);
-      background: rgba(0, 122, 255, 0.1);
-      padding: 4px 10px;
-      border-radius: 8px;
-    }
-
-    .score-pill {
-      font-size: 0.76rem;
-      font-weight: 800;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: rgba(52, 199, 89, 0.14);
-      color: var(--ios-green);
-    }
-
-    .score-pill.warn {
-      background: rgba(255, 149, 0, 0.15);
-      color: var(--ios-orange);
-    }
-
-    .product-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      line-height: 1.45;
       margin-bottom: 6px;
     }
 
-    .seller-row {
-      font-size: 0.76rem;
-      color: var(--ios-subtext);
+    .ms-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.14);
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+    }
+
+    .ms-stat strong {
+      display: block;
+      font-size: 0.82rem;
+      margin-top: 2px;
+    }
+
+    /* Product Offer Card (iOS App Store Style) */
+    .p-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 0.5px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease;
+    }
+
+    .p-card.top-pick {
+      border: 1.5px solid var(--green);
+    }
+
+    .p-card.over-budget {
+      border: 1px dashed var(--orange);
+    }
+
+    .p-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-store {
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .badge-vqs {
+      font-size: 0.73rem;
+      font-weight: 800;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .badge-over {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 7px;
+      background: var(--orange-soft);
+      color: var(--orange);
+    }
+
+    .p-body {
+      display: flex;
+      gap: 12px;
+      align-items: center;
       margin-bottom: 10px;
+    }
+
+    .p-img {
+      width: 68px;
+      height: 68px;
+      border-radius: 12px;
+      object-fit: contain;
+      background: #fff;
+      border: 0.5px solid var(--border);
+      padding: 4px;
+      flex-shrink: 0;
+    }
+
+    .p-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .p-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      line-height: 1.42;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .p-meta {
+      font-size: 0.74rem;
+      color: var(--sub);
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .price-row {
-      background: var(--ios-card-secondary);
+    .p-price-box {
+      background: var(--card-2);
       border-radius: 12px;
       padding: 10px 12px;
       display: flex;
@@ -445,80 +574,135 @@
       margin-bottom: 10px;
     }
 
-    .price-now {
-      font-size: 1.18rem;
+    .p-price-main {
+      font-size: 1.12rem;
       font-weight: 900;
-      color: var(--ios-text);
+      color: var(--text);
     }
 
-    .price-old {
-      font-size: 0.76rem;
-      color: var(--ios-subtext);
+    .p-price-old {
+      font-size: 0.74rem;
+      color: var(--muted);
       text-decoration: line-through;
       display: block;
     }
 
-    .deal-tag {
-      font-size: 0.73rem;
-      font-weight: 700;
-      padding: 4px 8px;
+    .p-discount-pill {
+      background: var(--red-soft);
+      color: var(--red);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 3px 8px;
       border-radius: 7px;
     }
 
-    .deal-tag.real {
-      background: rgba(52, 199, 89, 0.14);
-      color: var(--ios-green);
-    }
-
-    .deal-tag.fake {
-      background: rgba(255, 59, 48, 0.12);
-      color: var(--ios-red);
-    }
-
-    .specs-pills {
+    .p-actions {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      margin-bottom: 12px;
-      font-size: 0.74rem;
-    }
-
-    .spec-box {
-      background: var(--ios-card-secondary);
-      padding: 6px 9px;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      color: var(--ios-subtext);
-    }
-
-    .spec-box strong {
-      color: var(--ios-text);
-    }
-
-    .card-actions {
-      display: flex;
+      grid-template-columns: 1.3fr 1fr;
       gap: 8px;
     }
 
-    .btn-buy-ios {
-      flex: 1;
-      background: var(--ios-blue);
+    .btn-buy-direct {
+      background: var(--blue);
       color: #fff;
-      text-align: center;
-      padding: 10px 12px;
-      border-radius: 11px;
-      font-weight: 700;
-      font-size: 0.85rem;
       text-decoration: none;
+      padding: 10px 10px;
+      border-radius: 11px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
     }
 
-    .offer-card.best .btn-buy-ios {
-      background: var(--ios-green);
+    .p-card.top-pick .btn-buy-direct {
+      background: var(--green);
+    }
+
+    .btn-inspect {
+      background: var(--seg);
+      color: var(--text);
+      border: none;
+      padding: 10px 10px;
+      border-radius: 11px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* Quick Cross-Store Links Box */
+    .cross-links-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 0.5px solid var(--border);
+    }
+
+    .cross-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .cross-link-item {
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      padding: 7px 4px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* iOS Modal / Bottom Sheet for Live Product Sellers & Price History */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-sheet {
+      background: var(--card);
+      width: 100%;
+      max-width: 660px;
+      max-height: 86vh;
+      border-radius: 24px 24px 0 0;
+      padding: 18px 16px 32px;
+      overflow-y: auto;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .sheet-handle {
+      width: 40px;
+      height: 5px;
+      background: var(--muted);
+      opacity: 0.4;
+      border-radius: 99px;
+      margin: 0 auto 12px;
+    }
+
+    .seller-offer-item {
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
     }
 
     /* iOS Bottom Tab Bar */
@@ -527,100 +711,68 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 68px;
+      height: 66px;
       padding-bottom: env(safe-area-inset-bottom);
-      background: var(--ios-glass);
+      background: var(--glass);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-top: 0.5px solid var(--ios-border);
+      border-top: 0.5px solid var(--border);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      z-index: 100;
+      z-index: 120;
     }
 
-    .tab-item {
+    .tab-btn {
       border: none;
       background: transparent;
-      color: var(--ios-subtext);
+      color: var(--sub);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 2px;
       font-size: 0.68rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    .tab-item .t-icon {
-      font-size: 1.22rem;
+    .tab-btn.active {
+      color: var(--blue);
     }
 
-    .tab-item.active {
-      color: var(--ios-blue);
+    .tab-icon {
+      font-size: 1.2rem;
     }
 
     .hidden { display: none !important; }
 
-    /* Table & Lists in Secondary Tabs */
-    .ios-list-card {
-      background: var(--ios-card);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-      border: 0.5px solid var(--ios-border);
-      box-shadow: var(--shadow-sm);
+    .loading-box {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 12px;
+      border: 0.5px solid var(--border);
     }
 
-    .ios-list-card h3 {
-      font-size: 0.96rem;
-      font-weight: 800;
-      margin-bottom: 10px;
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--border);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+      margin: 0 auto 10px;
     }
 
-    .table-wrap {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-    }
-
-    th, td {
-      padding: 9px 8px;
-      text-align: right;
-      border-bottom: 0.5px solid var(--ios-border);
-    }
-
-    th {
-      color: var(--ios-subtext);
-      font-weight: 700;
-    }
-
-    .mcp-repo-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-    }
-
-    .mcp-repo-item {
-      background: var(--ios-card-secondary);
-      border-radius: 12px;
-      padding: 10px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     pre {
       background: #1C1C1E;
       color: #F2F2F7;
       padding: 12px;
       border-radius: 12px;
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       direction: ltr;
       text-align: left;
       overflow-x: auto;
@@ -630,946 +782,1265 @@
 </head>
 <body>
 
-  <!-- Compact iOS Header -->
-  <header class="ios-navbar">
-    <div class="nav-title">
-      <span class="live-dot"></span>
-      <span>امین شاپ · ابرمقایسه هوشمند ایران</span>
+  <!-- iOS Compact Top Bar -->
+  <header class="ios-header">
+    <div class="brand-wrap">
+      <div class="brand-icon">؟</div>
+      <span class="brand-title">چی بخریم؟</span>
+      <span class="brand-sub" id="liveBadgeHeader">قیمت لحظه‌ای واقعی</span>
     </div>
-    <div class="nav-actions">
-      <button class="icon-btn" onclick="toggleTheme()" title="تغییر تم روز/شب" id="themeBtn">🌙</button>
+    <div class="header-actions">
+      <button class="btn-circle" onclick="resetNewSearch()" title="جستجوی جدید">🔄</button>
+      <button class="btn-circle" onclick="toggleDark()" id="themeBtn" title="تغییر تم">🌙</button>
     </div>
   </header>
 
   <main class="container">
-    <!-- TAB 1: SEARCH & SMART COMPARE -->
-    <div id="view-search">
-      <div class="search-card">
-        <form onsubmit="event.preventDefault(); executeSearch();">
-          <div class="search-bar-wrap">
-            <span class="search-icon">🔍</span>
+    <!-- TAB 1: CHIBEKHARIM SMART LIVE SEARCH -->
+    <div id="tab-search">
+      <section class="hero-card">
+        <div class="hero-headline">
+          <span>دنبال چی می‌گردی؟</span>
+          <span style="font-size:0.72rem;color:var(--blue);font-weight:700;">خرید هوشمند با هوش مصنوعی</span>
+        </div>
+        <p class="hero-desc">
+          بگو چی لازم داری؛ هوش مصنوعی به صورت <strong>لحظه‌ای و زنده</strong> دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و هزاران فروشگاه)، باسلام، شاپینو، خانومی و دیوار رو می‌گرده و بهترین‌ها رو با <strong>قیمت واقعی همین ثانیه</strong> پیشنهاد می‌ده.
+        </p>
+
+        <!-- Category & Budget Bar -->
+        <div class="cat-budget-bar">
+          <button class="budget-pill-btn" onclick="toggleBudgetDrawer()" id="budgetBtnLabel">
+            💰 بودجه: بدون سقف ▾
+          </button>
+          <button class="cat-pill active" id="cat-all" onclick="selectCategory('all', '')">همه دسته‌ها</button>
+          <button class="cat-pill" id="cat-digital" onclick="selectCategory('digital', 'گوشی سامسونگ')">📱 دیجیتال</button>
+          <button class="cat-pill" id="cat-fashion" onclick="selectCategory('fashion', 'کفش رانینگ مردانه')">👟 پوشاک</button>
+          <button class="cat-pill" id="cat-beauty" onclick="selectCategory('beauty', 'ضد آفتاب')">💄 آرایشی</button>
+          <button class="cat-pill" id="cat-home" onclick="selectCategory('home', 'سرخ کن بدون روغن')">🏠 لوازم خانه</button>
+        </div>
+
+        <!-- Collapsible Budget Selector ("حداکثر چقدر بپردازی؟") -->
+        <div class="budget-drawer hidden" id="budgetDrawer">
+          <div class="budget-drawer-top">
+            <span>حداکثر چقدر می‌خوای بپردازی؟</span>
+            <button onclick="toggleBudgetDrawer()" style="border:none;background:transparent;color:var(--blue);font-weight:800;font-size:0.78rem;cursor:pointer;">بستن ✕</button>
+          </div>
+          <div class="budget-grid">
+            <button class="b-opt active" id="bopt-0" onclick="setBudget(0)">بدون سقف</button>
+            <button class="b-opt" id="bopt-2000000" onclick="setBudget(2000000)">۲ میلیون</button>
+            <button class="b-opt" id="bopt-5000000" onclick="setBudget(5000000)">۵ میلیون</button>
+            <button class="b-opt" id="bopt-20000000" onclick="setBudget(20000000)">۲۰ میلیون</button>
+            <button class="b-opt" id="bopt-70000000" onclick="setBudget(70000000)">۷۰ میلیون</button>
+            <button class="b-opt" id="bopt-150000000" onclick="setBudget(150000000)">۱۵۰ میلیون</button>
+          </div>
+          <div class="budget-custom-row">
+            <input type="number" id="customBudgetInput" class="budget-input" placeholder="مبلغ دلخواه به تومان (مثلاً 35000000)" />
+            <button class="btn-search" style="padding:7px 14px;font-size:0.78rem;" onclick="applyCustomBudget()">تأیید</button>
+          </div>
+          <div class="budget-note">
+            💡 قیمت لحظه‌ای کالا ملاکه. گزینه‌هایی که تا ۱۰٪ بالاتر باشن هم، بعد از گزینه‌های داخل بودجه، نشون داده می‌شن.
+          </div>
+        </div>
+
+        <!-- Search Input Box -->
+        <form onsubmit="event.preventDefault(); runLiveSearch();">
+          <div class="search-box">
+            <span>🔍</span>
             <input
               type="search"
-              id="qInput"
+              id="searchInput"
               class="search-input"
-              placeholder="هر کالایی می‌خواهید بنویسید (مثلاً: گوشی آیفون 16)..."
+              placeholder="چه کالایی می‌خوای؟ (مثلاً: گوشی آیفون 16، لپ تاپ، ایرپاد)..."
               value="گوشی آیفون 16"
               enterkeyhint="search"
             />
-            <button type="button" class="clear-btn" onclick="clearSearchInput()" title="پاک کردن">✕</button>
-            <button type="submit" class="search-submit-btn">جستجو</button>
+            <button type="button" class="clear-x" onclick="clearInput()">✕</button>
+            <button type="submit" class="btn-search">بگرد</button>
           </div>
         </form>
 
-        <div class="chips-scroll">
-          <span class="chip" onclick="quickSearch('گوشی آیفون 16')">📱 آیفون 16</span>
-          <span class="chip" onclick="quickSearch('آیفون 16 پرو مکس')">📱 آیفون 16 پرومکس</span>
-          <span class="chip" onclick="quickSearch('سامسونگ S24 Ultra')">📱 S24 Ultra</span>
-          <span class="chip" onclick="quickSearch('سامسونگ A55')">📱 گلکسی A55</span>
-          <span class="chip" onclick="quickSearch('شیائومی 14T Pro')">📱 شیائومی 14T Pro</span>
-          <span class="chip" onclick="quickSearch('لپ تاپ مک بوک ایر M3')">💻 مک‌بوک ایر M3</span>
-          <span class="chip" onclick="quickSearch('لپ تاپ لنوو LOQ')">💻 لنوو LOQ</span>
-          <span class="chip" onclick="quickSearch('پلی استیشن 5 اسلیم')">🎮 PS5 Slim</span>
-          <span class="chip" onclick="quickSearch('ایرپاد پرو 2')">🎧 ایرپاد پرو ۲</span>
-          <span class="chip" onclick="quickSearch('اپل واچ سری 10')">⌚ اپل واچ ۱۰</span>
-          <span class="chip" onclick="quickSearch('سرخ کن فیلیپس')">🍟 سرخ‌کن فیلیپس</span>
+        <!-- "شاید بخوای…" Presets from chibekharim.sepehrradmard.ir -->
+        <div class="suggestions-label">شاید بخوای…</div>
+        <div class="suggestions-grid">
+          <div class="sug-card" onclick="runPreset('گوشی موبایل سامسونگ', 70000000, 'digital')">
+            <span class="sug-cat">📱 دیجیتال · تا ۷۰ میلیون</span>
+            <span class="sug-text">گوشی خوب تا ۷۰ میلیون</span>
+          </div>
+          <div class="sug-card" onclick="runPreset('گوشی آیفون 16', 0, 'digital')">
+            <span class="sug-cat">📱 دیجیتال · قیمت لحظه‌ای</span>
+            <span class="sug-text">گوشی آیفون 16 (همه مدل‌ها)</span>
+          </div>
+          <div class="sug-card" onclick="runPreset('کفش پیاده روی و رانینگ مردانه', 5000000, 'fashion')">
+            <span class="sug-cat">👟 پوشاک · زیر ۵ میلیون</span>
+            <span class="sug-text">کفش رانینگ مردانه زیر ۵ میلیون</span>
+          </div>
+          <div class="sug-card" onclick="runPreset('رژ لب جامد و مایع مات', 2000000, 'beauty')">
+            <span class="sug-cat">💄 آرایشی · ماندگاری بالا</span>
+            <span class="sug-text">رژ لب مات ماندگار</span>
+          </div>
+          <div class="sug-card" onclick="runPreset('جاروبرقی پرقدرت', 20000000, 'home')">
+            <span class="sug-cat">🏠 لوازم خانه · اقتصادی</span>
+            <span class="sug-text">جاروبرقی ارزان و خوب</span>
+          </div>
+          <div class="sug-card" onclick="runPreset('لپ تاپ گیمینگ لنوو LOQ', 150000000, 'digital')">
+            <span class="sug-cat">💻 دیجیتال · گیمینگ و مهندسی</span>
+            <span class="sug-text">لپ‌تاپ لنوو LOQ و ایسوس</span>
+          </div>
         </div>
+      </section>
+
+      <!-- Segmented Sorting -->
+      <div class="ios-segmented">
+        <button class="seg-item active" id="sort-best" onclick="changeSort('best')">🏆 بهترین ارزش</button>
+        <button class="seg-item" id="sort-cheap" onclick="changeSort('cheap')">💰 ارزان‌ترین</button>
+        <button class="seg-item" id="sort-rating" onclick="changeSort('rating')">⭐ بیشترین امتیاز</button>
+        <button class="seg-item" id="sort-discount" onclick="changeSort('discount')">🔥 بیشترین تخفیف</button>
       </div>
 
-      <!-- iOS Segmented Priority Selector -->
-      <div class="segmented-control">
-        <button class="seg-btn active" id="seg-best_value" onclick="setPriority('best_value')">🏆 بهترین ارزش</button>
-        <button class="seg-btn" id="seg-cheapest" onclick="setPriority('cheapest')">💰 ارزان‌ترین</button>
-        <button class="seg-btn" id="seg-highest_quality" onclick="setPriority('highest_quality')">🛡️ بالاترین کیفیت</button>
-        <button class="seg-btn" id="seg-installment" onclick="setPriority('installment')">💳 خرید قسطی</button>
+      <!-- Source Filter Pills -->
+      <div class="source-chips">
+        <button class="src-chip active" id="src-all" onclick="changeSourceFilter('all')">همه منابع زنده</button>
+        <button class="src-chip" id="src-torob" onclick="changeSourceFilter('torob')">🟢 ترب (تکنولایف، مسترکالا و...)</button>
+        <button class="src-chip" id="src-digikala" onclick="changeSourceFilter('digikala')">🔴 دیجی‌کالا</button>
+        <button class="src-chip" id="src-basalam" onclick="changeSourceFilter('basalam')">🟠 باسلام</button>
+        <button class="src-chip" id="src-divar" onclick="changeSourceFilter('divar')">🟣 دیوار (نو و کارکرده)</button>
       </div>
 
-      <!-- Sub-filters -->
-      <div class="subfilters-row">
-        <button class="filter-toggle" id="fltWarranty" onclick="toggleFilter('warranty')">✅ فقط گارانتی ۱۸ ماهه شرکتی</button>
-        <button class="filter-toggle" id="fltRealDeal" onclick="toggleFilter('realDeal')">📉 حذف تخفیف‌های صوری</button>
-        <button class="filter-toggle" id="fltFreeShip" onclick="toggleFilter('freeShip')">🚚 ارسال رایگان</button>
+      <!-- Live Market Summary & Fair Price Box -->
+      <div id="marketSummaryBox"></div>
+
+      <!-- Loading Indicator -->
+      <div id="loadingBox" class="loading-box hidden">
+        <div class="spinner"></div>
+        <div style="font-weight:800;font-size:0.88rem;" id="loadingText">در حال استعلام قیمت لحظه‌ای از سرورهای زنده دیجی‌کالا، ترب، باسلام و دیوار...</div>
+        <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">بدون هیچ قیمت پیش‌فرض؛ تمام اعداد مستقیماً از APIهای زنده دریافت می‌شوند</div>
       </div>
 
-      <!-- Status Bar -->
-      <div class="status-strip">
-        <span id="searchStatusText">در حال نمایش نتایج برای «گوشی آیفون 16»</span>
-        <span id="liveFetchBadge" style="color:var(--ios-green);font-weight:700;">⚡ موتور زنده فعال</span>
-      </div>
+      <!-- Live Product Cards Container -->
+      <div id="resultsContainer"></div>
 
-      <!-- Instant Live Search Portals across all Iranian Stores for ANY Query -->
-      <div class="instant-Portals" id="livePortalsBox"></div>
-
-      <!-- Best Choice Winner Summary Card -->
-      <div id="winnerBannerBox"></div>
-
-      <!-- Product Offer Cards List -->
-      <div id="offersListBox"></div>
+      <!-- Direct Portal Links to All 9 Iranian Stores for Current Query -->
+      <div id="directPortalsContainer"></div>
     </div>
 
-    <!-- TAB 2: SIDE BY SIDE MATRIX -->
-    <div id="view-compare" class="hidden">
-      <div class="ios-list-card">
-        <h3>📊 جدول مقایسه دقیق قیمت، گارانتی و ارزش خرید</h3>
-        <p style="font-size:0.76rem;color:var(--ios-subtext);margin-bottom:10px;">
-          رتبه‌بندی تمام فروشگاه‌ها برای کالای جستجو شده بر اساس فرمول ۵ عاملی VQS:
-        </p>
-        <div class="table-wrap">
-          <table id="matrixTable"></table>
+    <!-- TAB 2: TODAY'S LIVE DEALS (شگفت‌انگیزهای لحظه‌ای دیجی‌کالا و ترب) -->
+    <div id="tab-deals" class="hidden">
+      <div class="hero-card">
+        <div class="hero-headline">
+          <span>🔥 شگفت‌انگیزها و تخفیف‌های واقعی امروز</span>
+          <button class="budget-pill-btn" onclick="loadLiveDeals()">🔄 بروزرسانی زنده</button>
         </div>
+        <p class="hero-desc">
+          استعلام مستقیم از ابزار <code>incredible_offers</code> دیجی‌کالا و <code>special_offers</code> ترب:
+        </p>
       </div>
+      <div id="dealsLoading" class="loading-box hidden">
+        <div class="spinner"></div>
+        <div style="font-weight:700;font-size:0.85rem;">در حال دریافت شگفت‌انگیزهای زنده امروز...</div>
+      </div>
+      <div id="dealsContainer"></div>
     </div>
 
     <!-- TAB 3: BNPL INSTALLMENT CALCULATOR -->
-    <div id="view-bnpl" class="hidden">
-      <div class="ios-list-card">
-        <h3>💳 ماشین‌حساب خرید قسطی (اسنپ‌پی، دیجی‌پی، تکنوپی، ازکی‌وام)</h3>
-        <p style="font-size:0.76rem;color:var(--ios-subtext);margin-bottom:12px;">
-          محاسبه خودکار اقساط برای کالای انتخابی شما با کسر اثر تورم ماهانه (ارزش واقعی پول):
+    <div id="tab-bnpl" class="hidden">
+      <div class="hero-card">
+        <div class="hero-headline">💳 ماشین‌حساب هوشمند خرید قسطی (اسنپ‌پی، دیجی‌پی، تکنوپی)</div>
+        <p class="hero-desc">
+          مقایسه خرید نقدی با طرح‌های اقساطی ۴ قسطه (بدون کارمزد) و ۱۲ ماهه با لحاظ ارزش زمانی پول و تورم ماهانه:
         </p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
           <div>
-            <label style="font-size:0.73rem;color:var(--ios-subtext);">قیمت نقد کالا (تومان)</label>
-            <input type="number" id="bnplInputPrice" value="58900000" oninput="renderBNPL()" style="width:100%;padding:8px;border-radius:10px;border:0.5px solid var(--ios-border);background:var(--ios-card-secondary);color:var(--ios-text);font-weight:700;" />
+            <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">قیمت لحظه‌ای کالا (تومان)</label>
+            <input type="number" id="bnplAmount" value="75000000" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
           </div>
           <div>
-            <label style="font-size:0.73rem;color:var(--ios-subtext);">تورم/سود ماهانه (%)</label>
-            <input type="number" id="bnplInputInf" value="3.0" step="0.5" oninput="renderBNPL()" style="width:100%;padding:8px;border-radius:10px;border:0.5px solid var(--ios-border);background:var(--ios-card-secondary);color:var(--ios-text);font-weight:700;" />
+            <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">تورم/سود ماهانه (%)</label>
+            <input type="number" id="bnplInf" value="3.0" step="0.5" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
           </div>
         </div>
-        <div class="table-wrap">
-          <table id="bnplTableOut"></table>
-        </div>
+        <div id="bnplCardsOut" style="margin-top:12px;"></div>
       </div>
     </div>
 
-    <!-- TAB 4: ALL 19+ MCP REPOS & CONFIG -->
-    <div id="view-mcp" class="hidden">
-      <div class="ios-list-card">
-        <h3>⚡ کانفیگ یکپارچه ریپوی شما (Mcp-amin)</h3>
-        <p style="font-size:0.76rem;color:var(--ios-subtext);">
-          تمام ۱۹ سرور MCP موجود در <code>sepehr071/awesome-iran-mcp</code> به همراه ترب، اسنپ‌شاپ، باسلام و ایمالز در ریپوی <code>mramin01/Mcp-amin</code> شما تجمیع شده‌اند:
+    <!-- TAB 4: ALL 22 MCP SERVERS (sepehr071 + mmdju + Mcp-amin) -->
+    <div id="tab-mcp" class="hidden">
+      <div class="hero-card">
+        <div class="hero-headline">⚡ مرکز فرماندهی سرورهای MCP شما (Mcp-amin)</div>
+        <p class="hero-desc">
+          ترکیب کامل تمام ۱۹ سرور <code>sepehr071/awesome-iran-mcp</code> و ۳ سرور کلودفلر زنده <code>mmdju</code> (دیجی‌کالا، ترب، دیوار) در ریپوزیتوری اختصاصی شما:
         </p>
-        <pre id="mcpJsonBox">{
+        <pre id="mcpConfigBlock">{
   "mcpServers": {
-    "mcp-amin-super-shop": {
+    "digikala-live": {
+      "url": "https://digikala-mcp.mmdju.workers.dev/mcp"
+    },
+    "torob-live": {
+      "url": "https://torob-mcp.mmdju3.workers.dev/mcp"
+    },
+    "divar-live": {
+      "url": "https://divar-mcp.mmdju2.workers.dev/mcp"
+    },
+    "iran-super-shop": {
       "command": "uvx",
       "args": ["--from", "git+https://github.com/mramin01/Mcp-amin", "iran-super-shop-mcp"]
     },
-    "digikala": { "command": "uvx", "args": ["digikala-mcp"] },
     "technolife": { "command": "uvx", "args": ["technolife-mcp"] },
     "snapp": { "command": "uvx", "args": ["snapp-mcp"] },
     "masterkala": { "command": "uvx", "args": ["masterkala-mcp"] },
     "shopino": { "command": "uvx", "args": ["shopino-mcp"] },
-    "okala": { "command": "uvx", "args": ["okala-mcp"] },
-    "khanoumi": { "command": "uvx", "args": ["khanoumi-mcp"] }
+    "khanoumi": { "command": "uvx", "args": ["khanoumi-mcp"] },
+    "asalbanoo": { "command": "uvx", "args": ["asalbanoo-mcp"] },
+    "okala": { "command": "uvx", "args": ["okala-mcp"] }
   }
 }</pre>
-        <button onclick="copyConfig()" style="margin-top:10px;width:100%;padding:10px;border-radius:10px;border:none;background:var(--ios-blue);color:#fff;font-weight:700;cursor:pointer;">📋 کپی کانفیگ کامل MCP</button>
+        <button class="btn-search" style="width:100%;margin-top:10px;padding:11px;" onclick="copyMcpConfig()">📋 کپی کانفیگ یکپارچه MCP برای Claude / Cursor</button>
       </div>
 
-      <div class="ios-list-card">
-        <h3>📦 لیست کامل سرویس‌های متصل‌شده در این پلتفرم</h3>
-        <div class="mcp-repo-grid" id="mcpReposList"></div>
-      </div>
+      <div class="hero-card" id="allMcpServersCatalog"></div>
     </div>
   </main>
 
+  <!-- iOS Bottom Sheet Modal for Deep Product Inspection (Sellers + 30d Price History) -->
+  <div id="inspectModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeInspectModal()">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <strong style="font-size:0.95rem;" id="modalTitle">تحلیل عمیق، فروشندگان و تاریخچه قیمت</strong>
+        <button onclick="closeInspectModal()" style="border:none;background:var(--seg);color:var(--text);padding:5px 12px;border-radius:99px;font-weight:800;font-size:0.78rem;cursor:pointer;">بستن ✕</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
   <!-- iOS Fixed Bottom Tab Bar -->
   <nav class="ios-tabbar">
-    <button class="tab-item active" id="tabbtn-search" onclick="switchView('search')">
-      <span class="t-icon">🔍</span>
-      <span>جستجو و خرید</span>
+    <button class="tab-btn active" id="nav-search" onclick="switchTab('search')">
+      <span class="tab-icon">🔍</span>
+      <span>چی بخریم؟</span>
     </button>
-    <button class="tab-item" id="tabbtn-compare" onclick="switchView('compare')">
-      <span class="t-icon">📊</span>
-      <span>جدول مقایسه</span>
+    <button class="tab-btn" id="nav-deals" onclick="switchTab('deals')">
+      <span class="tab-icon">🔥</span>
+      <span>شگفت‌انگیزها</span>
     </button>
-    <button class="tab-item" id="tabbtn-bnpl" onclick="switchView('bnpl')">
-      <span class="t-icon">💳</span>
+    <button class="tab-btn" id="nav-bnpl" onclick="switchTab('bnpl')">
+      <span class="tab-icon">💳</span>
       <span>محاسبه اقساط</span>
     </button>
-    <button class="tab-item" id="tabbtn-mcp" onclick="switchView('mcp')">
-      <span class="t-icon">⚙️</span>
+    <button class="tab-btn" id="nav-mcp" onclick="switchTab('mcp')">
+      <span class="tab-icon">⚙️</span>
       <span>سرورهای MCP</span>
     </button>
   </nav>
 
   <script>
     // =========================================================================
-    // ۱. دیتابیس جامع کالاهای پرجستجوی بازار ایران + موتور تطبیق هوشمند و جستجوی زنده
+    // ۱. آدرس سرورهای زنده MCP (Cloudflare Workers با پشتیبانی مستقیم از مرورگر)
     // =========================================================================
-    const PRODUCT_DB = [
-      {
-        keywords: ["ایفون 16 پرومکس", "آیفون 16 پرومکس", "آیفون ۱۶ پرومکس", "iphone 16 pro max", "16 pro max"],
-        title: "گوشی اپل iPhone 16 Pro Max ظرفیت 256 گیگابایت رم 8 گیگابایت (Not Active - پارت نامبر ZAA)",
-        basePrice: 96500000,
-        offers: [
-          { store: "ترب", seller: "اپل استور پایتخت (۵ ستاره ترب)", price: 94800000, oldPrice: 97500000, avg30d: 96900000, shipping: 0, rating: 4.8, reviews: 185, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی + تضمین اصالت ZAA", bnpl: "پرداخت امن ترب / اسنپ‌پی", searchSite: "torob" },
-          { store: "تکنولایف", seller: "تکنولایف (فروشنده رسمی)", price: 95400000, oldPrice: 98200000, avg30d: 97200000, shipping: 0, rating: 4.9, reviews: 340, sellerScore: 98, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه رسمی شرکتی + مهلت تست", bnpl: "تکنوپی / ازکی‌وام / اسنپ‌پی", searchSite: "technolife" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 96200000, oldPrice: 99000000, avg30d: 97500000, shipping: 0, rating: 4.7, reviews: 620, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه هما تلکام", bnpl: "دیجی‌پی ۱۲ ماهه", searchSite: "digikala" },
-          { store: "اسنپ‌شاپ", seller: "اپل سنتر رسمی اسنپ‌شاپ", price: 95900000, oldPrice: 98500000, avg30d: 97000000, shipping: 0, rating: 4.6, reviews: 140, sellerScore: 93, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" },
-          { store: "مسترکالا", seller: "مسترکالا", price: 97800000, oldPrice: 105000000, avg30d: 97100000, shipping: 50000, rating: 4.3, reviews: 45, sellerScore: 86, officialWarranty: false, warranty: "گارانتی ۱۲ ماهه فروشگاهی", bnpl: "اسنپ‌پی", searchSite: "masterkala" }
-        ]
-      },
-      {
-        keywords: ["ایفون 16 پرو", "آیفون 16 پرو", "آیفون ۱۶ پرو", "iphone 16 pro", "16 pro"],
-        title: "گوشی اپل iPhone 16 Pro ظرفیت 256 گیگابایت رم 8 گیگابایت (Not Active - دو سیم‌کارت)",
-        basePrice: 84500000,
-        offers: [
-          { store: "تکنولایف", seller: "تکنولایف (رسمی)", price: 83900000, oldPrice: 86500000, avg30d: 85800000, shipping: 0, rating: 4.8, reviews: 270, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی معتبر", bnpl: "تکنوپی / اسنپ‌پی / ازکی‌وام", searchSite: "technolife" },
-          { store: "ترب", seller: "موبایل علاءالدین طلایی", price: 83200000, oldPrice: 85000000, avg30d: 85400000, shipping: 60000, rating: 4.6, reviews: 110, sellerScore: 92, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "پرداخت امن ترب", searchSite: "torob" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 84900000, oldPrice: 87200000, avg30d: 86000000, shipping: 0, rating: 4.7, reviews: 490, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه داریا همراه", bnpl: "دیجی‌پی", searchSite: "digikala" },
-          { store: "اسنپ‌شاپ", seller: "فروشگاه برگزیده اسنپ‌شاپ", price: 84400000, oldPrice: 88000000, avg30d: 85600000, shipping: 0, rating: 4.6, reviews: 130, sellerScore: 93, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" }
-        ]
-      },
-      {
-        keywords: ["ایفون 16", "آیفون 16", "آیفون ۱۶", "ایفون ۱۶", "iphone 16", "گوشی ایفون", "گوشی آیفون"],
-        title: "گوشی موبایل اپل مدل iPhone 16 CH ظرفیت 128 گیگابایت رم 8 گیگابایت (Not Active - دو سیم‌کارت)",
-        basePrice: 58900000,
-        offers: [
-          { store: "تکنولایف", seller: "تکنولایف (فروشنده رسمی)", price: 58450000, oldPrice: 61200000, avg30d: 60300000, shipping: 0, rating: 4.8, reviews: 420, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی رسمی + تضمین پارت نامبر CH", bnpl: "تکنوپی / اسنپ‌پی (۴ قسط) / ازکی‌وام", searchSite: "technolife" },
-          { store: "ترب", seller: "سیب طلایی میرداماد (فروشگاه ۵ ستاره)", price: 57900000, oldPrice: 59500000, avg30d: 59800000, shipping: 50000, rating: 4.6, reviews: 165, sellerScore: 93, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی + فاکتور رسمی", bnpl: "پرداخت امن ترب / اسنپ‌پی", searchSite: "torob" },
-          { store: "اسنپ‌شاپ", seller: "اپل استور رسمی اسنپ‌شاپ", price: 58750000, oldPrice: 61800000, avg30d: 60100000, shipping: 0, rating: 4.7, reviews: 230, sellerScore: 94, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی معتبر", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 59300000, oldPrice: 62000000, avg30d: 60500000, shipping: 0, rating: 4.7, reviews: 910, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه زرین نمای کاسپین", bnpl: "دیجی‌پی (۶ و ۱۲ ماهه)", searchSite: "digikala" },
-          { store: "باسلام", seller: "غرفه تخصصی موبایل تهران", price: 60400000, oldPrice: 66500000, avg30d: 59900000, shipping: 45000, rating: 4.2, reviews: 38, sellerScore: 84, officialWarranty: false, warranty: "مهلت تست ۷ روزه باسلام", bnpl: "اعتبار باسلام", searchSite: "basalam" }
-        ]
-      },
-      {
-        keywords: ["ایفون 13", "آیفون 13", "آیفون ۱۳", "iphone 13", "ایفون 15", "آیفون 15", "iphone 15"],
-        title: "گوشی موبایل اپل مدل iPhone 13 CH ظرفیت 128 گیگابایت رم 4 گیگابایت (پک اصلی رجیسترشده)",
-        basePrice: 43200000,
-        offers: [
-          { store: "ترب", seller: "موبایل سنتر جمهوری", price: 42650000, oldPrice: 44000000, avg30d: 43800000, shipping: 0, rating: 4.7, reviews: 310, sellerScore: 94, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی + کد فعال‌سازی همتا", bnpl: "پرداخت امن ترب", searchSite: "torob" },
-          { store: "تکنولایف", seller: "تکنولایف", price: 42950000, oldPrice: 44500000, avg30d: 43900000, shipping: 0, rating: 4.8, reviews: 890, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه رسمی شرکتی", bnpl: "تکنوپی / اسنپ‌پی", searchSite: "technolife" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 43400000, oldPrice: 45100000, avg30d: 44100000, shipping: 0, rating: 4.6, reviews: 4200, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["s24 ultra", "اس 24 اولترا", "اس ۲۴ اولترا", "s24 اولترا"],
-        title: "گوشی موبایل سامسونگ مدل Galaxy S24 Ultra 5G ظرفیت 256 گیگابایت رم 12 گیگابایت (ویتنام)",
-        basePrice: 69800000,
-        offers: [
-          { store: "تکنولایف", seller: "تکنولایف (رسمی)", price: 69200000, oldPrice: 72500000, avg30d: 71100000, shipping: 0, rating: 4.9, reviews: 640, sellerScore: 98, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه داریا همراه پایتخت (رسمی)", bnpl: "تکنوپی / ازکی‌وام / اسنپ‌پی", searchSite: "technolife" },
-          { store: "ترب", seller: "سامسونگ استور سعادت‌آباد", price: 68750000, oldPrice: 70900000, avg30d: 70800000, shipping: 50000, rating: 4.6, reviews: 210, sellerScore: 93, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی + رجیستر شده", bnpl: "پرداخت امن ترب", searchSite: "torob" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 69950000, oldPrice: 73000000, avg30d: 71300000, shipping: 0, rating: 4.8, reviews: 1850, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه هما تلکام", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["a55", "آ55", "ا55", "گلکسی a55", "سامسونگ a55"],
-        title: "گوشی موبایل سامسونگ مدل Galaxy A55 5G ظرفیت 256 گیگابایت رم 8 گیگابایت (ویتنام)",
-        basePrice: 21400000,
-        offers: [
-          { store: "اسنپ‌شاپ", seller: "سامسونگ سنتر اسنپ‌شاپ", price: 20950000, oldPrice: 22400000, avg30d: 21800000, shipping: 0, rating: 4.8, reviews: 520, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی رسمی", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" },
-          { store: "تکنولایف", seller: "تکنولایف", price: 21100000, oldPrice: 22300000, avg30d: 21750000, shipping: 0, rating: 4.8, reviews: 780, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه داریا همراه", bnpl: "تکنوپی / اسنپ‌پی", searchSite: "technolife" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 21450000, oldPrice: 22800000, avg30d: 21900000, shipping: 0, rating: 4.7, reviews: 3100, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "دیجی‌پی", searchSite: "digikala" },
-          { store: "ترب", seller: "دیجیتال مارکت ولیعصر", price: 20690000, oldPrice: 21500000, avg30d: 21600000, shipping: 55000, rating: 4.5, reviews: 140, sellerScore: 90, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "نقدی", searchSite: "torob" }
-        ]
-      },
-      {
-        keywords: ["14t", "شیائومی", "xiaomi", "poco", "پوکو", "ردمی", "redmi"],
-        title: "گوشی موبایل شیائومی مدل 14T Pro 5G ظرفیت 512 گیگابایت رم 12 گیگابایت (گلوبال با شارژر اصلی)",
-        basePrice: 41800000,
-        offers: [
-          { store: "تکنولایف", seller: "تکنولایف", price: 41250000, oldPrice: 43500000, avg30d: 42600000, shipping: 0, rating: 4.8, reviews: 390, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه تسک میران (رسمی)", bnpl: "تکنوپی / اسنپ‌پی", searchSite: "technolife" },
-          { store: "ترب", seller: "شیائومی لند", price: 40850000, oldPrice: 42000000, avg30d: 42400000, shipping: 50000, rating: 4.6, reviews: 120, sellerScore: 92, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "پرداخت امن ترب", searchSite: "torob" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 41900000, oldPrice: 43900000, avg30d: 42800000, shipping: 0, rating: 4.7, reviews: 870, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["مک بوک", "macbook", "m3", "اپل مک"],
-        title: "لپ‌تاپ 13.6 اینچی اپل مدل MacBook Air M3 2024 ظرفیت 16GB رم و 512GB SSD",
-        basePrice: 82500000,
-        offers: [
-          { store: "ترب", seller: "اپل نیک پایتخت", price: 81400000, oldPrice: 84000000, avg30d: 83200000, shipping: 0, rating: 4.8, reviews: 95, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی معتبر", bnpl: "پرداخت امن ترب", searchSite: "torob" },
-          { store: "تکنولایف", seller: "تکنولایف", price: 81900000, oldPrice: 84800000, avg30d: 83500000, shipping: 0, rating: 4.9, reviews: 210, sellerScore: 98, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه الماس رایان ایرانیان", bnpl: "تکنوپی / ازکی‌وام", searchSite: "technolife" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 82900000, oldPrice: 85500000, avg30d: 83900000, shipping: 0, rating: 4.7, reviews: 330, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه نامداران", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["loq", "لنوو", "lenovo", "لپ تاپ", "laptop", "ایسوس", "asus"],
-        title: "لپ‌تاپ 15.6 اینچی گیمینگ لنوو مدل LOQ 15IRX9 - پردازنده i7 13650HX رم 16GB گرافیک RTX 4060 8GB",
-        basePrice: 74900000,
-        offers: [
-          { store: "ترب", seller: "لپ‌تاپ مارکت (۵ ستاره ترب)", price: 74500000, oldPrice: 77500000, avg30d: 76800000, shipping: 0, rating: 4.8, reviews: 145, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۲۴ ماهه سازگار ارقام", bnpl: "ازکی‌وام / ترب", searchSite: "torob" },
-          { store: "تکنولایف", seller: "تکنولایف", price: 75200000, oldPrice: 78200000, avg30d: 77100000, shipping: 0, rating: 4.8, reviews: 260, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۲۴ ماهه الماس رایان ایرانیان", bnpl: "تکنوپی ۱۲ ماهه", searchSite: "technolife" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 76400000, oldPrice: 79500000, avg30d: 77300000, shipping: 0, rating: 4.7, reviews: 510, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه آواژنگ", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["پلی استیشن", "ps5", "کنسول", "playstation"],
-        title: "کنسول بازی سونی مدل PlayStation 5 Slim استاندارد دیسک‌خور ظرفیت 1 ترابایت (ریجن اروپا 2016)",
-        basePrice: 36800000,
-        offers: [
-          { store: "اسنپ‌شاپ", seller: "گیم سنتر رسمی اسنپ‌شاپ", price: 36400000, oldPrice: 38200000, avg30d: 37500000, shipping: 0, rating: 4.8, reviews: 380, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی + مهلت تست ۱۰ روزه", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" },
-          { store: "ترب", seller: "توپخانه گیم استور", price: 35950000, oldPrice: 37500000, avg30d: 37200000, shipping: 65000, rating: 4.6, reviews: 190, sellerScore: 92, officialWarranty: true, warranty: "ضمانت اصالت پلمپ سونی", bnpl: "پرداخت امن ترب", searchSite: "torob" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 36950000, oldPrice: 38900000, avg30d: 37800000, shipping: 0, rating: 4.7, reviews: 1420, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["ایرپاد", "airpod", "هدفون", "هندزفری"],
-        title: "هدفون بلوتوثی اپل مدل AirPods Pro 2nd Generation (درگاه تایپ C - اصلی)",
-        basePrice: 14180000,
-        offers: [
-          { store: "اسنپ‌شاپ", seller: "اپل استور اسنپ‌شاپ", price: 14150000, oldPrice: 15200000, avg30d: 14750000, shipping: 0, rating: 4.8, reviews: 290, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی + استعلام سریال اپل", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" },
-          { store: "مسترکالا", seller: "مسترکالا (تخصصی لوازم جانبی)", price: 14250000, oldPrice: 14900000, avg30d: 14650000, shipping: 0, rating: 4.8, reviews: 410, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه رسمی + ۱۰ روز مهلت تست", bnpl: "اسنپ‌پی (۴ قسط)", searchSite: "masterkala" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 14550000, oldPrice: 15400000, avg30d: 14800000, shipping: 0, rating: 4.7, reviews: 1120, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه نامداران", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["اپل واچ", "apple watch", "ساعت هوشمند", "واچ"],
-        title: "ساعت هوشمند اپل مدل Apple Watch Series 10 46mm Aluminum (پک اصلی)",
-        basePrice: 26400000,
-        offers: [
-          { store: "تکنولایف", seller: "تکنولایف", price: 25950000, oldPrice: 27400000, avg30d: 26800000, shipping: 0, rating: 4.9, reviews: 185, sellerScore: 97, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه رسمی شرکتی", bnpl: "تکنوپی / اسنپ‌پی", searchSite: "technolife" },
-          { store: "اسنپ‌شاپ", seller: "اپل استور اسنپ‌شاپ", price: 26150000, oldPrice: 27600000, avg30d: 26900000, shipping: 0, rating: 4.7, reviews: 120, sellerScore: 94, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)", searchSite: "snappshop" },
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 26500000, oldPrice: 27900000, avg30d: 27000000, shipping: 0, rating: 4.8, reviews: 460, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی", bnpl: "دیجی‌پی", searchSite: "digikala" }
-        ]
-      },
-      {
-        keywords: ["سرخ کن", "فیلیپس", "philips", "هواپز"],
-        title: "سرخ‌کن بدون روغن فیلیپس مدل HD9280/90 ظرفیت 6.2 لیتر سایز XL (اصلی)",
-        basePrice: 11450000,
-        offers: [
-          { store: "دیجی‌کالا", seller: "دیجی‌کالا", price: 11450000, oldPrice: 12600000, avg30d: 12100000, shipping: 0, rating: 4.8, reviews: 670, sellerScore: 96, officialWarranty: true, warranty: "گارانتی ۲۴ ماهه شکوفا الکتریک سرویس", bnpl: "دیجی‌پی", searchSite: "digikala" },
-          { store: "تکنولایف", seller: "تکنولایف", price: 11580000, oldPrice: 12300000, avg30d: 12050000, shipping: 0, rating: 4.7, reviews: 215, sellerScore: 95, officialWarranty: true, warranty: "گارانتی ۱۸ ماهه شرکتی معتبر", bnpl: "تکنوپی / اسنپ‌پی", searchSite: "technolife" },
-          { store: "ترب", seller: "لوازم خانگی امین‌حضور", price: 11190000, oldPrice: 13500000, avg30d: 11100000, shipping: 120000, rating: 4.2, reviews: 42, sellerScore: 84, officialWarranty: false, warranty: "گارانتی ۱۲ ماهه فروشگاهی", bnpl: "نقدی", searchSite: "torob" }
-        ]
+    const ENDPOINTS = {
+      digikala: "https://digikala-mcp.mmdju.workers.dev/mcp",
+      torob: "https://torob-mcp.mmdju3.workers.dev/mcp",
+      divar: "https://divar-mcp.mmdju2.workers.dev/mcp",
+      basalam: "https://search.basalam.com/ai-engine/api/v2.0/product/search"
+    };
+
+    const sessionIds = { digikala: null, torob: null, divar: null };
+
+    let state = {
+      query: "گوشی آیفون 16",
+      budgetToman: 0, // 0 = بدون سقف
+      category: "all",
+      sort: "best",
+      sourceFilter: "all",
+      items: [],
+      divarStats: null,
+      torobRange: null
+    };
+
+
+    function cleanSearchQuery(raw) {
+      if (!raw) return "";
+      let s = " " + raw + " ";
+      s = s
+        .replace(/تا\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ")
+        .replace(/زیر\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ");
+      const fillers = ["خوب", "ارزان", "ارزون", "بهترین", "باکیفیت", "با کیفیت", "مدل های", "همه مدل ها", "و", "یا"];
+      for (const w of fillers) {
+        const reg = new RegExp("(^|\\s)" + w + "(?=\\s|$)", "g");
+        s = s.replace(reg, " ");
       }
-    ];
-
-    const MCP_SERVERS_LIST = [
-      { name: "digikala-mcp", site: "دیجی‌کالا + سوپرمارکت", tools: 23, desc: "جستجو، تاریخچه قیمت ۳۰ روزه، مقایسه فروشندگان و نظرات" },
-      { name: "torob-engine", site: "ترب (Torob)", tools: 12, desc: "موتور مقایسه قیمت هزاران فروشگاه ایران + نمودار قیمت" },
-      { name: "technolife-mcp", site: "تکنولایف", tools: 19, desc: "مقایسه قیمت نقد و اقساط، مشخصات فنی و کمپین‌ها" },
-      { name: "snapp-mcp + snappshop", site: "اسنپ‌شاپ + اسنپ‌مارکت + اسنپ‌فود", tools: 25, desc: "خرید قسطی اسنپ‌پی، سوپرمارکت و هزینه واقعی سفارش غذا" },
-      { name: "masterkala-mcp", site: "مسترکالا", tools: 14, desc: "تخصصی گجت و لوازم جانبی موبایل با مهلت تست" },
-      { name: "shopino-mcp", site: "شاپینو", tools: 14, desc: "موتور جستجوی پوشاک و مد از هزاران مزون و فروشگاه" },
-      { name: "okala-mcp", site: "اکالا (افق کوروش)", tools: 16, desc: "مقایسه تخفیف‌های سوپرمارکتی و ارسال سریع" },
-      { name: "khanoumi & asalbanoo", site: "خانومی + عسل‌بانو", tools: 24, desc: "مقایسه قیمت لوازم آرایشی، بهداشتی و عطر و ادکلن" },
-      { name: "basalam & emalls", site: "باسلام + ایمالز", tools: 18, desc: "جستجوی مستقیم از تولیدکنندگان باسلام و لیست قیمت ایمالز" },
-      { name: "taaghche, fidibo, 30book", site: "طاقچه + فیدیبو + ۳۰بوک", tools: 37, desc: "مقایسه کتاب چاپی، الکترونیکی و صوتی" }
-    ];
-
-    let currentPriority = "best_value";
-    let activeFilters = { warranty: false, realDeal: false, freeShip: false };
-    let currentQuery = "گوشی آیفون 16";
-    let currentOffers = [];
-    let currentMatchedTitle = "";
-
-    function normalizeText(str) {
-      if (!str) return "";
-      const map = {
-        "ي": "ی", "ك": "ک", "ۀ": "ه", "۰": "0", "۱": "1", "۲": "2",
-        "۳": "3", "۴": "4", "۵": "5", "۶": "6", "۷": "7", "۸": "8", "۹": "9"
-      };
-      return str.toString().toLowerCase().replace(/[يكۀ۰-۹]/g, c => map[c] || c).trim();
+      s = s.replace(/\s+/g, " ").trim();
+      return s || raw.trim();
     }
 
     function formatToman(n) {
+      if (!n || isNaN(n) || n <= 0) return "نامشخص";
       return Math.round(Number(n)).toLocaleString("fa-IR") + " تومان";
     }
 
-    function buildStoreSearchUrl(site, query) {
-      const q = encodeURIComponent(query.trim());
-      const urls = {
-        digikala: `https://www.digikala.com/search/?q=${q}`,
-        torob: `https://torob.com/search/?query=${q}`,
-        technolife: `https://www.technolife.ir/product/list/search?keywords=${q}`,
-        snappshop: `https://snappshop.ir/search?query=${q}`,
-        masterkala: `https://www.masterkala.com/product/list/?Title=${q}`,
-        basalam: `https://basalam.com/s?q=${q}`,
-        khanoumi: `https://www.khanoumi.com/search?q=${q}`,
-        shopino: `https://shopino.app/search?q=${q}`,
-        emalls: `https://emalls.ir/لیست-قیمت_${q}/`
-      };
-      return urls[site] || urls.torob;
+    function formatMillionLabel(toman) {
+      if (!toman || toman <= 0) return "بدون سقف";
+      if (toman >= 1000000) return "تا " + (toman / 1000000).toLocaleString("fa-IR") + " میلیون تومان";
+      return "تا " + toman.toLocaleString("fa-IR") + " تومان";
     }
 
     // =========================================================================
-    // ۲. استعلام زنده (Live API Fetch) از باسلام، دیجی‌کالا و ترب + فال‌بک هوشمند
+    // ۲. کلاینت استاندارد JSON-RPC 2.0 برای سرورهای Streamable HTTP MCP
+    //    پشتیبانی کامل از JSON، استریم SSE (data: ...) و Handshake نشست
     // =========================================================================
-    async function fetchWithTimeout(url, timeoutMs = 3500) {
-      const ctrl = new AbortController();
-      const id = setTimeout(() => ctrl.abort(), timeoutMs);
+    function parseMcpPayload(rawText) {
+      if (!rawText) throw new Error("پاسخ خالی از سرور");
+      let rpcObj = null;
+      const trimmed = rawText.trim();
+
+      if (trimmed.startsWith("{")) {
+        rpcObj = JSON.parse(trimmed);
+      } else {
+        const lines = trimmed.split(/\r?\n/);
+        for (let i = lines.length - 1; i >= 0; i--) {
+          const line = lines[i].trim();
+          if (line.startsWith("data:")) {
+            const jsonStr = line.replace(/^data:\s*/, "").trim();
+            if (!jsonStr) continue;
+            try {
+              const parsed = JSON.parse(jsonStr);
+              if (parsed && (parsed.result || parsed.error)) {
+                rpcObj = parsed;
+                break;
+              }
+            } catch (_) {}
+          }
+        }
+      }
+
+      if (!rpcObj) throw new Error("فرمت پاسخ MCP قابل پارس نبود");
+      if (rpcObj.error) throw new Error(rpcObj.error.message || "خطای برگشتی از MCP");
+
+      const result = rpcObj.result || {};
+      if (result.structuredContent) return result.structuredContent;
+      if (Array.isArray(result.content)) {
+        const txtItem = result.content.find(c => c && c.type === "text" && typeof c.text === "string");
+        if (txtItem) {
+          try {
+            return JSON.parse(txtItem.text);
+          } catch (_) {
+            return { text: txtItem.text };
+          }
+        }
+      }
+      return result;
+    }
+
+    async function callMcpTool(serviceKey, toolName, args, timeoutMs = 8500) {
+      const url = ENDPOINTS[serviceKey];
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+      const makeHeaders = () => {
+        const h = {
+          "content-type": "application/json",
+          "accept": "application/json, text/event-stream"
+        };
+        if (sessionIds[serviceKey]) {
+          h["mcp-session-id"] = sessionIds[serviceKey];
+        }
+        return h;
+      };
+
       try {
-        const res = await fetch(url, { signal: ctrl.signal });
-        clearTimeout(id);
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return await res.json();
-      } catch (e) {
-        clearTimeout(id);
-        throw e;
+        let res = await fetch(url, {
+          method: "POST",
+          headers: makeHeaders(),
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: Date.now() + Math.floor(Math.random() * 1000),
+            method: "tools/call",
+            params: { name: toolName, arguments: args }
+          }),
+          signal: controller.signal
+        });
+
+        const sid = res.headers.get("mcp-session-id");
+        if (sid) sessionIds[serviceKey] = sid;
+
+        let text = await res.text();
+
+        // اگر سرور نیاز به initialize اولیه داشت، به صورت خودکار handshake را انجام بده
+        if (!res.ok || text.includes("session") || text.includes("initialize") || text.includes("Not initialized")) {
+          const initRes = await fetch(url, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "accept": "application/json, text/event-stream"
+            },
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              id: 1,
+              method: "initialize",
+              params: {
+                protocolVersion: "2025-03-26",
+                capabilities: {},
+                clientInfo: { name: "chibekharim-amin", version: "2.0.0" }
+              }
+            }),
+            signal: controller.signal
+          });
+          const newSid = initRes.headers.get("mcp-session-id");
+          if (newSid) sessionIds[serviceKey] = newSid;
+
+          res = await fetch(url, {
+            method: "POST",
+            headers: makeHeaders(),
+            body: JSON.stringify({
+              jsonrpc: "2.0",
+              id: 2,
+              method: "tools/call",
+              params: { name: toolName, arguments: args }
+            }),
+            signal: controller.signal
+          });
+          text = await res.text();
+        }
+
+        clearTimeout(timer);
+        return parseMcpPayload(text);
+      } catch (err) {
+        clearTimeout(timer);
+        throw err;
       }
     }
 
-    async function tryLiveApis(query) {
-      const liveOffers = [];
-      const qEnc = encodeURIComponent(query);
+    // =========================================================================
+    // ۳. موتور جستجوی موازی زنده در ترب، دیجی‌کالا، باسلام و دیوار (۱۰۰٪ قیمت واقعی)
+    // =========================================================================
+    async function runLiveSearch() {
+      const q = document.getElementById("searchInput").value.trim();
+      if (!q) return;
+      state.query = q;
+      state.items = [];
+      state.divarStats = null;
+      state.torobRange = null;
 
-      // ۱. تلاش برای دریافت زنده از دیجی‌کالا (مستقیم یا از طریق پراکسی CORS)
-      const dkTarget = `https://api.digikala.com/v1/search/?q=${qEnc}&page=1`;
-      const dkUrls = [
-        dkTarget,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(dkTarget)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(dkTarget)}`
-      ];
+      document.getElementById("loadingBox").classList.remove("hidden");
+      document.getElementById("loadingText").innerText = `در حال دریافت قیمت‌های لحظه‌ای و واقعی «${q}» از دیجی‌کالا، ترب، باسلام و دیوار...`;
+      document.getElementById("resultsContainer").innerHTML = "";
+      document.getElementById("marketSummaryBox").innerHTML = "";
+      renderDirectPortals(q);
 
-      // ۱.۵ تلاش برای دریافت زنده از موتور ترب (Torob v4 API)
-      const torobTarget = `https://api.torob.com/v4/base-product/search/?q=${qEnc}&page=0&size=4`;
-      const torobUrls = [
-        torobTarget,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(torobTarget)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(torobTarget)}`
-      ];
-
-      // ۲. تلاش برای دریافت زنده از موتور جستجوی باسلام (دارای CORS باز)
-      const basalamUrl = `https://search.basalam.com/ai-engine/api/v2.0/product/search?q=${qEnc}&from=0&size=4`;
+      // سقف بودجه با ۱۰٪ انعطاف (دقیقاً مطابق منطق chibekharim.sepehrradmard.ir)
+      const hardMax = state.budgetToman > 0 ? Math.round(state.budgetToman * 1.10) : undefined;
 
       const tasks = [
-        (async () => {
-          for (const u of dkUrls) {
-            try {
-              const data = await fetchWithTimeout(u, 3200);
-              const prods = (data && data.data && data.data.products) || [];
-              for (const p of prods.slice(0, 3)) {
-                const dv = p.default_variant || {};
-                const pr = dv.price || {};
-                const sellToman = Math.round((pr.selling_price || 0) / 10);
-                const rrpToman = Math.round((pr.rrp_price || pr.selling_price || 0) / 10);
-                if (sellToman > 0) {
-                  const wTitle = (dv.warranty && dv.warranty.title_fa) || "گارانتی اصالت و سلامت فیزیکی";
-                  liveOffers.push({
-                    store: "دیجی‌کالا (زنده)",
-                    itemTitle: p.title_fa || query,
-                    seller: (dv.seller && dv.seller.title) || "دیجی‌کالا",
-                    price: sellToman,
-                    oldPrice: rrpToman > sellToman ? rrpToman : Math.round(sellToman * 1.05),
-                    avg30d: Math.round(sellToman * 1.03),
-                    shipping: sellToman >= 1000000 ? 0 : 45000,
-                    rating: Number((((p.rating && p.rating.rate) || 88) / 20).toFixed(1)),
-                    reviews: (p.rating && p.rating.count) || 45,
-                    sellerScore: 95,
-                    officialWarranty: wTitle.includes("۱۸") || wTitle.includes("شرکتی") || wTitle.includes("رسمی"),
-                    warranty: wTitle,
-                    bnpl: "دیجی‌پی (۶ و ۱۲ ماهه)",
-                    directUrl: `https://www.digikala.com/product/dkp-${p.id}/`,
-                    searchSite: "digikala"
-                  });
-                }
-              }
-              if (liveOffers.length > 0) break;
-            } catch (_) {}
-          }
-        })(),
+        // الف) استعلام زنده از ترب (Torob MCP: search_products + find_best_value + استخراج فروشندگان واقعی از product_details)
         (async () => {
           try {
-            const bData = await fetchWithTimeout(basalamUrl, 3200);
-            const bProds = (bData && bData.products) || [];
-            for (const bp of bProds.slice(0, 2)) {
-              const pToman = Math.round((bp.price || 0) / 10);
-              if (pToman > 0) {
-                liveOffers.push({
-                  store: "باسلام (زنده)",
-                  itemTitle: bp.name || query,
-                  seller: (bp.vendor && bp.vendor.name) || "غرفه‌دار برگزیده باسلام",
-                  price: pToman,
-                  oldPrice: Math.round((bp.primaryPrice || bp.price * 1.08) / 10),
-                  avg30d: Math.round(pToman * 1.04),
-                  shipping: 45000,
-                  rating: Number(((bp.rating && bp.rating.average) || 4.5).toFixed(1)),
-                  reviews: (bp.rating && bp.rating.count) || 28,
-                  sellerScore: 90,
-                  officialWarranty: true,
-                  warranty: "ضمانت ۷ روزه بازگشت وجه باسلام",
-                  bnpl: "اعتبار باسلام / اسنپ‌پی",
-                  directUrl: `https://basalam.com/s?q=${qEnc}`,
-                  searchSite: "basalam"
+            const apiQuery = cleanSearchQuery(q);
+            const args = { query: apiQuery, available_only: true, limit: 12 };
+            if (hardMax) args.max_price_toman = hardMax;
+
+            const calls = [callMcpTool("torob", "search_products", args)];
+            if (state.budgetToman > 0) {
+              calls.push(callMcpTool("torob", "find_best_value", {
+                query: apiQuery,
+                budget_toman: state.budgetToman,
+                include_delivery: true,
+                limit: 6
+              }));
+            }
+
+            const settled = await Promise.allSettled(calls);
+            const searchData = settled[0]?.status === "fulfilled" ? settled[0].value : null;
+            const bestValData = settled[1]?.status === "fulfilled" ? settled[1].value : null;
+
+            if (searchData && searchData.price_range_toman) {
+              state.torobRange = searchData.price_range_toman;
+            }
+
+            const seenPrks = new Set();
+            const mergedProducts = [
+              ...((bestValData && bestValData.picks) || []),
+              ...((searchData && searchData.products) || [])
+            ];
+
+            let firstPrk = null;
+            let firstDetailsUrl = null;
+            let firstTitle = apiQuery;
+            let firstImg = "";
+
+            for (const p of mergedProducts) {
+              const prk = p.prk || "";
+              if (prk && seenPrks.has(prk)) continue;
+              if (prk) seenPrks.add(prk);
+
+              const price = Number(p.price_toman || p.cheapest_price_toman || 0);
+              if (price <= 0) continue;
+
+              if (!firstPrk && prk) {
+                firstPrk = prk;
+                firstDetailsUrl = p.details_url || null;
+                firstTitle = p.name_fa || p.name_en || q;
+                firstImg = p.image || "";
+              }
+
+              const safeUid = "tr-" + String(prk || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+              state.items.push({
+                uid: safeUid,
+                source: "torob",
+                sourceLabel: `ترب · ${p.shop_name || "ارزان‌ترین فروشنده"}`,
+                shopName: p.shop_name || "فروشگاه عضو ترب",
+                title: p.name_fa || p.name_en || q,
+                priceToman: price,
+                oldPriceToman: null,
+                discountPct: 0,
+                rating: 4.6,
+                ratingCount: null,
+                image: p.image || "",
+                url: p.url || `https://torob.com/search/?query=${encodeURIComponent(apiQuery)}`,
+                prk: prk || null,
+                detailsUrl: p.details_url || null,
+                badges: p.badges || []
+              });
+            }
+
+            // استخراج خودکار فروشندگان مستقیم (تکنولایف، مسترکالا، همراه‌تل و...) برای کالای اول از product_details ترب
+            if (firstPrk) {
+              try {
+                const det = await callMcpTool("torob", "product_details", {
+                  prk: firstPrk,
+                  details_url: firstDetailsUrl || undefined,
+                  max_offers: 6
+                }, 5500);
+                for (const [idx, off] of ((det && det.offers) || []).slice(0, 5).entries()) {
+                  const offPrice = Number(off.price_toman || 0);
+                  if (offPrice <= 0) continue;
+                  state.items.push({
+                    uid: `troff-${idx}-${String(firstPrk).replace(/[^a-zA-Z0-9_-]/g, "")}`,
+                    source: "torob",
+                    sourceLabel: `${off.shop_name || "فروشگاه"} (${off.shop_city || "ایران"})`,
+                    shopName: `${off.shop_name || "فروشگاه"} · ${off.shop_city || "ایران"}${off.free_shipping ? " (ارسال رایگان)" : ""}`,
+                    title: det.name_fa || firstTitle,
+                    priceToman: offPrice,
+                    oldPriceToman: null,
+                    discountPct: 0,
+                    rating: Number(off.shop_score || 4.6),
+                    ratingCount: Number(off.shop_votes || 35),
+                    image: det.image || firstImg,
+                    url: off.buy_url || off.url || det.url,
+                    prk: firstPrk,
+                    detailsUrl: firstDetailsUrl,
+                    badges: off.free_shipping ? ["ارسال رایگان"] : []
+                  });
+                }
+              } catch (_) {}
+            }
+          } catch (e) {
+            console.warn("Torob MCP warning:", e);
+          }
+        })(),
+
+        // ب) استعلام زنده از دیجی‌کالا (Digikala MCP)
+        (async () => {
+          try {
+            const apiQuery = cleanSearchQuery(q);
+            const args = { query: apiQuery, only_marketable: true, limit: 12 };
+            if (hardMax) args.max_price_toman = hardMax;
+            const data = await callMcpTool("digikala", "search_digikala", args);
+            const items = (data && data.items) || [];
+            for (const it of items) {
+              const price = Number(it.price_toman || (it.price_rial ? it.price_rial / 10 : 0));
+              if (price <= 0) continue;
+              state.items.push({
+                uid: "dk-" + it.id,
+                dkpId: it.id,
+                source: "digikala",
+                sourceLabel: `دیجی‌کالا · ${it.seller || "دیجی‌کالا"}`,
+                shopName: it.seller || "دیجی‌کالا",
+                title: it.title || q,
+                priceToman: price,
+                oldPriceToman: it.price_before_toman ? Number(it.price_before_toman) : null,
+                discountPct: Number(it.discount_percent || 0),
+                rating: Number(it.rating_stars || 4.4),
+                ratingCount: Number(it.rating_count || 0),
+                image: it.image || "",
+                url: it.url || `https://www.digikala.com/product/dkp-${it.id}/`,
+                badges: it.badges || []
+              });
+            }
+          } catch (e) {
+            console.warn("Digikala MCP warning:", e);
+          }
+        })(),
+
+        // ج) استعلام زنده از باسلام (Basalam Live AI Search)
+        (async () => {
+          try {
+            const apiQuery = cleanSearchQuery(q);
+            const bUrl = `${ENDPOINTS.basalam}?q=${encodeURIComponent(apiQuery)}&from=0&size=8`;
+            const res = await fetch(bUrl);
+            if (res.ok) {
+              const bData = await res.json();
+              for (const bp of (bData.products || [])) {
+                const price = Math.round(Number(bp.price || 0) / 10);
+                if (price <= 0) continue;
+                if (hardMax && price > hardMax) continue;
+                const oldP = bp.primaryPrice ? Math.round(Number(bp.primaryPrice) / 10) : null;
+                const disc = oldP && oldP > price ? Math.round(((oldP - price) / oldP) * 100) : 0;
+                state.items.push({
+                  uid: "bs-" + bp.id,
+                  source: "basalam",
+                  sourceLabel: `باسلام · ${(bp.vendor && bp.vendor.name) || "غرفه‌دار"}`,
+                  shopName: (bp.vendor && bp.vendor.name) || "غرفه باسلام",
+                  title: bp.name || q,
+                  priceToman: price,
+                  oldPriceToman: oldP,
+                  discountPct: disc,
+                  rating: Number((bp.rating && bp.rating.average) || 4.5),
+                  ratingCount: Number((bp.rating && bp.rating.count) || 0),
+                  image: (bp.photo && (bp.photo.MEDIUM || bp.photo.SMALL)) || "",
+                  url: `https://basalam.com/${(bp.vendor && bp.vendor.identifier) || "s"}/product/${bp.id}`,
+                  badges: ["ضمانت بازگشت ۷ روزه"]
                 });
               }
             }
-          } catch (_) {}
+          } catch (e) {
+            console.warn("Basalam API warning:", e);
+          }
+        })(),
+
+        // د) استعلام زنده مظنه بازار و آگهی‌ها از دیوار (Divar MCP)
+        (async () => {
+          try {
+            const [mPrice, adsData] = await Promise.allSettled([
+              callMcpTool("divar", "market_price", { query: cleanSearchQuery(q), city: "tehran" }, 6500),
+              callMcpTool("divar", "search_ads", { query: cleanSearchQuery(q), city: "tehran", has_photo: true, limit: 6 }, 6500)
+            ]);
+
+            if (mPrice.status === "fulfilled" && mPrice.value && mPrice.value.price_stats) {
+              state.divarStats = mPrice.value;
+            }
+            if (adsData.status === "fulfilled" && adsData.value && Array.isArray(adsData.value.items)) {
+              for (const ad of adsData.value.items) {
+                const price = Number(ad.price_toman || 0);
+                if (price <= 0) continue;
+                if (hardMax && price > hardMax) continue;
+                state.items.push({
+                  uid: "dv-" + ad.token,
+                  divarToken: ad.token,
+                  source: "divar",
+                  sourceLabel: `دیوار تهران · ${ad.district || "آگهی تاییدشده"}`,
+                  shopName: `دیوار (${ad.district || "تهران"} · ${ad.time_ago || "جدید"})`,
+                  title: ad.title || q,
+                  priceToman: price,
+                  oldPriceToman: null,
+                  discountPct: 0,
+                  rating: 4.2,
+                  ratingCount: null,
+                  image: ad.image || "",
+                  url: ad.url || `https://divar.ir/v/${ad.token}`,
+                  badges: ad.badges || ["آگهی دیوار"]
+                });
+              }
+            }
+          } catch (e) {
+            console.warn("Divar MCP warning:", e);
+          }
         })()
       ];
 
-      tasks.push((async () => {
-        for (const tu of torobUrls) {
-          try {
-            const tData = await fetchWithTimeout(tu, 3200);
-            const tRes = (tData && tData.results) || [];
-            for (const item of tRes.slice(0, 3)) {
-              const pToman = Number(item.price || 0);
-              if (pToman > 0) {
-                liveOffers.push({
-                  store: "ترب (زنده)",
-                  itemTitle: item.name1 || query,
-                  seller: item.shop_text || "ارزان‌ترین فروشگاه در ترب",
-                  price: pToman,
-                  oldPrice: Math.round(pToman * 1.05),
-                  avg30d: Math.round(pToman * 1.02),
-                  shipping: 50000,
-                  rating: 4.6,
-                  reviews: 92,
-                  sellerScore: 93,
-                  officialWarranty: true,
-                  warranty: "گارانتی شرکتی + پرداخت امن ترب",
-                  bnpl: "پرداخت امن ترب / اسنپ‌پی",
-                  directUrl: item.random_key ? `https://torob.com/p/${item.random_key}/` : `https://torob.com/search/?query=${qEnc}`,
-                  searchSite: "torob"
-                });
-              }
-            }
-            if (tRes.length > 0) break;
-          } catch (_) {}
-        }
-      })());
-
       await Promise.allSettled(tasks);
-      return liveOffers;
+      document.getElementById("loadingBox").classList.add("hidden");
+      renderResults();
     }
 
-    function matchOrGenerateOffers(rawQuery) {
-      const qNorm = normalizeText(rawQuery);
+    // =========================================================================
+    // ۴. محاسبه امتیاز هوشمند ارزش خرید (VQS) و رندر کارت‌های واقعی
+    // =========================================================================
+    function scoreAndSortItems(rawItems) {
+      if (!rawItems.length) return [];
 
-      // ۱. بررسی تطابق با دیتابیس دقیق کالاهای محبوب
-      for (const entry of PRODUCT_DB) {
-        if (entry.keywords.some(k => qNorm.includes(normalizeText(k)))) {
-          return {
-            title: entry.title,
-            basePrice: entry.basePrice,
-            offers: entry.offers.map(o => ({
-              ...o,
-              itemTitle: entry.title,
-              directUrl: buildStoreSearchUrl(o.searchSite, rawQuery)
-            }))
-          };
+      // فیلتر منبع
+      let list = rawItems.filter(it => state.sourceFilter === "all" || it.source === state.sourceFilter);
+      if (!list.length) return [];
+
+      const prices = list.map(i => i.priceToman).filter(p => p > 0);
+      const minPrice = Math.min(...prices);
+      const medianPrice = prices.slice().sort((a, b) => a - b)[Math.floor(prices.length / 2)] || minPrice;
+
+      list = list.map(item => {
+        // جلوگیری از خطای لوازم جانبی بسیار ارزان هنگام جستجوی کالای اصلی (مثلاً قاب گوشی به جای خود گوشی)
+        const isAccessoryOutlier = medianPrice > 5000000 && item.priceToman < medianPrice * 0.12;
+        const refMin = isAccessoryOutlier ? item.priceToman : minPrice;
+
+        const priceRatio = Math.max(0, (item.priceToman - refMin) / Math.max(1, refMin));
+        let priceScore = 100 * Math.exp(-1.8 * priceRatio);
+        if (isAccessoryOutlier) priceScore = 52; // امتیاز متعادل برای جانبی‌ها تا کالای اصلی اول بماند
+
+        const votes = item.ratingCount || 20;
+        const bayesRating = (votes * (item.rating || 4.4) + 15 * 4.2) / (votes + 15);
+        const qualScore = Math.min(100, (bayesRating / 5.0) * 92 + Math.min(8, Math.log10(votes + 1) * 3));
+
+        const discountBonus = Math.min(12, (item.discountPct || 0) * 0.6);
+        const sourceTrust = item.source === "digikala" ? 95 : item.source === "torob" ? 94 : item.source === "basalam" ? 90 : 84;
+
+        const vqs = Number(
+          Math.min(99.5, priceScore * 0.42 + qualScore * 0.30 + sourceTrust * 0.20 + discountBonus).toFixed(1)
+        );
+
+        const withinBudget = state.budgetToman <= 0 || item.priceToman <= state.budgetToman;
+        const withinFlex10 = state.budgetToman > 0 && item.priceToman > state.budgetToman && item.priceToman <= state.budgetToman * 1.10;
+
+        return {
+          ...item,
+          vqs,
+          withinBudget,
+          withinFlex10,
+          isAccessoryOutlier
+        };
+      });
+
+      // اعمال فیلتر سقف بودجه (+۱۰٪ انعطاف مطابق chibekharim)
+      if (state.budgetToman > 0) {
+        const filteredBudget = list.filter(i => i.withinBudget || i.withinFlex10);
+        if (filteredBudget.length > 0) {
+          list = filteredBudget;
         }
       }
 
-      // ۲. اگر کاربر هر کالای جدید/دلخواه دیگری تایپ کرد، ساخت مقایسه اختصاصی همان کالا
-      let hash = 0;
-      for (let i = 0; i < qNorm.length; i++) {
-        hash = (hash * 31 + qNorm.charCodeAt(i)) % 100000;
-      }
-      const estimatedBase = 1800000 + (hash % 28) * 1250000;
+      // مرتب‌سازی: ابتدا گزینه‌های داخل بودجه، سپس تا ۱۰٪ بالاتر، و بر اساس معیار انتخابی کاربر
+      list.sort((a, b) => {
+        if (state.budgetToman > 0 && a.withinBudget !== b.withinBudget) {
+          return a.withinBudget ? -1 : 1;
+        }
+        if (state.sort === "cheap") {
+          if (a.isAccessoryOutlier !== b.isAccessoryOutlier) return a.isAccessoryOutlier ? 1 : -1;
+          return a.priceToman - b.priceToman;
+        }
+        if (state.sort === "rating") {
+          return (b.rating || 0) - (a.rating || 0) || b.vqs - a.vqs;
+        }
+        if (state.sort === "discount") {
+          return (b.discountPct || 0) - (a.discountPct || 0) || b.vqs - a.vqs;
+        }
+        return b.vqs - a.vqs;
+      });
 
-      const dynamicTitle = `${rawQuery.trim()} (مقایسه مستقیم در فروشگاه‌های معتبر ایران)`;
-      return {
-        title: dynamicTitle,
-        basePrice: estimatedBase,
-        offers: [
-          {
-            store: "ترب",
-            itemTitle: dynamicTitle,
-            seller: "ارزان‌ترین فروشنده تاییدشده در ترب",
-            price: Math.round(estimatedBase * 0.96),
-            oldPrice: Math.round(estimatedBase * 1.05),
-            avg30d: Math.round(estimatedBase * 1.01),
-            shipping: 50000,
-            rating: 4.6,
-            reviews: 84,
-            sellerScore: 93,
-            officialWarranty: true,
-            warranty: "گارانتی ۱۸ ماهه شرکتی + پرداخت امن ترب",
-            bnpl: "اسنپ‌پی / پرداخت امن ترب",
-            searchSite: "torob",
-            directUrl: buildStoreSearchUrl("torob", rawQuery)
-          },
-          {
-            store: "تکنولایف",
-            itemTitle: dynamicTitle,
-            seller: "تکنولایف (فروشنده رسمی)",
-            price: Math.round(estimatedBase * 0.98),
-            oldPrice: Math.round(estimatedBase * 1.07),
-            avg30d: Math.round(estimatedBase * 1.03),
-            shipping: 0,
-            rating: 4.8,
-            reviews: 195,
-            sellerScore: 97,
-            officialWarranty: true,
-            warranty: "گارانتی ۱۸ ماهه رسمی شرکتی",
-            bnpl: "تکنوپی / اسنپ‌پی (۴ قسط) / ازکی‌وام",
-            searchSite: "technolife",
-            directUrl: buildStoreSearchUrl("technolife", rawQuery)
-          },
-          {
-            store: "اسنپ‌شاپ",
-            itemTitle: dynamicTitle,
-            seller: "فروشگاه منتخب اسنپ‌شاپ",
-            price: Math.round(estimatedBase * 0.99),
-            oldPrice: Math.round(estimatedBase * 1.08),
-            avg30d: Math.round(estimatedBase * 1.02),
-            shipping: 0,
-            rating: 4.7,
-            reviews: 150,
-            sellerScore: 94,
-            officialWarranty: true,
-            warranty: "گارانتی شرکتی + تضمین اصالت اسنپ",
-            bnpl: "اسنپ‌پی (۴ قسط بدون کارمزد)",
-            searchSite: "snappshop",
-            directUrl: buildStoreSearchUrl("snappshop", rawQuery)
-          },
-          {
-            store: "دیجی‌کالا",
-            itemTitle: dynamicTitle,
-            seller: "دیجی‌کالا",
-            price: estimatedBase,
-            oldPrice: Math.round(estimatedBase * 1.09),
-            avg30d: Math.round(estimatedBase * 1.03),
-            shipping: 0,
-            rating: 4.7,
-            reviews: 430,
-            sellerScore: 96,
-            officialWarranty: true,
-            warranty: "گارانتی ۱۸ ماهه شرکتی معتبر",
-            bnpl: "دیجی‌پی (۶ و ۱۲ ماهه)",
-            searchSite: "digikala",
-            directUrl: buildStoreSearchUrl("digikala", rawQuery)
-          },
-          {
-            store: "باسلام",
-            itemTitle: dynamicTitle,
-            seller: "غرفه برتر باسلام",
-            price: Math.round(estimatedBase * 1.02),
-            oldPrice: Math.round(estimatedBase * 1.16),
-            avg30d: estimatedBase,
-            shipping: 45000,
-            rating: 4.3,
-            reviews: 35,
-            sellerScore: 86,
-            officialWarranty: false,
-            warranty: "ضمانت بازگشت ۷ روزه باسلام",
-            bnpl: "اعتبار باسلام",
-            searchSite: "basalam",
-            directUrl: buildStoreSearchUrl("basalam", rawQuery)
-          }
-        ]
-      };
+      return list;
     }
 
-    function evaluateOffer(offer, minLanded) {
-      const weights = {
-        best_value: { p: 0.38, q: 0.25, s: 0.22, t: 0.15 },
-        cheapest: { p: 0.72, q: 0.10, s: 0.10, t: 0.08 },
-        highest_quality: { p: 0.12, q: 0.48, s: 0.32, t: 0.08 },
-        installment: { p: 0.25, q: 0.20, s: 0.15, t: 0.40 }
-      }[currentPriority];
+    function renderResults() {
+      const list = scoreAndSortItems(state.items);
+      const container = document.getElementById("resultsContainer");
+      const summaryBox = document.getElementById("marketSummaryBox");
 
-      const landed = offer.price + offer.shipping;
-      const ratio = (landed - minLanded) / Math.max(1, minLanded);
-      const priceScore = Math.max(0, Math.min(100, 100 * Math.exp(-3.1 * Math.max(0, ratio))));
-
-      const bayesian = (offer.reviews * offer.rating + 15 * 4.1) / (offer.reviews + 15);
-      const qualScore = Math.min(100, (bayesian / 5.0) * 92 + Math.min(8, Math.log10(offer.reviews + 1) * 3));
-
-      const sellerScore = Math.min(100, offer.sellerScore * 0.85 + (offer.officialWarranty ? 15 : 0));
-
-      const diffAvgPct = ((offer.avg30d - offer.price) / Math.max(1, offer.avg30d)) * 100;
-      const claimedPct = ((offer.oldPrice - offer.price) / Math.max(1, offer.oldPrice)) * 100;
-      const isFake = claimedPct > 9 && offer.price >= offer.avg30d * 0.99;
-
-      const has4Installments = offer.bnpl.includes("۴ قسط") || offer.bnpl.includes("تکنوپی") || offer.bnpl.includes("دیجی‌پی");
-      let trendScore = Math.max(0, Math.min(100, 72 + diffAvgPct * 3 + (has4Installments ? 16 : 0)));
-      if (isFake) trendScore -= 30;
-
-      const vqs = Number(
-        (priceScore * weights.p + qualScore * weights.q + sellerScore * weights.s + trendScore * weights.t).toFixed(1)
-      );
-
-      return {
-        vqs,
-        landed,
-        priceScore: Math.round(priceScore),
-        qualScore: Math.round(qualScore),
-        sellerScore: Math.round(sellerScore),
-        diffAvgPct: diffAvgPct.toFixed(1),
-        isFake
-      };
-    }
-
-    async function executeSearch() {
-      const raw = document.getElementById("qInput").value.trim();
-      if (!raw) return;
-      currentQuery = raw;
-
-      document.getElementById("searchStatusText").innerHTML = `<span class="spinner"></span> در حال جستجوی زنده «${raw}» در فروشگاه‌های ایران...`;
-      renderLivePortals(raw);
-
-      const baseMatch = matchOrGenerateOffers(raw);
-      currentMatchedTitle = baseMatch.title;
-      currentOffers = [...baseMatch.offers];
-      document.getElementById("bnplInputPrice").value = baseMatch.basePrice;
-
-      // نمایش فوری نتایج اولیه و همزمان استعلام از APIهای زنده
-      renderAll();
-
-      const liveItems = await tryLiveApis(raw);
-      if (liveItems.length > 0) {
-        currentOffers = [...liveItems, ...baseMatch.offers];
-        document.getElementById("liveFetchBadge").innerText = `🟢 ${liveItems.length} نتیجه زنده API + مقایسه کامل`;
-      } else {
-        document.getElementById("liveFetchBadge").innerText = `⚡ مقایسه هوشمند ${currentOffers.length} فروشگاه`;
-      }
-
-      document.getElementById("searchStatusText").innerText = `نتایج مقایسه برای «${raw}»`;
-      renderAll();
-    }
-
-    function renderLivePortals(query) {
-      const stores = [
-        { id: "torob", name: "ترب", sub: "ارزان‌ترین‌ها" },
-        { id: "digikala", name: "دیجی‌کالا", sub: "اصالت و تنوع" },
-        { id: "technolife", name: "تکنولایف", sub: "نقد و اقساط" },
-        { id: "snappshop", name: "اسنپ‌شاپ", sub: "۴ قسط اسنپ‌پی" },
-        { id: "emalls", name: "ایمالز", sub: "لیست قیمت" },
-        { id: "basalam", name: "باسلام", sub: "خرید از غرفه" },
-        { id: "masterkala", name: "مسترکالا", sub: "لوازم جانبی" },
-        { id: "khanoumi", name: "خانومی", sub: "آرایشی و عطر" }
-      ];
-
-      document.getElementById("livePortalsBox").innerHTML = `
-        <div class="instant-title">
-          <span>🔗 باز کردن مستقیم نتایج زنده «${query}» در هر سایت:</span>
-          <span>لمس برای ورود ↗</span>
-        </div>
-        <div class="portal-grid">
-          ${stores.map(s => `
-            <a href="${buildStoreSearchUrl(s.id, query)}" target="_blank" rel="noopener" class="portal-btn">
-              <span>${s.name} ↗</span>
-              <span class="p-sub">${s.sub}</span>
-            </a>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    function renderAll() {
-      const minLanded = Math.min(...currentOffers.map(o => o.price + o.shipping));
-      let list = currentOffers.map(o => ({
-        ...o,
-        eval: evaluateOffer(o, minLanded)
-      }));
-
-      if (activeFilters.warranty) {
-        list = list.filter(o => o.officialWarranty);
-      }
-      if (activeFilters.realDeal) {
-        list = list.filter(o => !o.eval.isFake);
-      }
-      if (activeFilters.freeShip) {
-        list = list.filter(o => o.shipping === 0);
-      }
-
-      if (currentPriority === "cheapest") {
-        list.sort((a, b) => a.eval.landed - b.eval.landed);
-      } else if (currentPriority === "highest_quality") {
-        list.sort((a, b) => b.eval.qualScore - a.eval.qualScore || b.eval.vqs - a.eval.vqs);
-      } else {
-        list.sort((a, b) => b.eval.vqs - a.eval.vqs);
-      }
-
-      if (list.length === 0) {
-        document.getElementById("winnerBannerBox").innerHTML = "";
-        document.getElementById("offersListBox").innerHTML = `
-          <div class="offer-card" style="text-align:center;padding:24px;">
-            با این فیلترها پیشنهادی یافت نشد. یکی از فیلترهای بالا را خاموش کنید.
+      if (!list.length) {
+        summaryBox.innerHTML = "";
+        container.innerHTML = `
+          <div class="p-card" style="text-align:center;padding:22px;">
+            <div style="font-weight:800;margin-bottom:6px;">نتیجه‌ای در این فیلتر/بودجه پیدا نشد</div>
+            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:12px;">
+              سقف بودجه را روی «بدون سقف» بگذارید یا از دکمه‌های مستقیم فروشگاه‌ها در پایین صفحه استفاده کنید.
+            </div>
+            <button class="btn-search" onclick="setBudget(0); changeSourceFilter('all');">نمایش همه قیمت‌ها (بدون محدودیت بودجه)</button>
           </div>
         `;
         return;
       }
 
-      const best = list[0];
-      const maxLanded = Math.max(...list.map(o => o.eval.landed));
-      const saving = Math.max(0, maxLanded - best.eval.landed);
+      const mainItems = list.filter(i => !i.isAccessoryOutlier);
+      const pool = mainItems.length > 0 ? mainItems : list;
+      const cheapest = pool.slice().sort((a, b) => a.priceToman - b.priceToman)[0];
+      const bestPick = pool[0];
 
-      document.getElementById("winnerBannerBox").innerHTML = `
-        <div class="winner-banner">
-          <div class="wb-top">
-            <span>👑 بهترین پیشنهاد برای «${currentQuery}»</span>
-            <span>امتیاز هوشمند: ${best.eval.vqs} از ۱۰۰</span>
+      // بروزرسانی خودکار مبلغ در ماشین‌حساب اقساط با قیمت واقعی کالای برتر
+      document.getElementById("bnplAmount").value = bestPick.priceToman;
+
+      const fairMin = state.divarStats?.fair_price_range_toman?.min || cheapest.priceToman;
+      const fairMax = state.divarStats?.fair_price_range_toman?.max || Math.max(...pool.map(i => i.priceToman));
+
+      summaryBox.innerHTML = `
+        <div class="market-summary">
+          <div class="ms-top">
+            <span>📡 گزارش زنده بازار برای «${state.query}»</span>
+            <span>${list.length} پیشنهاد واقعی دریافت شد</span>
           </div>
-          <div class="wb-main">${best.store} · ${formatToman(best.eval.landed)}</div>
-          <div class="wb-sub">
-            ${best.warranty} | ${saving > 0 ? formatToman(saving) + ' ارزان‌تر از گران‌ترین فروشنده' : 'بهترین کیفیت و شرایط خرید'}
+          <div class="ms-title">👑 بهترین انتخاب: ${bestPick.shopName} (${formatToman(bestPick.priceToman)})</div>
+          <div class="ms-stats">
+            <div class="ms-stat">
+              <span>کف قیمت زنده</span>
+              <strong>${formatToman(cheapest.priceToman)}</strong>
+            </div>
+            <div class="ms-stat">
+              <span>بازه منصفانه بازار</span>
+              <strong>${formatToman(fairMin)}</strong>
+            </div>
+            <div class="ms-stat">
+              <span>تعداد منابع زنده</span>
+              <strong>دیجی‌کالا · ترب · باسلام · دیوار</strong>
+            </div>
           </div>
         </div>
       `;
 
-      document.getElementById("offersListBox").innerHTML = list.map((o, idx) => {
-        const isBest = idx === 0;
-        const dealBadge = o.eval.isFake
-          ? `<span class="deal-tag fake">⚠️ تخفیف صوری</span>`
-          : `<span class="deal-tag real">✅ ${o.eval.diffAvgPct}% زیر میانگین ماه</span>`;
+      container.innerHTML = list.map((item, idx) => {
+        const isTop = idx === 0;
+        const imgTag = item.image
+          ? `<img src="${item.image}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
+          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🛍️</div>`;
+
+        const overBadge = item.withinFlex10
+          ? `<span class="badge-over">✨ تا ۱۰٪ بالاتر از بودجه</span>`
+          : "";
+
+        const oldPriceHtml = item.oldPriceToman && item.oldPriceToman > item.priceToman
+          ? `<span class="p-price-old">${formatToman(item.oldPriceToman)}</span>`
+          : "";
+
+        const discountHtml = item.discountPct > 0
+          ? `<span class="p-discount-pill">${item.discountPct}% تخفیف</span>`
+          : `<span style="font-size:0.72rem;color:var(--green);font-weight:700;">✔ قیمت لحظه‌ای</span>`;
+
+        const inspectBtnLabel = item.source === "torob"
+          ? "🏪 همه فروشنده‌ها و نمودار قیمت"
+          : item.source === "digikala"
+          ? "📊 تاریخچه قیمت ۳۰ روزه و مشخصات"
+          : "🔍 جزئیات و بررسی قیمت";
 
         return `
-          <div class="offer-card ${isBest ? 'best' : ''}">
-            <div class="card-header">
-              <span class="store-badge">${isBest ? '🏆 انتخاب اول · ' : '#' + (idx + 1) + ' · '}${o.store}</span>
-              <span class="score-pill ${o.eval.isFake ? 'warn' : ''}">ارزش خرید: ${o.eval.vqs}/100</span>
-            </div>
-
-            <div class="product-title">${o.itemTitle || currentMatchedTitle}</div>
-            <div class="seller-row">
-              <span>🏪 ${o.seller}</span>
-              <span>⭐ ${o.rating} (${o.reviews} نظر)</span>
-            </div>
-
-            <div class="price-row">
-              <div>
-                <span class="price-old">${formatToman(o.oldPrice)}</span>
-                <span class="price-now">${formatToman(o.eval.landed)}</span>
+          <div class="p-card ${isTop ? 'top-pick' : ''} ${item.withinFlex10 ? 'over-budget' : ''}">
+            <div class="p-top-row">
+              <span class="badge-store">${isTop ? '🏆 انتخاب اول · ' : ''}${item.sourceLabel}</span>
+              <div style="display:flex;gap:4px;align-items:center;">
+                ${overBadge}
+                <span class="badge-vqs">ارزش خرید: ${item.vqs}/100</span>
               </div>
-              ${dealBadge}
             </div>
 
-            <div class="specs-pills">
-              <div class="spec-box"><span>گارانتی:</span><strong>${o.officialWarranty ? '۱۸ ماهه شرکتی' : 'مهلت تست'}</strong></div>
-              <div class="spec-box"><span>ارسال:</span><strong>${o.shipping === 0 ? 'رایگان' : formatToman(o.shipping)}</strong></div>
-              <div class="spec-box"><span>کیفیت و نظرات:</span><strong>${o.eval.qualScore}/100</strong></div>
-              <div class="spec-box"><span>خرید قسطی:</span><strong>${o.bnpl.split('/')[0]}</strong></div>
+            <div class="p-body">
+              ${imgTag}
+              <div class="p-info">
+                <div class="p-title">${item.title}</div>
+                <div class="p-meta">
+                  <span>🏪 ${item.shopName}</span>
+                  ${item.rating ? `<span>⭐ ${item.rating}${item.ratingCount ? ` (${item.ratingCount} نظر)` : ''}</span>` : ''}
+                </div>
+              </div>
             </div>
 
-            <div class="card-actions">
-              <a href="${o.directUrl}" target="_blank" rel="noopener" class="btn-buy-ios">
-                <span>مشاهده و خرید مستقیم در ${o.store}</span>
+            <div class="p-price-box">
+              <div>
+                ${oldPriceHtml}
+                <span class="p-price-main">${formatToman(item.priceToman)}</span>
+              </div>
+              ${discountHtml}
+            </div>
+
+            <div class="p-actions">
+              <a href="${item.url}" target="_blank" rel="noopener" class="btn-buy-direct">
+                <span>مشاهده و خرید مستقیم</span>
                 <span>↗</span>
               </a>
+              <button class="btn-inspect" onclick="openInspectModal('${item.uid}')">
+                ${inspectBtnLabel}
+              </button>
             </div>
           </div>
         `;
       }).join("");
-
-      // Update Comparison Matrix Tab
-      document.getElementById("matrixTable").innerHTML = `
-        <thead>
-          <tr>
-            <th>رتبه</th>
-            <th>فروشگاه</th>
-            <th>قیمت نهایی</th>
-            <th>گارانتی</th>
-            <th>اقساط</th>
-            <th>امتیاز</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${list.map((o, idx) => `
-            <tr>
-              <td><strong>#${idx + 1}</strong></td>
-              <td><a href="${o.directUrl}" target="_blank" style="color:var(--ios-blue);font-weight:700;">${o.store} ↗</a></td>
-              <td><strong>${formatToman(o.eval.landed)}</strong></td>
-              <td>${o.warranty}</td>
-              <td>${o.bnpl}</td>
-              <td><strong style="color:var(--ios-green);">${o.eval.vqs}</strong></td>
-            </tr>
-          `).join("")}
-        </tbody>
-      `;
-
-      renderBNPL();
     }
 
-    function renderBNPL() {
-      const cash = Number(document.getElementById("bnplInputPrice").value) || 58900000;
-      const inf = (Number(document.getElementById("bnplInputInf").value) || 3.0) / 100;
+    // =========================================================================
+    // ۵. کالبدشکافی زنده محصول (فروشنده‌های ترب + نمودار قیمت ۳۰ روزه دیجی‌کالا/ترب)
+    // =========================================================================
+    async function openInspectModal(uid) {
+      const item = state.items.find(x => x.uid === uid);
+      if (!item) return;
 
-      const plans = [
-        { name: "اسنپ‌پی / تارا (۴ قسط بدون کارمزد)", months: 4, up: cash * 0.25, m: cash * 0.25 },
-        { name: "دیجی‌پی (۶ قسطه)", months: 6, up: 0, m: (cash * 1.115) / 6 },
-        { name: "تکنوپی / ازکی‌وام (۱۲ قسطه)", months: 12, up: 0, m: (cash * 1.23) / 12 }
-      ];
+      const modal = document.getElementById("inspectModal");
+      const body = document.getElementById("modalBody");
+      document.getElementById("modalTitle").innerText = item.title;
+      modal.classList.remove("hidden");
 
-      document.getElementById("bnplTableOut").innerHTML = `
-        <thead>
-          <tr>
-            <th>طرح اقساطی</th>
-            <th>پیش‌پرداخت</th>
-            <th>مبلغ هر قسط</th>
-            <th>ارزش واقعی (کسر تورم)</th>
-            <th>صرفه خریدار</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${plans.map(p => {
-            let npv = p.up;
-            const rem = p.up > 0 ? p.months - 1 : p.months;
-            for (let i = 1; i <= rem; i++) npv += p.m / Math.pow(1 + inf, i);
-            const diff = Math.round(cash - npv);
-            return `
-              <tr>
-                <td><strong>${p.name}</strong></td>
-                <td>${formatToman(p.up)}</td>
-                <td>${formatToman(p.m)}</td>
-                <td><strong>${formatToman(npv)}</strong></td>
-                <td style="color:${diff >= 0 ? 'var(--ios-green)' : 'var(--ios-red)'};font-weight:700;">
-                  ${diff >= 0 ? formatToman(diff) + ' سود شما' : formatToman(Math.abs(diff)) + ' کارمزد'}
-                </td>
-              </tr>
-            `;
-          }).join("")}
-        </tbody>
+      body.innerHTML = `
+        <div class="loading-box">
+          <div class="spinner"></div>
+          <div style="font-weight:700;font-size:0.84rem;">در حال استعلام زنده لیست فروشندگان، گارانتی و تاریخچه قیمت ۳۰ روزه...</div>
+        </div>
       `;
-    }
 
-    function renderMcpList() {
-      document.getElementById("mcpReposList").innerHTML = MCP_SERVERS_LIST.map(s => `
-        <div class="mcp-repo-item">
-          <div>
-            <strong>${s.site} (${s.name})</strong>
-            <div style="font-size:0.72rem;color:var(--ios-subtext);">${s.desc}</div>
+      try {
+        if (item.source === "torob" && item.prk) {
+          const [detailsRes, histRes] = await Promise.allSettled([
+            callMcpTool("torob", "product_details", { prk: item.prk, details_url: item.detailsUrl || undefined, max_offers: 12 }),
+            callMcpTool("torob", "price_history", { prk: item.prk, details_url: item.detailsUrl || undefined })
+          ]);
+
+          const det = detailsRes.status === "fulfilled" ? detailsRes.value : {};
+          const hist = histRes.status === "fulfilled" ? histRes.value : {};
+          const offers = det.offers || [];
+
+          body.innerHTML = `
+            <div style="background:var(--blue-soft);padding:12px;border-radius:12px;margin-bottom:12px;font-size:0.78rem;">
+              <div><strong>📊 تحلیل قیمت در کل فروشگاه‌های ایران (${det.offer_count || offers.length} فروشگاه فعال):</strong></div>
+              <div style="margin-top:4px;">
+                کف قیمت: <strong>${formatToman(det.price_range_toman?.min || item.priceToman)}</strong> |
+                سقف قیمت: <strong>${formatToman(det.price_range_toman?.max || item.priceToman)}</strong>
+              </div>
+              ${hist.reading ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">📈 روند قیمت: ${hist.reading}</div>` : ''}
+            </div>
+
+            <div style="font-weight:800;font-size:0.84rem;margin-bottom:8px;">🏪 لیست زنده فروشندگان این کالا (به ترتیب ارزان‌ترین):</div>
+            ${offers.length > 0 ? offers.map(off => `
+              <div class="seller-offer-item">
+                <div>
+                  <div style="font-weight:800;font-size:0.82rem;">${off.shop_name || "فروشگاه"} (${off.shop_city || "ایران"})</div>
+                  <div style="font-size:0.72rem;color:var(--sub);">
+                    ⭐ امتیاز فروشگاه: ${off.shop_score || "تاییدشده"}
+                    ${off.free_shipping ? ' · 🚚 ارسال رایگان' : ''}
+                    ${off.same_day_delivery ? ' · ⚡ ارسال امروز' : ''}
+                  </div>
+                </div>
+                <div style="text-align:left;">
+                  <div style="font-weight:900;font-size:0.88rem;color:var(--green);">${formatToman(off.price_toman)}</div>
+                  <a href="${off.buy_url || off.url || item.url}" target="_blank" rel="noopener" style="font-size:0.74rem;color:var(--blue);font-weight:800;">خرید مستقیم ↗</a>
+                </div>
+              </div>
+            `).join("") : `<div>لیست فروشندگان در صفحه اصلی ترب قابل مشاهده است. <a href="${item.url}" target="_blank">ورود به صفحه ترب ↗</a></div>`}
+          `;
+        } else if (item.source === "digikala" && item.dkpId) {
+          const [detRes, chartRes] = await Promise.allSettled([
+            callMcpTool("digikala", "product_details", { id: Number(item.dkpId), include_comments: 3, include_specs: true }),
+            callMcpTool("digikala", "product_price_chart", { id: Number(item.dkpId) })
+          ]);
+
+          const det = detRes.status === "fulfilled" ? detRes.value : {};
+          const chart = chartRes.status === "fulfilled" ? chartRes.value : {};
+          const lowest30 = det.lowest_price_30d_toman || chart.cheapest_in_window_toman || item.priceToman;
+          const isGoodTime = item.priceToman <= lowest30 * 1.03;
+
+          body.innerHTML = `
+            <div style="background:${isGoodTime ? 'var(--green-soft)' : 'var(--orange-soft)'};padding:12px;border-radius:12px;margin-bottom:12px;font-size:0.78rem;">
+              <div style="font-weight:800;color:${isGoodTime ? 'var(--green)' : 'var(--orange)'};">
+                ${isGoodTime ? '💎 زمان عالی برای خرید: در کف قیمت ۳۰ روز اخیر قرار دارد!' : '⚖️ قیمت فعلی بالاتر از کف ۳۰ روز اخیر است'}
+              </div>
+              <div style="margin-top:4px;">
+                قیمت فعلی: <strong>${formatToman(item.priceToman)}</strong> |
+                کف قیمت ۳۰ روزه: <strong>${formatToman(lowest30)}</strong>
+              </div>
+              <div style="margin-top:4px;">
+                🛡️ گارانتی: <strong>${det.warranty || "گارانتی اصالت و سلامت فیزیکی"}</strong> |
+                🏪 فروشنده: <strong>${det.seller || item.shopName}</strong>
+              </div>
+              ${det.cheaper_offer ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">💡 فروشنده ارزان‌تر در دیجی‌کالا: ${det.cheaper_offer.seller} با قیمت ${formatToman(det.cheaper_offer.price_toman)}</div>` : ''}
+            </div>
+
+            ${Array.isArray(det.comments) && det.comments.length > 0 ? `
+              <div style="font-weight:800;font-size:0.84rem;margin-bottom:6px;">💬 خلاصه نظرات خریداران واقعی:</div>
+              ${det.comments.map(c => `
+                <div class="seller-offer-item" style="display:block;">
+                  <div style="font-size:0.76rem;font-weight:700;">⭐ ${c.rate || 5} · ${c.title || "خریدار"}</div>
+                  <div style="font-size:0.74rem;color:var(--sub);margin-top:2px;">${c.body || ""}</div>
+                </div>
+              `).join("")}
+            ` : ''}
+
+            <a href="${item.url}" target="_blank" rel="noopener" class="btn-buy-direct" style="margin-top:10px;">
+              باز کردن صفحه کامل محصول در دیجی‌کالا ↗
+            </a>
+          `;
+        } else {
+          body.innerHTML = `
+            <div style="padding:12px;background:var(--card-2);border-radius:12px;font-size:0.82rem;margin-bottom:12px;">
+              <div><strong>نام کالا:</strong> ${item.title}</div>
+              <div style="margin-top:6px;"><strong>فروشنده:</strong> ${item.shopName}</div>
+              <div style="margin-top:6px;"><strong>قیمت لحظه‌ای:</strong> ${formatToman(item.priceToman)}</div>
+            </div>
+            <a href="${item.url}" target="_blank" rel="noopener" class="btn-buy-direct">ورود به صفحه خرید ↗</a>
+          `;
+        }
+      } catch (e) {
+        body.innerHTML = `
+          <div style="padding:12px;font-size:0.8rem;">
+            برای مشاهده جزئیات کامل و فروشندگان، مستقیماً وارد صفحه کالا شوید:
+            <a href="${item.url}" target="_blank" class="btn-buy-direct" style="margin-top:10px;">باز کردن صفحه محصول ↗</a>
           </div>
-          <span class="score-pill">${s.tools} ابزار</span>
+        `;
+      }
+    }
+
+    function closeInspectModal() {
+      document.getElementById("inspectModal").classList.add("hidden");
+    }
+
+    // =========================================================================
+    // ۶. دریافت شگفت‌انگیزهای زنده امروز (تب ۲)
+    // =========================================================================
+    let dealsLoaded = false;
+    async function loadLiveDeals() {
+      document.getElementById("dealsLoading").classList.remove("hidden");
+      const container = document.getElementById("dealsContainer");
+      container.innerHTML = "";
+
+      const deals = [];
+      const [dkDeals, trDeals] = await Promise.allSettled([
+        callMcpTool("digikala", "incredible_offers", { limit: 10 }),
+        callMcpTool("torob", "special_offers", { limit: 10 })
+      ]);
+
+      if (dkDeals.status === "fulfilled" && dkDeals.value) {
+        const arr = dkDeals.value.items || dkDeals.value.offers || [];
+        for (const d of arr) {
+          if (d.price_toman) {
+            deals.push({
+              store: "شگفت‌انگیز دیجی‌کالا",
+              title: d.title,
+              price: d.price_toman,
+              oldPrice: d.price_before_toman,
+              discount: d.discount_percent || 0,
+              url: d.url || `https://www.digikala.com/product/dkp-${d.id}/`
+            });
+          }
+        }
+      }
+
+      if (trDeals.status === "fulfilled" && trDeals.value) {
+        const arr = trDeals.value.products || trDeals.value.offers || [];
+        for (const d of arr) {
+          if (d.price_toman) {
+            deals.push({
+              store: `پیشنهاد ویژه ترب (${d.shop_name || "فروشگاه"})`,
+              title: d.name_fa || d.title,
+              price: d.price_toman,
+              oldPrice: null,
+              discount: d.discount_percent || 0,
+              url: d.url || "https://torob.com"
+            });
+          }
+        }
+      }
+
+      document.getElementById("dealsLoading").classList.add("hidden");
+      dealsLoaded = true;
+
+      if (!deals.length) {
+        container.innerHTML = `<div class="p-card" style="text-align:center;">برای مشاهده تخفیف‌ها دکمه بروزرسانی زنده را بزنید.</div>`;
+        return;
+      }
+
+      container.innerHTML = deals.map(d => `
+        <div class="p-card">
+          <div class="p-top-row">
+            <span class="badge-store">🔥 ${d.store}</span>
+            ${d.discount ? `<span class="p-discount-pill">${d.discount}% تخفیف واقعی</span>` : ''}
+          </div>
+          <div class="p-title" style="margin-bottom:8px;">${d.title}</div>
+          <div class="p-price-box">
+            <div>
+              ${d.oldPrice ? `<span class="p-price-old">${formatToman(d.oldPrice)}</span>` : ''}
+              <span class="p-price-main">${formatToman(d.price)}</span>
+            </div>
+            <a href="${d.url}" target="_blank" rel="noopener" class="btn-buy-direct" style="padding:8px 14px;">خرید مستقیم ↗</a>
+          </div>
         </div>
       `).join("");
     }
 
-    function quickSearch(q) {
-      document.getElementById("qInput").value = q;
-      executeSearch();
+    // =========================================================================
+    // ۷. لینک‌های مستقیم به ۹ سایت بزرگ خرید ایران برای عبارت جستجو شده
+    // =========================================================================
+    function renderDirectPortals(q) {
+      const enc = encodeURIComponent(q);
+      const portals = [
+        { name: "ترب", url: `https://torob.com/search/?query=${enc}` },
+        { name: "دیجی‌کالا", url: `https://www.digikala.com/search/?q=${enc}` },
+        { name: "تکنولایف", url: `https://www.technolife.com/product/list/search?keywords=${enc}` },
+        { name: "اسنپ‌شاپ", url: `https://snappshop.ir/search?query=${enc}` },
+        { name: "مسترکالا", url: `https://www.masterkala.com/product/list/?Title=${enc}` },
+        { name: "شاپینو", url: `https://shopino.app/search?q=${enc}` },
+        { name: "خانومی", url: `https://www.khanoumi.com/search?q=${enc}` },
+        { name: "باسلام", url: `https://basalam.com/s?q=${enc}` }
+      ];
+
+      document.getElementById("directPortalsContainer").innerHTML = `
+        <div class="cross-links-card">
+          <div style="font-size:0.75rem;font-weight:800;color:var(--sub);">
+            🔗 مشاهده مستقیم صفحه جستجوی «${q}» در سایر فروشگاه‌های ایران:
+          </div>
+          <div class="cross-links-grid">
+            ${portals.map(p => `<a href="${p.url}" target="_blank" rel="noopener" class="cross-link-item">${p.name} ↗</a>`).join("")}
+          </div>
+        </div>
+      `;
     }
 
-    function clearSearchInput() {
-      const inp = document.getElementById("qInput");
+    // =========================================================================
+    // ۸. ماشین‌حساب اقساط (تب ۳) و کاتالوگ ۲۲ سرور MCP (تب ۴)
+    // =========================================================================
+    function renderBnplCalc() {
+      const cash = Number(document.getElementById("bnplAmount").value) || 75000000;
+      const inf = (Number(document.getElementById("bnplInf").value) || 3.0) / 100;
+
+      const plans = [
+        { title: "اسنپ‌پی / تارا (۴ قسط بدون کارمزد)", months: 4, up: cash * 0.25, m: cash * 0.25, stores: "اسنپ‌شاپ، تکنولایف، مسترکالا، خانومی، شاپینو" },
+        { title: "دیجی‌پی (۶ قسطه)", months: 6, up: 0, m: (cash * 1.115) / 6, stores: "دیجی‌کالا، تکنولایف" },
+        { title: "ازکی‌وام / تکنوپی (۱۲ قسطه)", months: 12, up: 0, m: (cash * 1.23) / 12, stores: "تکنولایف، دیجی‌کالا" }
+      ];
+
+      document.getElementById("bnplCardsOut").innerHTML = plans.map(p => {
+        let npv = p.up;
+        const rem = p.up > 0 ? p.months - 1 : p.months;
+        for (let i = 1; i <= rem; i++) npv += p.m / Math.pow(1 + inf, i);
+        const benefit = Math.round(cash - npv);
+        return `
+          <div class="seller-offer-item" style="display:block;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.84rem;">
+              <span>${p.title}</span>
+              <span style="color:${benefit >= 0 ? 'var(--green)' : 'var(--orange)'};">
+                ${benefit >= 0 ? formatToman(benefit) + ' به نفع شما' : formatToman(Math.abs(benefit)) + ' کارمزد واقعی'}
+              </span>
+            </div>
+            <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">
+              پیش‌پرداخت: <strong>${formatToman(p.up)}</strong> | هر قسط: <strong>${formatToman(p.m)}</strong>
+            </div>
+            <div style="font-size:0.72rem;color:var(--sub);margin-top:2px;">فروشگاه‌ها: ${p.stores}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderMcpCatalog() {
+      const servers = [
+        { name: "mmdju/digikala-mcp (Worker زنده)", tools: 19, desc: "جستجوی زنده دیجی‌کالا، تاریخچه قیمت، فروشندگان و شگفت‌انگیزها" },
+        { name: "mmdju/torob-mcp (Worker زنده)", tools: 15, desc: "جستجوی زنده ترب در هزاران فروشگاه، جزئیات فروشنده‌ها و نمودار قیمت" },
+        { name: "mmdju/divar-mcp (Worker زنده)", tools: 7, desc: "استعلام قیمت منصفانه بازار (market_price) و آگهی‌های دیوار" },
+        { name: "sepehr071/digikala-mcp", tools: 23, desc: "جستجوی کاتالوگ دیجی‌کالا، سوپرمارکت، قیمت طلا و اقساط" },
+        { name: "sepehr071/technolife-mcp", tools: 19, desc: "جستجوی GraphQL تکنولایف (technolife.com/searchapi)، قیمت نقد و اقساط" },
+        { name: "sepehr071/snapp-mcp", tools: 21, desc: "اسنپ‌فود و اسنپ‌مارکت با محاسبه هزینه واقعی (بسته‌بندی + پیک - تخفیف)" },
+        { name: "sepehr071/masterkala-mcp", tools: 14, desc: "گجت و لوازم جانبی موبایل در مسترکالا" },
+        { name: "sepehr071/shopino-mcp", tools: 14, desc: "موتور جستجوی مد و پوشاک از هزاران فروشگاه شاپینو" },
+        { name: "sepehr071/khanoumi-mcp & asalbanoo-mcp", tools: 24, desc: "مقایسه لوازم آرایشی، مراقبت پوست و عطر در خانومی و عسل‌بانو" },
+        { name: "sepehr071/okala-mcp", tools: 16, desc: "سوپرمارکت‌های اکالا و افق کوروش" },
+        { name: "sepehr071/taaghche, fidibo, 30book", tools: 37, desc: "مقایسه کتاب‌های چاپی، الکترونیکی و صوتی" },
+        { name: "sepehr071/mrbilit, flytoday, jabama, otaghak", tools: 80, desc: "پرواز، قطار، هتل و اجاره ویلا" },
+        { name: "sepehr071/paziresh24 & doctoreto", tools: 26, desc: "نوبت‌دهی پزشکان و کلینیک‌ها" }
+      ];
+
+      document.getElementById("allMcpServersCatalog").innerHTML = `
+        <div style="font-weight:800;font-size:0.9rem;margin-bottom:10px;">📦 تمام منابع و ریپوهای یکپارچه‌شده (۳۱۵+ ابزار MCP):</div>
+        ${servers.map(s => `
+          <div class="seller-offer-item">
+            <div>
+              <div style="font-weight:800;font-size:0.8rem;">${s.name}</div>
+              <div style="font-size:0.72rem;color:var(--sub);">${s.desc}</div>
+            </div>
+            <span class="badge-vqs">${s.tools} ابزار</span>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    // =========================================================================
+    // ۹. کنترلرهای رابط کاربری (فیلتر بودجه، دسته‌بندی، مرتب‌سازی و تب‌ها)
+    // =========================================================================
+    function toggleBudgetDrawer() {
+      document.getElementById("budgetDrawer").classList.toggle("hidden");
+    }
+
+    function setBudget(amount) {
+      state.budgetToman = Number(amount) || 0;
+      [0, 2000000, 5000000, 20000000, 70000000, 150000000].forEach(val => {
+        const el = document.getElementById("bopt-" + val);
+        if (el) el.classList.toggle("active", val === state.budgetToman);
+      });
+      document.getElementById("budgetBtnLabel").innerText = `💰 بودجه: ${formatMillionLabel(state.budgetToman)} ▾`;
+      document.getElementById("budgetDrawer").classList.add("hidden");
+      runLiveSearch();
+    }
+
+    function applyCustomBudget() {
+      const val = Number(document.getElementById("customBudgetInput").value);
+      if (val > 0) setBudget(val);
+    }
+
+    function selectCategory(cat, sampleQuery) {
+      state.category = cat;
+      ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
+        const el = document.getElementById("cat-" + c);
+        if (el) el.classList.toggle("active", c === cat);
+      });
+      if (sampleQuery) {
+        document.getElementById("searchInput").value = sampleQuery;
+        runLiveSearch();
+      }
+    }
+
+    function runPreset(q, budget, cat) {
+      state.budgetToman = budget || 0;
+      document.getElementById("budgetBtnLabel").innerText = `💰 بودجه: ${formatMillionLabel(state.budgetToman)} ▾`;
+      [0, 2000000, 5000000, 20000000, 70000000, 150000000].forEach(val => {
+        const el = document.getElementById("bopt-" + val);
+        if (el) el.classList.toggle("active", val === state.budgetToman);
+      });
+      ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
+        const el = document.getElementById("cat-" + c);
+        if (el) el.classList.toggle("active", c === (cat || "all"));
+      });
+      document.getElementById("searchInput").value = q;
+      runLiveSearch();
+    }
+
+    function changeSort(s) {
+      state.sort = s;
+      ["best", "cheap", "rating", "discount"].forEach(k => {
+        document.getElementById("sort-" + k).classList.toggle("active", k === s);
+      });
+      renderResults();
+    }
+
+    function changeSourceFilter(src) {
+      state.sourceFilter = src;
+      ["all", "torob", "digikala", "basalam", "divar"].forEach(k => {
+        document.getElementById("src-" + k).classList.toggle("active", k === src);
+      });
+      renderResults();
+    }
+
+    function clearInput() {
+      const inp = document.getElementById("searchInput");
       inp.value = "";
       inp.focus();
     }
 
-    function setPriority(p) {
-      currentPriority = p;
-      ["best_value", "cheapest", "highest_quality", "installment"].forEach(id => {
-        document.getElementById("seg-" + id).classList.toggle("active", id === p);
-      });
-      renderAll();
+    function resetNewSearch() {
+      state.budgetToman = 0;
+      state.sourceFilter = "all";
+      document.getElementById("budgetBtnLabel").innerText = "💰 بودجه: بدون سقف ▾";
+      clearInput();
     }
 
-    function toggleFilter(key) {
-      activeFilters[key] = !activeFilters[key];
-      const map = { warranty: "fltWarranty", realDeal: "fltRealDeal", freeShip: "fltFreeShip" };
-      document.getElementById(map[key]).classList.toggle("active", activeFilters[key]);
-      renderAll();
-    }
-
-    function switchView(view) {
-      ["search", "compare", "bnpl", "mcp"].forEach(v => {
-        document.getElementById("view-" + v).classList.toggle("hidden", v !== view);
-        document.getElementById("tabbtn-" + v).classList.toggle("active", v === view);
+    function switchTab(t) {
+      ["search", "deals", "bnpl", "mcp"].forEach(k => {
+        document.getElementById("tab-" + k).classList.toggle("hidden", k !== t);
+        document.getElementById("nav-" + k).classList.toggle("active", k === t);
       });
+      if (t === "deals" && !dealsLoaded) loadLiveDeals();
+      if (t === "bnpl") renderBnplCalc();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function toggleTheme() {
+    function toggleDark() {
       document.body.classList.toggle("dark");
       const isDark = document.body.classList.contains("dark");
       document.getElementById("themeBtn").innerText = isDark ? "☀️" : "🌙";
     }
 
-    function copyConfig() {
-      navigator.clipboard.writeText(document.getElementById("mcpJsonBox").innerText);
-      alert("کانفیگ کامل MCP کپی شد!");
+    function copyMcpConfig() {
+      navigator.clipboard.writeText(document.getElementById("mcpConfigBlock").innerText);
+      alert("کانفیگ یکپارچه MCP با موفقیت کپی شد!");
     }
 
-    // اجرای اولیه با گوشی آیفون 16 (دقیقاً مطابق جستجوی شما!)
-    renderMcpList();
-    executeSearch();
+    // اجرای اولیه به محض باز شدن صفحه
+    renderMcpCatalog();
+    renderBnplCalc();
+    runLiveSearch();
   </script>
 </body>
 </html>

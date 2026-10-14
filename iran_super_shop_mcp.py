@@ -105,7 +105,7 @@ STORE_REGISTRY: Dict[str, Dict[str, Any]] = {
     "technolife": {
         "name_fa": "تکنولایف",
         "domain": "https://www.technolife.ir",
-        "search_api": "https://www.technolife.ir/shop_product",
+        "search_api": "https://www.technolife.com/searchapi",  # GraphQL POST endpoint from sepehr071/technolife-mcp
         "currency": "toman",
         "supports_installments": ["تکنوپی", "ازکی‌وام", "اسنپ‌پی", "دیجی‌پی"],
         "base_trust_score": 94,
@@ -165,6 +165,30 @@ STORE_REGISTRY: Dict[str, Dict[str, Any]] = {
         "currency": "rial_to_toman",
         "supports_installments": ["اعتبار باسلام"],
         "base_trust_score": 86,
+    },
+    
+    "digikala_mcp_worker": {
+        "name_fa": "سرور کلودفلر زنده دیجی‌کالا (mmdju)",
+        "mcp_endpoint": "https://digikala-mcp.mmdju.workers.dev/mcp",
+        "tools": [
+            "search_digikala", "find_best_value", "product_details", "product_variants",
+            "product_sellers", "product_price_chart", "product_reviews", "compare_products", "incredible_offers"
+        ],
+    },
+    "torob_mcp_worker": {
+        "name_fa": "سرور کلودفلر زنده ترب (mmdju)",
+        "mcp_endpoint": "https://torob-mcp.mmdju3.workers.dev/mcp",
+        "tools": [
+            "search_products", "find_best_value", "product_details", "price_history",
+            "product_guide", "compare_products", "special_offers", "shop_profile"
+        ],
+    },
+    "divar_mcp_worker": {
+        "name_fa": "سرور کلودفلر زنده دیوار (mmdju)",
+        "mcp_endpoint": "https://divar-mcp.mmdju2.workers.dev/mcp",
+        "tools": [
+            "search_ads", "find_best_value", "market_price", "ad_details", "compare_ads"
+        ],
     },
     "emalls": {
         "name_fa": "ایمالز",
