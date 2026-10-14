@@ -248,13 +248,13 @@ STORE_REGISTRY: Dict[str, Dict[str, Any]] = {
         "direct_search_supported": True,
         "supports_installments": ["تکنوپی", "ازکی‌وام", "اسنپ‌پی", "دیجی‌پی"],
     },
-    "technolife_store": {
-        "name_fa": "تکنولایف و مسترکالا",
-        "domain": "https://technolife_store.com",
-        "search_api": "https://search.technolife_store.com/ai-engine/api/v2.0/product/search",
+    "basalam": {
+        "name_fa": "باسلام",
+        "domain": "https://basalam.com",
+        "search_api": "https://search.basalam.com/ai-engine/api/v2.0/product/search",
         "currency": "rial_to_toman",
         "direct_search_supported": True,
-        "supports_installments": ["اعتبار تکنولایف و مسترکالا"],
+        "supports_installments": ["اعتبار باسلام"],
     },
     "divar": {
         "name_fa": "دیوار",
@@ -419,56 +419,6 @@ def calculate_value_quality_score(
     }
 
 
-
-
-def build_persian_recommendation_sentence(
-    title: str,
-    store_name: str,
-    price_toman: int,
-    vqs_score: float,
-    lowest_price_toman: int,
-    avg_market_price_toman: int,
-    highest_price_toman: int,
-    rating: Optional[float] = None,
-    review_count: Optional[int] = None,
-    discount_pct: int = 0,
-    rank: int = 1,
-) -> str:
-    """
-    تولید یک جمله تحلیلی دقیق و مستند برای توضیح دلیل پیشنهاد کالا، امتیاز VQS،
-    میزان برتری قیمتی نسبت به سایر فروشگاه‌ها و وضعیت کیفیت.
-    """
-    savings_vs_max = max(0, highest_price_toman - price_toman)
-    savings_vs_avg = max(0, avg_market_price_toman - price_toman)
-    pct_below_avg = (
-        round((savings_vs_avg / avg_market_price_toman) * 100.0, 1)
-        if avg_market_price_toman > 0 and savings_vs_avg > 0
-        else 0.0
-    )
-
-    parts = [f"امتیاز ارزش خرید {vqs_score} از ۱۰۰ در {store_name}"]
-
-    if price_toman == lowest_price_toman and savings_vs_max > 0:
-        parts.append(
-            f"دارای ارزان‌ترین قیمت بازار ({ savings_vs_max:,} تومان ارزان‌تر از گران‌ترین فروشنده"
-            + (f" و {pct_below_avg}% زیر میانگین بازار)" if pct_below_avg >= 1.0 else ")")
-        )
-    elif pct_below_avg >= 1.0:
-        parts.append(f"قیمت آن {pct_below_avg}% ({savings_vs_avg:,} تومان) ارزان‌تر از میانگین سایر فروشگاه‌هاست")
-    else:
-        parts.append("دارای قیمت رقابتی و موجودی فعال در بازار")
-
-    if rating is not None and rating > 0:
-        votes_txt = f" از {review_count} نظر ثبت‌شده" if review_count else ""
-        parts.append(f"با رضایت کیفی {rating} از ۵ ستاره{votes_txt}")
-
-    if discount_pct > 0:
-        parts.append(f"همراه با {discount_pct}% تخفیف مستقیم")
-
-    prefix = "🌟 برنده اول مقایسه: " if rank == 1 else "💡 دلیل پیشنهاد: "
-    return prefix + "؛ ".join(parts) + "."
-
-
 # ============================================================================
 # کلاینت شبکه غیرهمزمان با سازگاری کامل نسخه‌های httpx، پروکسی و کش
 # ============================================================================
@@ -606,7 +556,7 @@ async def call_remote_mcp_worker(
     name="super_search_all_stores",
     description=(
         "جستجوی زنده و همزمان یک کالا در دیجی‌کالا، ترب (شامل فروشندگانی مثل تکنولایف، مسترکالا و...)، "
-        "تکنولایف و مسترکالا و دیوار با گزارش شفاف خطاهای شبکه و بدون هیچ‌گونه قیمت یا امتیاز ساختگی."
+        "باسلام و دیوار با گزارش شفاف خطاهای شبکه و بدون هیچ‌گونه قیمت یا امتیاز ساختگی."
     ),
 )
 async def super_search_all_stores(
@@ -618,8 +568,8 @@ async def super_search_all_stores(
     stores: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     norm_query = normalize_persian_text(query)
-    supported_direct = {"digikala", "torob", "technolife_store", "divar"}
-    requested_stores = [s.lower().strip() for s in (stores or ["digikala", "torob", "technolife_store"])]
+    supported_direct = {"digikala", "torob", "basalam", "divar"}
+    requested_stores = [s.lower().strip() for s in (stores or ["digikala", "torob", "basalam"])]
     unsupported_stores = [s for s in requested_stores if s not in supported_direct]
     active_stores = [s for s in requested_stores if s in supported_direct]
 
@@ -760,11 +710,11 @@ async def super_search_all_stores(
         except Exception as exc_tr:
             source_errors["torob"] = str(exc_tr)
 
-    # ۳. تکنولایف و مسترکالا (استعلام زنده از موتور جستجوی تکنولایف و مسترکالا)
-    if "technolife_store" in active_stores:
+    # ۳. باسلام (استعلام زنده از موتور جستجوی باسلام)
+    if "basalam" in active_stores:
         try:
             bs_data = await fetch_json(
-                STORE_REGISTRY["technolife_store"]["search_api"],
+                STORE_REGISTRY["basalam"]["search_api"],
                 params={"q": norm_query, "from": 0, "size": 6},
             )
             for bp in (bs_data.get("products") or [])[:6]:
@@ -781,8 +731,8 @@ async def super_search_all_stores(
                 vendor = bp.get("vendor") or {}
                 photo = bp.get("photo") or {}
                 results.append({
-                    "store_id": "technolife_store",
-                    "store_name": "تکنولایف و مسترکالا",
+                    "store_id": "basalam",
+                    "store_name": "باسلام",
                     "product_id": f"bs-{bp.get('id')}",
                     "title_fa": bp.get("name", ""),
                     "price_toman": price_toman,
@@ -791,17 +741,17 @@ async def super_search_all_stores(
                     "avg_30d_price_toman": None,
                     "rating": float(r_obj["average"]) if r_obj.get("average") is not None else None,
                     "review_count": int(r_obj["count"]) if r_obj.get("count") is not None else None,
-                    "seller_name": vendor.get("name") or "غرفه تکنولایف و مسترکالا",
+                    "seller_name": vendor.get("name") or "غرفه باسلام",
                     "seller_score": None,
                     "warranty": None,
                     "has_official_warranty": None,
                     "shipping_cost_toman": None,
-                    "installment_options": STORE_REGISTRY["technolife_store"]["supports_installments"],
-                    "url": f"https://technolife_store.com/{vendor.get('identifier') or 's'}/product/{bp.get('id')}",
+                    "installment_options": STORE_REGISTRY["basalam"]["supports_installments"],
+                    "url": f"https://basalam.com/{vendor.get('identifier') or 's'}/product/{bp.get('id')}",
                     "image_url": photo.get("MEDIUM") or photo.get("SMALL") or "",
                 })
         except Exception as exc_bs:
-            source_errors["technolife_store"] = str(exc_bs)
+            source_errors["basalam"] = str(exc_bs)
 
     # ۴. دیوار (در صورت درخواست در لیست stores)
     if "divar" in active_stores:
@@ -879,24 +829,6 @@ async def super_search_all_stores(
             )
         else:
             results.sort(key=lambda x: x["smart_evaluation"]["vqs_total"], reverse=True)
-
-        all_prices = [r["price_toman"] for r in results if r["price_toman"] > 0]
-        avg_market = int(round(sum(all_prices) / len(all_prices))) if all_prices else lowest_price
-        max_market = max(all_prices) if all_prices else lowest_price
-        for idx, r in enumerate(results, start=1):
-            r["recommendation_reason"] = build_persian_recommendation_sentence(
-                title=r.get("title_fa", ""),
-                store_name=r.get("store_name", ""),
-                price_toman=r["price_toman"],
-                vqs_score=r["smart_evaluation"]["vqs_total"],
-                lowest_price_toman=lowest_price,
-                avg_market_price_toman=avg_market,
-                highest_price_toman=max_market,
-                rating=r.get("rating"),
-                review_count=r.get("review_count"),
-                discount_pct=int(r.get("discount_pct") or 0),
-                rank=idx,
-            )
 
     return {
         "query": norm_query,
