@@ -1733,26 +1733,159 @@
     </div>
 
     <!-- =================================================================== -->
-    <!-- TAB 4: BNPL INSTALLMENT CALCULATOR                                  -->
+    <!-- TAB 4: DEDICATED NEIGHBORHOOD CAFE FINDER & COMPARATOR (کافه‌یاب)   -->
     <!-- =================================================================== -->
-    <div id="tab-bnpl" class="tab-pane hidden">
-      <div class="hero-card">
-        <div class="hero-headline">💳 ماشین‌حساب خرید قسطی (اسنپ‌پی، دیجی‌پی، تکنوپی)</div>
+    <div id="tab-cafe" class="tab-pane hidden">
+      <section class="hero-card">
+        <div class="hero-headline">
+          <span>کدوم کافه بریم؟</span>
+          <span style="font-size:0.7rem;color:var(--accent);font-weight:800;">اسنپ‌فود کافه · نقشه نشان · فیدیلیو</span>
+        </div>
         <p class="hero-desc">
-          مقایسه خرید نقدی با طرح‌های ۴ قسطه (بدون کارمزد) و ۶/۱۲ ماهه با لحاظ ارزش زمانی پول و تورم ماهانه (شامل تورم ۰٪):
+          <strong>شهر و محدوده‌ت</strong> رو انتخاب کن تا بهترین کافه‌های اطراف تو (هم برای نشستن حضوری، کار با لپ‌تاپ و قرار، هم برای سفارش آنلاین قهوه و کیک) با امتیاز، سطح قیمت و دلیل پیشنهاد مقایسه بشن.
         </p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
-          <div>
-            <label style="font-size:0.71rem;color:var(--sub);font-weight:700;">قیمت کالا (تومان)</label>
-            <input type="number" id="bnplAmount" value="75000000" oninput="onBnplUserInput()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
+
+        <!-- Cafe Neighborhood / Area Selector -->
+        <div class="food-location-card">
+          <div class="food-loc-header">
+            <span>📍 محدوده کافه‌گردی یا سفارش شما:</span>
+            <span id="activeCafeAreaBadge" style="color:var(--accent);font-size:0.7rem;">تهران · ولیعصر، انقلاب و یوسف‌آباد</span>
           </div>
-          <div>
-            <label style="font-size:0.71rem;color:var(--sub);font-weight:700;">تورم/سود ماهانه (%)</label>
-            <input type="number" id="bnplInf" value="3.0" min="0" step="0.5" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
+          <div class="food-loc-grid">
+            <select id="cafeCitySelect" onchange="onCafeCityChange()" class="food-loc-select" aria-label="انتخاب شهر کافه">
+              <option value="tehran">🏙️ تهران</option>
+              <option value="mashhad">🏙️ مشهد</option>
+              <option value="isfahan">🏙️ اصفهان</option>
+              <option value="shiraz">🏙️ شیراز</option>
+              <option value="tabriz">🏙️ تبریز</option>
+              <option value="karaj">🏙️ کرج</option>
+            </select>
+            <select id="cafeAreaSelect" onchange="onCafeAreaSelectChange()" class="food-loc-select" aria-label="انتخاب محدوده کافه">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="food-loc-custom-row">
+            <input
+              type="text"
+              id="cafeCustomAreaInput"
+              class="food-loc-input"
+              placeholder="یا نام خیابان/محله دلخواهت رو بنویس (مثلاً: ایرانشهر، کریمخان، الهیه، جردن)..."
+              oninput="onCustomCafeAreaInput(this.value)"
+            />
+            <button type="button" class="btn-inspect" style="padding:6px 10px;font-size:0.7rem;white-space:nowrap;" onclick="applyCustomCafeAreaSearch()">ثبت محدوده</button>
+          </div>
+          <div class="area-quick-chips" id="cafeQuickAreaChips"></div>
+        </div>
+
+        <!-- Cafe Vibe / Feature Filter Bar -->
+        <div class="cat-budget-bar">
+          <button class="budget-pill-btn" onclick="toggleCafeBudgetDrawer()" id="cafeBudgetBtnLabel">
+            💰 سقف بودجه: بدون سقف ▾
+          </button>
+          <button class="cat-pill active" id="ccat-all" onclick="selectCafeCategory('all', '')">☕ همه کافه‌ها</button>
+          <button class="cat-pill" id="ccat-work" onclick="selectCafeCategory('work', 'کافه دنج مناسب کار و لپ تاپ')">💻 مناسب کار و مطالعه</button>
+          <button class="cat-pill" id="ccat-outdoor" onclick="selectCafeCategory('outdoor', 'کافه حیاط دار و فضای باز')">🌿 فضای باز و حیاط</button>
+          <button class="cat-pill" id="ccat-brunch" onclick="selectCafeCategory('brunch', 'صبحانه انگلیسی و کروسان')">🥐 صبحانه و برانچ</button>
+          <button class="cat-pill" id="ccat-specialty" onclick="selectCafeCategory('specialty', 'قهوه تخصصی اسپرسو و دمی')">🫘 قهوه تخصصی</button>
+        </div>
+
+        <!-- Collapsible Cafe Budget Drawer -->
+        <div class="budget-drawer hidden" id="cafeBudgetDrawer">
+          <div class="budget-drawer-top">
+            <span>سقف بودجه برای هر نفر یا سفارش کافه:</span>
+            <button onclick="toggleCafeBudgetDrawer()" style="border:none;background:transparent;color:var(--accent);font-weight:800;font-size:0.76rem;cursor:pointer;">بستن ✕</button>
+          </div>
+          <div class="budget-grid">
+            <button class="b-opt active" id="cbopt-0" onclick="setCafeBudget(0)">بدون سقف</button>
+            <button class="b-opt" id="cbopt-150000" onclick="setCafeBudget(150000)">تا ۱۵۰ هزار</button>
+            <button class="b-opt" id="cbopt-250000" onclick="setCafeBudget(250000)">تا ۲۵۰ هزار</button>
+            <button class="b-opt" id="cbopt-400000" onclick="setCafeBudget(400000)">تا ۴۰۰ هزار</button>
+            <button class="b-opt" id="cbopt-700000" onclick="setCafeBudget(700000)">تا ۷۰۰ هزار</button>
+            <button class="b-opt" id="cbopt-1200000" onclick="setCafeBudget(1200000)">تا ۱.۲ میلیون</button>
+          </div>
+          <div class="budget-custom-row">
+            <input type="number" id="customCafeBudgetInput" class="budget-input" placeholder="مبلغ دلخواه به تومان (مثلاً 220000)" />
+            <button class="btn-search" style="padding:7px 14px;font-size:0.76rem;" onclick="applyCustomCafeBudget()">تأیید</button>
           </div>
         </div>
-        <div id="bnplCardsOut" style="margin-top:12px;"></div>
+
+        <!-- Cafe Search Box -->
+        <form onsubmit="event.preventDefault(); runDedicatedCafeSearch();">
+          <div class="search-box">
+            <span>☕</span>
+            <input
+              type="search"
+              id="cafeQueryInput"
+              class="search-input"
+              placeholder="چی میل داری یا چه کافه‌ای می‌خوای؟ (آیس لاته، کروسان، کافه کار، صبحانه)..."
+              value="آیس لاته و کروسان"
+              enterkeyhint="search"
+            />
+            <button type="button" class="clear-x" onclick="clearCafeInput()">✕</button>
+            <button type="submit" class="btn-search">بگرد</button>
+          </div>
+        </form>
+
+        <!-- Cafe Preset Suggestions -->
+        <div class="suggestions-label">پیشنهادهای کافه‌گردی و سفارش قهوه:</div>
+        <div class="suggestions-grid">
+          <div class="sug-card" onclick="runCafePreset('آیس لاته و کروسان شکلاتی', 250000, 'specialty')">
+            <span class="sug-cat">🧋 قهوه و شیرینی · تا ۲۵۰ هزار</span>
+            <span class="sug-text">آیس‌لاته و کروسان تازه</span>
+          </div>
+          <div class="sug-card" onclick="runCafePreset('کافه دنج مناسب کار با لپ تاپ و پریز برق', 300000, 'work')">
+            <span class="sug-cat">💻 کافه کار · وای‌فای و پریز</span>
+            <span class="sug-text">بهترین کافه‌ها برای کار و مطالعه</span>
+          </div>
+          <div class="sug-card" onclick="runCafePreset('صبحانه انگلیسی و املت تخصصی', 400000, 'brunch')">
+            <span class="sug-cat">🍳 صبحانه و برانچ</span>
+            <span class="sug-text">صبحانه کامل و برانچ کافه‌ای</span>
+          </div>
+          <div class="sug-card" onclick="runCafePreset('کافه حیاط دار و فضای باز دنج', 400000, 'outdoor')">
+            <span class="sug-cat">🌿 فضای باز · قرار دوستانه</span>
+            <span class="sug-text">کافه‌های حیاط‌دار و تراس‌دار</span>
+          </div>
+          <div class="sug-card" onclick="runCafePreset('قهوه دمی V60 و کمکس تخصصی', 250000, 'specialty')">
+            <span class="sug-cat">🫘 رستری تخصصی · موج سوم</span>
+            <span class="sug-text">قهوه دمی و اسپرسو عربیکا</span>
+          </div>
+          <div class="sug-card" onclick="runCafePreset('چیزکیک سن سباستین و ماچا لاته', 350000, 'all')">
+            <span class="sug-cat">🍰 کیک و دسر روز</span>
+            <span class="sug-text">چیزکیک و ماچا لاته</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cafe Service Filter Pills -->
+      <div class="source-chips">
+        <button class="src-chip active" id="csrc-all" onclick="changeCafeSourceFilter('all')">همه گزینه‌های کافه</button>
+        <button class="src-chip" id="csrc-snappcafe" onclick="changeCafeSourceFilter('snappcafe')">☕ اسنپ‌فود کافه (ارسال و منو)</button>
+        <button class="src-chip" id="csrc-neshan" onclick="changeCafeSourceFilter('neshan')">🗺️ نقشه نشان (کافه‌های حضوری محدوده)</button>
+        <button class="src-chip" id="csrc-fidilio" onclick="changeCafeSourceFilter('fidilio')">🍽️ فیدیلیو (کافه‌های برگزیده)</button>
       </div>
+
+      <!-- Compact Process Widget for Cafe Search -->
+      <div id="cafeProcessBox" class="process-mini-card hidden">
+        <div class="proc-top-row">
+          <div class="proc-step-title">
+            <span id="cprocIcon">☕</span>
+            <span id="cprocTitle">در حال جستجوی بهترین کافه‌های محدوده...</span>
+          </div>
+          <span class="proc-pct-badge" id="cprocPctBadge">۰٪ انجام شد · ۱۰۰٪ مانده</span>
+        </div>
+        <div class="proc-bar-track">
+          <div class="proc-bar-fill" id="cprocBarFill"></div>
+        </div>
+        <div class="proc-steps-pills">
+          <span class="proc-pill" id="cpstep-1">۱. بررسی محدوده</span>
+          <span class="proc-pill" id="cpstep-2">۲. منوی اسنپ‌فود کافه</span>
+          <span class="proc-pill" id="cpstep-3">۳. کافه‌های نشان و فیدیلیو</span>
+          <span class="proc-pill" id="cpstep-4">۴. رتبه‌بندی بهترین کافه‌ها</span>
+        </div>
+      </div>
+
+      <div id="cafeSummaryBox"></div>
+      <div id="cafeResultsContainer"></div>
     </div>
 
     <!-- =================================================================== -->
@@ -1834,9 +1967,9 @@
       <span class="tab-icon">🏷️</span>
       <span>تخفیف‌ها</span>
     </button>
-    <button class="tab-btn" id="nav-bnpl" onclick="switchTab('bnpl')">
-      <span class="tab-icon">💳</span>
-      <span>اقساط</span>
+    <button class="tab-btn" id="nav-cafe" onclick="switchTab('cafe')">
+      <span class="tab-icon">☕</span>
+      <span>کافه</span>
     </button>
     <button class="tab-btn" id="nav-mcp" onclick="switchTab('mcp')">
       <span class="tab-icon">⚙️</span>
@@ -1906,8 +2039,14 @@
       torobDirectApi: "https://api.torob.com/v4/base-product/search/"
     };
 
-    const sessionIds = { digikala: null, torob: null, divar: null };
-    const sessionInitLocks = { digikala: null, torob: null, divar: null };
+    // وضعیت نشست هر ورکر همراه با قفل همزمانی (Mutex) و شمارنده نسل (Epoch)
+    // تا در درخواست‌های موازی به یک Worker هرگز بیش از ۱ Handshake ارسال نشود
+    const workerSessions = {
+      digikala: { sid: null, initialized: false, epoch: 0, inFlightHandshake: null },
+      torob:    { sid: null, initialized: false, epoch: 0, inFlightHandshake: null },
+      divar:    { sid: null, initialized: false, epoch: 0, inFlightHandshake: null }
+    };
+
     const clientSearchCache = new Map();
     const CACHE_TTL_MS = 120000;
 
@@ -1915,48 +2054,49 @@
     let currentSearchToken = 0;
     let activeFoodController = null;
     let currentFoodToken = 0;
-    let bnplUserEdited = false;
+    let activeCafeController = null;
+    let currentCafeToken = 0;
 
     const CITY_AREAS_MAP = {
       tehran: [
-        { id: "saadatabad", label: "سعادت‌آباد و شهرک غرب", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 18000, branches: { sf: "شیلا و پرپروک (شعبه سعادت‌آباد)", sm: "هایپراستار باکری و اسنپ‌مارکت غرب", ok: "افق کوروش (بلوار دریا و فرحزادی)", dk: "دیجی‌کالا جت (انبار غرب تهران)" } },
-        { id: "vanak", label: "ونک، جردن و گاندی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های ونک و جردن (فودپارتی)", sm: "سوپرمارکت‌های اکسپرس ونک", ok: "افق کوروش (میدان ونک و ولیعصر)", dk: "دیجی‌کالا فرش (مرکز ونک)" } },
-        { id: "tajrish", label: "تجریش، نیاوران و اندرزگو", avgMinutes: "۲۵ تا ۴۰ دقیقه", baseCourier: 22000, branches: { sf: "فست‌فودها و رستوران‌های اندرزگو و شمیران", sm: "اسنپ‌مارکت شمیرانات", ok: "افق کوروش (تجریش و نیاوران)", dk: "دیجی‌کالا فرش (شمیران)" } },
-        { id: "poonak", label: "پونک، جنت‌آباد و سردار جنگل", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌های پونک و جنت‌آباد", sm: "هایپراستار ارم و اسنپ‌مارکت پونک", ok: "افق کوروش (اشرفی اصفهانی و پونک)", dk: "دیجی‌کالا جت (پونک)" } },
-        { id: "sadeghieh", label: "صادقیه، ستارخان و مرزداران", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و بلوار فردوس", sm: "اسنپ‌مارکت صادقیه و فردوس", ok: "افق کوروش (فلکه دوم صادقیه و مرزداران)", dk: "دیجی‌کالا فرش (صادقیه)" } },
-        { id: "pasdaran", label: "پاسداران، هروی و دروس", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 19000, branches: { sf: "رستوران‌ها و کافه‌های پاسداران و هروی", sm: "اسنپ‌مارکت پاسداران", ok: "افق کوروش (پاسداران و دولت)", dk: "دیجی‌کالا جت (پاسداران)" } },
-        { id: "tehranpars", label: "تهرانپارس، نارمک و هفت‌حوض", avgMinutes: "۲۰ تا ۳۵ دقیقه", baseCourier: 15000, branches: { sf: "فست‌فودهای فلکه اول تهرانپارس و هفت‌حوض", sm: "هایپرمارکت شرق و اسنپ‌مارکت نارمک", ok: "افق کوروش (تهرانپارس و آیت)", dk: "دیجی‌کالا فرش (شرق تهران)" } },
-        { id: "valiasr", label: "ولیعصر، انقلاب و یوسف‌آباد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و کافه‌های یوسف‌آباد و کریمخان", sm: "اسنپ‌مارکت مرکز شهر", ok: "افق کوروش (یوسف‌آباد و فاطمی)", dk: "دیجی‌کالا فرش (مرکز تهران)" } },
-        { id: "ekbatan", label: "اکباتان، بیمه و چیتگر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 17000, branches: { sf: "رستوران‌های مگامال اکباتان و دریاچه", sm: "هایپرمارکت مگامال و ایران‌مال", ok: "افق کوروش (فازهای اکباتان و کوهک)", dk: "دیجی‌کالا جت (اکباتان)" } },
-        { id: "piroozi", label: "پیروزی، نیروهوایی و افسریه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "رستوران‌ها و کبابی‌های پیروزی و نیروهوایی", sm: "اسنپ‌مارکت پیروزی", ok: "افق کوروش (خیابان پیروزی و نبرد)", dk: "دیجی‌کالا فرش (پیروزی)" } }
+        { id: "saadatabad", label: "سعادت‌آباد و شهرک غرب", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 18000, branches: { sf: "شیلا و پرپروک (شعبه سعادت‌آباد)", sm: "هایپراستار باکری و اسنپ‌مارکت غرب", ok: "افق کوروش (بلوار دریا و فرحزادی)", dk: "دیجی‌کالا جت (انبار غرب تهران)" }, cafes: { top1: "کافه رستری تخصصی لميز و سام (شعبه سعادت‌آباد و شهرک غرب)", top2: "کافه حیاط‌دار و دنج بلوار دریا", work: "کافه کار و مطالعه شهرک غرب (پریز برق در تمام میزها)" } },
+        { id: "vanak", label: "ونک، جردن و گاندی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های ونک و جردن (فودپارتی)", sm: "سوپرمارکت‌های اکسپرس ونک", ok: "افق کوروش (میدان ونک و ولیعصر)", dk: "دیجی‌کالا فرش (مرکز ونک)" }, cafes: { top1: "کافه‌های خیابان گاندی و جردن (رستری تخصصی)", top2: "کافه تراس‌دار ونک و برانچ صبحانه", work: "کافه کاری جردن و ونک (اینترنت پرسرعت و فضای آرام)" } },
+        { id: "tajrish", label: "تجریش، نیاوران و اندرزگو", avgMinutes: "۲۵ تا ۴۰ دقیقه", baseCourier: 22000, branches: { sf: "فست‌فودها و رستوران‌های اندرزگو و شمیران", sm: "اسنپ‌مارکت شمیرانات", ok: "افق کوروش (تجریش و نیاوران)", dk: "دیجی‌کالا فرش (شمیران)" }, cafes: { top1: "کافه باغ و عمارت‌های تجریش و نیاوران", top2: "کافه تخصصی اندرزگو و فرشته", work: "کافه مطالعه باغ فردوس و نیاوران" } },
+        { id: "poonak", label: "پونک، جنت‌آباد و سردار جنگل", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌های پونک و جنت‌آباد", sm: "هایپراستار ارم و اسنپ‌مارکت پونک", ok: "افق کوروش (اشرفی اصفهانی و پونک)", dk: "دیجی‌کالا جت (پونک)" }, cafes: { top1: "کافه‌های تخصصی جنت‌آباد مرکزی و پونک", top2: "کافه قنادی و کروسان اشرفی اصفهانی", work: "کافه دنج مناسب لپ‌تاپ در پونک" } },
+        { id: "sadeghieh", label: "صادقیه، ستارخان و مرزداران", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و بلوار فردوس", sm: "اسنپ‌مارکت صادقیه و فردوس", ok: "افق کوروش (فلکه دوم صادقیه و مرزداران)", dk: "دیجی‌کالا فرش (صادقیه)" }, cafes: { top1: "کافه‌های بلوار فردوس و مرزداران", top2: "کافه صبحانه و برانچ ستارخان", work: "کافه کار و مطالعه بلوار فردوس شرق" } },
+        { id: "pasdaran", label: "پاسداران، هروی و دروس", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 19000, branches: { sf: "رستوران‌ها و کافه‌های پاسداران و هروی", sm: "اسنپ‌مارکت پاسداران", ok: "افق کوروش (پاسداران و دولت)", dk: "دیجی‌کالا جت (پاسداران)" }, cafes: { top1: "کافه‌های تخصصی خیابان دولت و پاسداران", top2: "کافه حیاط‌دار دروس و هروی", work: "کافه کار و مطالعه پاسداران (میز بزرگ و پریز)" } },
+        { id: "tehranpars", label: "تهرانپارس، نارمک و هفت‌حوض", avgMinutes: "۲۰ تا ۳۵ دقیقه", baseCourier: 15000, branches: { sf: "فست‌فودهای فلکه اول تهرانپارس و هفت‌حوض", sm: "هایپرمارکت شرق و اسنپ‌مارکت نارمک", ok: "افق کوروش (تهرانپارس و آیت)", dk: "دیجی‌کالا فرش (شرق تهران)" }, cafes: { top1: "کافه‌های فلکه اول تهرانپارس و خیابان گلبرگ", top2: "کافه رستری میدان هفت‌حوض و نارمک", work: "کافه دنج دانشجویی و کاری تهرانپارس" } },
+        { id: "valiasr", label: "ولیعصر، انقلاب و یوسف‌آباد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و کافه‌های یوسف‌آباد و کریمخان", sm: "اسنپ‌مارکت مرکز شهر", ok: "افق کوروش (یوسف‌آباد و فاطمی)", dk: "دیجی‌کالا فرش (مرکز تهران)" }, cafes: { top1: "کافه‌های اصیل کریمخان، ایرانشهر و ویلا", top2: "کافه حیاط‌دار خیابان انقلاب و چهارراه ولیعصر", work: "کافه کار و مطالعه یوسف‌آباد و بلوار کشاورز" } },
+        { id: "ekbatan", label: "اکباتان، بیمه و چیتگر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 17000, branches: { sf: "رستوران‌های مگامال اکباتان و دریاچه", sm: "هایپرمارکت مگامال و ایران‌مال", ok: "افق کوروش (فازهای اکباتان و کوهک)", dk: "دیجی‌کالا جت (اکباتان)" }, cafes: { top1: "کافه‌های تخصصی فاز ۱ و ۲ شهرک اکباتان", top2: "کافه‌های ساحلی دریاچه چیتگر و باملند", work: "کافه دنج و آرام مگامال اکباتان" } },
+        { id: "piroozi", label: "پیروزی، نیروهوایی و افسریه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "رستوران‌ها و کبابی‌های پیروزی و نیروهوایی", sm: "اسنپ‌مارکت پیروزی", ok: "افق کوروش (خیابان پیروزی و نبرد)", dk: "دیجی‌کالا فرش (پیروزی)" }, cafes: { top1: "کافه‌های خیابان اول تا چهارم نیروهوایی", top2: "کافه قنادی و اسپرسوبار پیروزی", work: "کافه مطالعه و کار نیروهوایی" } }
       ],
       mashhad: [
-        { id: "vakilabad", label: "وکیل‌آباد و هاشمیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های هاشمیه و وکیل‌آباد", sm: "اسنپ‌مارکت وکیل‌آباد", ok: "افق کوروش (بلوار هاشمیه)", dk: "دیجی‌کالا فرش (مشهد غرب)" } },
-        { id: "ahmadabad", label: "احمدآباد و سجاد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های بلوار سجاد", sm: "پروما و اسنپ‌مارکت سجاد", ok: "افق کوروش (احمدآباد و راهنمایی)", dk: "دیجی‌کالا فرش (سجاد)" } },
-        { id: "elahieh_mhd", label: "الهیه و قاسم‌آباد", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای قاسم‌آباد و الهیه", sm: "اسنپ‌مارکت الهیه مشهد", ok: "افق کوروش (بلوار فلاحی و الهیه)", dk: "دیجی‌کالا فرش (الهیه مشهد)" } },
-        { id: "rezashahr", label: "رضاشهر و پیروزی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های بلوار پیروزی مشهد", sm: "اسنپ‌مارکت رضاشهر", ok: "افق کوروش (رضاشهر)", dk: "دیجی‌کالا فرش (رضاشهر)" } }
+        { id: "vakilabad", label: "وکیل‌آباد و هاشمیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های هاشمیه و وکیل‌آباد", sm: "اسنپ‌مارکت وکیل‌آباد", ok: "افق کوروش (بلوار هاشمیه)", dk: "دیجی‌کالا فرش (مشهد غرب)" }, cafes: { top1: "کافه‌های تخصصی بلوار هاشمیه و هنرستان", top2: "کافه فضای باز وکیل‌آباد", work: "کافه کار و مطالعه هاشمیه مشهد" } },
+        { id: "ahmadabad", label: "احمدآباد و سجاد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های بلوار سجاد", sm: "پروما و اسنپ‌مارکت سجاد", ok: "افق کوروش (احمدآباد و راهنمایی)", dk: "دیجی‌کالا فرش (سجاد)" }, cafes: { top1: "کافه‌های چهارراه بزرگمهر و بلوار سجاد", top2: "کافه صبحانه و کروسان فرهاد و احمدآباد", work: "کافه کاری بلوار سجاد" } },
+        { id: "elahieh_mhd", label: "الهیه و قاسم‌آباد", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای قاسم‌آباد و الهیه", sm: "اسنپ‌مارکت الهیه مشهد", ok: "افق کوروش (بلوار فلاحی و الهیه)", dk: "دیجی‌کالا فرش (الهیه مشهد)" }, cafes: { top1: "کافه‌های بلوار محمدیه و الهیه مشهد", top2: "کافه اسپرسوبار قاسم‌آباد", work: "کافه مطالعه الهیه" } },
+        { id: "rezashahr", label: "رضاشهر و پیروزی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های بلوار پیروزی مشهد", sm: "اسنپ‌مارکت رضاشهر", ok: "افق کوروش (رضاشهر)", dk: "دیجی‌کالا فرش (رضاشهر)" }, cafes: { top1: "کافه‌های بلوار پیروزی و رضاشهر", top2: "کافه دنج خاقانی", work: "کافه دانشجویی رضاشهر (نزدیک دانشگاه فردوسی)" } }
       ],
       isfahan: [
-        { id: "chaharbagh", label: "چهارباغ و نظر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های خیابان نظر و چهارباغ بالا", sm: "اسنپ‌مارکت مرکز اصفهان", ok: "افق کوروش (چهارباغ و توحید)", dk: "دیجی‌کالا فرش (مرکز اصفهان)" } },
-        { id: "mardavij", label: "مرداویج و شیخ صدوق", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "کافه‌ها و فست‌فودهای مرداویج", sm: "اسنپ‌مارکت جنوب اصفهان", ok: "افق کوروش (شیخ صدوق)", dk: "دیجی‌کالا فرش (مرداویج)" } },
-        { id: "sepahanshahr", label: "سپاهانشهر و بهارستان", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های سیتی‌سنتر و سپاهانشهر", sm: "هایپراستار سیتی‌سنتر اصفهان", ok: "افق کوروش (سپاهانشهر)", dk: "دیجی‌کالا فرش (سپاهانشهر)" } },
-        { id: "malekshahr", label: "خانه اصفهان و ملک‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خانه اصفهان و ملک‌شهر", sm: "اسنپ‌مارکت شمال اصفهان", ok: "افق کوروش (رباط و ملک‌شهر)", dk: "دیجی‌کالا فرش (ملک‌شهر)" } }
+        { id: "chaharbagh", label: "چهارباغ و نظر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های خیابان نظر و چهارباغ بالا", sm: "اسنپ‌مارکت مرکز اصفهان", ok: "افق کوروش (چهارباغ و توحید)", dk: "دیجی‌کالا فرش (مرکز اصفهان)" }, cafes: { top1: "کافه‌های جلفا، خاقانی و خیابان نظر", top2: "کافه عمارت‌های چهارباغ عباسی و بالا", work: "کافه کار و مطالعه توحید و نظر" } },
+        { id: "mardavij", label: "مرداویج و شیخ صدوق", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "کافه‌ها و فست‌فودهای مرداویج", sm: "اسنپ‌مارکت جنوب اصفهان", ok: "افق کوروش (شیخ صدوق)", dk: "دیجی‌کالا فرش (مرداویج)" }, cafes: { top1: "کافه‌های تخصصی مرداویج و فارابی", top2: "کافه صبحانه شیخ صدوق شمالی", work: "کافه دنج کاری مرداویج" } },
+        { id: "sepahanshahr", label: "سپاهانشهر و بهارستان", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های سیتی‌سنتر و سپاهانشهر", sm: "هایپراستار سیتی‌سنتر اصفهان", ok: "افق کوروش (سپاهانشهر)", dk: "دیجی‌کالا فرش (سپاهانشهر)" }, cafes: { top1: "کافه‌های بلوار غدیر سپاهانشهر", top2: "کافه تراس سیتی‌سنتر اصفهان", work: "کافه مطالعه سپاهانشهر" } },
+        { id: "malekshahr", label: "خانه اصفهان و ملک‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خانه اصفهان و ملک‌شهر", sm: "اسنپ‌مارکت شمال اصفهان", ok: "افق کوروش (رباط و ملک‌شهر)", dk: "دیجی‌کالا فرش (ملک‌شهر)" }, cafes: { top1: "کافه‌های پنج‌طبقه خانه اصفهان و مطهری", top2: "کافه اسپرسو ملک‌شهر", work: "کافه دنج خانه اصفهان" } }
       ],
       shiraz: [
-        { id: "maaliabad", label: "معالی‌آباد و فرهنگ‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و فست‌فودهای معالی‌آباد", sm: "اسنپ‌مارکت معالی‌آباد", ok: "افق کوروش (معالی‌آباد و کسایی)", dk: "دیجی‌کالا فرش (معالی‌آباد)" } },
-        { id: "afifabad", label: "عفیف‌آباد و ستارخان", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و عفیف‌آباد شیراز", sm: "اسنپ‌مارکت ستارخان شیراز", ok: "افق کوروش (خلدبرین و عفیف‌آباد)", dk: "دیجی‌کالا فرش (ستارخان شیراز)" } },
-        { id: "ghodusi", label: "قدوسی و زرهی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "کافه و رستوران‌های قدوسی غربی و شرقی", sm: "اسنپ‌مارکت قدوسی", ok: "افق کوروش (پاسداران و زرهی)", dk: "دیجی‌کالا فرش (قدوسی)" } },
-        { id: "golestan_shz", label: "گلستان و صدرا", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های خلیج فارس و گلستان", sm: "هایپراستار خلیج فارس شیراز", ok: "افق کوروش (شهرک گلستان)", dk: "دیجی‌کالا فرش (گلستان)" } }
+        { id: "maaliabad", label: "معالی‌آباد و فرهنگ‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و فست‌فودهای معالی‌آباد", sm: "اسنپ‌مارکت معالی‌آباد", ok: "افق کوروش (معالی‌آباد و کسایی)", dk: "دیجی‌کالا فرش (معالی‌آباد)" }, cafes: { top1: "کافه‌های تخصصی معالی‌آباد و بهاران", top2: "کافه باغ‌های فرهنگ‌شهر و قصرالدشت", work: "کافه کار و مطالعه معالی‌آباد" } },
+        { id: "afifabad", label: "عفیف‌آباد و ستارخان", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و عفیف‌آباد شیراز", sm: "اسنپ‌مارکت ستارخان شیراز", ok: "افق کوروش (خلدبرین و عفیف‌آباد)", dk: "دیجی‌کالا فرش (ستارخان شیراز)" }, cafes: { top1: "کافه‌های عفیف‌آباد و بلوار ستارخان شیراز", top2: "کافه حیاط‌دار خلدبرین", work: "کافه کاری ستارخان شیراز" } },
+        { id: "ghodusi", label: "قدوسی و زرهی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "کافه و رستوران‌های قدوسی غربی و شرقی", sm: "اسنپ‌مارکت قدوسی", ok: "افق کوروش (پاسداران و زرهی)", dk: "دیجی‌کالا فرش (قدوسی)" }, cafes: { top1: "کافه‌های قدوسی غربی و محلاتی", top2: "کافه صبحانه و برانچ قدوسی", work: "کافه مطالعه قدوسی" } },
+        { id: "golestan_shz", label: "گلستان و صدرا", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های خلیج فارس و گلستان", sm: "هایپراستار خلیج فارس شیراز", ok: "افق کوروش (شهرک گلستان)", dk: "دیجی‌کالا فرش (گلستان)" }, cafes: { top1: "کافه‌های شهرک گلستان و مجتمع خلیج فارس", top2: "کافه‌های بلوار دانش صدرا", work: "کافه دانشجویی گلستان و صدرا" } }
       ],
       tabriz: [
-        { id: "valiasr_tbz", label: "ولیعصر و رشدیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های سنگفرش ولیعصر", sm: "اسنپ‌مارکت ولیعصر تبریز", ok: "افق کوروش (ولیعصر و رشدیه)", dk: "دیجی‌کالا فرش (ولیعصر تبریز)" } },
-        { id: "abresan", label: "آبرسان و چهارراه منصور", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های آبرسان و لاله پارک", sm: "اسنپ‌مارکت آبرسان", ok: "افق کوروش (آبرسان)", dk: "دیجی‌کالا فرش (آبرسان)" } },
-        { id: "elgoli", label: "ائل‌گلی و زعفرانیه", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های سنتی و مدرن ائل‌گلی", sm: "اسنپ‌مارکت ائل‌گلی", ok: "افق کوروش (زعفرانیه تبریز)", dk: "دیجی‌کالا فرش (ائل‌گلی)" } }
+        { id: "valiasr_tbz", label: "ولیعصر و رشدیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های سنگفرش ولیعصر", sm: "اسنپ‌مارکت ولیعصر تبریز", ok: "افق کوروش (ولیعصر و رشدیه)", dk: "دیجی‌کالا فرش (ولیعصر تبریز)" }, cafes: { top1: "کافه‌های سنگفرش ولیعصر و خیابان فروغی", top2: "کافه‌های مدرن مرکز خرید رشدیه", work: "کافه کار و مطالعه ولیعصر تبریز" } },
+        { id: "abresan", label: "آبرسان و چهارراه منصور", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های آبرسان و لاله پارک", sm: "اسنپ‌مارکت آبرسان", ok: "افق کوروش (آبرسان)", dk: "دیجی‌کالا فرش (آبرسان)" }, cafes: { top1: "کافه‌های آبرسان و فلکه دانشگاه تبریز", top2: "کافه‌های مجتمع لاله‌پارک", work: "کافه دانشجویی و کاری آبرسان" } },
+        { id: "elgoli", label: "ائل‌گلی و زعفرانیه", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های سنتی و مدرن ائل‌گلی", sm: "اسنپ‌مارکت ائل‌گلی", ok: "افق کوروش (زعفرانیه تبریز)", dk: "دیجی‌کالا فرش (ائل‌گلی)" }, cafes: { top1: "کافه‌های فضای باز جاده ائل‌گلی و فردوس", top2: "کافه رستری زعفرانیه تبریز", work: "کافه دنج ائل‌گلی" } }
       ],
       karaj: [
-        { id: "gohardasht", label: "گوهردشت و جهانشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و فست‌فودهای رستاخیز و جهانشهر", sm: "اسنپ‌مارکت گوهردشت", ok: "افق کوروش (گوهردشت و باغستان)", dk: "دیجی‌کالا فرش (گوهردشت)" } },
-        { id: "azimieh", label: "عظیمیه و مهرشهر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های بلوار شریعتی عظیمیه و چهارباندی", sm: "اسنپ‌مارکت عظیمیه و مهرشهر", ok: "افق کوروش (عظیمیه و گلستان)", dk: "دیجی‌کالا فرش (عظیمیه)" } },
-        { id: "derakhti", label: "درختی و گلشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خیابان درختی و گلشهر", sm: "اسنپ‌مارکت گلشهر", ok: "افق کوروش (چهارراه درختی و مهرویلا)", dk: "دیجی‌کالا فرش (گلشهر)" } }
+        { id: "gohardasht", label: "گوهردشت و جهانشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و فست‌فودهای رستاخیز و جهانشهر", sm: "اسنپ‌مارکت گوهردشت", ok: "افق کوروش (گوهردشت و باغستان)", dk: "دیجی‌کالا فرش (گوهردشت)" }, cafes: { top1: "کافه‌های بلوار ماهان جهانشهر و رستاخیز گوهردشت", top2: "کافه صبحانه و برانچ خیابان آزادی گوهردشت", work: "کافه کار و مطالعه جهانشهر کرج" } },
+        { id: "azimieh", label: "عظیمیه و مهرشهر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های بلوار شریعتی عظیمیه و چهارباندی", sm: "اسنپ‌مارکت عظیمیه و مهرشهر", ok: "افق کوروش (عظیمیه و گلستان)", dk: "دیجی‌کالا فرش (عظیمیه)" }, cafes: { top1: "کافه باغ‌های بلوار چهارباندی مهرشهر", top2: "کافه‌های تخصصی میدان مهران و شریعتی عظیمیه", work: "کافه دنج کاری مهرشهر و عظیمیه" } },
+        { id: "derakhti", label: "درختی و گلشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خیابان درختی و گلشهر", sm: "اسنپ‌مارکت گلشهر", ok: "افق کوروش (چهارراه درختی و مهرویلا)", dk: "دیجی‌کالا فرش (گلشهر)" }, cafes: { top1: "کافه‌های خیابان درختی و مهرویلا", top2: "کافه اسپرسوبار گلشهر", work: "کافه مطالعه درختی" } }
       ]
     };
 
@@ -1981,6 +2121,17 @@
       sourceFilter: "all",
       city: "tehran",
       areaId: "saadatabad",
+      customArea: "",
+      items: []
+    };
+
+    let cafeState = {
+      query: "آیس لاته و کروسان",
+      budgetToman: 0,
+      category: "all",
+      sourceFilter: "all",
+      city: "tehran",
+      areaId: "valiasr",
       customArea: "",
       items: []
     };
@@ -2019,7 +2170,7 @@
     }
 
     // =========================================================================
-    // ۲.۵. کنترلر فیلد کوچولوی پروسس و درصد پیشرفت (Live Process Widget)
+    // ۲.۵. کنترلر فیلد کوچولوی پروسس و درصد پیشرفت (کالا، غذا، کافه)
     // =========================================================================
     function updateSearchProcessUI(pctDone, titleText, activeStepNum, isFinished = false) {
       const box = document.getElementById("searchProcessBox");
@@ -2085,8 +2236,42 @@
       }
     }
 
+    function updateCafeProcessUI(pctDone, titleText, activeStepNum, isFinished = false) {
+      const box = document.getElementById("cafeProcessBox");
+      const titleEl = document.getElementById("cprocTitle");
+      const pctEl = document.getElementById("cprocPctBadge");
+      const fillEl = document.getElementById("cprocBarFill");
+      const iconEl = document.getElementById("cprocIcon");
+      if (!box) return;
+
+      box.classList.remove("hidden");
+      const safePct = Math.min(100, Math.max(0, Math.round(pctDone)));
+      const remPct = Math.max(0, 100 - safePct);
+
+      if (titleEl) titleEl.innerText = titleText;
+      if (pctEl) {
+        pctEl.innerText = `${safePct.toLocaleString("fa-IR")}٪ انجام شد · ${remPct.toLocaleString("fa-IR")}٪ مانده`;
+        pctEl.classList.toggle("done", isFinished || safePct >= 100);
+      }
+      if (fillEl) fillEl.style.width = `${safePct}%`;
+      if (iconEl) iconEl.innerText = isFinished ? "✅" : "☕";
+
+      for (let i = 1; i <= 4; i++) {
+        const pill = document.getElementById("cpstep-" + i);
+        if (!pill) continue;
+        pill.classList.remove("active", "done");
+        if (isFinished || i < activeStepNum) {
+          pill.classList.add("done");
+        } else if (i === activeStepNum) {
+          pill.classList.add("active");
+        }
+      }
+    }
+
     // =========================================================================
-    // ۳. کلاینت استاندارد JSON-RPC 2.0 برای پروتکل MCP (بدون تداخل Session)
+    // ۳. کلاینت استاندارد JSON-RPC 2.0 برای پروتکل MCP
+    //    با قفل همزمانی کامل (Single-Flight Handshake Coalescing + Epoch Lock)
+    //    تا وقتی چند درخواست همزمان به یک Worker ارسال می‌شود، هرگز بیش از ۱ Handshake زده نشود!
     // =========================================================================
     function extractJsonRpcObject(rawText) {
       if (!rawText) return null;
@@ -2178,12 +2363,29 @@
       return false;
     }
 
-    async function performSessionHandshake(serviceKey, timeoutMs, parentSignal) {
-      if (sessionInitLocks[serviceKey]) {
-        return sessionInitLocks[serviceKey];
+    /**
+     * تضمین می‌کند برای هر Worker در هر نسل (epoch) حداکثر ۱ بار Handshake انجام شود.
+     * اگر چند درخواست همزمان به یک Worker برسند یا همزمان با خطای عدم مقداردهی مواجه شوند:
+     * ۱) اگر یک Handshake در حال انجام باشد (`sess.inFlightHandshake`)، همه منتظر همان یک Promise می‌مانند.
+     * ۲) اگر درخواست قدیمی‌تر (`failedAtEpoch < sess.epoch`) بعد از اتمام Handshake درخواست دیگر به اینجا برسد،
+     *    تشخیص می‌دهد که نشست قبلاً تازه شده و Handshake دومی ارسال نمی‌کند!
+     */
+    async function ensureSingleWorkerHandshake(serviceKey, timeoutMs, parentSignal, failedAtEpoch = -1) {
+      const sess = workerSessions[serviceKey];
+      if (!sess) return;
+
+      // اگر یک Handshake همین الان در جریان است، به همان بپیوند و درخواست جدا نزن
+      if (sess.inFlightHandshake) {
+        return sess.inFlightHandshake;
       }
+
+      // اگر این فراخوانی ناشی از خطای نشستی است که در فاصله زمانی توسط درخواست موازی دیگری نو شده است، دوباره Handshake نزن!
+      if (failedAtEpoch >= 0 && sess.initialized && sess.epoch > failedAtEpoch) {
+        return;
+      }
+
       const url = ENDPOINTS[serviceKey];
-      sessionInitLocks[serviceKey] = (async () => {
+      sess.inFlightHandshake = (async () => {
         try {
           const initRes = await fetchWithPerRequestTimeout(
             url,
@@ -2200,21 +2402,24 @@
                 params: {
                   protocolVersion: "2025-03-26",
                   capabilities: {},
-                  clientInfo: { name: "chibekharim-amin", version: "3.0.0" }
+                  clientInfo: { name: "chibekharim-amin", version: "4.0.0" }
                 }
               })
             },
             timeoutMs,
             parentSignal
           );
+
           const newSid = initRes.headers && initRes.headers.get ? initRes.headers.get("mcp-session-id") : null;
-          if (newSid) sessionIds[serviceKey] = newSid;
+          if (newSid) sess.sid = newSid;
+          sess.initialized = true;
+          sess.epoch += 1;
 
           const notifyHeaders = {
             "content-type": "application/json",
             "accept": "application/json, text/event-stream"
           };
-          if (sessionIds[serviceKey]) notifyHeaders["mcp-session-id"] = sessionIds[serviceKey];
+          if (sess.sid) notifyHeaders["mcp-session-id"] = sess.sid;
 
           try {
             await fetchWithPerRequestTimeout(
@@ -2232,24 +2437,37 @@
             );
           } catch (_) {}
         } finally {
-          sessionInitLocks[serviceKey] = null;
+          sess.inFlightHandshake = null;
         }
       })();
-      return sessionInitLocks[serviceKey];
+
+      return sess.inFlightHandshake;
     }
 
     async function callMcpTool(serviceKey, toolName, args, timeoutMs = 5500, parentSignal = null) {
       const url = ENDPOINTS[serviceKey];
+      const sess = workerSessions[serviceKey];
+
+      // اگر اولین بار است که به این Worker وصل می‌شویم یا یک Handshake در حال اجراست،
+      // همه درخواست‌های موازی به این Worker ابتدا از یک Handshake واحد عبور می‌کنند
+      if (sess && (!sess.initialized || sess.inFlightHandshake)) {
+        try {
+          await ensureSingleWorkerHandshake(serviceKey, timeoutMs, parentSignal, -1);
+        } catch (_) {}
+      }
+
       const makeHeaders = () => {
         const h = {
           "content-type": "application/json",
           "accept": "application/json, text/event-stream"
         };
-        if (sessionIds[serviceKey]) {
-          h["mcp-session-id"] = sessionIds[serviceKey];
+        if (sess && sess.sid) {
+          h["mcp-session-id"] = sess.sid;
         }
         return h;
       };
+
+      const startEpoch = sess ? sess.epoch : 0;
 
       let res = await fetchWithPerRequestTimeout(
         url,
@@ -2272,12 +2490,15 @@
       }
 
       const sid = res.headers && res.headers.get ? res.headers.get("mcp-session-id") : null;
-      if (sid) sessionIds[serviceKey] = sid;
+      if (sid && sess) {
+        sess.sid = sid;
+        sess.initialized = true;
+      }
 
       let text = await res.text();
 
       if (isSessionInitRequired(res.status, text)) {
-        await performSessionHandshake(serviceKey, timeoutMs, parentSignal);
+        await ensureSingleWorkerHandshake(serviceKey, timeoutMs, parentSignal, startEpoch);
         res = await fetchWithPerRequestTimeout(
           url,
           {
@@ -2285,7 +2506,7 @@
             headers: makeHeaders(),
             body: JSON.stringify({
               jsonrpc: "2.0",
-              id: 2,
+              id: Date.now() + Math.floor(Math.random() * 1000),
               method: "tools/call",
               params: { name: toolName, arguments: args }
             })
@@ -3009,9 +3230,7 @@
       const avgMainPrice = activePool.length > 0 ? Math.round(activePool.reduce((acc, x) => acc + x.priceToman, 0) / activePool.length) : storeMin;
       const bestPick = activePool[0];
 
-      if (!bnplUserEdited) {
-        document.getElementById("bnplAmount").value = bestPick.priceToman;
-      }
+
 
       summaryBox.innerHTML = `
         <div class="market-summary">
@@ -4041,55 +4260,408 @@
     }
 
     // =========================================================================
-    // ۱۱. ماشین‌حساب اقساط و کاتالوگ کامل ۲۲ سرور MCP (awesome-iran-mcp + mmdju)
+    // ۱۱. موتور کافه‌یاب محدوده («☕ کافه» — بر اساس اسنپ‌فود کافه، نقشه نشان و فیدیلیو)
+    //     + کاتالوگ کامل سرورهای MCP
     // =========================================================================
-    function onBnplUserInput() {
-      bnplUserEdited = true;
-      renderBnplCalc();
+    function getActiveCafeAreaObj() {
+      const city = cafeState.city || "tehran";
+      const list = CITY_AREAS_MAP[city] || CITY_AREAS_MAP.tehran;
+      const found = list.find(a => a.id === cafeState.areaId) || list[0];
+      const custom = (cafeState.customArea || "").trim();
+      if (custom) {
+        return {
+          id: "custom",
+          label: custom,
+          avgMinutes: found.avgMinutes || "۲۰ تا ۳۰ دقیقه",
+          baseCourier: found.baseCourier || 14000,
+          cafes: {
+            top1: `کافه رستری تخصصی محدوده ${custom}`,
+            top2: `کافه دنج و فضای باز محدوده ${custom}`,
+            work: `کافه کار و مطالعه محدوده ${custom} (مجهز به پریز برق و وای‌فای)`
+          }
+        };
+      }
+      return found;
     }
 
-    function renderBnplCalc() {
-      const cashRaw = Number(document.getElementById("bnplAmount").value);
-      const cash = Number.isFinite(cashRaw) && cashRaw > 0 ? cashRaw : 75000000;
+    function populateCafeAreasForCity(city, triggerSearch = false) {
+      const areas = CITY_AREAS_MAP[city] || CITY_AREAS_MAP.tehran;
+      const sel = document.getElementById("cafeAreaSelect");
+      const chipsWrap = document.getElementById("cafeQuickAreaChips");
+      if (!areas.some(a => a.id === cafeState.areaId)) {
+        cafeState.areaId = areas[0].id;
+      }
+      if (sel) {
+        sel.innerHTML = areas.map(a =>
+          `<option value="${escapeHtml(a.id)}" ${a.id === cafeState.areaId ? "selected" : ""}>📍 محدوده: ${escapeHtml(a.label)}</option>`
+        ).join("");
+      }
+      if (chipsWrap) {
+        chipsWrap.innerHTML = areas.map(a => {
+          const isActive = !cafeState.customArea && a.id === cafeState.areaId;
+          return `<button type="button" class="area-chip ${isActive ? "active" : ""}" onclick="selectQuickCafeArea('${escapeHtml(a.id)}')">📍 ${escapeHtml(a.label)}</button>`;
+        }).join("");
+      }
+      updateActiveCafeAreaBadge();
+      if (triggerSearch) runDedicatedCafeSearch();
+    }
 
-      const infStr = String(document.getElementById("bnplInf").value).trim();
-      const parsedInf = infStr === "" ? 3.0 : Number(infStr);
-      const inf = (Number.isFinite(parsedInf) && parsedInf >= 0 ? parsedInf : 3.0) / 100.0;
+    function updateActiveCafeAreaBadge() {
+      const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
+      const cityFa = cityLabels[cafeState.city] || "تهران";
+      const areaObj = getActiveCafeAreaObj();
+      const badge = document.getElementById("activeCafeAreaBadge");
+      if (badge) {
+        badge.innerText = `${cityFa} · ${areaObj.label}`;
+      }
+    }
 
-      const plans = [
-        { title: "اسنپ‌پی / تکنوپی / تارا (۴ قسط بدون کارمزد)", months: 4, up: cash * 0.25, m: cash * 0.25, stores: "تکنولایف، اسنپ‌شاپ، مسترکالا، خانومی، شاپینو" },
-        { title: "طرح اعتباری ۶ قسطه (نمونه با کارمزد ۱۱.۵٪)", months: 6, up: 0, m: (cash * 1.115) / 6, stores: "تکنولایف، دیجی‌کالا (دیجی‌پی)" },
-        { title: "طرح اعتباری ۱۲ قسطه ازکی‌وام / دیجی‌پی (نمونه با کارمزد ۲۳٪)", months: 12, up: 0, m: (cash * 1.23) / 12, stores: "تکنولایف، دیجی‌کالا" }
+    function onCafeCityChange() {
+      const cityEl = document.getElementById("cafeCitySelect");
+      cafeState.city = cityEl ? cityEl.value : "tehran";
+      cafeState.customArea = "";
+      const customInp = document.getElementById("cafeCustomAreaInput");
+      if (customInp) customInp.value = "";
+      populateCafeAreasForCity(cafeState.city, true);
+    }
+
+    function onCafeAreaSelectChange() {
+      const sel = document.getElementById("cafeAreaSelect");
+      if (sel) cafeState.areaId = sel.value;
+      cafeState.customArea = "";
+      const customInp = document.getElementById("cafeCustomAreaInput");
+      if (customInp) customInp.value = "";
+      populateCafeAreasForCity(cafeState.city, false);
+      runDedicatedCafeSearch();
+    }
+
+    function selectQuickCafeArea(areaId) {
+      cafeState.areaId = areaId;
+      cafeState.customArea = "";
+      const customInp = document.getElementById("cafeCustomAreaInput");
+      if (customInp) customInp.value = "";
+      populateCafeAreasForCity(cafeState.city, false);
+      runDedicatedCafeSearch();
+    }
+
+    function onCustomCafeAreaInput(val) {
+      cafeState.customArea = (val || "").trim();
+      updateActiveCafeAreaBadge();
+    }
+
+    function applyCustomCafeAreaSearch() {
+      const inp = document.getElementById("cafeCustomAreaInput");
+      if (inp) cafeState.customArea = inp.value.trim();
+      populateCafeAreasForCity(cafeState.city, false);
+      runDedicatedCafeSearch();
+    }
+
+    function buildAreaSpecificCafeOffers(q, cityFa, areaObj) {
+      const qClean = (q || "").trim() || "آیس لاته و کروسان";
+      const qLower = qClean.toLowerCase();
+      const encFull = encodeURIComponent(`کافه ${qClean} ${cityFa} ${areaObj.label}`);
+      const encAreaCafe = encodeURIComponent(`کافه ${areaObj.label} ${cityFa}`);
+      const encSnapp = encodeURIComponent(`${qClean} ${areaObj.label}`);
+
+      let baseCafePrice = 185000;
+      if (qLower.includes("صبحانه") || qLower.includes("برانچ") || qLower.includes("املت")) baseCafePrice = 310000;
+      else if (qLower.includes("کیک") || qLower.includes("چیزکیک") || qLower.includes("کروسان")) baseCafePrice = 225000;
+      else if (qLower.includes("دمی") || qLower.includes("v60") || qLower.includes("کمکس")) baseCafePrice = 165000;
+
+      const cafesMeta = areaObj.cafes || {
+        top1: `کافه تخصصی محدوده ${areaObj.label}`,
+        top2: `کافه حیاط‌دار و دنج ${areaObj.label}`,
+        work: `کافه کار و مطالعه ${areaObj.label}`
+      };
+
+      return [
+        {
+          uid: "cafe-snapp-1",
+          cafeSource: "snappcafe",
+          vibeCat: "specialty",
+          sourceLabel: `☕ اسنپ‌فود کافه · ارسال فوری در ${areaObj.label}`,
+          shopName: `${cafesMeta.top1} (${cityFa})`,
+          title: `${qClean} — رستری تخصصی قهوه (حضوری + ارسال اسنپ‌فود کافه در ${areaObj.label})`,
+          priceToman: Math.round((baseCafePrice * 0.88) / 1000) * 1000,
+          oldPriceToman: baseCafePrice + 25000,
+          discountPct: 16,
+          vibePerks: `🫘 دانه ۱۰۰٪ عربیکا · 🛵 ارسال ۲۰ دقیقه‌ای به ${areaObj.label} · 🪑 فضای نشستن دنج`,
+          rating: 4.8,
+          ratingCount: 840,
+          emoji: "☕",
+          url: `https://snappfood.ir/search/?query=${encSnapp}`,
+          mapUrl: `https://neshan.org/maps/search/${encAreaCafe}`
+        },
+        {
+          uid: "cafe-neshan-work",
+          cafeSource: "neshan",
+          vibeCat: "work",
+          sourceLabel: `💻 منتخب نقشه نشان · کافه کار در ${areaObj.label}`,
+          shopName: `${cafesMeta.work}`,
+          title: `${qClean} — بهترین کافه محدوده ${areaObj.label} برای کار با لپ‌تاپ، مطالعه و جلسه`,
+          priceToman: Math.round((baseCafePrice * 0.92) / 1000) * 1000,
+          oldPriceToman: null,
+          discountPct: 0,
+          vibePerks: `🔌 پریز برق کنار تمام میزها · 📶 وای‌فای رایگان · 🤫 محیط آرام و بدون محدودیت زمانی`,
+          rating: 4.7,
+          ratingCount: 620,
+          emoji: "💻",
+          url: `https://neshan.org/maps/search/${encFull}`,
+          mapUrl: `https://neshan.org/maps/search/${encFull}`
+        },
+        {
+          uid: "cafe-fidilio-outdoor",
+          cafeSource: "fidilio",
+          vibeCat: "outdoor",
+          sourceLabel: `🌿 برگزیده فیدیلیو · فضای باز در ${areaObj.label}`,
+          shopName: `${cafesMeta.top2}`,
+          title: `${qClean} — کافه حیاط‌دار و تراس‌دار منتخب محدوده ${areaObj.label} (مناسب قرار و صبحانه)`,
+          priceToman: Math.round((baseCafePrice * 0.98) / 1000) * 1000,
+          oldPriceToman: Math.round((baseCafePrice * 1.10) / 1000) * 1000,
+          discountPct: 11,
+          vibePerks: `🌿 حیاط سرسبز و فضای باز · 🥐 منوی کامل صبحانه و برانچ · 📸 فضای عکاسی عالی`,
+          rating: 4.7,
+          ratingCount: 510,
+          emoji: "🌿",
+          url: `https://fidilio.com/search?q=${encAreaCafe}`,
+          mapUrl: `https://neshan.org/maps/search/${encAreaCafe}`
+        },
+        {
+          uid: "cafe-snapp-brunch",
+          cafeSource: "snappcafe",
+          vibeCat: "brunch",
+          sourceLabel: `🥐 اسنپ‌فود کافه و بیکری · محدوده ${areaObj.label}`,
+          shopName: `کافه بیکری و قنادی تخصصی (${areaObj.label})`,
+          title: `${qClean} — پخت روز کروسان، چیزکیک و صبحانه در محدوده ${areaObj.label}`,
+          priceToman: Math.round((baseCafePrice * 0.84) / 1000) * 1000,
+          oldPriceToman: baseCafePrice,
+          discountPct: 16,
+          vibePerks: `🥐 کروسان کره‌ای تازه پخت روز · 🛵 پیک رایگان محدوده ${areaObj.label} · ⭐ بالاترین رضایت قیمت`,
+          rating: 4.6,
+          ratingCount: 430,
+          emoji: "🥐",
+          url: `https://snappfood.ir/search/?query=${encSnapp}`,
+          mapUrl: `https://neshan.org/maps/search/${encAreaCafe}`
+        }
       ];
+    }
 
-      document.getElementById("bnplCardsOut").innerHTML = plans.map(p => {
-        let npv = p.up;
-        const rem = p.up > 0 ? p.months - 1 : p.months;
-        for (let i = 1; i <= rem; i++) npv += p.m / Math.pow(1 + inf, i);
-        const benefit = Math.round(cash - npv);
+    async function runDedicatedCafeSearch() {
+      const qEl = document.getElementById("cafeQueryInput");
+      const cityEl = document.getElementById("cafeCitySelect");
+      if (!qEl) return;
+      const q = qEl.value.trim() || "آیس لاته و کروسان";
+
+      if (activeCafeController) {
+        activeCafeController.abort();
+      }
+      const cafeCtrl = new AbortController();
+      activeCafeController = cafeCtrl;
+      const myCafeToken = ++currentCafeToken;
+
+      const city = cityEl ? cityEl.value : "tehran";
+      const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
+      const cityFa = cityLabels[city] || "تهران";
+      cafeState.query = q;
+      cafeState.city = city;
+
+      const areaObj = getActiveCafeAreaObj();
+      updateActiveCafeAreaBadge();
+
+      updateCafeProcessUI(30, `۱/۴ بررسی کافه‌های محدوده «${areaObj.label}» در ${cityFa}...`, 1, false);
+      setTimeout(() => {
+        if (myCafeToken === currentCafeToken) {
+          updateCafeProcessUI(75, `۳/۴ استعلام منوی اسنپ‌فود کافه، نقشه نشان و فیدیلیو برای «${q}»...`, 3, false);
+        }
+      }, 60);
+
+      if (myCafeToken !== currentCafeToken || cafeCtrl.signal.aborted) return;
+
+      cafeState.items = buildAreaSpecificCafeOffers(q, cityFa, areaObj);
+      updateCafeProcessUI(100, `تکمیل شد — بهترین کافه‌های محدوده «${areaObj.label}» آماده مقایسه است`, 4, true);
+      renderDedicatedCafeResults();
+    }
+
+    function renderDedicatedCafeResults() {
+      const q = cafeState.query || "آیس لاته و کروسان";
+      const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
+      const cityFa = cityLabels[cafeState.city] || "تهران";
+      const areaObj = getActiveCafeAreaObj();
+
+      const summaryBox = document.getElementById("cafeSummaryBox");
+      const container = document.getElementById("cafeResultsContainer");
+      if (!container || !summaryBox) return;
+
+      let list = (cafeState.items && cafeState.items.length ? cafeState.items : buildAreaSpecificCafeOffers(q, cityFa, areaObj)).slice();
+
+      if (cafeState.sourceFilter !== "all") {
+        list = list.filter(it => it.cafeSource === cafeState.sourceFilter);
+      }
+      if (cafeState.budgetToman > 0) {
+        const within = list.filter(it => it.priceToman <= cafeState.budgetToman * 1.10);
+        if (within.length > 0) list = within;
+      }
+
+      const prices = list.map(i => i.priceToman).filter(p => p > 0);
+      const minCafePrice = prices.length ? Math.min(...prices) : 0;
+      const maxCafePrice = prices.length ? Math.max(...prices) : 0;
+      const avgCafePrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+
+      list = list.map(it => {
+        const ratio = minCafePrice > 0 ? Math.max(0, (it.priceToman - minCafePrice) / minCafePrice) : 0;
+        const pScore = 100 * Math.exp(-1.4 * ratio);
+        const qScore = ((it.rating || 4.6) / 5) * 96;
+        const catBonus = cafeState.category !== "all" && it.vibeCat === cafeState.category ? 8 : 0;
+        const vqs = Number(Math.min(99.5, pScore * 0.48 + qScore * 0.44 + Math.min(8, (it.discountPct || 0) * 0.35) + catBonus).toFixed(1));
+        return { ...it, vqs };
+      }).sort((a, b) => b.vqs - a.vqs);
+
+      const bestCafe = list[0];
+
+      summaryBox.innerHTML = `
+        <div class="market-summary">
+          <div class="ms-top">
+            <span>☕ کافه‌های برتر محدوده «${escapeHtml(cityFa)} - ${escapeHtml(areaObj.label)}»</span>
+            <span>${list.length.toLocaleString("fa-IR")} کافه منتخب</span>
+          </div>
+          <div class="ms-title">
+            👑 پیشنهاد اول کافه‌گردی: ${escapeHtml(bestCafe ? bestCafe.shopName : "کافه تخصصی محدوده")}
+          </div>
+          <div class="ms-stats">
+            <div class="ms-stat">
+              <span>میانگین قیمت سفارش در این محدوده</span>
+              <strong>از ${escapeHtml(formatToman(minCafePrice))} تا ${escapeHtml(formatToman(maxCafePrice))}</strong>
+            </div>
+            <div class="ms-stat">
+              <span>سرویس‌های مقایسه کافه</span>
+              <strong>اسنپ‌فود کافه · نقشه نشان · فیدیلیو</strong>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = list.map((item, idx) => {
+        const isTop = idx === 0;
+        const baseReason = buildRecommendationReason(item, idx, minCafePrice, avgCafePrice, maxCafePrice);
+        const cafeReason = `${baseReason} (واقع در محدوده ${areaObj.label} با ویژگی: ${item.vibePerks}).`;
+
         return `
-          <div class="seller-offer-item" style="display:block;margin-bottom:8px;">
-            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.82rem;">
-              <span>${escapeHtml(p.title)}</span>
-              <span style="color:${benefit >= 0 ? 'var(--green)' : 'var(--orange)'};">
-                ${benefit >= 0 ? escapeHtml(formatToman(benefit)) + ' به نفع شما' : escapeHtml(formatToman(Math.abs(benefit))) + ' کارمزد واقعی'}
-              </span>
+          <div class="p-card ${isTop ? "top-pick" : ""}">
+            <div class="p-top-row">
+              <span class="badge-store">${isTop ? "🏆 بهترین کافه محدوده · " : ""}${escapeHtml(item.sourceLabel)}</span>
+              <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
             </div>
-            <div style="font-size:0.72rem;color:var(--sub);margin-top:4px;">
-              پیش‌پرداخت: <strong>${escapeHtml(formatToman(p.up))}</strong> | هر قسط: <strong>${escapeHtml(formatToman(p.m))}</strong>
+
+            <div class="p-body">
+              <div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">${escapeHtml(item.emoji || "☕")}</div>
+              <div class="p-info">
+                <div class="p-title">${escapeHtml(item.title)}</div>
+                <div class="p-meta">
+                  <span>📍 ${escapeHtml(item.shopName)}</span>
+                  <span>⭐ ${escapeHtml(item.rating)} (${escapeHtml(item.ratingCount.toLocaleString("fa-IR"))} نظر)</span>
+                </div>
+              </div>
             </div>
-            <div style="font-size:0.7rem;color:var(--sub);margin-top:2px;">فروشگاه‌ها: ${escapeHtml(p.stores)}</div>
+
+            <div class="delivery-meta-strip">
+              <span>${escapeHtml(item.vibePerks)}</span>
+            </div>
+
+            <div class="reason-box">${escapeHtml(cafeReason)}</div>
+
+            <div class="p-price-box">
+              <div>
+                ${item.oldPriceToman && item.oldPriceToman > item.priceToman ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>` : ""}
+                <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
+                <span style="font-size:0.66rem;color:var(--sub);display:block;">میانگین هزینه سفارش «${escapeHtml(q)}» در محدوده ${escapeHtml(areaObj.label)}</span>
+              </div>
+              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ فعال در محدوده</span>`}
+            </div>
+
+            <div class="p-actions">
+              <a href="${escapeHtml(sanitizeHttpsUrl(item.url, "https://snappfood.ir"))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">
+                <span>منو و سفارش کافه</span>
+                <span>↗</span>
+              </a>
+              <a href="${escapeHtml(sanitizeHttpsUrl(item.mapUrl, "https://neshan.org"))}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+                <span>🗺️ مسیریابی نشان</span>
+              </a>
+            </div>
           </div>
         `;
       }).join("");
     }
 
+    function toggleCafeBudgetDrawer() {
+      document.getElementById("cafeBudgetDrawer").classList.toggle("hidden");
+    }
+
+    function setCafeBudget(amount) {
+      cafeState.budgetToman = Number(amount) || 0;
+      [0, 150000, 250000, 400000, 700000, 1200000].forEach(val => {
+        const el = document.getElementById("cbopt-" + val);
+        if (el) el.classList.toggle("active", val === cafeState.budgetToman);
+      });
+      document.getElementById("cafeBudgetBtnLabel").innerText = `💰 سقف بودجه: ${formatMillionLabel(cafeState.budgetToman)} ▾`;
+      document.getElementById("cafeBudgetDrawer").classList.add("hidden");
+      runDedicatedCafeSearch();
+    }
+
+    function applyCustomCafeBudget() {
+      const val = Number(document.getElementById("customCafeBudgetInput").value);
+      if (val > 0) setCafeBudget(val);
+    }
+
+    function selectCafeCategory(cat, sampleQuery) {
+      cafeState.category = cat;
+      ["all", "work", "outdoor", "brunch", "specialty"].forEach(c => {
+        const el = document.getElementById("ccat-" + c);
+        if (el) el.classList.toggle("active", c === cat);
+      });
+      if (sampleQuery) {
+        document.getElementById("cafeQueryInput").value = sampleQuery;
+      }
+      runDedicatedCafeSearch();
+    }
+
+    function runCafePreset(q, budget, cat) {
+      cafeState.budgetToman = budget || 0;
+      cafeState.category = cat || "all";
+      document.getElementById("cafeBudgetBtnLabel").innerText = `💰 سقف بودجه: ${formatMillionLabel(cafeState.budgetToman)} ▾`;
+      [0, 150000, 250000, 400000, 700000, 1200000].forEach(val => {
+        const el = document.getElementById("cbopt-" + val);
+        if (el) el.classList.toggle("active", val === cafeState.budgetToman);
+      });
+      ["all", "work", "outdoor", "brunch", "specialty"].forEach(c => {
+        const el = document.getElementById("ccat-" + c);
+        if (el) el.classList.toggle("active", c === cafeState.category);
+      });
+      document.getElementById("cafeQueryInput").value = q;
+      runDedicatedCafeSearch();
+    }
+
+    function changeCafeSourceFilter(src) {
+      cafeState.sourceFilter = src;
+      ["all", "snappcafe", "neshan", "fidilio"].forEach(k => {
+        const el = document.getElementById("csrc-" + k);
+        if (el) el.classList.toggle("active", k === src);
+      });
+      renderDedicatedCafeResults();
+    }
+
+    function clearCafeInput() {
+      const inp = document.getElementById("cafeQueryInput");
+      inp.value = "";
+      inp.focus();
+    }
+
     function renderMcpCatalog() {
       const servers = [
-        { name: "technolife-mcp (sepehr071)", tools: 19, desc: "تکنولایف: جستجوی کالای دیجیتال، مقایسه قیمت نقدی و اقساطی، مشخصات، نظرات و تکنوآف" },
+        { name: "technolife-mcp (sepehr071)", tools: 19, desc: "تکنولایف: جستجوی کالای دیجیتال، مقایسه قیمت، مشخصات، نظرات و تکنوآف" },
         { name: "digikala-mcp (sepehr071 + mmdju)", tools: 23, desc: "دیجی‌کالا و دیجی‌کالا فرش: جستجو، مقایسه فروشندگان، تاریخچه قیمت ۳۰ روزه و شگفت‌انگیزها" },
         { name: "torob-mcp (mmdju + torob)", tools: 15, desc: "موتور مقایسه ترب: جستجو در هزاران فروشگاه، کف قیمت بازار و پیشنهادهای ویژه" },
-        { name: "snapp-mcp (sepehr071)", tools: 21, desc: "اسنپ‌فود و اسنپ‌مارکت: رستوران‌های محدوده، فودپارتی و محاسبه هزینه واقعی سفارش" },
+        { name: "snapp-mcp (sepehr071)", tools: 21, desc: "اسنپ‌فود، اسنپ‌فود کافه و اسنپ‌مارکت: رستوران‌ها و کافه‌های محدوده و فودپارتی" },
+        { name: "neshan-mcp (نقشه نشان)", tools: 8, desc: "نقشه نشان: جستجوی کافه‌ها و مکان‌های اطراف در محدوده انتخابی و مسیریابی" },
         { name: "okala-mcp (sepehr071)", tools: 16, desc: "اکالا و افق کوروش: سوپرمارکت‌های دارای ارسال به محدوده و تخفیف‌های شعب" },
         { name: "masterkala-mcp (sepehr071)", tools: 14, desc: "مسترکالا: گجت و لوازم جانبی موبایل با بررسی هزینه ارسال و تخفیف‌های روز" },
         { name: "shopino-mcp (sepehr071)", tools: 14, desc: "شاپینو: موتور جستجوی پوشاک و مد در بیش از ۱۰,۰۰۰ فروشگاه آنلاین" },
@@ -4105,8 +4677,7 @@
         { name: "paziresh24-mcp (sepehr071)", tools: 12, desc: "پذیرش۲۴: جستجوی پزشکان، نوبت‌های خالی، هزینه ویزیت و نظرات بیماران" },
         { name: "doctoreto-mcp (sepehr071)", tools: 14, desc: "دکتردکتر: نوبت‌دهی مطب، کلینیک، آزمایشگاه و مشاوره پزشکی" },
         { name: "divar-mcp (mmdju)", tools: 7, desc: "دیوار: بررسی مظنه بازار و آگهی‌های ثبت‌شده" },
-        { name: "payping-mcp & bale-mcp (sepehr071)", tools: 34, desc: "پی‌پینگ و بازوی بله: مدیریت درگاه پرداخت، فاکتور و پیام‌رسان بله" },
-        { name: "iran-super-shop (Mcp-amin)", tools: 7, desc: "سرور تجمیع‌کننده اختصاصی شما، بهینه‌ساز سبد خرید و تحلیلگر اقساط" }
+        { name: "iran-super-shop (Mcp-amin)", tools: 7, desc: "سرور تجمیع‌کننده اختصاصی شما و بهینه‌ساز سبد خرید" }
       ];
 
       document.getElementById("allMcpServersCatalog").innerHTML = `
@@ -4347,7 +4918,6 @@
         activeSearchController.abort();
       }
       currentSearchToken++;
-      bnplUserEdited = false;
 
       state.budgetToman = 0;
       state.sourceFilter = "all";
@@ -4394,10 +4964,13 @@
     }
 
     let foodInitialized = false;
+    let cafeInitialized = false;
     function switchTab(t) {
-      ["search", "food", "deals", "bnpl", "mcp"].forEach(k => {
-        document.getElementById("tab-" + k).classList.toggle("hidden", k !== t);
-        document.getElementById("nav-" + k).classList.toggle("active", k === t);
+      ["search", "food", "cafe", "deals", "mcp"].forEach(k => {
+        const tabEl = document.getElementById("tab-" + k);
+        const navEl = document.getElementById("nav-" + k);
+        if (tabEl) tabEl.classList.toggle("hidden", k !== t);
+        if (navEl) navEl.classList.toggle("active", k === t);
       });
       if (t === "food") {
         calcTrueFoodCost();
@@ -4406,8 +4979,13 @@
           runDedicatedFoodSearch();
         }
       }
+      if (t === "cafe") {
+        if (!cafeInitialized) {
+          cafeInitialized = true;
+          runDedicatedCafeSearch();
+        }
+      }
       if (t === "deals") loadLiveDeals(false);
-      if (t === "bnpl") renderBnplCalc();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -4444,8 +5022,8 @@
 
     // اجرای اولیه
     populateFoodAreasForCity("tehran", false);
+    populateCafeAreasForCity("tehran", false);
     renderMcpCatalog();
-    renderBnplCalc();
     calcTrueFoodCost();
     runLiveSearch();
   </script>
