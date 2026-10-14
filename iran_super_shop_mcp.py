@@ -419,6 +419,56 @@ def calculate_value_quality_score(
     }
 
 
+
+
+def build_persian_recommendation_sentence(
+    title: str,
+    store_name: str,
+    price_toman: int,
+    vqs_score: float,
+    lowest_price_toman: int,
+    avg_market_price_toman: int,
+    highest_price_toman: int,
+    rating: Optional[float] = None,
+    review_count: Optional[int] = None,
+    discount_pct: int = 0,
+    rank: int = 1,
+) -> str:
+    """
+    تولید یک جمله تحلیلی دقیق و مستند برای توضیح دلیل پیشنهاد کالا، امتیاز VQS،
+    میزان برتری قیمتی نسبت به سایر فروشگاه‌ها و وضعیت کیفیت.
+    """
+    savings_vs_max = max(0, highest_price_toman - price_toman)
+    savings_vs_avg = max(0, avg_market_price_toman - price_toman)
+    pct_below_avg = (
+        round((savings_vs_avg / avg_market_price_toman) * 100.0, 1)
+        if avg_market_price_toman > 0 and savings_vs_avg > 0
+        else 0.0
+    )
+
+    parts = [f"امتیاز ارزش خرید {vqs_score} از ۱۰۰ در {store_name}"]
+
+    if price_toman == lowest_price_toman and savings_vs_max > 0:
+        parts.append(
+            f"دارای ارزان‌ترین قیمت بازار ({ savings_vs_max:,} تومان ارزان‌تر از گران‌ترین فروشنده"
+            + (f" و {pct_below_avg}% زیر میانگین بازار)" if pct_below_avg >= 1.0 else ")")
+        )
+    elif pct_below_avg >= 1.0:
+        parts.append(f"قیمت آن {pct_below_avg}% ({savings_vs_avg:,} تومان) ارزان‌تر از میانگین سایر فروشگاه‌هاست")
+    else:
+        parts.append("دارای قیمت رقابتی و موجودی فعال در بازار")
+
+    if rating is not None and rating > 0:
+        votes_txt = f" از {review_count} نظر ثبت‌شده" if review_count else ""
+        parts.append(f"با رضایت کیفی {rating} از ۵ ستاره{votes_txt}")
+
+    if discount_pct > 0:
+        parts.append(f"همراه با {discount_pct}% تخفیف مستقیم")
+
+    prefix = "🌟 برنده اول مقایسه: " if rank == 1 else "💡 دلیل پیشنهاد: "
+    return prefix + "؛ ".join(parts) + "."
+
+
 # ============================================================================
 # کلاینت شبکه غیرهمزمان با سازگاری کامل نسخه‌های httpx، پروکسی و کش
 # ============================================================================
@@ -829,6 +879,24 @@ async def super_search_all_stores(
             )
         else:
             results.sort(key=lambda x: x["smart_evaluation"]["vqs_total"], reverse=True)
+
+        all_prices = [r["price_toman"] for r in results if r["price_toman"] > 0]
+        avg_market = int(round(sum(all_prices) / len(all_prices))) if all_prices else lowest_price
+        max_market = max(all_prices) if all_prices else lowest_price
+        for idx, r in enumerate(results, start=1):
+            r["recommendation_reason"] = build_persian_recommendation_sentence(
+                title=r.get("title_fa", ""),
+                store_name=r.get("store_name", ""),
+                price_toman=r["price_toman"],
+                vqs_score=r["smart_evaluation"]["vqs_total"],
+                lowest_price_toman=lowest_price,
+                avg_market_price_toman=avg_market,
+                highest_price_toman=max_market,
+                rating=r.get("rating"),
+                review_count=r.get("review_count"),
+                discount_pct=int(r.get("discount_pct") or 0),
+                rank=idx,
+            )
 
     return {
         "query": norm_query,

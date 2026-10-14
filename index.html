@@ -601,6 +601,68 @@
       border-radius: 7px;
     }
 
+
+    .reason-box {
+      background: var(--green-soft);
+      border-right: 3px solid var(--green);
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .p-subactions {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .btn-mini {
+      flex: 1;
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      color: var(--sub);
+      padding: 6px 8px;
+      border-radius: 9px;
+      font-size: 0.71rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-mini.active {
+      background: var(--blue-soft);
+      color: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .compare-floating-bar {
+      position: fixed;
+      bottom: 74px;
+      left: 14px;
+      right: 14px;
+      max-width: 632px;
+      margin: 0 auto;
+      background: var(--text);
+      color: var(--card);
+      border-radius: 16px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 115;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .ios-tabbar {
+      grid-template-columns: repeat(5, 1fr) !important;
+    }
+
     .p-actions {
       display: grid;
       grid-template-columns: 1.3fr 1fr;
@@ -819,6 +881,8 @@
           <button class="cat-pill" id="cat-fashion" onclick="selectCategory('fashion', 'کفش رانینگ مردانه')">👟 پوشاک</button>
           <button class="cat-pill" id="cat-beauty" onclick="selectCategory('beauty', 'ضد آفتاب')">💄 آرایشی</button>
           <button class="cat-pill" id="cat-home" onclick="selectCategory('home', 'سرخ کن بدون روغن')">🏠 لوازم خانه</button>
+          <button class="cat-pill" id="cat-food" onclick="selectCategory('food', 'قهوه اسپرسو')">🍕 غذا و خوراکی</button>
+          <button class="cat-pill" id="cat-saved" onclick="renderSavedItemsView()">❤️ ذخیره‌شده‌ها</button>
         </div>
 
         <!-- Collapsible Budget Selector ("حداکثر چقدر بپردازی؟") -->
@@ -888,6 +952,14 @@
             <span class="sug-cat">💻 دیجیتال · گیمینگ و مهندسی</span>
             <span class="sug-text">لپ‌تاپ لنوو LOQ و ایسوس</span>
           </div>
+          <div class="sug-card" onclick="runPreset('دانه قهوه و پودر اسپرسو', 2000000, 'food')">
+            <span class="sug-cat">☕ خوراکی و کافه · زیر ۲ میلیون</span>
+            <span class="sug-text">بهترین قهوه اسپرسو و شکلات</span>
+          </div>
+          <div class="sug-card" onclick="runPreset('عسل طبیعی و ارگانیک', 2000000, 'food')">
+            <span class="sug-cat">🍯 خوراکی و سوپرمارکت · طبیعی</span>
+            <span class="sug-text">عسل طبیعی، خشکبار و آجیل</span>
+          </div>
         </div>
       </section>
 
@@ -926,6 +998,95 @@
 
       <!-- Direct Portal Links to All Iranian Stores for Current Query -->
       <div id="directPortalsContainer"></div>
+    </div>
+
+
+    <!-- TAB FOOD: SNAPPFOOD, SNAPPMARKET, OKALA & TRUE ORDER COST -->
+    <div id="tab-food" class="hidden">
+      <div class="hero-card">
+        <div class="hero-headline">
+          <span>🍕 بخش غذا، رستوران و سوپرمارکت</span>
+          <span style="font-size:0.72rem;color:var(--green);font-weight:800;">الگوریتم snapp-mcp و okala-mcp</span>
+        </div>
+        <p class="hero-desc">
+          جستجوی زنده خوراکی و مواد غذایی + محاسبه <strong>هزینه واقعی سفارش غذا در اسنپ‌فود و اسنپ‌مارکت</strong> (قیمت غذا پس از تخفیف فودپارتی + هزینه ظرف و بسته‌بندی + کرایه پیک − کد تخفیف و بررسی حداقل سبد سفارش).
+        </p>
+
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
+          <span style="font-size:0.75rem;font-weight:700;color:var(--sub);">📍 شهر شما:</span>
+          <select id="foodCitySelect" onchange="updateFoodLinks()" class="budget-input" style="max-width:140px;font-weight:700;">
+            <option value="tehran">تهران</option>
+            <option value="mashhad">مشهد</option>
+            <option value="isfahan">اصفهان</option>
+            <option value="shiraz">شیراز</option>
+            <option value="tabriz">تبریز</option>
+            <option value="karaj">کرج</option>
+          </select>
+          <input type="text" id="foodQueryInput" class="budget-input" value="پیتزا پپرونی" placeholder="نام غذا یا خوراکی (مثلاً پیتزا، کباب، قهوه)..." oninput="updateFoodLinks()" />
+          <button type="button" class="btn-search" onclick="searchFoodInMain()">🔍 جستجوی زنده خوراکی</button>
+        </div>
+
+        <div class="chips-scroll" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;">
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('پیتزا')">🍕 پیتزا</button>
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('برگر ذغالی')">🍔 برگر</button>
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('چلو کباب کوبیده')">🍢 کباب و ایرانی</button>
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('مرغ سوخاری')">🍗 سوخاری</button>
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('قهوه اسپرسو')">☕ قهوه و کافه</button>
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('برنج ایرانی')">🌾 برنج و روغن</button>
+          <button type="button" class="cat-pill" onclick="quickFoodSelect('شکلات و تنقلات')">🍫 شکلات و تنقلات</button>
+        </div>
+
+        <div id="foodDirectPortals"></div>
+      </div>
+
+      <!-- True Food Order Cost Comparator (snapp-mcp food_order_costs) -->
+      <div class="hero-card">
+        <div class="hero-headline">
+          <span>🧮 مقایسه‌گر هزینه واقعی سفارش رستوران (اسنپ‌فود / تپسی‌فود)</span>
+        </div>
+        <p class="hero-desc">
+          بسیاری از رستوران‌ها تخفیف ظاهری می‌گذارند اما با هزینه بسته‌بندی و پیک گران، سفارش نهایی گران‌تر تمام می‌شود! مشخصات ۲ رستوران را وارد کنید تا هوش مصنوعی برنده واقعی را با دلیل اعلام کند:
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          <div style="background:var(--card-2);padding:10px;border-radius:12px;border:0.5px solid var(--border);">
+            <div style="font-weight:800;font-size:0.8rem;margin-bottom:6px;color:var(--blue);">🏪 رستوران اول</div>
+            <input type="text" id="r1Name" value="پیتزا شیلا (فودپارتی)" class="budget-input" style="width:100%;margin-bottom:6px;" placeholder="نام رستوران" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">جمع قیمت منو (تومان)</label>
+            <input type="number" id="r1Menu" value="380000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">تخفیف فودپارتی/منو (تومان)</label>
+            <input type="number" id="r1Disc" value="65000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">هزینه بسته‌بندی + پیک (تومان)</label>
+            <input type="number" id="r1Fees" value="48000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">امتیاز رستوران (از ۵)</label>
+            <input type="number" id="r1Rate" value="4.6" step="0.1" max="5" class="budget-input" style="width:100%;" oninput="calcTrueFoodCost()" />
+          </div>
+
+          <div style="background:var(--card-2);padding:10px;border-radius:12px;border:0.5px solid var(--border);">
+            <div style="font-weight:800;font-size:0.8rem;margin-bottom:6px;color:var(--purple);">🏪 رستوران دوم</div>
+            <input type="text" id="r2Name" value="پیتزا پرپروک (ارسال رایگان)" class="budget-input" style="width:100%;margin-bottom:6px;" placeholder="نام رستوران" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">جمع قیمت منو (تومان)</label>
+            <input type="number" id="r2Menu" value="360000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">تخفیف فودپارتی/منو (تومان)</label>
+            <input type="number" id="r2Disc" value="20000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">هزینه بسته‌بندی + پیک (تومان)</label>
+            <input type="number" id="r2Fees" value="12000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.68rem;color:var(--sub);">امتیاز رستوران (از ۵)</label>
+            <input type="number" id="r2Rate" value="4.4" step="0.1" max="5" class="budget-input" style="width:100%;" oninput="calcTrueFoodCost()" />
+          </div>
+        </div>
+
+        <div id="trueFoodCostResult"></div>
+      </div>
+    </div>
+
+    <!-- Floating Compare Tray -->
+    <div id="compareTray" class="compare-floating-bar hidden">
+      <span id="compareTrayText">۲ کالا برای مقایسه انتخاب شد</span>
+      <div style="display:flex;gap:6px;">
+        <button type="button" class="btn-search" style="padding:6px 12px;font-size:0.75rem;" onclick="openCompareModal()">⚖️ مشاهده جدول مقایسه</button>
+        <button type="button" class="clear-x" onclick="clearCompareList()" title="پاک کردن">✕</button>
+      </div>
     </div>
 
     <!-- TAB 2: TODAY'S LIVE DEALS -->
@@ -1023,6 +1184,10 @@
       <span class="tab-icon">🔍</span>
       <span>چی بخریم؟</span>
     </button>
+    <button class="tab-btn" id="nav-food" onclick="switchTab('food')">
+      <span class="tab-icon">🍕</span>
+      <span>غذا و خوراکی</span>
+    </button>
     <button class="tab-btn" id="nav-deals" onclick="switchTab('deals')">
       <span class="tab-icon">🔥</span>
       <span>شگفت‌انگیزها</span>
@@ -1064,10 +1229,29 @@
 
     // Event Delegation برای دکمه‌های باز کردن مودال جزئیات (بدون نیاز به inline onclick با uid)
     document.addEventListener("click", function (ev) {
-      const btn = ev.target && ev.target.closest ? ev.target.closest("[data-inspect-uid]") : null;
-      if (btn) {
-        const uid = btn.getAttribute("data-inspect-uid");
+      if (!ev.target || !ev.target.closest) return;
+      const inspectBtn = ev.target.closest("[data-inspect-uid]");
+      if (inspectBtn) {
+        const uid = inspectBtn.getAttribute("data-inspect-uid");
         if (uid) openInspectModal(uid);
+        return;
+      }
+      const cmpBtn = ev.target.closest("[data-compare-uid]");
+      if (cmpBtn) {
+        const uid = cmpBtn.getAttribute("data-compare-uid");
+        if (uid) toggleCompareItem(uid);
+        return;
+      }
+      const saveBtn = ev.target.closest("[data-save-uid]");
+      if (saveBtn) {
+        const uid = saveBtn.getAttribute("data-save-uid");
+        if (uid) toggleSaveItem(uid);
+        return;
+      }
+      const shareBtn = ev.target.closest("[data-share-uid]");
+      if (shareBtn) {
+        const uid = shareBtn.getAttribute("data-share-uid");
+        if (uid) shareOfferItem(uid);
       }
     });
 
@@ -1115,7 +1299,7 @@
     }
 
     function formatToman(n) {
-      if (n === null || n === undefined || isNaN(n) || Number(n) <= 0) return "نامشخص";
+      if (n === null || n === undefined || n === "" || isNaN(n) || Number(n) < 0) return "نامشخص";
       return Math.round(Number(n)).toLocaleString("fa-IR") + " تومان";
     }
 
@@ -1657,6 +1841,42 @@
     // =========================================================================
     // ۵. امتیازدهی بدون داده ساختگی و فیلتر دقیق بودجه
     // =========================================================================
+
+    // =========================================================================
+    // تولید جمله هوشمند «چرا این پیشنهاد؟» بر اساس داده‌های واقعی بازار
+    // =========================================================================
+    function buildRecommendationReason(item, idx, minMainPrice, avgMainPrice, maxMainPrice) {
+      if (item.isAccessoryOutlier) {
+        return `ℹ️ کالای جانبی/مکمل با امتیاز ${item.vqs} از ۱۰۰ و قیمت ${formatToman(item.priceToman)}.`;
+      }
+      const diffVsMax = Math.max(0, maxMainPrice - item.priceToman);
+      const diffVsAvg = Math.max(0, avgMainPrice - item.priceToman);
+      const pctBelowAvg = avgMainPrice > 0 && diffVsAvg > 0 ? Math.round((diffVsAvg / avgMainPrice) * 100) : 0;
+
+      const segments = [];
+      segments.push(`امتیاز ارزش خرید ${item.vqs} از ۱۰۰`);
+
+      if (item.priceToman <= minMainPrice && diffVsMax > 0) {
+        segments.push(`ارزان‌ترین قیمت در بین تمام فروشگاه‌ها (${formatToman(diffVsMax)} ارزان‌تر از گران‌ترین فروشنده${pctBelowAvg >= 2 ? ` و ${pctBelowAvg}٪ زیر میانگین بازار` : ""})`);
+      } else if (pctBelowAvg >= 2) {
+        segments.push(`برتری قیمتی با ${pctBelowAvg}٪ (${formatToman(diffVsAvg)}) قیمت کمتر نسبت به میانگین سایر فروشگاه‌ها`);
+      } else if (item.priceToman <= minMainPrice * 1.03) {
+        segments.push(`قیمت بسیار نزدیک به کف بازار همراه با اعتبار بالای فروشنده`);
+      } else {
+        segments.push(`موجودی فعال در ${item.shopName}`);
+      }
+
+      if (typeof item.rating === "number" && item.rating > 0) {
+        segments.push(`کیفیت تاییدشده با امتیاز ${item.rating} از ۵${item.ratingCount ? ` (${item.ratingCount.toLocaleString("fa-IR")} نظر خریداران)` : ""}`);
+      }
+      if (item.discountPct > 0) {
+        segments.push(`${item.discountPct}٪ تخفیف ثبت‌شده`);
+      }
+
+      const lead = idx === 0 ? "🌟 چرا انتخاب اول است؟ " : "💡 دلیل پیشنهاد: ";
+      return lead + segments.join(" · ") + ".";
+    }
+
     function scoreAndSortItems(rawItems) {
       if (!rawItems.length) return [];
 
@@ -1847,7 +2067,12 @@
         </div>
       `;
 
+      const avgMainPrice = activePool.length > 0 ? Math.round(activePool.reduce((acc, x) => acc + x.priceToman, 0) / activePool.length) : storeMin;
+
       container.innerHTML = list.map((item, idx) => {
+        const reasonSentence = buildRecommendationReason(item, idx, storeMin, avgMainPrice, storeMax);
+        const isCompared = compareUids.includes(item.uid);
+        const isSaved = isItemSaved(item.uid);
         const isTop = idx === 0 && !item.overBudgetMoreThan10;
         const safeImgUrl = item.image ? sanitizeHttpsUrl(item.image, "") : "";
         const imgTag = safeImgUrl
@@ -1902,6 +2127,10 @@
               </div>
             </div>
 
+            <div class="reason-box">
+              ${escapeHtml(reasonSentence)}
+            </div>
+
             <div class="p-price-box">
               <div>
                 ${oldPriceHtml}
@@ -1917,6 +2146,18 @@
               </a>
               <button type="button" class="btn-inspect" data-inspect-uid="${escapeHtml(item.uid)}">
                 ${inspectBtnLabel}
+              </button>
+            </div>
+
+            <div class="p-subactions">
+              <button type="button" class="btn-mini ${isCompared ? 'active' : ''}" data-compare-uid="${escapeHtml(item.uid)}">
+                ${isCompared ? '✔ در لیست مقایسه' : '⚖️ افزودن به مقایسه'}
+              </button>
+              <button type="button" class="btn-mini ${isSaved ? 'active' : ''}" data-save-uid="${escapeHtml(item.uid)}">
+                ${isSaved ? '❤️ ذخیره‌شده' : '🤍 ذخیره'}
+              </button>
+              <button type="button" class="btn-mini" data-share-uid="${escapeHtml(item.uid)}">
+                📤 اشتراک‌گذاری
               </button>
             </div>
           </div>
@@ -2258,7 +2499,7 @@
 
     function selectCategory(cat, sampleQuery) {
       state.category = cat;
-      ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
+      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === cat);
       });
@@ -2276,7 +2517,7 @@
         const el = document.getElementById("bopt-" + val);
         if (el) el.classList.toggle("active", val === state.budgetToman);
       });
-      ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
+      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === (cat || "all"));
       });
@@ -2329,7 +2570,7 @@
         const el = document.getElementById("bopt-" + val);
         if (el) el.classList.toggle("active", val === 0);
       });
-      ["all", "digital", "fashion", "beauty", "home"].forEach(c => {
+      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === "all");
       });
@@ -2349,13 +2590,229 @@
       clearInput();
     }
 
+
+    // =========================================================================
+    // ۱۱. بخش غذا، رستوران و خوراکی (اسنپ‌فود، اسنپ‌مارکت، اکالا، دیجی‌کالا جت)
+    // =========================================================================
+    let compareUids = [];
+    let savedItemsCache = [];
+    try {
+      savedItemsCache = JSON.parse(localStorage.getItem("chibekharim_saved_v2") || "[]");
+    } catch (_) {
+      savedItemsCache = [];
+    }
+
+    function updateFoodLinks() {
+      const qEl = document.getElementById("foodQueryInput");
+      const cityEl = document.getElementById("foodCitySelect");
+      if (!qEl || !cityEl) return;
+      const q = qEl.value.trim() || "پیتزا";
+      const city = cityEl.value || "tehran";
+      const enc = encodeURIComponent(q);
+
+      const foodStores = [
+        { name: "🍕 اسنپ‌فود (رستوران و فودپارتی)", url: `https://snappfood.ir/search/?query=${enc}` },
+        { name: "🛒 اسنپ‌مارکت (سوپرمارکت و تخفیف)", url: `https://snapp.market/search?query=${enc}` },
+        { name: "🟠 اکالا (افق کوروش و سوپرمارکت)", url: `https://www.okala.com/search?q=${enc}` },
+        { name: "🚀 سوپرمارکت دیجی‌کالا", url: `https://www.digikala.com/search/category-food-beverage/?q=${enc}` },
+        { name: "🍯 غرفه‌های مواد غذایی باسلام", url: `https://basalam.com/s?q=${enc}` },
+        { name: "🟢 مقایسه خوراکی در ترب", url: `https://torob.com/search/?query=${enc}` }
+      ];
+
+      const box = document.getElementById("foodDirectPortals");
+      if (box) {
+        box.innerHTML = `
+          <div style="font-size:0.75rem;font-weight:800;color:var(--sub);margin-bottom:6px;">
+            🚀 ورود مستقیم به سفارش «${escapeHtml(q)}» در شهر ${escapeHtml(city)}:
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:6px;">
+            ${foodStores.map(fs => `
+              <a href="${escapeHtml(fs.url)}" target="_blank" rel="noopener noreferrer" class="cross-link-item" style="padding:9px 8px;">
+                ${escapeHtml(fs.name)} ↗
+              </a>
+            `).join("")}
+          </div>
+        `;
+      }
+    }
+
+    function quickFoodSelect(q) {
+      const inp = document.getElementById("foodQueryInput");
+      if (inp) inp.value = q;
+      updateFoodLinks();
+    }
+
+    function searchFoodInMain() {
+      const inp = document.getElementById("foodQueryInput");
+      const q = inp ? inp.value.trim() : "قهوه اسپرسو";
+      if (!q) return;
+      document.getElementById("searchInput").value = q;
+      switchTab("search");
+      runLiveSearch();
+    }
+
+    function calcTrueFoodCost() {
+      const r1Name = document.getElementById("r1Name")?.value || "رستوران اول";
+      const r1Menu = Math.max(0, Number(document.getElementById("r1Menu")?.value) || 0);
+      const r1Disc = Math.max(0, Number(document.getElementById("r1Disc")?.value) || 0);
+      const r1Fees = Math.max(0, Number(document.getElementById("r1Fees")?.value) || 0);
+      const r1Rate = Math.min(5, Math.max(1, Number(document.getElementById("r1Rate")?.value) || 4.5));
+
+      const r2Name = document.getElementById("r2Name")?.value || "رستوران دوم";
+      const r2Menu = Math.max(0, Number(document.getElementById("r2Menu")?.value) || 0);
+      const r2Disc = Math.max(0, Number(document.getElementById("r2Disc")?.value) || 0);
+      const r2Fees = Math.max(0, Number(document.getElementById("r2Fees")?.value) || 0);
+      const r2Rate = Math.min(5, Math.max(1, Number(document.getElementById("r2Rate")?.value) || 4.5));
+
+      const r1True = Math.max(0, r1Menu - r1Disc + r1Fees);
+      const r2True = Math.max(0, r2Menu - r2Disc + r2Fees);
+
+      const minCost = Math.max(1, Math.min(r1True, r2True));
+      const r1Score = Number(((minCost / Math.max(1, r1True)) * 65 + (r1Rate / 5) * 35).toFixed(1));
+      const r2Score = Number(((minCost / Math.max(1, r2True)) * 65 + (r2Rate / 5) * 35).toFixed(1));
+
+      const winner = r1Score >= r2Score
+        ? { name: r1Name, cost: r1True, otherCost: r2True, score: r1Score, rate: r1Rate }
+        : { name: r2Name, cost: r2True, otherCost: r1True, score: r2Score, rate: r2Rate };
+
+      const diff = Math.abs(r1True - r2True);
+      const out = document.getElementById("trueFoodCostResult");
+      if (out) {
+        out.innerHTML = `
+          <div class="reason-box" style="margin-bottom:0;">
+            <div><strong>🏆 برنده سفارش غذا: ${escapeHtml(winner.name)} (امتیاز ارزش سفارش: ${escapeHtml(winner.score)} از ۱۰۰)</strong></div>
+            <div style="margin-top:4px;">
+              💡 دلیل پیشنهاد: با احتساب تخفیف فودپارتی، هزینه بسته‌بندی و کرایه پیک، مبلغ واقعی پرداختی در
+              <strong>${escapeHtml(winner.name)}</strong> برابر <strong>${escapeHtml(formatToman(winner.cost))}</strong> است
+              (${diff > 0 ? `${escapeHtml(formatToman(diff))} بهینه و ارزان‌تر` : "هم‌قیمت"} با امتیاز کیفی ⭐ ${escapeHtml(winner.rate)} از ۵).
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // ۱۲. مقایسه پهلو‌به‌پهلو، ذخیره‌سازی (Bookmark) و اشتراک‌گذاری
+    // =========================================================================
+    function toggleCompareItem(uid) {
+      const idx = compareUids.indexOf(uid);
+      if (idx >= 0) {
+        compareUids.splice(idx, 1);
+      } else {
+        if (compareUids.length >= 4) {
+          compareUids.shift();
+        }
+        compareUids.push(uid);
+      }
+      updateCompareTray();
+      renderResults();
+    }
+
+    function clearCompareList() {
+      compareUids = [];
+      updateCompareTray();
+      renderResults();
+    }
+
+    function updateCompareTray() {
+      const tray = document.getElementById("compareTray");
+      const txt = document.getElementById("compareTrayText");
+      if (!tray || !txt) return;
+      if (compareUids.length > 0) {
+        tray.classList.remove("hidden");
+        txt.innerText = `⚖️ ${compareUids.length.toLocaleString("fa-IR")} کالا برای مقایسه انتخاب شد`;
+      } else {
+        tray.classList.add("hidden");
+      }
+    }
+
+    function openCompareModal() {
+      const selected = state.items.filter(x => compareUids.includes(x.uid));
+      if (!selected.length) return;
+      const modal = document.getElementById("inspectModal");
+      const body = document.getElementById("modalBody");
+      document.getElementById("modalTitle").innerText = "⚖️ مقایسه پهلو‌به‌پهلوی کالاهای انتخابی شما";
+      modal.classList.remove("hidden");
+
+      const ranked = scoreAndSortItems(selected);
+      const top = ranked[0];
+
+      body.innerHTML = `
+        <div class="reason-box">
+          🏆 <strong>برنده مقایسه شما:</strong> ${escapeHtml(top.title)} در <strong>${escapeHtml(top.shopName)}</strong>
+          با امتیاز ارزش خرید <strong>${escapeHtml(top.vqs)} از ۱۰۰</strong> و قیمت <strong>${escapeHtml(formatToman(top.priceToman))}</strong>.
+        </div>
+        ${ranked.map((it, i) => `
+          <div class="seller-offer-item" style="display:block;">
+            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.82rem;">
+              <span>#${i + 1} · ${escapeHtml(it.shopName)}</span>
+              <span class="badge-vqs">امتیاز: ${escapeHtml(it.vqs)}/100</span>
+            </div>
+            <div style="font-size:0.78rem;margin:4px 0;">${escapeHtml(it.title)}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:var(--green);font-size:0.9rem;">${escapeHtml(formatToman(it.priceToman))}</strong>
+              <a href="${escapeHtml(sanitizeHttpsUrl(it.url))}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:800;font-size:0.76rem;">خرید مستقیم ↗</a>
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    function isItemSaved(uid) {
+      return savedItemsCache.some(x => x.uid === uid);
+    }
+
+    function toggleSaveItem(uid) {
+      const existsIdx = savedItemsCache.findIndex(x => x.uid === uid);
+      if (existsIdx >= 0) {
+        savedItemsCache.splice(existsIdx, 1);
+      } else {
+        const found = state.items.find(x => x.uid === uid);
+        if (found) savedItemsCache.unshift(found);
+      }
+      try {
+        localStorage.setItem("chibekharim_saved_v2", JSON.stringify(savedItemsCache.slice(0, 30)));
+      } catch (_) {}
+      renderResults();
+    }
+
+    function renderSavedItemsView() {
+      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
+        const el = document.getElementById("cat-" + c);
+        if (el) el.classList.toggle("active", c === "saved");
+      });
+      state.items = savedItemsCache.slice();
+      renderResults();
+    }
+
+    async function shareOfferItem(uid) {
+      const item = state.items.find(x => x.uid === uid);
+      if (!item) return;
+      const shareText = `🛍️ ${item.title}
+🏪 فروشگاه: ${item.shopName}
+💰 قیمت لحظه‌ای: ${formatToman(item.priceToman)}
+🏆 امتیاز ارزش خرید: ${item.vqs || 90} از ۱۰۰
+🔗 لینک: ${sanitizeHttpsUrl(item.url)}`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: item.title, text: shareText, url: sanitizeHttpsUrl(item.url) });
+          return;
+        }
+      } catch (_) {}
+      try {
+        await navigator.clipboard.writeText(shareText);
+        alert("مشخصات و لینک کالا در کلیپ‌بورد کپی شد!");
+      } catch (_) {}
+    }
+
     function switchTab(t) {
-      ["search", "deals", "bnpl", "mcp"].forEach(k => {
+      ["search", "food", "deals", "bnpl", "mcp"].forEach(k => {
         document.getElementById("tab-" + k).classList.toggle("hidden", k !== t);
         document.getElementById("nav-" + k).classList.toggle("active", k === t);
       });
       if (t === "deals" && !dealsLoaded) loadLiveDeals();
       if (t === "bnpl") renderBnplCalc();
+      if (t === "food") { updateFoodLinks(); calcTrueFoodCost(); }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -2393,6 +2850,8 @@
     // اجرای اولیه
     renderMcpCatalog();
     renderBnplCalc();
+    updateFoodLinks();
+    calcTrueFoodCost();
     runLiveSearch();
   </script>
 </body>
