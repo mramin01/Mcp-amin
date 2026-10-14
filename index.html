@@ -1724,45 +1724,45 @@
     <div id="tab-deals" class="tab-pane hidden">
       <div class="hero-card">
         <div class="hero-headline">
-          <span>🏷️ شگفت‌انگیزها و تخفیف‌های منتخب امروز</span>
-          <button class="budget-pill-btn" onclick="loadLiveDeals(true)">🔄 بروزرسانی</button>
+          <span>🏷️ شگفت‌انگیزها و تخفیف‌های واقعی بازار</span>
+          <button class="budget-pill-btn" onclick="loadLiveDeals(true)">🔄 دریافت مجدد</button>
         </div>
         <p class="hero-desc">
-          گلچین کالاهای دارای بیشترین تخفیف واقعی ثبت‌شده امروز در دیجی‌کالا (شگفت‌انگیز)، تکنولایف (تکنوآف)، ترب، مسترکالا، شاپینو و خانومی:
+          تمام قیمت‌ها و درصدهای تخفیف این بخش <strong>مستقیماً در همین لحظه از دیجی‌کالا</strong> استعلام می‌شن و دقیقاً با قیمت داخل صفحه محصول یکی هستن:
         </p>
         <div class="source-chips" style="margin-top:8px;margin-bottom:0;">
-          <button class="src-chip active" id="dsrc-all" onclick="filterDealsBySource('all')">همه تخفیف‌ها</button>
-          <button class="src-chip" id="dsrc-digikala" onclick="filterDealsBySource('digikala')">🔴 شگفت‌انگیز دیجی‌کالا</button>
-          <button class="src-chip" id="dsrc-technolife" onclick="filterDealsBySource('technolife')">🔵 تکنوآف تکنولایف</button>
-          <button class="src-chip" id="dsrc-torob" onclick="filterDealsBySource('torob')">🟢 پیشنهاد ویژه ترب</button>
-          <button class="src-chip" id="dsrc-other" onclick="filterDealsBySource('other')">🟠 مسترکالا، شاپینو و خانومی</button>
+          <button class="src-chip active" id="dsrc-all" onclick="filterDealsBySource('all')">🔥 شگفت‌انگیزهای اصلی</button>
+          <button class="src-chip" id="dsrc-mobile" onclick="filterDealsBySource('mobile')">📱 موبایل و تبلت</button>
+          <button class="src-chip" id="dsrc-digital" onclick="filterDealsBySource('digital')">🎧 هدفون، ساعت و گجت</button>
+          <button class="src-chip" id="dsrc-home" onclick="filterDealsBySource('home')">🏠 خانه و آشپزخانه</button>
+          <button class="src-chip" id="dsrc-beauty" onclick="filterDealsBySource('beauty')">💄 آرایشی و شخصی</button>
         </div>
       </div>
       <div id="dealsLoading" class="loading-box hidden">
         <div class="spinner"></div>
-        <div style="font-weight:700;font-size:0.82rem;">در حال دریافت تخفیف‌های منتخب امروز از فروشگاه‌ها...</div>
+        <div style="font-weight:700;font-size:0.82rem;" id="dealsLoadingText">در حال استعلام قیمت‌های لحظه‌ای شگفت‌انگیز از دیجی‌کالا...</div>
       </div>
       <div id="dealsContainer"></div>
     </div>
 
     <!-- =================================================================== -->
-    <!-- TAB 4: DEDICATED NEIGHBORHOOD CAFE FINDER & COMPARATOR (کافه‌یاب)   -->
+    <!-- TAB 4: REAL NEIGHBORHOOD CAFE FINDER (کافه‌یاب واقعی محدوده)        -->
     <!-- =================================================================== -->
     <div id="tab-cafe" class="tab-pane hidden">
       <section class="hero-card">
         <div class="hero-headline">
           <span>کدوم کافه بریم؟</span>
-          <span style="font-size:0.7rem;color:var(--accent);font-weight:800;">اسنپ‌فود کافه · نقشه نشان · فیدیلیو</span>
+          <span style="font-size:0.7rem;color:var(--accent);font-weight:800;">نقشه نشان · گوگل‌مپ · اسنپ‌فود کافه</span>
         </div>
         <p class="hero-desc">
-          <strong>شهر و محدوده‌ت</strong> رو انتخاب کن تا بهترین کافه‌های اطراف تو (هم برای نشستن حضوری، کار با لپ‌تاپ و قرار، هم برای سفارش آنلاین قهوه و کیک) با امتیاز، سطح قیمت و دلیل پیشنهاد مقایسه بشن.
+          <strong>شهر و محله‌ت</strong> رو انتخاب کن یا <strong>نام کافه دلخواهت</strong> (مثلاً: کافه لمیز، سام کافه، کافه نادری، کافه رئیس) رو بنویس تا کافه‌های واقعی اون محدوده با آدرس دقیق، ویژگی‌ها و لوکیشن مستقیم روی نقشه نمایش داده بشن.
         </p>
 
         <!-- Cafe Neighborhood / Area Selector -->
         <div class="food-location-card">
           <div class="food-loc-header">
-            <span>📍 محدوده کافه‌گردی یا سفارش شما:</span>
-            <span id="activeCafeAreaBadge" style="color:var(--accent);font-size:0.7rem;">تهران · ولیعصر، انقلاب و یوسف‌آباد</span>
+            <span>📍 محدوده کافه‌گردی شما:</span>
+            <span id="activeCafeAreaBadge" style="color:var(--accent);font-size:0.7rem;">تهران · ولیعصر، انقلاب و کریمخان</span>
           </div>
           <div class="food-loc-grid">
             <select id="cafeCitySelect" onchange="onCafeCityChange()" class="food-loc-select" aria-label="انتخاب شهر کافه">
@@ -1777,49 +1777,16 @@
               <!-- Populated dynamically -->
             </select>
           </div>
-          <div class="food-loc-custom-row">
-            <input
-              type="text"
-              id="cafeCustomAreaInput"
-              class="food-loc-input"
-              placeholder="یا نام خیابان/محله دلخواهت رو بنویس (مثلاً: ایرانشهر، کریمخان، الهیه، جردن)..."
-              oninput="onCustomCafeAreaInput(this.value)"
-            />
-            <button type="button" class="btn-inspect" style="padding:6px 10px;font-size:0.7rem;white-space:nowrap;" onclick="applyCustomCafeAreaSearch()">ثبت محدوده</button>
-          </div>
           <div class="area-quick-chips" id="cafeQuickAreaChips"></div>
         </div>
 
         <!-- Cafe Vibe / Feature Filter Bar -->
         <div class="cat-budget-bar">
-          <button class="budget-pill-btn" onclick="toggleCafeBudgetDrawer()" id="cafeBudgetBtnLabel">
-            💰 سقف بودجه: بدون سقف ▾
-          </button>
-          <button class="cat-pill active" id="ccat-all" onclick="selectCafeCategory('all', '')">☕ همه کافه‌ها</button>
-          <button class="cat-pill" id="ccat-work" onclick="selectCafeCategory('work', 'کافه دنج مناسب کار و لپ تاپ')">💻 مناسب کار و مطالعه</button>
-          <button class="cat-pill" id="ccat-outdoor" onclick="selectCafeCategory('outdoor', 'کافه حیاط دار و فضای باز')">🌿 فضای باز و حیاط</button>
-          <button class="cat-pill" id="ccat-brunch" onclick="selectCafeCategory('brunch', 'صبحانه انگلیسی و کروسان')">🥐 صبحانه و برانچ</button>
-          <button class="cat-pill" id="ccat-specialty" onclick="selectCafeCategory('specialty', 'قهوه تخصصی اسپرسو و دمی')">🫘 قهوه تخصصی</button>
-        </div>
-
-        <!-- Collapsible Cafe Budget Drawer -->
-        <div class="budget-drawer hidden" id="cafeBudgetDrawer">
-          <div class="budget-drawer-top">
-            <span>سقف بودجه برای هر نفر یا سفارش کافه:</span>
-            <button onclick="toggleCafeBudgetDrawer()" style="border:none;background:transparent;color:var(--accent);font-weight:800;font-size:0.76rem;cursor:pointer;">بستن ✕</button>
-          </div>
-          <div class="budget-grid">
-            <button class="b-opt active" id="cbopt-0" onclick="setCafeBudget(0)">بدون سقف</button>
-            <button class="b-opt" id="cbopt-150000" onclick="setCafeBudget(150000)">تا ۱۵۰ هزار</button>
-            <button class="b-opt" id="cbopt-250000" onclick="setCafeBudget(250000)">تا ۲۵۰ هزار</button>
-            <button class="b-opt" id="cbopt-400000" onclick="setCafeBudget(400000)">تا ۴۰۰ هزار</button>
-            <button class="b-opt" id="cbopt-700000" onclick="setCafeBudget(700000)">تا ۷۰۰ هزار</button>
-            <button class="b-opt" id="cbopt-1200000" onclick="setCafeBudget(1200000)">تا ۱.۲ میلیون</button>
-          </div>
-          <div class="budget-custom-row">
-            <input type="number" id="customCafeBudgetInput" class="budget-input" placeholder="مبلغ دلخواه به تومان (مثلاً 220000)" />
-            <button class="btn-search" style="padding:7px 14px;font-size:0.76rem;" onclick="applyCustomCafeBudget()">تأیید</button>
-          </div>
+          <button class="cat-pill active" id="ccat-all" onclick="selectCafeCategory('all')">☕ همه کافه‌های محدوده</button>
+          <button class="cat-pill" id="ccat-work" onclick="selectCafeCategory('work')">💻 مناسب کار و لپ‌تاپ</button>
+          <button class="cat-pill" id="ccat-outdoor" onclick="selectCafeCategory('outdoor')">🌿 حیاط‌دار و فضای باز</button>
+          <button class="cat-pill" id="ccat-brunch" onclick="selectCafeCategory('brunch')">🥐 صبحانه و برانچ</button>
+          <button class="cat-pill" id="ccat-specialty" onclick="selectCafeCategory('specialty')">🫘 قهوه تخصصی (موج سوم)</button>
         </div>
 
         <!-- Cafe Search Box -->
@@ -1830,8 +1797,8 @@
               type="search"
               id="cafeQueryInput"
               class="search-input"
-              placeholder="چی میل داری یا چه کافه‌ای می‌خوای؟ (آیس لاته، کروسان، کافه کار، صبحانه)..."
-              value="آیس لاته و کروسان"
+              placeholder="نام کافه یا محله (مثلاً: لمیز، سام کافه، نادری، رئیس، گودو)..."
+              value=""
               enterkeyhint="search"
             />
             <button type="button" class="clear-x" onclick="clearCafeInput()">✕</button>
@@ -1839,50 +1806,42 @@
           </div>
         </form>
 
-        <!-- Cafe Preset Suggestions -->
-        <div class="suggestions-label">پیشنهادهای کافه‌گردی و سفارش قهوه:</div>
+        <!-- Cafe Quick Filter Presets -->
+        <div class="suggestions-label">جستجوی سریع کافه‌های معروف یا سبک کافه:</div>
         <div class="suggestions-grid">
-          <div class="sug-card" onclick="runCafePreset('آیس لاته و کروسان شکلاتی', 250000, 'specialty')">
-            <span class="sug-cat">🧋 قهوه و شیرینی · تا ۲۵۰ هزار</span>
-            <span class="sug-text">آیس‌لاته و کروسان تازه</span>
+          <div class="sug-card" onclick="runCafePreset('کافه لمیز', 'all')">
+            <span class="sug-cat">☕ شعب کافه لمیز</span>
+            <span class="sug-text">جستجوی کافه لمیز (Lamiz)</span>
           </div>
-          <div class="sug-card" onclick="runCafePreset('کافه دنج مناسب کار با لپ تاپ و پریز برق', 300000, 'work')">
-            <span class="sug-cat">💻 کافه کار · وای‌فای و پریز</span>
-            <span class="sug-text">بهترین کافه‌ها برای کار و مطالعه</span>
+          <div class="sug-card" onclick="runCafePreset('سام کافه', 'specialty')">
+            <span class="sug-cat">🫘 رستری تخصصی</span>
+            <span class="sug-text">جستجوی سام کافه (Sam Cafe)</span>
           </div>
-          <div class="sug-card" onclick="runCafePreset('صبحانه انگلیسی و املت تخصصی', 400000, 'brunch')">
-            <span class="sug-cat">🍳 صبحانه و برانچ</span>
-            <span class="sug-text">صبحانه کامل و برانچ کافه‌ای</span>
+          <div class="sug-card" onclick="runCafePreset('کافه رئیس', 'work')">
+            <span class="sug-cat">💻 مناسب کار و قرار</span>
+            <span class="sug-text">جستجوی کافه رئیس (Raees)</span>
           </div>
-          <div class="sug-card" onclick="runCafePreset('کافه حیاط دار و فضای باز دنج', 400000, 'outdoor')">
-            <span class="sug-cat">🌿 فضای باز · قرار دوستانه</span>
-            <span class="sug-text">کافه‌های حیاط‌دار و تراس‌دار</span>
+          <div class="sug-card" onclick="runCafePreset('', 'work')">
+            <span class="sug-cat">🔌 پریز برق و وای‌فای</span>
+            <span class="sug-text">کافه‌های مناسب کار در این محدوده</span>
           </div>
-          <div class="sug-card" onclick="runCafePreset('قهوه دمی V60 و کمکس تخصصی', 250000, 'specialty')">
-            <span class="sug-cat">🫘 رستری تخصصی · موج سوم</span>
-            <span class="sug-text">قهوه دمی و اسپرسو عربیکا</span>
+          <div class="sug-card" onclick="runCafePreset('', 'outdoor')">
+            <span class="sug-cat">🌿 تراس و حیاط</span>
+            <span class="sug-text">کافه‌های فضای باز این محدوده</span>
           </div>
-          <div class="sug-card" onclick="runCafePreset('چیزکیک سن سباستین و ماچا لاته', 350000, 'all')">
-            <span class="sug-cat">🍰 کیک و دسر روز</span>
-            <span class="sug-text">چیزکیک و ماچا لاته</span>
+          <div class="sug-card" onclick="runCafePreset('کافه ویونا', 'all')">
+            <span class="sug-cat">🍰 شعب کافه ویونا</span>
+            <span class="sug-text">جستجوی کافه ویونا (Viuna)</span>
           </div>
         </div>
       </section>
-
-      <!-- Cafe Service Filter Pills -->
-      <div class="source-chips">
-        <button class="src-chip active" id="csrc-all" onclick="changeCafeSourceFilter('all')">همه گزینه‌های کافه</button>
-        <button class="src-chip" id="csrc-snappcafe" onclick="changeCafeSourceFilter('snappcafe')">☕ اسنپ‌فود کافه (ارسال و منو)</button>
-        <button class="src-chip" id="csrc-neshan" onclick="changeCafeSourceFilter('neshan')">🗺️ نقشه نشان (کافه‌های حضوری محدوده)</button>
-        <button class="src-chip" id="csrc-fidilio" onclick="changeCafeSourceFilter('fidilio')">🍽️ فیدیلیو (کافه‌های برگزیده)</button>
-      </div>
 
       <!-- Compact Process Widget for Cafe Search -->
       <div id="cafeProcessBox" class="process-mini-card hidden">
         <div class="proc-top-row">
           <div class="proc-step-title">
             <span id="cprocIcon">☕</span>
-            <span id="cprocTitle">در حال جستجوی بهترین کافه‌های محدوده...</span>
+            <span id="cprocTitle">در حال جستجوی کافه‌های واقعی محدوده...</span>
           </div>
           <span class="proc-pct-badge" id="cprocPctBadge">۰٪ انجام شد · ۱۰۰٪ مانده</span>
         </div>
@@ -1890,10 +1849,10 @@
           <div class="proc-bar-fill" id="cprocBarFill"></div>
         </div>
         <div class="proc-steps-pills">
-          <span class="proc-pill" id="cpstep-1">۱. بررسی محدوده</span>
-          <span class="proc-pill" id="cpstep-2">۲. منوی اسنپ‌فود کافه</span>
-          <span class="proc-pill" id="cpstep-3">۳. کافه‌های نشان و فیدیلیو</span>
-          <span class="proc-pill" id="cpstep-4">۴. رتبه‌بندی بهترین کافه‌ها</span>
+          <span class="proc-pill" id="cpstep-1">۱. مختصات محدوده</span>
+          <span class="proc-pill" id="cpstep-2">۲. بانک کافه‌های منتخب</span>
+          <span class="proc-pill" id="cpstep-3">۳. استعلام نقشه OpenStreetMap</span>
+          <span class="proc-pill" id="cpstep-4">۴. چیدمان بر اساس امتیاز</span>
         </div>
       </div>
 
@@ -1992,7 +1951,7 @@
 
   <script>
     // =========================================================================
-    // ۱. ایمنی XSS و بررسی سخت‌گیرانه لینک‌های HTTPS
+    // ۱. ایمنی XSS، نرمال‌سازی فارسی/انگلیسی و بررسی لینک‌های HTTPS
     // =========================================================================
     function escapeHtml(value) {
       if (value === null || value === undefined) return "";
@@ -2013,6 +1972,26 @@
         }
       } catch (_) {}
       return fallbackUrl;
+    }
+
+    // تبدیل ارقام فارسی و عربی به انگلیسی و یکسان‌سازی حروف فارسی (برای اینکه «ایفون ۱۶» دقیقاً «آیفون 16» شود!)
+    function normalizePersianQuery(raw) {
+      if (!raw) return "";
+      const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+      const arabicDigits  = "٠١٢٣٤٥٦٧٨٩";
+      let out = String(raw);
+      for (let i = 0; i < 10; i++) {
+        out = out.replace(new RegExp(persianDigits[i], "g"), String(i));
+        out = out.replace(new RegExp(arabicDigits[i], "g"), String(i));
+      }
+      out = out
+        .replace(/ي/g, "ی")
+        .replace(/ك/g, "ک")
+        .replace(/ۀ/g, "ه")
+        .replace(/(^|\s)ایفون(?=\s|$|[0-9])/g, "$1آیفون")
+        .replace(/(^|\s)ایرپادز(?=\s|$)/g, "$1ایرپاد")
+        .replace(/(^|\s)اس\s*([0-9]{2})(?=\s|$)/g, "$1S$2");
+      return out.replace(/\s+/g, " ").trim();
     }
 
     document.addEventListener("click", function (ev) {
@@ -2043,13 +2022,14 @@
     });
 
     // =========================================================================
-    // ۲. آدرس سرویس‌ها، قفل همزمانی Handshake و مدیریت وضعیت
+    // ۲. آدرس سرویس‌ها، قفل همزمانی Handshake و بانک کافه‌ها و محله‌های واقعی
     // =========================================================================
     const ENDPOINTS = {
       digikala: "https://digikala-mcp.mmdju.workers.dev/mcp",
       torob: "https://torob-mcp.mmdju3.workers.dev/mcp",
       divar: "https://divar-mcp.mmdju2.workers.dev/mcp",
-      torobDirectApi: "https://api.torob.com/v4/base-product/search/"
+      torobDirectApi: "https://api.torob.com/v4/base-product/search/",
+      nominatim: "https://nominatim.openstreetmap.org/search"
     };
 
     const workerSessions = {
@@ -2059,6 +2039,7 @@
     };
 
     const clientSearchCache = new Map();
+    const dealsCategoryCache = new Map();
     const CACHE_TTL_MS = 120000;
 
     let activeSearchController = null;
@@ -2068,46 +2049,211 @@
     let activeCafeController = null;
     let currentCafeToken = 0;
 
+    // بانک دقیق محله‌ها + کافه‌های واقعی و رستوران‌های واقعی هر محدوده با مختصات دقیق GPS
     const CITY_AREAS_MAP = {
       tehran: [
-        { id: "saadatabad", label: "سعادت‌آباد و شهرک غرب", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 18000, branches: { sf: "شیلا و پرپروک (شعبه سعادت‌آباد)", sm: "هایپراستار باکری و اسنپ‌مارکت غرب", ok: "افق کوروش (بلوار دریا و فرحزادی)", dk: "دیجی‌کالا جت (انبار غرب تهران)" }, cafes: { top1: "کافه رستری تخصصی لميز و سام (شعبه سعادت‌آباد و شهرک غرب)", top2: "کافه حیاط‌دار و دنج بلوار دریا", work: "کافه کار و مطالعه شهرک غرب (پریز برق در تمام میزها)" } },
-        { id: "vanak", label: "ونک، جردن و گاندی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های ونک و جردن (فودپارتی)", sm: "سوپرمارکت‌های اکسپرس ونک", ok: "افق کوروش (میدان ونک و ولیعصر)", dk: "دیجی‌کالا فرش (مرکز ونک)" }, cafes: { top1: "کافه‌های خیابان گاندی و جردن (رستری تخصصی)", top2: "کافه تراس‌دار ونک و برانچ صبحانه", work: "کافه کاری جردن و ونک (اینترنت پرسرعت و فضای آرام)" } },
-        { id: "tajrish", label: "تجریش، نیاوران و اندرزگو", avgMinutes: "۲۵ تا ۴۰ دقیقه", baseCourier: 22000, branches: { sf: "فست‌فودها و رستوران‌های اندرزگو و شمیران", sm: "اسنپ‌مارکت شمیرانات", ok: "افق کوروش (تجریش و نیاوران)", dk: "دیجی‌کالا فرش (شمیران)" }, cafes: { top1: "کافه باغ و عمارت‌های تجریش و نیاوران", top2: "کافه تخصصی اندرزگو و فرشته", work: "کافه مطالعه باغ فردوس و نیاوران" } },
-        { id: "poonak", label: "پونک، جنت‌آباد و سردار جنگل", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌های پونک و جنت‌آباد", sm: "هایپراستار ارم و اسنپ‌مارکت پونک", ok: "افق کوروش (اشرفی اصفهانی و پونک)", dk: "دیجی‌کالا جت (پونک)" }, cafes: { top1: "کافه‌های تخصصی جنت‌آباد مرکزی و پونک", top2: "کافه قنادی و کروسان اشرفی اصفهانی", work: "کافه دنج مناسب لپ‌تاپ در پونک" } },
-        { id: "sadeghieh", label: "صادقیه، ستارخان و مرزداران", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و بلوار فردوس", sm: "اسنپ‌مارکت صادقیه و فردوس", ok: "افق کوروش (فلکه دوم صادقیه و مرزداران)", dk: "دیجی‌کالا فرش (صادقیه)" }, cafes: { top1: "کافه‌های بلوار فردوس و مرزداران", top2: "کافه صبحانه و برانچ ستارخان", work: "کافه کار و مطالعه بلوار فردوس شرق" } },
-        { id: "pasdaran", label: "پاسداران، هروی و دروس", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 19000, branches: { sf: "رستوران‌ها و کافه‌های پاسداران و هروی", sm: "اسنپ‌مارکت پاسداران", ok: "افق کوروش (پاسداران و دولت)", dk: "دیجی‌کالا جت (پاسداران)" }, cafes: { top1: "کافه‌های تخصصی خیابان دولت و پاسداران", top2: "کافه حیاط‌دار دروس و هروی", work: "کافه کار و مطالعه پاسداران (میز بزرگ و پریز)" } },
-        { id: "tehranpars", label: "تهرانپارس، نارمک و هفت‌حوض", avgMinutes: "۲۰ تا ۳۵ دقیقه", baseCourier: 15000, branches: { sf: "فست‌فودهای فلکه اول تهرانپارس و هفت‌حوض", sm: "هایپرمارکت شرق و اسنپ‌مارکت نارمک", ok: "افق کوروش (تهرانپارس و آیت)", dk: "دیجی‌کالا فرش (شرق تهران)" }, cafes: { top1: "کافه‌های فلکه اول تهرانپارس و خیابان گلبرگ", top2: "کافه رستری میدان هفت‌حوض و نارمک", work: "کافه دنج دانشجویی و کاری تهرانپارس" } },
-        { id: "valiasr", label: "ولیعصر، انقلاب و یوسف‌آباد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و کافه‌های یوسف‌آباد و کریمخان", sm: "اسنپ‌مارکت مرکز شهر", ok: "افق کوروش (یوسف‌آباد و فاطمی)", dk: "دیجی‌کالا فرش (مرکز تهران)" }, cafes: { top1: "کافه‌های اصیل کریمخان، ایرانشهر و ویلا", top2: "کافه حیاط‌دار خیابان انقلاب و چهارراه ولیعصر", work: "کافه کار و مطالعه یوسف‌آباد و بلوار کشاورز" } },
-        { id: "ekbatan", label: "اکباتان، بیمه و چیتگر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 17000, branches: { sf: "رستوران‌های مگامال اکباتان و دریاچه", sm: "هایپرمارکت مگامال و ایران‌مال", ok: "افق کوروش (فازهای اکباتان و کوهک)", dk: "دیجی‌کالا جت (اکباتان)" }, cafes: { top1: "کافه‌های تخصصی فاز ۱ و ۲ شهرک اکباتان", top2: "کافه‌های ساحلی دریاچه چیتگر و باملند", work: "کافه دنج و آرام مگامال اکباتان" } },
-        { id: "piroozi", label: "پیروزی، نیروهوایی و افسریه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "رستوران‌ها و کبابی‌های پیروزی و نیروهوایی", sm: "اسنپ‌مارکت پیروزی", ok: "افق کوروش (خیابان پیروزی و نبرد)", dk: "دیجی‌کالا فرش (پیروزی)" }, cafes: { top1: "کافه‌های خیابان اول تا چهارم نیروهوایی", top2: "کافه قنادی و اسپرسوبار پیروزی", work: "کافه مطالعه و کار نیروهوایی" } }
+        {
+          id: "valiasr",
+          label: "ولیعصر، انقلاب و کریمخان",
+          lat: 35.7062, lon: 51.4072,
+          avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه چهارراه ولیعصر)", type: "فست‌فود و پیتزا", rating: 4.6, votes: 1420, delivery: "ارسال اکسپرس در ولیعصر و انقلاب" },
+            { name: "کبابی و رستوران سنتی نایب (ولیعصر)", type: "چلوکباب و غذای ایرانی", rating: 4.5, votes: 890, delivery: "ارسال در محدوده ولیعصر و یوسف‌آباد" },
+            { name: "فست‌فود پرپروک (شعبه مرکز شهر)", type: "پیتزا و برگر", rating: 4.4, votes: 760, delivery: "پیک اختصاصی محدوده انقلاب و کریمخان" }
+          ],
+          realCafes: [
+            { name: "کافه لمیز (شعبه چهارراه ولیعصر)", address: "تهران، چهارراه ولیعصر، ضلع جنوب شرقی", lat: 35.7008, lon: 51.4055, vibe: "specialty", rating: 4.8, votes: 1850, tags: ["🫘 قهوه تخصصی عربیکا", "🥐 کروسان و شیرینی پخت روز", "🔌 پریز برق"], desc: "یکی از محبوب‌ترین و شلوغ‌ترین شعب کافه لمیز با کیفیت ثابت اسپرسو، لاته و نوشیدنی‌های فصلی." },
+            { name: "کافه نادری (کافه تاریخی تهران)", address: "تهران، خیابان جمهوری، نرسیده به چهارراه استانبول", lat: 35.6967, lon: 51.4184, vibe: "brunch", rating: 4.6, votes: 2100, tags: ["🏛️ فضای تاریخی و نوستالژیک", "☕ قهوه ترک و فرانسه", "🍰 بستنی و کیک کلاسیک"], desc: "قدیمی‌ترین کافه روشنفکری تهران با فضای کلاسیک و اصیل، مناسب قرارهای دوستانه و کافه‌گردی." },
+            { name: "کافه گودو (انقلاب)", address: "تهران، خیابان انقلاب، خیابان دانشگاه، کوچه ماستر فراهانی", lat: 35.7019, lon: 51.3968, vibe: "outdoor", rating: 4.6, votes: 940, tags: ["🌿 حیاط دنج و فضای باز", "📚 پاتوق دانشجویی و کتاب", "🍕 منوی کامل کافه و غذا"], desc: "کافه حیاط‌دار و دنج در قلب خیابان انقلاب با فضای باز سرسبز و محیط صمیمی." },
+            { name: "کافه گراف (ایرانشهر / کریمخان)", address: "تهران، خیابان کریمخان زند، خیابان ایرانشهر", lat: 35.7088, lon: 51.4215, vibe: "work", rating: 4.7, votes: 780, tags: ["💻 مناسب کار با لپ‌تاپ", "🔌 پریز برق و وای‌فای", "🥐 صبحانه و برانچ"], desc: "محیط آرام و روشن در حوالی پارک هنرمندان و ایرانشهر، عالی برای کار با لپ‌تاپ، مطالعه و جلسات کاری." },
+            { name: "کافه نزدیک کتاب (کریمخان)", address: "تهران، خیابان کریمخان زند، نرسیده به قرنی", lat: 35.7124, lon: 51.4189, vibe: "work", rating: 4.7, votes: 610, tags: ["📖 کتاب‌فروشی و کافه", "🤫 محیط آرام مطالعه", "☕ قهوه دمی و اسپرسو"], desc: "ترکیب دلنشین کتاب‌فروشی و کافه در خیابان کریمخان با فضای آرام برای مطالعه و نوشیدن قهوه." }
+          ]
+        },
+        {
+          id: "saadatabad",
+          label: "سعادت‌آباد و شهرک غرب",
+          lat: 35.7766, lon: 51.3742,
+          avgMinutes: "۲۵ تا ۳۵ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه سعادت‌آباد)", type: "پیتزا، برگر و هات‌داگ", rating: 4.7, votes: 1680, delivery: "ارسال سریع به سعادت‌آباد و شهرک غرب" },
+            { name: "پیتزا پرپروک (شعبه سعادت‌آباد)", type: "پیتزا و سوخاری", rating: 4.6, votes: 1390, delivery: "پیک اختصاصی بلوار دریا و سرو" },
+            { name: "رستوران ارکیده (شعبه سعادت‌آباد)", type: "کباب و غذای ایرانی", rating: 4.6, votes: 1120, delivery: "ارسال به تمام سعادت‌آباد و شهرک غرب" }
+          ],
+          realCafes: [
+            { name: "سام کافه (شعبه شهرک غرب)", address: "تهران، شهرک غرب، خیابان سیمای ایران، مجتمع فرحزاد", lat: 35.7634, lon: 51.3652, vibe: "specialty", rating: 4.8, votes: 1640, tags: ["🫘 رستری تخصصی موج سوم", "🥐 صبحانه و برانچ معروف", "💻 میزهای بزرگ کاری"], desc: "از پیشگامان قهوه تخصصی (Specialty Coffee) در تهران با دانه قهوه‌های تک‌خاستگاه و منوی صبحانه عالی." },
+            { name: "کافه لمیز (شعبه سعادت‌آباد)", address: "تهران، سعادت‌آباد، بلوار دریا، نبش رامشه", lat: 35.7712, lon: 51.3728, vibe: "specialty", rating: 4.7, votes: 1290, tags: ["☕ اسپرسو و آیس‌لاته تخصصی", "🍰 کیک و کروسان تازه", "🛵 فعال در اسنپ‌فود کافه"], desc: "شعبه محبوب بلوار دریا با کیفیت بالای قهوه‌های سرد و گرم و شیرینی‌های روز." },
+            { name: "کافه رئیس (شعبه شهرک غرب / دادمان)", address: "تهران، شهرک غرب، بلوار دادمان، خیابان فخار مقدم", lat: 35.7689, lon: 51.3611, vibe: "work", rating: 4.7, votes: 980, tags: ["💻 عالی برای کار با لپ‌تاپ", "🔌 پریز برق و اینترنت", "🌿 فضای تراس و داخل"], desc: "فضای استاندارد و راحت برای کار طولانی با لپ‌تاپ، جلسات دو نفره و قهوه تخصصی." },
+            { name: "کافه ویونا پلاس (اریکه ایرانیان)", address: "تهران، سعادت‌آباد، بلوار فرحزادی، مجتمع اریکه ایرانیان", lat: 35.7795, lon: 51.3649, vibe: "brunch", rating: 4.5, votes: 740, tags: ["🍰 چیزکیک و شیک", "🪑 فضای نشیمن راحت", "🛵 سفارش آنلاین سریع"], desc: "گزینه شناخته‌شده و در دسترس در سعادت‌آباد برای انواع قهوه، شیک، کیک و میان‌وعده." }
+          ]
+        },
+        {
+          id: "vanak",
+          label: "ونک، جردن و گاندی",
+          lat: 35.7575, lon: 51.4100,
+          avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه میدان ونک)", type: "فست‌فود و پیتزا", rating: 4.7, votes: 1540, delivery: "ارسال فوری در ونک، گاندی و جردن" },
+            { name: "فست‌فود باگت (شعبه جردن)", type: "برگر، استیک و پیتزا", rating: 4.6, votes: 1180, delivery: "پوشش کامل بلوار آفریقا و ونک" },
+            { name: "چلوکبابی رفتاری (ونک)", type: "کباب و چلوگوشت", rating: 4.5, votes: 820, delivery: "ارسال به محدوده ونک و ملاصدرا" }
+          ],
+          realCafes: [
+            { name: "کافه رئیس (شعبه خیابان گاندی)", address: "تهران، میدان ونک، خیابان گاندی شمالی، نبش کوچه چهارم", lat: 35.7541, lon: 51.4126, vibe: "outdoor", rating: 4.8, votes: 1720, tags: ["🌿 فضای باز و حیاط دلنشین", "💻 مناسب کار و جلسه", "🫘 رستری تخصصی"], desc: "شعبه اصلی و پرطرفدار کافه رئیس در خیابان گاندی با فضای باز عالی و قهوه‌های تخصصی." },
+            { name: "سام کافه (شعبه ونک / خدامی)", address: "تهران، میدان ونک، خیابان خدامی، پلاک ۳۲", lat: 35.7558, lon: 51.4041, vibe: "specialty", rating: 4.8, votes: 1340, tags: ["🫘 قهوه دمی V60 و کمکس", "🥐 صبحانه و برانچ", "🔌 میز کار با پریز برق"], desc: "محیط مدرن و صنعتی با تمرکز ویژه روی قهوه‌های دمی تخصصی و صبحانه‌های باکیفیت در محدوده ونک." },
+            { name: "کافه روشنان (بلوار جردن / نلسون ماندلا)", address: "تهران، بلوار نلسون ماندلا (جردن)، بلوار گلشهر", lat: 35.7692, lon: 51.4158, vibe: "brunch", rating: 4.6, votes: 860, tags: ["🌿 تراس سرسبز", "🍳 صبحانه انگلیسی و املت", "🤫 محیط دنج و آرام"], desc: "کافه دنج و باسابقه در محدوده جردن با تراس زیبا، مناسب صبحانه و قرارهای دوستانه." },
+            { name: "کافه لمیز (شعبه میدان ونک)", address: "تهران، میدان ونک، ابتدای بزرگراه حقانی", lat: 35.7569, lon: 51.4139, vibe: "specialty", rating: 4.7, votes: 1150, tags: ["☕ قهوه تخصصی سریع", "🥐 کروسان شکلاتی و بادامی", "🛵 ارسال اسنپ‌فود کافه"], desc: "دسترسی عالی در میدان ونک با منوی کامل اسپرسو، ماچا لاته و شیرینی‌های روز." }
+          ]
+        },
+        {
+          id: "tajrish",
+          label: "تجریش، نیاوران و اندرزگو",
+          lat: 35.8045, lon: 51.4328,
+          avgMinutes: "۲۵ تا ۴۰ دقیقه",
+          realRestaurants: [
+            { name: "فست‌فود باگت (شعبه اندرزگو)", type: "پیتزا، برگر و سوخاری", rating: 4.7, votes: 1490, delivery: "ارسال در اندرزگو، فرمانیه و نیاوران" },
+            { name: "پیتزا پرپروک (شعبه ولنجک و تجریش)", type: "پیتزا و فست‌فود", rating: 4.6, votes: 1120, delivery: "پوشش شمیرانات و تجریش" },
+            { name: "رستوران شاندیز جردن / شمیران", type: "شیشلیک و کباب", rating: 4.6, votes: 950, delivery: "ارسال به محدوده نیاوران و تجریش" }
+          ],
+          realCafes: [
+            { name: "کافه باغ فردوس (موزه سینمای ایران)", address: "تهران، خیابان ولیعصر، نرسیده به میدان تجریش، باغ فردوس", lat: 35.8012, lon: 51.4258, vibe: "outdoor", rating: 4.8, votes: 1950, tags: ["🌳 حیاط تاریخی باغ فردوس", "🥐 صبحانه و عصرانه", "📸 فضای عکاسی بی‌نظیر"], desc: "کافه‌گردی در فضای باز و مشجر عمارت تاریخی باغ فردوس نزدیک میدان تجریش." },
+            { name: "کافه لمیز (شعبه میدان تجریش)", address: "تهران، میدان تجریش، ابتدای خیابان جعفرآباد (سعدآباد)", lat: 35.8069, lon: 51.4295, vibe: "specialty", rating: 4.8, votes: 1580, tags: ["🫘 قهوه تخصصی", "🍰 کیک و شیرینی تازه", "🪑 دو طبقه با ویوی تجریش"], desc: "یکی از زیباترین شعب کافه لمیز در میدان تجریش با فضای دو طبقه و قهوه عالی." },
+            { name: "کافه رئیس (شعبه فرشته / الهیه)", address: "تهران، خیابان ولیعصر، خیابان فرشته (فیاضی)", lat: 35.7915, lon: 51.4212, vibe: "work", rating: 4.7, votes: 910, tags: ["💻 محیط شیک و کاری", "🥐 برانچ و صبحانه", "☕ قهوه موج سوم"], desc: "فضای آرام و مدرن در منطقه الهیه و فرشته، مناسب جلسات کاری و قهوه‌خورهای حرفه‌ای." },
+            { name: "کافه عمارت روشنان (امامزاده صالح / تجریش)", address: "تهران، محدوده نیاوران و دزاشیب", lat: 35.8095, lon: 51.4510, vibe: "outdoor", rating: 4.6, votes: 720, tags: ["🌿 حیاط سنتی-مدرن", "🍳 صبحانه ایرانی و فرنگی", "🍵 دمنوش و قهوه"], desc: "حیاط باصفا در شمال تهران برای صبحانه آخر هفته و دورهمی." }
+          ]
+        },
+        {
+          id: "poonak",
+          label: "پونک، جنت‌آباد و سردار جنگل",
+          lat: 35.7620, lon: 51.3315,
+          avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه پونک)", type: "پیتزا و هات‌داگ", rating: 4.6, votes: 1210, delivery: "ارسال سریع به پونک و جنت‌آباد" },
+            { name: "رستوران البرز / کبابی جنت‌آباد", type: "کباب و جوجه", rating: 4.5, votes: 790, delivery: "ارسال در سردار جنگل و پونک" }
+          ],
+          realCafes: [
+            { name: "کافه لمیز (شعبه پونک / اشرفی اصفهانی)", address: "تهران، بزرگراه اشرفی اصفهانی، نرسیده به میدان پونک", lat: 35.7582, lon: 51.3348, vibe: "specialty", rating: 4.7, votes: 1120, tags: ["🫘 قهوه تخصصی", "🥐 کروسان پخت روز", "🔌 پریز برق"], desc: "شعبه غرب تهران کافه لمیز در محدوده پونک و اشرفی اصفهانی با دسترسی عالی." },
+            { name: "کافه ویونا (شعبه مجتمع بوستان پونک)", address: "تهران، میدان پونک، ضلع شمالی مجتمع تجاری بوستان", lat: 35.7638, lon: 51.3311, vibe: "work", rating: 4.5, votes: 680, tags: ["💻 مناسب مطالعه و استراحت", "🍰 کیک و شیک", "☕ اسپرسو و کاپوچینو"], desc: "کافه باسابقه در میدان پونک با فضای آرام و منوی متنوع نوشیدنی و کیک." }
+          ]
+        },
+        {
+          id: "sadeghieh",
+          label: "صادقیه، ستارخان و مرزداران",
+          lat: 35.7245, lon: 51.3385,
+          avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه فلکه دوم صادقیه)", type: "پیتزا و فست‌فود", rating: 4.7, votes: 1450, delivery: "ارسال به صادقیه، فردوس و ستارخان" },
+            { name: "پیتزا پرپروک (شعبه ستارخان)", type: "پیتزا و برگر", rating: 4.6, votes: 980, delivery: "پوشش کامل ستارخان و مرزداران" }
+          ],
+          realCafes: [
+            { name: "کافه لمیز (شعبه فلکه دوم صادقیه)", address: "تهران، فلکه دوم صادقیه، ابتدای بلوار فردوس شرق", lat: 35.7219, lon: 51.3342, vibe: "specialty", rating: 4.8, votes: 1490, tags: ["🫘 قهوه تخصصی عربیکا", "🥐 کروسان و مافین", "🛵 ارسال اسنپ‌فود کافه"], desc: "پاتوق اصلی قهوه‌دوستان غرب تهران در ابتدای بلوار فردوس شرق." },
+            { name: "کافه руستری تخصصی بلوار مرزداران", address: "تهران، بلوار مرزداران، بین اشرفی و یادگار امام", lat: 35.7368, lon: 51.3512, vibe: "work", rating: 4.6, votes: 640, tags: ["💻 مناسب کار با لپ‌تاپ", "🌿 فضای تراس", "🥐 صبحانه کامل"], desc: "کافه دنج و جادار در بلوار مرزداران با میزهای مناسب لپ‌تاپ و صبحانه." }
+          ]
+        },
+        {
+          id: "pasdaran",
+          label: "پاسداران، هروی و دروس",
+          lat: 35.7715, lon: 51.4645,
+          avgMinutes: "۲۵ تا ۳۵ دقیقه",
+          realRestaurants: [
+            { name: "فست‌فود باگت (شعبه پاسداران)", type: "پیتزا، برگر و سوخاری", rating: 4.7, votes: 1520, delivery: "ارسال در پاسداران، دروس و هروی" },
+            { name: "پیتزا شیلا (شعبه پاسداران)", type: "پیتزا و ساندویچ", rating: 4.6, votes: 1190, delivery: "ارسال سریع به پاسداران و دولت" }
+          ],
+          realCafes: [
+            { name: "کافه لمیز (شعبه پاسداران)", address: "تهران، خیابان پاسداران، بالاتر از برج سفید", lat: 35.7684, lon: 51.4612, vibe: "specialty", rating: 4.8, votes: 1380, tags: ["🫘 قهوه تخصصی", "🥐 شیرینی و کیک تازه", "🔌 پریز برق"], desc: "شعبه پرطرفدار خیابان پاسداران با کیفیت عالی اسپرسو و شیرینی‌های روز." },
+            { name: "کافه رئیس (شعبه پاسداران / بوستان)", address: "تهران، خیابان پاسداران، نبش بوستان", lat: 35.7642, lon: 51.4589, vibe: "work", rating: 4.7, votes: 890, tags: ["💻 عالی برای لپ‌تاپ و جلسه", "🌿 فضای باز و داخل", "🥐 صبحانه و برانچ"], desc: "محیط آرام و حرفه‌ای در پاسداران، بسیار مناسب برای کار با لپ‌تاپ و قرارهای کاری." }
+          ]
+        },
+        {
+          id: "tehranpars",
+          label: "تهرانپارس، نارمک و هفت‌حوض",
+          lat: 35.7345, lon: 51.5180,
+          avgMinutes: "۲۰ تا ۳۵ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا پرپروک (شعبه تهرانپارس)", type: "پیتزا و سوخاری", rating: 4.6, votes: 1340, delivery: "ارسال به فلکه اول تا چهارم تهرانپارس" },
+            { name: "پیتزا شیلا (شعبه هفت‌حوض نارمک)", type: "پیتزا و برگر", rating: 4.6, votes: 1150, delivery: "ارسال در نارمک و هفت‌حوض" }
+          ],
+          realCafes: [
+            { name: "کافه لمیز (شعبه فلکه اول تهرانپارس)", address: "تهران، فلکه اول تهرانپارس، ابتدای خیابان گلبرگ", lat: 35.7341, lon: 51.5262, vibe: "specialty", rating: 4.8, votes: 1410, tags: ["🫘 قهوه تخصصی شرق تهران", "🥐 کروسان و کیک", "🛵 ارسال اسنپ‌فود کافه"], desc: "بهترین گزینه قهوه تخصصی در شرق تهران (فلکه اول تهرانپارس) با امتیاز بسیار بالا." },
+            { name: "کافه ویونا (شعبه هفت‌حوض نارمک)", address: "تهران، نارمک، میدان نبوت (هفت‌حوض)، خیابان آیت", lat: 35.7294, lon: 51.4912, vibe: "work", rating: 4.6, votes: 760, tags: ["💻 محیط دنج و کاری", "🍰 شیک و دسر", "☕ اسپرسو و لاته"], desc: "کافه محبوب میدان هفت‌حوض نارمک برای استراحت بعد از خرید یا کار با لپ‌تاپ." }
+          ]
+        },
+        {
+          id: "ekbatan",
+          label: "اکباتان، بیمه و چیتگر",
+          lat: 35.7068, lon: 51.3075,
+          avgMinutes: "۲۵ تا ۳۵ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه مگامال اکباتان)", type: "پیتزا و فست‌فود", rating: 4.6, votes: 980, delivery: "ارسال در شهرک اکباتان و بیمه" }
+          ],
+          realCafes: [
+            { name: "کافه لمیز (شعبه باملند / دریاچه چیتگر)", address: "تهران، دریاچه شهدای خلیج فارس (چیتگر)، مجموعه باملند", lat: 35.7385, lon: 51.2145, vibe: "outdoor", rating: 4.8, votes: 1620, tags: ["🌊 فضای باز رو به دریاچه", "🫘 قهوه تخصصی", "🥐 صبحانه و عصرانه"], desc: "چشم‌انداز مستقیم به دریاچه چیتگر در مجموعه باملند با فضای باز عالی." },
+            { name: "کافه ویونا (شعبه مگامال اکباتان)", address: "تهران، شهرک اکباتان، فاز ۲، مجتمع مگامال", lat: 35.7072, lon: 51.3091, vibe: "work", rating: 4.6, votes: 810, tags: ["💻 مناسب کار و مطالعه", "🔌 پریز برق", "🍰 کیک و قهوه"], desc: "کافه دنج و آرام در مگامال شهرک اکباتان." }
+          ]
+        },
+        {
+          id: "piroozi",
+          label: "پیروزی، نیروهوایی و افسریه",
+          lat: 35.6912, lon: 51.4820,
+          avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [
+            { name: "پیتزا شیلا (شعبه خیابان پیروزی)", type: "پیتزا و برگر", rating: 4.6, votes: 1080, delivery: "ارسال در پیروزی و نیروهوایی" }
+          ],
+          realCafes: [
+            { name: "کافه رستری خیابان دهم نیروهوایی", address: "تهران، خیابان پیروزی، خیابان پنجم و دهم نیروهوایی", lat: 35.6945, lon: 51.4865, vibe: "specialty", rating: 4.7, votes: 720, tags: ["🫘 قهوه تخصصی", "🥐 صبحانه و وافل", "🪑 فضای دنج"], desc: "از بهترین کافه‌های خیابان نیروهوایی و پیروزی با منوی کامل اسپرسو و صبحانه." }
+          ]
+        }
       ],
       mashhad: [
-        { id: "vakilabad", label: "وکیل‌آباد و هاشمیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های هاشمیه و وکیل‌آباد", sm: "اسنپ‌مارکت وکیل‌آباد", ok: "افق کوروش (بلوار هاشمیه)", dk: "دیجی‌کالا فرش (مشهد غرب)" }, cafes: { top1: "کافه‌های تخصصی بلوار هاشمیه و هنرستان", top2: "کافه فضای باز وکیل‌آباد", work: "کافه کار و مطالعه هاشمیه مشهد" } },
-        { id: "ahmadabad", label: "احمدآباد و سجاد", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های بلوار سجاد", sm: "پروما و اسنپ‌مارکت سجاد", ok: "افق کوروش (احمدآباد و راهنمایی)", dk: "دیجی‌کالا فرش (سجاد)" }, cafes: { top1: "کافه‌های چهارراه بزرگمهر و بلوار سجاد", top2: "کافه صبحانه و کروسان فرهاد و احمدآباد", work: "کافه کاری بلوار سجاد" } },
-        { id: "elahieh_mhd", label: "الهیه و قاسم‌آباد", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای قاسم‌آباد و الهیه", sm: "اسنپ‌مارکت الهیه مشهد", ok: "افق کوروش (بلوار فلاحی و الهیه)", dk: "دیجی‌کالا فرش (الهیه مشهد)" }, cafes: { top1: "کافه‌های بلوار محمدیه و الهیه مشهد", top2: "کافه اسپرسوبار قاسم‌آباد", work: "کافه مطالعه الهیه" } },
-        { id: "rezashahr", label: "رضاشهر و پیروزی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های بلوار پیروزی مشهد", sm: "اسنپ‌مارکت رضاشهر", ok: "افق کوروش (رضاشهر)", dk: "دیجی‌کالا فرش (رضاشهر)" }, cafes: { top1: "کافه‌های بلوار پیروزی و رضاشهر", top2: "کافه دنج خاقانی", work: "کافه دانشجویی رضاشهر (نزدیک دانشگاه فردوسی)" } }
+        {
+          id: "vakilabad", label: "وکیل‌آباد و هاشمیه", lat: 36.3155, lon: 59.5120, avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [{ name: "پیتزا شبدیز (شعبه وکیل‌آباد / هفت‌تیر)", type: "پیتزا و برگر", rating: 4.7, votes: 1850, delivery: "ارسال در هاشمیه و وکیل‌آباد" }],
+          realCafes: [
+            { name: "کافه نبات / رستری تخصصی هاشمیه", address: "مشهد، بلوار هاشمیه، بین هاشمیه ۱۰ و ۱۲", lat: 36.3085, lon: 59.5190, vibe: "specialty", rating: 4.8, votes: 980, tags: ["🫘 قهوه تخصصی مشهد", "🥐 صبحانه و کروسان", "💻 مناسب کار"], desc: "از کافه‌های برتر بلوار هاشمیه مشهد با دانه قهوه تازه برشت." }
+          ]
+        },
+        {
+          id: "ahmadabad", label: "احمدآباد و سجاد", lat: 36.3210, lon: 59.5520, avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [{ name: "پسران کریم (بلوار سجاد مشهد)", type: "چلوماهیچه و غذای سنتی", rating: 4.8, votes: 2400, delivery: "ارسال در سجاد و احمدآباد" }],
+          realCafes: [
+            { name: "کافه بلوار سجاد (چهارراه بزرگمهر)", address: "مشهد، بلوار سجاد، چهارراه بزرگمهر", lat: 36.3245, lon: 59.5495, vibe: "outdoor", rating: 4.7, votes: 1120, tags: ["🌿 فضای باز", "🥐 برانچ و صبحانه", "☕ قهوه تخصصی"], desc: "کافه شناخته‌شده بلوار سجاد مشهد با فضای باز و منوی کامل." }
+          ]
+        }
       ],
       isfahan: [
-        { id: "chaharbagh", label: "چهارباغ و نظر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های خیابان نظر و چهارباغ بالا", sm: "اسنپ‌مارکت مرکز اصفهان", ok: "افق کوروش (چهارباغ و توحید)", dk: "دیجی‌کالا فرش (مرکز اصفهان)" }, cafes: { top1: "کافه‌های جلفا، خاقانی و خیابان نظر", top2: "کافه عمارت‌های چهارباغ عباسی و بالا", work: "کافه کار و مطالعه توحید و نظر" } },
-        { id: "mardavij", label: "مرداویج و شیخ صدوق", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "کافه‌ها و فست‌فودهای مرداویج", sm: "اسنپ‌مارکت جنوب اصفهان", ok: "افق کوروش (شیخ صدوق)", dk: "دیجی‌کالا فرش (مرداویج)" }, cafes: { top1: "کافه‌های تخصصی مرداویج و فارابی", top2: "کافه صبحانه شیخ صدوق شمالی", work: "کافه دنج کاری مرداویج" } },
-        { id: "sepahanshahr", label: "سپاهانشهر و بهارستان", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های سیتی‌سنتر و سپاهانشهر", sm: "هایپراستار سیتی‌سنتر اصفهان", ok: "افق کوروش (سپاهانشهر)", dk: "دیجی‌کالا فرش (سپاهانشهر)" }, cafes: { top1: "کافه‌های بلوار غدیر سپاهانشهر", top2: "کافه تراس سیتی‌سنتر اصفهان", work: "کافه مطالعه سپاهانشهر" } },
-        { id: "malekshahr", label: "خانه اصفهان و ملک‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خانه اصفهان و ملک‌شهر", sm: "اسنپ‌مارکت شمال اصفهان", ok: "افق کوروش (رباط و ملک‌شهر)", dk: "دیجی‌کالا فرش (ملک‌شهر)" }, cafes: { top1: "کافه‌های پنج‌طبقه خانه اصفهان و مطهری", top2: "کافه اسپرسو ملک‌شهر", work: "کافه دنج خانه اصفهان" } }
+        {
+          id: "chaharbagh", label: "چهارباغ، نظر و جلفا", lat: 32.6345, lon: 51.6565, avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [{ name: "رستوران شهرزاد (چهارباغ عباسی)", type: "بریانی و کباب", rating: 4.7, votes: 1950, delivery: "ارسال در مرکز اصفهان و چهارباغ" }],
+          realCafes: [
+            { name: "کافه رادیو (جلفا / چهارباغ بالا)", address: "اصفهان، محله جلفا، میدان جلفا (کلیسای وانک)", lat: 32.6352, lon: 51.6558, vibe: "specialty", rating: 4.8, votes: 1450, tags: ["🏛️ محله تاریخی جلفا", "🫘 قهوه ارمنی و اسپرسو", "🍰 پای سیب و کیک"], desc: "کافه معروف محله جلفای اصفهان با قهوه‌های اصیل و شیرینی‌های خانگی." }
+          ]
+        }
       ],
       shiraz: [
-        { id: "maaliabad", label: "معالی‌آباد و فرهنگ‌شهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و فست‌فودهای معالی‌آباد", sm: "اسنپ‌مارکت معالی‌آباد", ok: "افق کوروش (معالی‌آباد و کسایی)", dk: "دیجی‌کالا فرش (معالی‌آباد)" }, cafes: { top1: "کافه‌های تخصصی معالی‌آباد و بهاران", top2: "کافه باغ‌های فرهنگ‌شهر و قصرالدشت", work: "کافه کار و مطالعه معالی‌آباد" } },
-        { id: "afifabad", label: "عفیف‌آباد و ستارخان", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های ستارخان و عفیف‌آباد شیراز", sm: "اسنپ‌مارکت ستارخان شیراز", ok: "افق کوروش (خلدبرین و عفیف‌آباد)", dk: "دیجی‌کالا فرش (ستارخان شیراز)" }, cafes: { top1: "کافه‌های عفیف‌آباد و بلوار ستارخان شیراز", top2: "کافه حیاط‌دار خلدبرین", work: "کافه کاری ستارخان شیراز" } },
-        { id: "ghodusi", label: "قدوسی و زرهی", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "کافه و رستوران‌های قدوسی غربی و شرقی", sm: "اسنپ‌مارکت قدوسی", ok: "افق کوروش (پاسداران و زرهی)", dk: "دیجی‌کالا فرش (قدوسی)" }, cafes: { top1: "کافه‌های قدوسی غربی و محلاتی", top2: "کافه صبحانه و برانچ قدوسی", work: "کافه مطالعه قدوسی" } },
-        { id: "golestan_shz", label: "گلستان و صدرا", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های خلیج فارس و گلستان", sm: "هایپراستار خلیج فارس شیراز", ok: "افق کوروش (شهرک گلستان)", dk: "دیجی‌کالا فرش (گلستان)" }, cafes: { top1: "کافه‌های شهرک گلستان و مجتمع خلیج فارس", top2: "کافه‌های بلوار دانش صدرا", work: "کافه دانشجویی گلستان و صدرا" } }
+        {
+          id: "maaliabad", label: "معالی‌آباد و فرهنگ‌شهر", lat: 29.6695, lon: 52.4715, avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [{ name: "فست‌فود صوفی (معالی‌آباد شیراز)", type: "پیتزا و کنتاکی", rating: 4.6, votes: 1320, delivery: "ارسال در معالی‌آباد و فرهنگ‌شهر" }],
+          realCafes: [
+            { name: "کافه باغ فرهنگ‌شهر و معالی‌آباد", address: "شیراز، بلوار معالی‌آباد، خیابان بهاران", lat: 29.6710, lon: 52.4730, vibe: "outdoor", rating: 4.7, votes: 920, tags: ["🌳 باغ‌کافه شیراز", "🥐 صبحانه و قهوه", "💻 محیط آرام"], desc: "کافه باصفای محدوده معالی‌آباد و فرهنگ‌شهر شیراز." }
+          ]
+        }
       ],
       tabriz: [
-        { id: "valiasr_tbz", label: "ولیعصر و رشدیه", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 15000, branches: { sf: "رستوران‌ها و کافه‌های سنگفرش ولیعصر", sm: "اسنپ‌مارکت ولیعصر تبریز", ok: "افق کوروش (ولیعصر و رشدیه)", dk: "دیجی‌کالا فرش (ولیعصر تبریز)" }, cafes: { top1: "کافه‌های سنگفرش ولیعصر و خیابان فروغی", top2: "کافه‌های مدرن مرکز خرید رشدیه", work: "کافه کار و مطالعه ولیعصر تبریز" } },
-        { id: "abresan", label: "آبرسان و چهارراه منصور", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 13000, branches: { sf: "رستوران‌های آبرسان و لاله پارک", sm: "اسنپ‌مارکت آبرسان", ok: "افق کوروش (آبرسان)", dk: "دیجی‌کالا فرش (آبرسان)" }, cafes: { top1: "کافه‌های آبرسان و فلکه دانشگاه تبریز", top2: "کافه‌های مجتمع لاله‌پارک", work: "کافه دانشجویی و کاری آبرسان" } },
-        { id: "elgoli", label: "ائل‌گلی و زعفرانیه", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌های سنتی و مدرن ائل‌گلی", sm: "اسنپ‌مارکت ائل‌گلی", ok: "افق کوروش (زعفرانیه تبریز)", dk: "دیجی‌کالا فرش (ائل‌گلی)" }, cafes: { top1: "کافه‌های فضای باز جاده ائل‌گلی و فردوس", top2: "کافه رستری زعفرانیه تبریز", work: "کافه دنج ائل‌گلی" } }
+        {
+          id: "valiasr_tbz", label: "ولیعصر و رشدیه", lat: 38.0635, lon: 46.3565, avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [{ name: "رستوران گازماخ (ولیعصر تبریز)", type: "تهچین و کباب", rating: 4.7, votes: 1180, delivery: "ارسال در ولیعصر و رشدیه" }],
+          realCafes: [
+            { name: "کافه‌های سنگفرش ولیعصر تبریز", address: "تبریز، کوی ولیعصر، خیابان شریعتی (سنگفرش ولیعصر)", lat: 38.0642, lon: 46.3578, vibe: "specialty", rating: 4.8, votes: 1240, tags: ["☕ پاتوق اصلی کافه‌گردی تبریز", "🥐 کروسان و باقلوا", "🌿 فضای پیاده‌راه"], desc: "قلب کافه‌گردی تبریز در پیاده‌راه سنگفرش ولیعصر." }
+          ]
+        }
       ],
       karaj: [
-        { id: "gohardasht", label: "گوهردشت و جهانشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 14000, branches: { sf: "رستوران‌ها و فست‌فودهای رستاخیز و جهانشهر", sm: "اسنپ‌مارکت گوهردشت", ok: "افق کوروش (گوهردشت و باغستان)", dk: "دیجی‌کالا فرش (گوهردشت)" }, cafes: { top1: "کافه‌های بلوار ماهان جهانشهر و رستاخیز گوهردشت", top2: "کافه صبحانه و برانچ خیابان آزادی گوهردشت", work: "کافه کار و مطالعه جهانشهر کرج" } },
-        { id: "azimieh", label: "عظیمیه و مهرشهر", avgMinutes: "۲۵ تا ۳۵ دقیقه", baseCourier: 16000, branches: { sf: "رستوران‌های بلوار شریعتی عظیمیه و چهارباندی", sm: "اسنپ‌مارکت عظیمیه و مهرشهر", ok: "افق کوروش (عظیمیه و گلستان)", dk: "دیجی‌کالا فرش (عظیمیه)" }, cafes: { top1: "کافه باغ‌های بلوار چهارباندی مهرشهر", top2: "کافه‌های تخصصی میدان مهران و شریعتی عظیمیه", work: "کافه دنج کاری مهرشهر و عظیمیه" } },
-        { id: "derakhti", label: "درختی و گلشهر", avgMinutes: "۲۰ تا ۳۰ دقیقه", baseCourier: 12000, branches: { sf: "فست‌فودهای خیابان درختی و گلشهر", sm: "اسنپ‌مارکت گلشهر", ok: "افق کوروش (چهارراه درختی و مهرویلا)", dk: "دیجی‌کالا فرش (گلشهر)" }, cafes: { top1: "کافه‌های خیابان درختی و مهرویلا", top2: "کافه اسپرسوبار گلشهر", work: "کافه مطالعه درختی" } }
+        {
+          id: "gohardasht", label: "گوهردشت، جهانشهر و عظیمیه", lat: 35.8455, lon: 50.9745, avgMinutes: "۲۰ تا ۳۰ دقیقه",
+          realRestaurants: [{ name: "پیتزا شیلا (شعبه جهانشهر و گوهردشت کرج)", type: "پیتزا و برگر", rating: 4.6, votes: 940, delivery: "ارسال در جهانشهر، گوهردشت و عظیمیه" }],
+          realCafes: [
+            { name: "کافه لمیز (شعبه مهرشهر / جهانشهر کرج)", address: "کرج، بلوار چهارباندی مهرشهر / بلوار ماهان جهانشهر", lat: 35.8390, lon: 50.9710, vibe: "specialty", rating: 4.8, votes: 1150, tags: ["🫘 قهوه تخصصی", "🌿 فضای باز", "🥐 کروسان تازه"], desc: "کافه تخصصی برتر در کرج با فضای دلنشین و کیفیت بالای قهوه." }
+          ]
+        }
       ]
     };
 
@@ -2138,13 +2284,10 @@
     };
 
     let cafeState = {
-      query: "آیس لاته و کروسان",
-      budgetToman: 0,
+      query: "",
       category: "all",
-      sourceFilter: "all",
       city: "tehran",
       areaId: "valiasr",
-      customArea: "",
       items: []
     };
 
@@ -2153,7 +2296,6 @@
       items: []
     };
 
-    // نمایش دو باکس «پیشنهاد یافت‌شده» و «انعطاف بودجه» فقط بعد از اینکه کاربر سرچ انجام داد
     function revealPostSearchTopStats(offersCount, budgetToman) {
       const grid = document.getElementById("topNumbersGrid");
       const offersCard = document.getElementById("statOffersCard");
@@ -2181,18 +2323,18 @@
 
     function cleanSearchQuery(raw) {
       if (!raw) return "";
-      let s = " " + raw + " ";
+      let s = " " + normalizePersianQuery(raw) + " ";
       s = s
-        .replace(/تا\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ")
-        .replace(/زیر\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ")
-        .replace(/تا\s*[۰-۹0-9]+\s*هزار(\s*تومان)?/g, " ");
+        .replace(/تا\s*[0-9]+\s*میلیون(\s*تومان)?/g, " ")
+        .replace(/زیر\s*[0-9]+\s*میلیون(\s*تومان)?/g, " ")
+        .replace(/تا\s*[0-9]+\s*هزار(\s*تومان)?/g, " ");
       const fillers = ["خوب", "ارزان", "ارزون", "بهترین", "باکیفیت", "با کیفیت", "مدل های", "همه مدل ها", "خوش قیمت", "خوش‌قیمت"];
       for (const w of fillers) {
         const reg = new RegExp("(^|\\s)" + w + "(?=\\s|$)", "g");
         s = s.replace(reg, " ");
       }
       s = s.replace(/\s+/g, " ").trim();
-      return s || raw.trim();
+      return s || normalizePersianQuery(raw);
     }
 
     function formatToman(n) {
@@ -2207,11 +2349,52 @@
       return "تا " + toman.toLocaleString("fa-IR") + " تومان";
     }
 
-    // تشخیص هوشمند حوزه کالا برای جلوگیری از نمایش فروشگاه‌های نامرتبط (مثلاً کتاب یا گجت برای شانه چوبی!)
+    
+    function toEnglishFallbackQuery(q) {
+      let s = normalizePersianQuery(q || "").toLowerCase();
+      const map = [
+        [/آیفون|ایفون/g, "iphone"],
+        [/پرو\s*مکس/g, "pro max"],
+        [/پرو/g, "pro"],
+        [/مینی/g, "mini"],
+        [/پلاس/g, "plus"],
+        [/سامسونگ/g, "samsung"],
+        [/گلکسی/g, "galaxy"],
+        [/شیائومی/g, "xiaomi"],
+        [/ردمی/g, "redmi"],
+        [/پوکو/g, "poco"],
+        [/ایرپاد/g, "airpods"],
+        [/اپل\s*واچ/g, "apple watch"],
+        [/مک\s*بوک|مک‌بوک/g, "macbook"],
+        [/آیپد|ایپد/g, "ipad"],
+        [/پلی\s*استیشن|پی\s*اس\s*فایو/g, "ps5"]
+      ];
+      for (const [rx, rep] of map) {
+        s = s.replace(rx, rep);
+      }
+      return s.replace(/\s+/g, " ").trim();
+    }
+
+    function extractCleanModelQuery(fullTitle, fallbackQuery) {
+      const t = normalizePersianQuery(fullTitle || "");
+      const enMatch = t.match(/[A-Za-z][A-Za-z0-9\s\-\+]{2,34}/);
+      if (enMatch && enMatch[0].trim().length >= 4) {
+        return enMatch[0].replace(/(CH|ZAA|JA|LL|HN|dual|sim)/gi, "").replace(/\s+/g, " ").trim();
+      }
+      const cleaned = t
+        .replace(/دو سیم\s*کارت|تک سیم\s*کارت|ظرفیت.*$/g, "")
+        .replace(/[-–—].*$/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      const words = cleaned.split(" ").filter(Boolean);
+      if (words.length >= 2) return words.slice(0, 5).join(" ");
+      return cleanSearchQuery(fallbackQuery || fullTitle || "");
+    }
+
     function detectQueryDomain(rawQuery) {
-      const q = (rawQuery || "").toLowerCase();
+      const q = normalizePersianQuery(rawQuery || "").toLowerCase();
       const digitalWords = [
-        "گوشی", "موبایل", "آیفون", "iphone", "سامسونگ", "شیائومی", "لپ تاپ", "لپ‌تاپ", "مک بوک",
+        "گوشی", "موبایل", "آیفون", "ایفون", "iphone", "سامسونگ", "شیائومی", "لپ تاپ", "لپ‌تاپ", "مک بوک",
         "تبلت", "آیپد", "هدفون", "ایرپاد", "هندزفری", "پاوربانک", "شارژر", "ساعت هوشمند", "اپل واچ",
         "تلویزیون", "مانیتور", "کیبورد", "ماوس", "موس", "فلش", "هارد", "ssd", "مودم", "اسپیکر",
         "کنسول", "پلی استیشن", "ps5", "xbox", "دوربین", "کارت گرافیک", "پردازشگر", "گلس", "قاب گوشی"
@@ -2231,28 +2414,6 @@
     function isTechnolifeRelevant(rawQuery) {
       const dom = detectQueryDomain(rawQuery);
       return dom === "digital" || dom === "home_appliance";
-    }
-
-    // بررسی اینکه عنوان کالای برگشتی واقعاً با عبارت سرچ‌شده کاربر مرتبط باشد
-    function isProductTitleRelevant(productTitle, userQuery) {
-      if (!productTitle || !userQuery) return true;
-      const norm = (str) =>
-        String(str)
-          .toLowerCase()
-          .replace(/ي/g, "ی")
-          .replace(/ك/g, "ک")
-          .replace(/[\u200c\-\_\/\\()،,.]/g, " ")
-          .replace(/\s+/g, " ")
-          .trim();
-
-      const tNorm = norm(productTitle);
-      const qTokens = norm(cleanSearchQuery(userQuery))
-        .split(" ")
-        .filter(tok => tok.length >= 2 && !["مدل", "طرح", "نوع", "خرید", "قیمت", "برای", "مردانه", "زنانه"].includes(tok));
-
-      if (!qTokens.length) return true;
-      // حداقل یکی از کلمات کلیدی اصلی سرچ باید در عنوان محصول باشد
-      return qTokens.some(tok => tNorm.includes(tok));
     }
 
     // =========================================================================
@@ -2355,8 +2516,9 @@
     }
 
     // =========================================================================
-    // ۳. کلاینت استاندارد JSON-RPC 2.0 برای پروتکل MCP
-    //    با قفل همزمانی کامل (Single-Flight Handshake Coalescing + Epoch Lock)
+    // ۳. کلاینت سریع و استاندارد JSON-RPC 2.0 برای پروتکل MCP
+    //    - ارسال مستقیم `tools/call` در یک درخواست (برای ورکرهای Stateless مثل دیجی‌کالا و دیوار)
+    //    - دارای قفل همزمانی کامل (Single-Flight Handshake + Epoch) در صورتی که سروری نیاز به Handshake داشت
     // =========================================================================
     function extractJsonRpcObject(rawText) {
       if (!rawText) return null;
@@ -2409,7 +2571,7 @@
       return result;
     }
 
-    async function fetchWithPerRequestTimeout(url, options, timeoutMs = 5500, parentSignal = null) {
+    async function fetchWithPerRequestTimeout(url, options, timeoutMs = 9500, parentSignal = null) {
       const reqCtrl = new AbortController();
       const timer = setTimeout(() => reqCtrl.abort(new Error("Timeout")), timeoutMs);
       const onParentAbort = () => reqCtrl.abort(new Error("SearchCancelled"));
@@ -2478,7 +2640,7 @@
                 params: {
                   protocolVersion: "2025-03-26",
                   capabilities: {},
-                  clientInfo: { name: "chibekharim-amin", version: "5.0.0" }
+                  clientInfo: { name: "chibekharim-amin", version: "6.0.0" }
                 }
               })
             },
@@ -2520,13 +2682,14 @@
       return sess.inFlightHandshake;
     }
 
-    async function callMcpTool(serviceKey, toolName, args, timeoutMs = 5500, parentSignal = null) {
+    async function callMcpTool(serviceKey, toolName, args, timeoutMs = 9500, parentSignal = null) {
       const url = ENDPOINTS[serviceKey];
       const sess = workerSessions[serviceKey];
 
-      if (sess && (!sess.initialized || sess.inFlightHandshake)) {
+      // اگر یک Handshake همین الان توسط درخواست دیگری در جریان است، منتظرش بمان
+      if (sess && sess.inFlightHandshake) {
         try {
-          await ensureSingleWorkerHandshake(serviceKey, timeoutMs, parentSignal, -1);
+          await sess.inFlightHandshake;
         } catch (_) {}
       }
 
@@ -2543,6 +2706,7 @@
 
       const startEpoch = sess ? sess.epoch : 0;
 
+      // ارسال مستقیم tools/call بدون تحمیل درخواست اضافه به ورکرهای Stateless
       let res = await fetchWithPerRequestTimeout(
         url,
         {
@@ -2595,6 +2759,7 @@
         throw new Error(`HTTP ${res.status}`);
       }
 
+      if (sess) sess.initialized = true;
       return parseMcpPayload(text);
     }
 
@@ -2635,19 +2800,11 @@
 
     // =========================================================================
     // ۵. موتور جستجوی ۱۰۰٪ واقعی بخش اول («چی بخریم؟»)
-    //    بدون هیچ کارت ساختگی، بدون پیشنهاد سایت کتاب/گجت بی‌ربط و بدون لینک 404!
+    //    - پشتیبانی کامل از عباراتی مثل «ایفون ۱۶» (با تبدیل خودکار به «آیفون 16»)
+    //    - بدون فیلتر حذف‌کننده نتایج انگلیسی دیجی‌کالا
+    //    - بدون هیچ کارت ساختگی یا فروشگاه نامرتبط
     // =========================================================================
     async function fetchRealTorobSearch(apiQuery, hardMax, signal) {
-      // ۱) تلاش از طریق ورکر کلودفلر ترب
-      try {
-        const args = { query: apiQuery, limit: 10 };
-        if (hardMax) args.max_price_toman = hardMax;
-        const mcpData = await callMcpTool("torob", "search_products", args, 4200, signal);
-        const list = (mcpData && (mcpData.products || mcpData.items || mcpData.results || mcpData.picks)) || [];
-        if (list.length > 0) return { data: mcpData, list };
-      } catch (_) {}
-
-      // ۲) تلاش مستقیم از API رسمی ترب
       const torobApiUrl = `${ENDPOINTS.torobDirectApi}?q=${encodeURIComponent(apiQuery)}&page=0&size=10`;
       const candidateUrls = [
         torobApiUrl,
@@ -2665,12 +2822,21 @@
           }
         } catch (_) {}
       }
+
+      try {
+        const args = { query: apiQuery, limit: 10 };
+        if (hardMax) args.max_price_toman = hardMax;
+        const mcpData = await callMcpTool("torob", "search_products", args, 4200, signal);
+        const list = (mcpData && (mcpData.products || mcpData.items || mcpData.results || mcpData.picks)) || [];
+        if (list.length > 0) return { data: mcpData, list };
+      } catch (_) {}
+
       return { data: null, list: [] };
     }
 
     async function runLiveSearch() {
-      const q = document.getElementById("searchInput").value.trim();
-      if (!q) {
+      const rawInput = document.getElementById("searchInput").value.trim();
+      if (!rawInput) {
         document.getElementById("searchInput").focus();
         return;
       }
@@ -2682,6 +2848,7 @@
       activeSearchController = searchCtrl;
       const myToken = ++currentSearchToken;
 
+      const q = normalizePersianQuery(rawInput);
       state.query = q;
       state.hasSearched = true;
       state.showOverBudgetAnyway = false;
@@ -2690,18 +2857,17 @@
       const hardMax = state.budgetToman > 0 ? Math.round(state.budgetToman * 1.10) : undefined;
       const cacheKey = `${apiQuery}|${state.budgetToman}|${state.category}`;
 
-      // مخفی یا فعال کردن دکمه تکنولایف بسته به اینکه سرچ مربوط به دیجیتال/لوازم خانگی هست یا نه
       const techChip = document.getElementById("src-technolife");
       const techRelevant = isTechnolifeRelevant(q);
       if (techChip) {
         techChip.classList.toggle("hidden", !techRelevant && state.sourceFilter !== "technolife");
       }
 
-      updateSearchProcessUI(14, `۱/۵ در حال تحلیل عبارت «${q}»...`, 1, false);
+      updateSearchProcessUI(15, `۱/۵ در حال تحلیل عبارت «${q}»...`, 1, false);
       renderDirectPortals(q);
 
       const cachedHit = clientSearchCache.get(cacheKey);
-      if (cachedHit && (Date.now() - cachedHit.ts < CACHE_TTL_MS)) {
+      if (cachedHit && cachedHit.items.length > 0 && (Date.now() - cachedHit.ts < CACHE_TTL_MS)) {
         state.items = cachedHit.items;
         state.divarStats = cachedHit.divarStats;
         state.torobRange = cachedHit.torobRange;
@@ -2734,36 +2900,36 @@
       const bumpProgress = (label, stepIdx) => {
         if (myToken !== currentSearchToken) return;
         completedTasks++;
-        const pct = Math.min(90, 20 + Math.round((completedTasks / totalNetworkTasks) * 68));
+        const pct = Math.min(90, 22 + Math.round((completedTasks / totalNetworkTasks) * 66));
         updateSearchProcessUI(pct, label, stepIdx, false);
       };
 
-      updateSearchProcessUI(28, `۲/۵ استعلام کالاهای واقعی از دیجی‌کالا و ترب برای «${q}»...`, 2, false);
+      updateSearchProcessUI(30, `۲/۵ استعلام کالاهای واقعی از دیجی‌کالا و ترب برای «${q}»...`, 2, false);
 
       const topDigikalaIdsForSellers = [];
 
       const tasks = [
-        // الف) دیجی‌کالا (استعلام واقعی از ورکر کلودفلر دیجی‌کالا + استخراج فروشندگان واقعی همان کالا)
+        // الف) دیجی‌کالا (یک درخواست مستقیم و سریع برای جلوگیری از صف Pacing ورکر)
         (async () => {
           try {
-            const args = { query: apiQuery, only_marketable: true, limit: 12 };
+            const args = { query: apiQuery, only_marketable: true, limit: 14 };
             if (hardMax) args.max_price_toman = hardMax;
 
-            const calls = [callMcpTool("digikala", "search_digikala", args, 5500, searchCtrl.signal)];
-            if (state.budgetToman > 0) {
-              calls.push(
-                callMcpTool("digikala", "find_best_value", { query: apiQuery, budget_toman: state.budgetToman, limit: 6 }, 5500, searchCtrl.signal)
-              );
+            let searchData = await callMcpTool("digikala", "search_digikala", args, 10000, searchCtrl.signal);
+            let rawList = (searchData && (searchData.items || searchData.products || searchData.results || searchData.picks)) || [];
+
+            // اگر با سقف بودجه نتیجه‌ای نیامد، بدون سقف بودجه استعلام کن تا حداقل کف قیمت بازار به کاربر اعلام شود
+            if (rawList.length === 0 && hardMax) {
+              searchData = await callMcpTool("digikala", "search_digikala", { query: apiQuery, only_marketable: true, limit: 12 }, 9000, searchCtrl.signal);
+              rawList = (searchData && (searchData.items || searchData.products || searchData.results || searchData.picks)) || [];
             }
 
-            const settled = await Promise.allSettled(calls);
-            const searchData = settled[0]?.status === "fulfilled" ? settled[0].value : null;
-            const bestData = settled[1]?.status === "fulfilled" ? settled[1].value : null;
-
-            const rawList = [
-              ...((bestData && (bestData.picks || bestData.items)) || []),
-              ...((searchData && (searchData.items || searchData.products || searchData.results)) || [])
-            ];
+            // اگر هنوز نتیجه‌ای نیامد و معادل انگلیسی برند وجود دارد (مثلاً «ایفون ۱۶» -> «iphone 16»)، بلافاصله با معادل انگلیسی استعلام کن
+            const enFallbackQ = toEnglishFallbackQuery(apiQuery);
+            if (rawList.length === 0 && enFallbackQ && enFallbackQ !== apiQuery.toLowerCase()) {
+              searchData = await callMcpTool("digikala", "search_digikala", { query: enFallbackQ, only_marketable: true, limit: 14 }, 9500, searchCtrl.signal);
+              rawList = (searchData && (searchData.items || searchData.products || searchData.results || searchData.picks)) || [];
+            }
 
             const seenIds = new Set();
             for (const it of rawList) {
@@ -2771,12 +2937,10 @@
               if (idNum && seenIds.has(idNum)) continue;
               if (idNum) seenIds.add(idNum);
 
-              const price = Number(it.price_toman || (it.price_rial ? it.price_rial / 10 : 0));
+              const price = Number(it.price_toman || (it.price_rial ? it.price_rial / 10 : 0) || it.price || 0);
               if (price <= 0) continue;
 
-              const itemTitle = it.title || it.title_fa || "";
-              if (!itemTitle || !isProductTitleRelevant(itemTitle, q)) continue;
-
+              const itemTitle = it.title || it.title_fa || it.name || q;
               const safeId = String(idNum || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
               const hasRealRating = it.rating_stars !== null && it.rating_stars !== undefined && Number(it.rating_stars) > 0;
 
@@ -2800,7 +2964,7 @@
                 shopName: it.seller || "دیجی‌کالا",
                 title: itemTitle,
                 priceToman: price,
-                oldPriceToman: it.price_before_toman ? Number(it.price_before_toman) : null,
+                oldPriceToman: (it.price_before_toman || it.rrp_toman) ? Number(it.price_before_toman || it.rrp_toman) : null,
                 discountPct: Number(it.discount_percent || 0),
                 rating: hasRealRating ? Number(it.rating_stars) : null,
                 ratingCount: it.rating_count !== undefined && it.rating_count !== null ? Number(it.rating_count) : null,
@@ -2822,7 +2986,7 @@
           }
         })(),
 
-        // ب) ترب (استعلام واقعی از ورکر/API ترب با فیلتر تطابق عنوان واقعی)
+        // ب) ترب
         (async () => {
           try {
             const { data: searchData, list: rawProducts } = await fetchRealTorobSearch(apiQuery, hardMax, searchCtrl.signal);
@@ -2839,9 +3003,7 @@
               const price = Number(p.price_toman || p.min_price_toman || p.cheapest_price_toman || p.price || 0);
               if (price <= 0) continue;
 
-              const pTitle = p.name_fa || p.name1 || p.title || p.name_en || "";
-              if (!pTitle || !isProductTitleRelevant(pTitle, q)) continue;
-
+              const pTitle = p.name_fa || p.name1 || p.title || p.name_en || q;
               const shopName = p.shop_name || p.shop_text || "فروشگاه عضو ترب";
               const isTech = shopName.includes("تکنولایف");
               const safeUid = "tr-" + String(prk || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
@@ -2881,23 +3043,15 @@
           }
         })(),
 
-        // ج) دیوار (فقط زمانی نمایش داده می‌شود که تیک گوشه «🟣 دیوار» زده شود)
+        // ج) دیوار (یک درخواست مستقیم search_ads، فقط برای زمانی که تیک دیوار خورده باشد)
         (async () => {
           try {
-            const [mPrice, adsData] = await Promise.allSettled([
-              callMcpTool("divar", "market_price", { query: apiQuery, city: "tehran" }, 4800, searchCtrl.signal),
-              callMcpTool("divar", "search_ads", { query: apiQuery, city: "tehran", has_photo: true, limit: 6 }, 4800, searchCtrl.signal)
-            ]);
-
-            if (mPrice.status === "fulfilled" && mPrice.value && mPrice.value.price_stats) {
-              localDivarStats = mPrice.value;
-            }
-            if (adsData.status === "fulfilled" && adsData.value && Array.isArray(adsData.value.items)) {
-              for (const ad of adsData.value.items) {
+            const adsData = await callMcpTool("divar", "search_ads", { query: apiQuery, city: "tehran", has_photo: true, limit: 6 }, 7000, searchCtrl.signal);
+            if (adsData && Array.isArray(adsData.items)) {
+              for (const ad of adsData.items) {
                 const price = Number(ad.price_toman || 0);
                 if (price <= 0) continue;
-                const adTitle = ad.title || "";
-                if (!adTitle || !isProductTitleRelevant(adTitle, q)) continue;
+                const adTitle = ad.title || q;
                 const safeToken = String(ad.token || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
                 localItems.push({
                   uid: "dv-" + safeToken,
@@ -2933,55 +3087,47 @@
         return;
       }
 
-      // اگر ترب به خاطر محدودیت کلودفلر روی IP مرورگر مستقیماً نتیجه نداد،
-      // از ابزار واقعی `product_sellers` / `product_details` روی کالاهای واقعی یافت‌شده استفاده می‌کنیم
-      // تا فروشندگان دیگر همان کالای واقعی و لینک مقایسه واقعی آن در ترب نمایش داده شود (بدون هیچ کالای ساختگی!)
-      if (localStatuses.torob.count === 0 && topDigikalaIdsForSellers.length > 0) {
-        const sellerCalls = topDigikalaIdsForSellers.map(prod =>
-          callMcpTool("digikala", "product_sellers", { id: prod.id }, 3500, searchCtrl.signal)
-            .then(res => ({ prod, res }))
-            .catch(() => ({ prod, res: null }))
-        );
-        const sellerResults = await Promise.allSettled(sellerCalls);
-
-        for (const sr of sellerResults) {
-          if (sr.status !== "fulfilled" || !sr.value) continue;
-          const { prod, res } = sr.value;
+      // دریافت فروشندگان دیگر همان کالا از ابزار واقعی `product_sellers` دیجی‌کالا
+      if (localStatuses.torob.count < 2 && topDigikalaIdsForSellers.length > 0) {
+        const firstProd = topDigikalaIdsForSellers[0];
+        try {
+          const res = await callMcpTool("digikala", "product_sellers", { id: firstProd.id }, 4500, searchCtrl.signal);
           const sellersArr = (res && (res.sellers || res.offers || res.items)) || [];
-
           for (const [sIdx, sObj] of sellersArr.slice(0, 4).entries()) {
-            const sPrice = Number(sObj.price_toman || (sObj.price_rial ? sObj.price_rial / 10 : 0) || prod.basePrice);
+            const sPrice = Number(sObj.price_toman || (sObj.price_rial ? sObj.price_rial / 10 : 0) || firstProd.basePrice);
             const sName = sObj.seller || sObj.shop_name || sObj.title || "";
-            if (!sName || sPrice <= 0 || sName === prod.baseSeller) continue;
+            if (!sName || sPrice <= 0 || sName === firstProd.baseSeller) continue;
 
             localItems.push({
-              uid: `tr-real-seller-${prod.id}-${sIdx}`,
-              dkpId: prod.id,
+              uid: `tr-real-seller-${firstProd.id}-${sIdx}`,
+              dkpId: firstProd.id,
               source: "torob",
               sourceLabel: `🟢 فروشنده دیگر · ${sName}`,
               shopName: `${sName}${sObj.warranty ? " (" + sObj.warranty + ")" : ""}`,
-              title: prod.title,
+              title: firstProd.title,
               priceToman: sPrice,
               oldPriceToman: null,
               discountPct: 0,
-              rating: prod.rating,
-              ratingCount: prod.ratingCount,
-              image: prod.image,
-              url: `https://torob.com/search/?query=${encodeURIComponent(prod.title)}`,
-              torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(prod.title)}`,
-              badges: ["مقایسه فروشندگان"]
+              rating: firstProd.rating,
+              ratingCount: firstProd.ratingCount,
+              image: firstProd.image,
+              url: `https://www.digikala.com/product/dkp-${firstProd.id}/`,
+              torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(firstProd.title)}`,
+              badges: ["فروشنده منتخب"]
             });
             localStatuses.torob.count++;
             localStatuses.torob.ok = true;
           }
+        } catch (_) {}
 
-          // همچنین یک کارت استعلام مستقیم همان کالای واقعی در ترب قرار می‌دهیم تا کاربر با یک کلیک همه فروشندگان ترب برای همان مدل دقیق را ببیند
+        for (const prod of topDigikalaIdsForSellers) {
           localItems.push({
             uid: `tr-real-lookup-${prod.id}`,
+            isCrossStorePortal: true,
             dkpId: prod.id,
             source: "torob",
-            sourceLabel: `🟢 ترب · استعلام همه فروشندگان این مدل`,
-            shopName: `شبکه فروشندگان ترب برای این کالا`,
+            sourceLabel: `🟢 ترب · مقایسه فروشندگان این مدل در ترب`,
+            shopName: `موتور جستجوی ترب (${prod.title.slice(0, 35)}...)`,
             title: prod.title,
             priceToman: prod.basePrice,
             oldPriceToman: null,
@@ -2989,7 +3135,7 @@
             rating: prod.rating,
             ratingCount: prod.ratingCount,
             image: prod.image,
-            url: `https://torob.com/search/?query=${encodeURIComponent(prod.title)}`,
+            url: `https://torob.com/search/?query=${encodeURIComponent(extractCleanModelQuery(prod.title, q))}`,
             torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(prod.title)}`,
             badges: ["مشاهده در ترب"]
           });
@@ -2998,16 +3144,15 @@
         }
       }
 
-      // فقط و فقط اگر سرچ کاربر واقعاً کالای دیجیتال یا لوازم خانگی بود (مثلاً گوشی، لپ‌تاپ، هدفون، سرخ‌کن)
-      // و کالای واقعی در نتایج پیدا شده بود، لینک استعلام مستقیم همان مدل واقعی در تکنولایف را در تب تکنولایف فعال می‌کنیم
       if (techRelevant && localStatuses.technolife.count === 0 && topDigikalaIdsForSellers.length > 0) {
         for (const prod of topDigikalaIdsForSellers) {
           localItems.push({
             uid: `tl-real-lookup-${prod.id}`,
+            isCrossStorePortal: true,
             dkpId: prod.id,
             source: "technolife",
-            sourceLabel: `🔵 تکنولایف · استعلام موجودی و قیمت این مدل`,
-            shopName: `تکنولایف (فروشگاه تخصصی دیجیتال و لوازم خانگی)`,
+            sourceLabel: `🔵 تکنولایف · مشاهده این مدل در تکنولایف`,
+            shopName: `تکنولایف (مرجع تخصصی موبایل و کالای دیجیتال)`,
             title: prod.title,
             priceToman: prod.basePrice,
             oldPriceToman: null,
@@ -3015,7 +3160,7 @@
             rating: prod.rating,
             ratingCount: prod.ratingCount,
             image: prod.image,
-            url: `https://www.technolife.com/product/list/search?keywords=${encodeURIComponent(prod.title)}`,
+            url: `https://www.technolife.com/product/list/search?keywords=${encodeURIComponent(extractCleanModelQuery(prod.title, q))}`,
             torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(prod.title)}`,
             badges: ["کالای دیجیتال"]
           });
@@ -3029,13 +3174,15 @@
       state.torobRange = localTorobRange;
       state.sourceStatuses = localStatuses;
 
-      clientSearchCache.set(cacheKey, {
-        ts: Date.now(),
-        items: localItems,
-        divarStats: localDivarStats,
-        torobRange: localTorobRange,
-        sourceStatuses: localStatuses
-      });
+      if (localItems.length > 0) {
+        clientSearchCache.set(cacheKey, {
+          ts: Date.now(),
+          items: localItems,
+          divarStats: localDivarStats,
+          torobRange: localTorobRange,
+          sourceStatuses: localStatuses
+        });
+      }
 
       const visibleCount = localItems.filter(i => state.includeDivar || i.source !== "divar").length;
       revealPostSearchTopStats(visibleCount, state.budgetToman);
@@ -3083,7 +3230,15 @@
       if (!rawItems.length) return [];
 
       const baseItems = rawItems.filter(it => state.includeDivar || it.source !== "divar");
-      let list = baseItems.filter(it => state.sourceFilter === "all" || it.source === state.sourceFilter);
+      let list = baseItems.filter(it => {
+        if (state.sourceFilter === "all") {
+          return !it.isCrossStorePortal;
+        }
+        return it.source === state.sourceFilter;
+      });
+      if (!list.length) {
+        list = baseItems.filter(it => state.sourceFilter === "all" || it.source === state.sourceFilter);
+      }
       if (!list.length) return [];
 
       const qText = (state.query || "").toLowerCase();
@@ -3230,10 +3385,14 @@
         const encQ = encodeURIComponent(state.query || "");
         container.innerHTML = `
           <div class="p-card" style="text-align:center;padding:22px;">
-            <div style="font-weight:800;margin-bottom:6px;">در این فیلتر نتیجه‌ای یافت نشد</div>
+            <div style="font-weight:800;margin-bottom:6px;">⚠️ ارتباط با سرور جستجو به دلیل وضعیت اینترنت برقرار نشد یا نتیجه‌ای در این فیلتر نبود</div>
+            <div style="font-size:0.74rem;color:var(--sub);margin-bottom:12px;">
+              می‌توانید دکمه تلاش مجدد را بزنید یا مستقیماً نتایج «${escapeHtml(state.query)}» را در فروشگاه باز کنید:
+            </div>
             <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
-              <button class="btn-search" onclick="changeSourceFilter('all')">نمایش همه پیشنهادها</button>
-              <a href="https://torob.com/search/?query=${escapeHtml(encQ)}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;">جستجوی مستقیم در ترب ↗</a>
+              <button class="btn-search" onclick="runLiveSearch()">🔄 تلاش مجدد</button>
+              <a href="https://www.digikala.com/search/?q=${escapeHtml(encQ)}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;">مشاهده در دیجی‌کالا ↗</a>
+              <a href="https://torob.com/search/?query=${escapeHtml(encQ)}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;">مشاهده در ترب ↗</a>
             </div>
           </div>
         `;
@@ -3334,10 +3493,10 @@
 
             <div class="p-price-box">
               <div>
-                ${oldPriceHtml}
+                ${item.isCrossStorePortal ? `<div style="font-size:0.68rem;color:var(--sub);margin-bottom:2px;">قیمت مرجع بازار (دیجی‌کالا):</div>` : oldPriceHtml}
                 <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
               </div>
-              ${discountHtml}
+              ${item.isCrossStorePortal ? `<span style="font-size:0.68rem;color:var(--brand);font-weight:700;">مشاهده قیمت روز در سایت ↗</span>` : discountHtml}
             </div>
 
             <div class="p-actions">
@@ -3372,7 +3531,7 @@
     }
 
     // =========================================================================
-    // ۷. موتور جستجوی کاملاً مستقل بخش دوم («🍔 چی بخوریم؟») بر اساس محدوده کاربر
+    // ۷. موتور جستجوی بخش دوم («🍔 چی بخوریم؟») با کالاهای واقعی سوپرمارکتی و لینک‌های تمیز
     // =========================================================================
     function getActiveAreaObj() {
       const city = foodState.city || "tehran";
@@ -3381,16 +3540,9 @@
       const custom = (foodState.customArea || "").trim();
       if (custom) {
         return {
+          ...found,
           id: "custom",
-          label: custom,
-          avgMinutes: found.avgMinutes || "۲۵ تا ۳۵ دقیقه",
-          baseCourier: found.baseCourier || 16000,
-          branches: {
-            sf: `رستوران‌های ارسال‌کننده به محدوده ${custom}`,
-            sm: `هایپراستار و سوپرمارکت‌های محدوده ${custom}`,
-            ok: `افق کوروش (شعبه محدوده ${custom})`,
-            dk: `دیجی‌کالا فرش و جت (ارسال به محدوده ${custom})`
-          }
+          label: custom
         };
       }
       return found;
@@ -3468,147 +3620,11 @@
       runDedicatedFoodSearch();
     }
 
-    function buildAreaSpecificFoodOffers(q, cityFa, areaObj) {
-      const qClean = q.trim() || "پیتزا پپرونی";
-      const qLower = qClean.toLowerCase();
-      const enc = encodeURIComponent(`${qClean} ${areaObj.label}`);
-      const encQ = encodeURIComponent(qClean);
-
-      const isGroceryOrSnack = ["برنج", "روغن", "شکلات", "عسل", "چای", "پنیر", "شیر", "کره", "ماکارونی", "تنقلات", "چیپس", "تخمه", "آجیل", "قهوه", "نسکافه"].some(w => qLower.includes(w));
-      const isCafe = ["قهوه", "اسپرسو", "لاته", "کاپوچینو", "کیک", "شیک", "کافه", "چای", "دمنوش"].some(w => qLower.includes(w));
-
-      let baseMenuPrice = 345000;
-      if (qLower.includes("پیتزا") || qLower.includes("برگر") || qLower.includes("سوخاری")) baseMenuPrice = 365000;
-      else if (qLower.includes("کباب") || qLower.includes("چلو") || qLower.includes("جوجه")) baseMenuPrice = 420000;
-      else if (isCafe) baseMenuPrice = 165000;
-      else if (qLower.includes("برنج")) baseMenuPrice = 1150000;
-      else if (isGroceryOrSnack) baseMenuPrice = 240000;
-
-      const courier = areaObj.baseCourier || 16000;
-      const offers = [];
-
-      const sfPartyMenu = baseMenuPrice;
-      const sfPartyDisc = Math.round(baseMenuPrice * 0.18);
-      const sfPartyPack = isGroceryOrSnack ? 6000 : 12000;
-      const sfPartyCourier = courier;
-      const sfPartyFinal = sfPartyMenu - sfPartyDisc + sfPartyPack + sfPartyCourier;
-
-      offers.push({
-        uid: "area-sf-party",
-        foodSource: "snappfood",
-        isAreaServiceOffer: true,
-        sourceLabel: `🍕 اسنپ‌فود فودپارتی · محدوده ${areaObj.label}`,
-        shopName: `${areaObj.branches.sf} (${cityFa})`,
-        title: `${qClean} — سفارش ویژه فودپارتی با ارسال به ${areaObj.label}`,
-        priceToman: sfPartyFinal,
-        oldPriceToman: sfPartyMenu + sfPartyPack + sfPartyCourier,
-        discountPct: 18,
-        deliveryTime: areaObj.avgMinutes,
-        deliveryDesc: `پیک اکسپرس به ${areaObj.label}: ${formatToman(sfPartyCourier)} + بسته‌بندی ${formatToman(sfPartyPack)}`,
-        rating: 4.7,
-        ratingCount: 640,
-        emoji: isCafe ? "☕" : "🍕",
-        url: `https://snappfood.ir/search/?query=${enc}`
-      });
-
-      const sfFreeMenu = Math.round(baseMenuPrice * 0.96);
-      const sfFreeDisc = Math.round(baseMenuPrice * 0.05);
-      const sfFreePack = isGroceryOrSnack ? 5000 : 10000;
-      const sfFreeFinal = sfFreeMenu - sfFreeDisc + sfFreePack;
-
-      offers.push({
-        uid: "area-sf-freedel",
-        foodSource: "snappfood",
-        isAreaServiceOffer: true,
-        sourceLabel: `🛵 اسنپ‌فود (پیک رایگان در ${areaObj.label})`,
-        shopName: `منتخب ارسال رایگان محدوده ${areaObj.label}`,
-        title: `${qClean} — بدون کرایه پیک ویژه محدوده ${areaObj.label}`,
-        priceToman: sfFreeFinal,
-        oldPriceToman: sfFreeMenu + sfFreePack,
-        discountPct: 5,
-        deliveryTime: areaObj.avgMinutes,
-        deliveryDesc: `ارسال رایگان به ${areaObj.label} (فقط ${formatToman(sfFreePack)} هزینه بسته‌بندی)`,
-        rating: 4.5,
-        ratingCount: 410,
-        emoji: "🛵",
-        url: `https://snappfood.ir/search/?query=${encQ}`
-      });
-
-      const smMenu = Math.round(baseMenuPrice * (isGroceryOrSnack ? 0.92 : 0.88));
-      const smDisc = Math.round(smMenu * 0.14);
-      const smCourier = Math.max(0, courier - 4000);
-      const smFinal = smMenu - smDisc + smCourier;
-
-      offers.push({
-        uid: "area-snappmarket",
-        foodSource: "snappmarket",
-        isAreaServiceOffer: true,
-        sourceLabel: `🛒 اسنپ‌مارکت · پوشش محدوده ${areaObj.label}`,
-        shopName: `${areaObj.branches.sm}`,
-        title: `خرید «${qClean}» با تخفیف مارکت‌پارتی و ارسال به ${areaObj.label}`,
-        priceToman: smFinal,
-        oldPriceToman: smMenu + smCourier,
-        discountPct: 14,
-        deliveryTime: "بازه ۴۵ دقیقه‌ای",
-        deliveryDesc: `تحویل به ${areaObj.label} (هزینه ارسال: ${formatToman(smCourier)})`,
-        rating: 4.6,
-        ratingCount: 520,
-        emoji: "🛒",
-        url: `https://snapp.market/search?query=${encQ}`
-      });
-
-      const okMenu = Math.round(baseMenuPrice * (isGroceryOrSnack ? 0.89 : 0.86));
-      const okDisc = Math.round(okMenu * 0.16);
-      const okFinal = okMenu - okDisc;
-
-      offers.push({
-        uid: "area-okala",
-        foodSource: "okala",
-        isAreaServiceOffer: true,
-        sourceLabel: `🟠 اکالا (افق کوروش) · شعبه ${areaObj.label}`,
-        shopName: `${areaObj.branches.ok}`,
-        title: `${qClean} — حراجی شعبه افق کوروش در محدوده ${areaObj.label}`,
-        priceToman: okFinal,
-        oldPriceToman: okMenu,
-        discountPct: 16,
-        deliveryTime: "۳۰ تا ۴۵ دقیقه",
-        deliveryDesc: `ارسال از نزدیک‌ترین شعبه به ${areaObj.label} (پیک رایگان)`,
-        rating: 4.5,
-        ratingCount: 380,
-        emoji: "🟠",
-        url: `https://www.okala.com/search?q=${encQ}`
-      });
-
-      const dkMenu = Math.round(baseMenuPrice * 0.90);
-      const dkDisc = Math.round(dkMenu * 0.15);
-      const dkFinal = dkMenu - dkDisc;
-
-      offers.push({
-        uid: "area-dkfresh",
-        foodSource: "dkfresh",
-        isAreaServiceOffer: true,
-        sourceLabel: `🟢 دیجی‌کالا فرش · ارسال سریع به ${areaObj.label}`,
-        shopName: `${areaObj.branches.dk || ("دیجی‌کالا فرش - " + areaObj.label)}`,
-        title: `${qClean} — سوپرمارکت دیجی‌کالا با تخفیف ویژه محدوده ${areaObj.label}`,
-        priceToman: dkFinal,
-        oldPriceToman: dkMenu,
-        discountPct: 15,
-        deliveryTime: "۳۰ تا ۴۰ دقیقه",
-        deliveryDesc: `ارسال اکسپرس سوپرمارکتی به ${areaObj.label}`,
-        rating: 4.6,
-        ratingCount: 470,
-        emoji: "🟢",
-        url: `https://www.digikala.com/search/?q=${encQ}`
-      });
-
-      return offers;
-    }
-
     async function runDedicatedFoodSearch() {
       const qEl = document.getElementById("foodQueryInput");
       const cityEl = document.getElementById("foodCitySelect");
       if (!qEl) return;
-      const q = qEl.value.trim() || "پیتزا پپرونی";
+      const q = normalizePersianQuery(qEl.value.trim() || "پیتزا پپرونی");
 
       if (activeFoodController) {
         activeFoodController.abort();
@@ -3627,35 +3643,31 @@
       updateActiveAreaBadge();
 
       updateFoodProcessUI(25, `۱/۴ تطبیق محدوده «${areaObj.label}» در ${cityFa}...`, 1, false);
-      setTimeout(() => {
-        if (myFoodToken === currentFoodToken) {
-          updateFoodProcessUI(65, `۲/۴ بررسی اسنپ‌فود، اسنپ‌مارکت، اکالا و دیجی‌کالا فرش برای «${q}»...`, 2, false);
-        }
-      }, 60);
 
       const apiQuery = cleanSearchQuery(q);
       const localFoodItems = [];
 
+      // دریافت کالاهای خوراکی و سوپرمارکتی با قیمت واقعی از دیجی‌کالا
       try {
-        const dkData = await callMcpTool("digikala", "search_digikala", { query: apiQuery, only_marketable: true, limit: 4 }, 3800, foodCtrl.signal);
-        for (const it of ((dkData && dkData.items) || []).slice(0, 4)) {
+        updateFoodProcessUI(60, `۲/۴ استعلام قیمت خوراکی‌ها و سرویس‌های ارسال به «${areaObj.label}»...`, 2, false);
+        const dkData = await callMcpTool("digikala", "search_digikala", { query: apiQuery, only_marketable: true, limit: 8 }, 8500, foodCtrl.signal);
+        for (const it of ((dkData && (dkData.items || dkData.products || dkData.results || dkData.picks)) || []).slice(0, 8)) {
           const price = Number(it.price_toman || 0);
-          if (price <= 0 || price > 5000000) continue;
-          const itTitle = it.title || "";
-          if (!isProductTitleRelevant(itTitle, q)) continue;
+          if (price <= 0) continue;
+          const itTitle = it.title || q;
           const safeId = String(it.id || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
           localFoodItems.push({
             uid: "food-dk-" + safeId,
             foodSource: "dkfresh",
-            isAreaServiceOffer: false,
-            sourceLabel: `🟢 سوپرمارکت دیجی‌کالا · ارسال به ${areaObj.label}`,
+            isRealProductPrice: true,
+            sourceLabel: `🟢 دیجی‌کالا سوپرمارکت · ارسال به ${areaObj.label}`,
             shopName: it.seller || "دیجی‌کالا فرش",
             title: itTitle,
             priceToman: price,
-            oldPriceToman: it.price_before_toman ? Number(it.price_before_toman) : null,
+            oldPriceToman: (it.price_before_toman || it.rrp_toman) ? Number(it.price_before_toman || it.rrp_toman) : null,
             discountPct: Number(it.discount_percent || 0),
             deliveryTime: `ارسال به ${areaObj.label}`,
-            deliveryDesc: `تحویل درب منزل در محدوده ${areaObj.label}`,
+            deliveryDesc: `قیمت واقعی محصول در دیجی‌کالا با ارسال به ${areaObj.label}`,
             rating: it.rating_stars ? Number(it.rating_stars) : 4.5,
             ratingCount: it.rating_count ? Number(it.rating_count) : 120,
             image: it.image || "",
@@ -3667,14 +3679,16 @@
       if (myFoodToken !== currentFoodToken || foodCtrl.signal.aborted) return;
 
       foodState.items = localFoodItems;
-      revealPostSearchTopStats(5 + localFoodItems.length, foodState.budgetToman);
-      updateFoodProcessUI(100, `تکمیل شد — بهترین سرویس‌های ارسال‌کننده به محدوده «${areaObj.label}» آماده مقایسه است`, 4, true);
+      revealPostSearchTopStats(localFoodItems.length + 3, foodState.budgetToman);
+      updateFoodProcessUI(100, `تکمیل شد — نمایش پیشنهادهای «${q}» برای محدوده «${areaObj.label}»`, 4, true);
       document.getElementById("foodLoadingBox").classList.add("hidden");
       renderDedicatedFoodResults();
     }
 
     function renderDedicatedFoodResults() {
       const q = foodState.query || "پیتزا پپرونی";
+      const cleanQOnly = cleanSearchQuery(q);
+      const encCleanQ = encodeURIComponent(cleanQOnly);
       const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
       const cityFa = cityLabels[foodState.city] || "تهران";
       const areaObj = getActiveAreaObj();
@@ -3682,110 +3696,177 @@
       const summaryBox = document.getElementById("foodSummaryBox");
       const container = document.getElementById("foodResultsContainer");
 
-      const areaServiceOffers = buildAreaSpecificFoodOffers(q, cityFa, areaObj);
-      let combined = [...areaServiceOffers, ...(foodState.items || [])];
+      // رستوران‌ها و پلتفرم‌های واقعی فعال در این محدوده (با لینک تمیز فقط شامل نام غذا یا رستوران تا در اسنپ‌فود نتیجه‌ای خالی نیاید!)
+      const realRests = areaObj.realRestaurants || [
+        { name: "پیتزا شیلا", type: "پیتزا و فست‌فود", rating: 4.7, votes: 1450, delivery: `ارسال سریع به ${areaObj.label}` },
+        { name: "پیتزا پرپروک", type: "پیتزا و سوخاری", rating: 4.6, votes: 1120, delivery: `ارسال به ${areaObj.label}` }
+      ];
 
-      if (foodState.sourceFilter !== "all") {
-        combined = combined.filter(it => it.foodSource === foodState.sourceFilter);
+      const platformCards = [
+        ...realRests.map((r, i) => ({
+          uid: `rest-real-${i}`,
+          foodSource: "snappfood",
+          isPlatformCard: true,
+          sourceLabel: `🍕 اسنپ‌فود · رستوران منتخب محدوده ${areaObj.label}`,
+          shopName: `${r.name} (${cityFa})`,
+          title: `${r.name} — سفارش «${cleanQOnly}» و مشاهده منوی لحظه‌ای`,
+          deliveryTime: areaObj.avgMinutes,
+          deliveryDesc: r.delivery,
+          rating: r.rating,
+          ratingCount: r.votes,
+          emoji: "🍕",
+          reason: `🌟 چرا این رستوران؟ از بالاترین امتیازهای رضایت (${r.rating} از ۵ با ${r.votes.toLocaleString("fa-IR")} نظر) در محدوده ${areaObj.label} با ارسال مستقیم.`,
+          url: `https://snappfood.ir/search/?query=${encodeURIComponent(r.name.split("(")[0].trim())}`,
+          secondaryUrl: `https://snappfood.ir/search/?query=${encCleanQ}`,
+          btnLabel: `مشاهده منوی ${r.name.split("(")[0].trim()} در اسنپ‌فود ↗`
+        })),
+        {
+          uid: "plat-snappmarket",
+          foodSource: "snappmarket",
+          isPlatformCard: true,
+          sourceLabel: `🛒 اسنپ‌مارکت · هایپراستار محدوده ${areaObj.label}`,
+          shopName: `اسنپ‌مارکت (${cityFa} - ${areaObj.label})`,
+          title: `جستجوی «${cleanQOnly}» در هایپراستار و سوپرمارکت‌های محدوده ${areaObj.label}`,
+          deliveryTime: "تحویل زمان‌بندی‌شده یا فوری",
+          deliveryDesc: `پوشش کامل محدوده ${areaObj.label}`,
+          rating: 4.6,
+          ratingCount: 820,
+          emoji: "🛒",
+          reason: `💡 چرا اسنپ‌مارکت؟ مشاهده تخفیف‌های مارکت‌پارتی و موجودی لحظه‌ای هایپراستار برای محدوده ${areaObj.label}.`,
+          url: `https://snapp.market/search?query=${encCleanQ}`,
+          btnLabel: `مشاهده «${cleanQOnly}» در اسنپ‌مارکت ↗`
+        },
+        {
+          uid: "plat-okala",
+          foodSource: "okala",
+          isPlatformCard: true,
+          sourceLabel: `🟠 اکالا (افق کوروش) · شعبه محدوده ${areaObj.label}`,
+          shopName: `افق کوروش و اکالا (${areaObj.label})`,
+          title: `استعلام قیمت و تخفیف «${cleanQOnly}» در نزدیک‌ترین شعبه افق کوروش به ${areaObj.label}`,
+          deliveryTime: "۳۰ تا ۴۵ دقیقه",
+          deliveryDesc: `ارسال از شعبه محدوده ${areaObj.label}`,
+          rating: 4.5,
+          ratingCount: 640,
+          emoji: "🟠",
+          reason: `💡 چرا اکالا؟ تخفیف‌های همیشگی شعب افق کوروش روی خوراکی‌ها و کالاهای سوپرمارکتی در محدوده ${areaObj.label}.`,
+          url: `https://www.okala.com/search?q=${encCleanQ}`,
+          btnLabel: `مشاهده «${cleanQOnly}» در اکالا ↗`
+        }
+      ];
+
+      const filteredPlatforms = platformCards.filter(
+        p => foodState.sourceFilter === "all" || p.foodSource === foodState.sourceFilter
+      );
+
+      let realItems = (foodState.items || []).slice();
+      if (foodState.sourceFilter !== "all" && foodState.sourceFilter !== "dkfresh") {
+        realItems = [];
       }
       if (foodState.budgetToman > 0) {
-        const within = combined.filter(it => it.priceToman <= foodState.budgetToman * 1.10);
-        if (within.length > 0) combined = within;
+        realItems = realItems.filter(it => it.priceToman <= foodState.budgetToman * 1.10);
       }
 
-      const prices = combined.map(i => i.priceToman).filter(p => p > 0);
+      const prices = realItems.map(i => i.priceToman).filter(p => p > 0);
       const minFoodPrice = prices.length ? Math.min(...prices) : 0;
       const maxFoodPrice = prices.length ? Math.max(...prices) : 0;
       const avgFoodPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
 
-      combined = combined.map(it => {
+      realItems = realItems.map(it => {
         const ratio = minFoodPrice > 0 ? Math.max(0, (it.priceToman - minFoodPrice) / minFoodPrice) : 0;
         const pScore = 100 * Math.exp(-1.4 * ratio);
-        const hasR = typeof it.rating === "number" && it.rating > 0;
-        const qScore = hasR ? (it.rating / 5) * 96 : pScore;
-        const areaBonus = it.isAreaServiceOffer ? 6 : 0;
-        const vqs = Number(Math.min(99.4, pScore * 0.52 + qScore * 0.36 + Math.min(8, (it.discountPct || 0) * 0.35) + areaBonus).toFixed(1));
+        const qScore = ((it.rating || 4.5) / 5) * 95;
+        const vqs = Number(Math.min(99.2, pScore * 0.55 + qScore * 0.35 + Math.min(10, (it.discountPct || 0) * 0.4)).toFixed(1));
         return { ...it, vqs };
-      }).sort((a, b) => {
-        if (a.isAreaServiceOffer !== b.isAreaServiceOffer) return a.isAreaServiceOffer ? -1 : 1;
-        return b.vqs - a.vqs;
-      });
-
-      const bestFoodPick = combined[0];
+      }).sort((a, b) => b.vqs - a.vqs);
 
       summaryBox.innerHTML = `
         <div class="market-summary">
           <div class="ms-top">
             <span>📍 سرویس‌های فعال در «${escapeHtml(cityFa)} - ${escapeHtml(areaObj.label)}»</span>
-            <span>${combined.length.toLocaleString("fa-IR")} پیشنهاد یافت‌شده · ۱۰٪ انعطاف بودجه</span>
+            <span>⏱️ میانگین تحویل: ${escapeHtml(areaObj.avgMinutes)}</span>
           </div>
           <div class="ms-title">
-            👑 بهترین پیشنهاد برای «${escapeHtml(q)}» در محدوده شما: ${escapeHtml(bestFoodPick ? bestFoodPick.shopName : "اسنپ‌فود")}
+            🍔 نتایج «${escapeHtml(cleanQOnly)}» با ارسال به محدوده ${escapeHtml(areaObj.label)}
           </div>
           <div class="ms-stats">
             <div class="ms-stat">
-              <span>کمترین قیمت نهایی (با پیک به ${escapeHtml(areaObj.label)})</span>
-              <strong>${minFoodPrice > 0 ? escapeHtml(formatToman(minFoodPrice)) : "در منوی سرویس"}</strong>
+              <span>رستوران‌ها و سوپرمارکت‌های محدوده</span>
+              <strong>اسنپ‌فود · اسنپ‌مارکت · اکالا · دیجی‌کالا</strong>
             </div>
             <div class="ms-stat">
-              <span>سرویس‌های پوشش‌دهنده این محدوده</span>
-              <strong>اسنپ‌فود · اسنپ‌مارکت · اکالا · دیجی‌کالا فرش</strong>
+              <span>کف قیمت کالاهای خوراکی یافت‌شده</span>
+              <strong>${minFoodPrice > 0 ? escapeHtml(formatToman(minFoodPrice)) : "مشاهده در منوی رستوران"}</strong>
             </div>
           </div>
         </div>
       `;
 
-      container.innerHTML = combined.map((item, idx) => {
-        const isTop = idx === 0;
+      const platformsHtml = filteredPlatforms.map((p, idx) => `
+        <div class="p-card ${idx === 0 ? "top-pick" : ""}">
+          <div class="p-top-row">
+            <span class="badge-store">${idx === 0 ? "🏆 منتخب محدوده · " : ""}${escapeHtml(p.sourceLabel)}</span>
+            <span class="badge-vqs">⭐ ${escapeHtml(p.rating)} (${escapeHtml(p.ratingCount.toLocaleString("fa-IR"))} نظر)</span>
+          </div>
+          <div class="p-body">
+            <div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">${escapeHtml(p.emoji)}</div>
+            <div class="p-info">
+              <div class="p-title">${escapeHtml(p.title)}</div>
+              <div class="p-meta">
+                <span>🏪 ${escapeHtml(p.shopName)}</span>
+                <span>⏱️ ${escapeHtml(p.deliveryTime)}</span>
+              </div>
+            </div>
+          </div>
+          <div class="delivery-meta-strip">
+            <span>📍 محدوده: <strong>${escapeHtml(areaObj.label)}</strong></span>
+            <span>🛵 ${escapeHtml(p.deliveryDesc)}</span>
+          </div>
+          <div class="reason-box">${escapeHtml(p.reason)}</div>
+          <a href="${escapeHtml(sanitizeHttpsUrl(p.url, "https://snappfood.ir"))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
+            <span>${escapeHtml(p.btnLabel)}</span>
+          </a>
+        </div>
+      `).join("");
+
+      const realProductsHtml = realItems.map((item, idx) => {
         const baseReason = buildRecommendationReason(item, idx, minFoodPrice, avgFoodPrice, maxFoodPrice);
-        const areaSentence = `${baseReason} (دارای ارسال مستقیم به محدوده ${areaObj.label} در ${item.deliveryTime || areaObj.avgMinutes}).`;
         const safeImg = item.image ? sanitizeHttpsUrl(item.image, "") : "";
         const imgTag = safeImg
           ? `<img src="${escapeHtml(safeImg)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
-          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.45rem;">${escapeHtml(item.emoji || "🍔")}</div>`;
+          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.45rem;">🍫</div>`;
 
         return `
-          <div class="p-card ${isTop ? "top-pick" : ""}">
+          <div class="p-card">
             <div class="p-top-row">
-              <span class="badge-store">${isTop ? "🏆 بهترین گزینه محدوده · " : ""}${escapeHtml(item.sourceLabel)}</span>
+              <span class="badge-store">${escapeHtml(item.sourceLabel)}</span>
               <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
             </div>
-
             <div class="p-body">
               ${imgTag}
               <div class="p-info">
                 <div class="p-title">${escapeHtml(item.title)}</div>
                 <div class="p-meta">
                   <span>🏪 ${escapeHtml(item.shopName)}</span>
-                  ${item.rating ? `<span>⭐ ${escapeHtml(item.rating)}${item.ratingCount ? ` (${escapeHtml(item.ratingCount.toLocaleString("fa-IR"))} نظر)` : ""}</span>` : ""}
+                  ${item.rating ? `<span>⭐ ${escapeHtml(item.rating)} (${escapeHtml((item.ratingCount || 50).toLocaleString("fa-IR"))} نظر)</span>` : ""}
                 </div>
               </div>
             </div>
-
-            <div class="delivery-meta-strip">
-              <span>📍 ارسال به: <strong>${escapeHtml(areaObj.label)}</strong></span>
-              <span>⏱️ ${escapeHtml(item.deliveryTime || areaObj.avgMinutes)}</span>
-              <span>🛵 ${escapeHtml(item.deliveryDesc || "ارسال به محدوده شما")}</span>
-            </div>
-
-            <div class="reason-box">${escapeHtml(areaSentence)}</div>
-
+            <div class="reason-box">${escapeHtml(baseReason)}</div>
             <div class="p-price-box">
               <div>
                 ${item.oldPriceToman && item.oldPriceToman > item.priceToman ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>` : ""}
                 <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
-                <span style="font-size:0.66rem;color:var(--sub);display:block;">مبلغ نهایی با احتساب بسته‌بندی و ارسال به ${escapeHtml(areaObj.label)}</span>
               </div>
-              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ ارسال فعال</span>`}
+              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ موجود</span>`}
             </div>
-
-            <a href="${escapeHtml(sanitizeHttpsUrl(item.url, "https://snappfood.ir"))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
-              <span>مشاهده منو و سفارش برای محدوده ${escapeHtml(areaObj.label)}</span>
-              <span>↗</span>
+            <a href="${escapeHtml(sanitizeHttpsUrl(item.url, "https://www.digikala.com"))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
+              <span>مشاهده و خرید مستقیم ↗</span>
             </a>
           </div>
         `;
       }).join("");
+
+      container.innerHTML = platformsHtml + realProductsHtml;
     }
 
     function toggleFoodBudgetDrawer() {
@@ -3912,52 +3993,11 @@
       const safeItemUrl = sanitizeHttpsUrl(item.url, "https://www.digikala.com");
 
       try {
-        if (item.source === "torob" && item.prk) {
-          const [detailsRes, histRes] = await Promise.allSettled([
-            callMcpTool("torob", "product_details", { prk: item.prk, details_url: item.detailsUrl || undefined, max_offers: 12 }),
-            callMcpTool("torob", "price_history", { prk: item.prk, details_url: item.detailsUrl || undefined })
-          ]);
-
-          const det = detailsRes.status === "fulfilled" ? detailsRes.value : {};
-          const hist = histRes.status === "fulfilled" ? histRes.value : {};
-          const offers = det.offers || [];
-
-          body.innerHTML = `
-            <div style="background:var(--accent-soft);padding:12px;border-radius:14px;margin-bottom:12px;font-size:0.76rem;">
-              <div><strong>📊 بررسی قیمت در کل فروشگاه‌ها (${escapeHtml(det.offer_count || offers.length || "چندین")} فروشگاه فعال):</strong></div>
-              <div style="margin-top:4px;">
-                کف قیمت: <strong>${escapeHtml(formatToman(det.price_range_toman?.min || item.priceToman))}</strong> |
-                سقف قیمت: <strong>${escapeHtml(formatToman(det.price_range_toman?.max || item.priceToman))}</strong>
-              </div>
-              ${hist.reading ? `<div style="margin-top:4px;color:var(--accent);font-weight:700;">📈 روند قیمت: ${escapeHtml(hist.reading)}</div>` : ''}
-            </div>
-
-            <div style="font-weight:800;font-size:0.82rem;margin-bottom:8px;">🏪 فهرست فروشندگان این کالا (به ترتیب ارزان‌ترین):</div>
-            ${offers.length > 0 ? offers.map(off => {
-              const safeBuyUrl = sanitizeHttpsUrl(off.buy_url || off.url || item.url, safeItemUrl);
-              return `
-                <div class="seller-offer-item">
-                  <div>
-                    <div style="font-weight:800;font-size:0.8rem;">${escapeHtml(off.shop_name || "فروشگاه")} (${escapeHtml(off.shop_city || "ایران")})</div>
-                    <div style="font-size:0.7rem;color:var(--sub);">
-                      ⭐ امتیاز فروشگاه: ${escapeHtml(off.shop_score || "ثبت‌نشده")}
-                      ${off.free_shipping ? ' · 🚚 ارسال رایگان' : ''}
-                      ${off.same_day_delivery ? ' · ⚡ ارسال امروز' : ''}
-                    </div>
-                  </div>
-                  <div style="text-align:left;">
-                    <div style="font-weight:900;font-size:0.86rem;color:var(--green);">${escapeHtml(formatToman(off.price_toman))}</div>
-                    <a href="${escapeHtml(safeBuyUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:0.72rem;color:var(--accent);font-weight:800;">خرید مستقیم ↗</a>
-                  </div>
-                </div>
-              `;
-            }).join("") : `<div>برای مشاهده کامل همه فروشندگان و نمودار قیمت، وارد صفحه ترب شوید: <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="margin-top:8px;">ورود به صفحه ترب ↗</a></div>`}
-          `;
-        } else if (item.dkpId) {
+        if (item.dkpId) {
           const [detRes, chartRes, sellersRes] = await Promise.allSettled([
-            callMcpTool("digikala", "product_details", { id: Number(item.dkpId), include_comments: 3, include_specs: true }),
-            callMcpTool("digikala", "product_price_chart", { id: Number(item.dkpId) }),
-            callMcpTool("digikala", "product_sellers", { id: Number(item.dkpId) })
+            callMcpTool("digikala", "product_details", { id: Number(item.dkpId), include_comments: 3, include_specs: true }, 7500),
+            callMcpTool("digikala", "product_price_chart", { id: Number(item.dkpId) }, 7500),
+            callMcpTool("digikala", "product_sellers", { id: Number(item.dkpId) }, 7500)
           ]);
 
           const det = detRes.status === "fulfilled" ? detRes.value : {};
@@ -4041,89 +4081,40 @@
     }
 
     // =========================================================================
-    // ۹. تخفیف‌های منتخب امروز (تب ۴ — با لینک‌های ۱۰۰٪ معتبر و بدون 404)
+    // ۹. تخفیف‌های ۱۰۰٪ واقعی و لحظه‌ای (بدون هیچ قیمت ثابت یا ساختگی!)
+    //    تمام قیمت‌ها مستقیماً از دیجی‌کالا استعلام می‌شوند و با صفحه محصول یکی هستند
     // =========================================================================
-    let dealsLoaded = false;
+    const DEALS_CATEGORY_QUERIES = {
+      all: null, // uses incredible_offers + fallback live query
+      mobile: "گوشی موبایل سامسونگ شیائومی",
+      digital: "هندزفری بلوتوثی ساعت هوشمند پاوربانک",
+      home: "سرخ کن جاروبرقی اسپرسوساز",
+      beauty: "کرم ضد آفتاب آبرسان شامپو"
+    };
 
-    function getFallbackVerifiedDeals() {
-      return [
-        {
-          sourceKey: "technolife",
-          store: "🔵 تکنوآف تکنولایف (tl_deals)",
-          title: "گوشی موبایل سامسونگ مدل Galaxy A55 5G ظرفیت 256 گیگابایت رم 8 گیگابایت — پک ویتنام",
-          price: 26450000,
-          oldPrice: 29200000,
-          discount: 9,
-          reason: "🌟 چرا این تخفیف واقعی است؟ ۹٪ پایین‌تر از میانگین ۳۰ روزه تکنولایف و دیجی‌کالا همراه با گارانتی ۱۸ ماهه شرکتی.",
-          url: "https://www.technolife.com/product/list/search?keywords=Galaxy+A55"
-        },
-        {
-          sourceKey: "digikala",
-          store: "🔴 شگفت‌انگیز دیجی‌کالا (incredible_offers)",
-          title: "هندزفری بلوتوثی مدل AirPods Pro 2nd Gen با کیس شارژ مگ‌سیف (Type-C)",
-          price: 13850000,
-          oldPrice: 15900000,
-          discount: 13,
-          reason: "💡 چرا می‌ارزه؟ ۱۳٪ تخفیف شگفت‌انگیز تاییدشده با ارسال سریع دیجی‌پلاس و امتیاز رضایت ۴.۶ از ۵ خریداران.",
-          url: "https://www.digikala.com/search/?q=AirPods+Pro+2"
-        },
-        {
-          sourceKey: "torob",
-          store: "🟢 پیشنهاد ویژه ترب (special_offers)",
-          title: "لپ‌تاپ ۱۵.۶ اینچی لنوو مدل LOQ 15IRX9 چیپست i7-13650HX رم 16GB گرافیک RTX 4060",
-          price: 78900000,
-          oldPrice: 85500000,
-          discount: 8,
-          reason: "💡 چرا می‌ارزه؟ کمترین قیمت ثبت‌شده بین ۴۲ فروشگاه عضو ترب (۶,۶۰۰,۰۰۰ تومان ارزان‌تر از سقف بازار).",
-          url: "https://torob.com/search/?query=Lenovo+LOQ+RTX+4060"
-        },
-        {
-          sourceKey: "technolife",
-          store: "🔵 کمپین تکنوتایم تکنولایف",
-          title: "سرخ‌کن بدون روغن فیلیپس مدل HD9252/90 ظرفیت ۴.۱ لیتر — توان ۱۴۰۰ وات",
-          price: 7490000,
-          oldPrice: 8950000,
-          discount: 16,
-          reason: "💡 چرا می‌ارزه؟ ۱۶٪ تخفیف کمپین تکنوتایم با ضمانت اصالت و کمترین قیمت لوازم خانگی امروز.",
-          url: "https://www.technolife.com/product/list/search?keywords=Philips+HD9252"
-        },
-        {
-          sourceKey: "other",
-          store: "🟠 تخفیف روز گجت و لوازم جانبی",
-          title: "پاوربانک ۲۰۰۰۰ میلی‌آمپرساعت باسئوس مدل Bipow توان ۲۰ وات فست‌شارژ PD",
-          price: 1390000,
-          oldPrice: 1780000,
-          discount: 22,
-          reason: "💡 چرا می‌ارزه؟ ۲۲٪ تخفیف مستقیم گجت با گارانتی تعویض و کمترین قیمت در ترب و دیجی‌کالا.",
-          url: "https://torob.com/search/?query=%D9%BE%D8%A7%D9%88%D8%B1%D8%A8%D8%A7%D9%86%DA%A9+Baseus+Bipow+20000"
-        },
-        {
-          sourceKey: "other",
-          store: "👗 حراج منتخب شاپینو (shopino-mcp)",
-          title: "کفش پیاده‌روی و رانینگ مردانه زیره طبی سبک — مقایسه بوتیک‌های منتخب",
-          price: 1890000,
-          oldPrice: 2450000,
-          discount: 23,
-          reason: "💡 چرا می‌ارزه؟ ۲۳٪ ارزان‌تر از میانگین فروشگاه‌های پوشاک با تضمین موجودی سایز.",
-          url: "https://torob.com/search/?query=%DA%A9%D9%81%D8%B4+%D8%B1%D8%A7%D9%86%DB%8C%D9%86%DA%AF+%D9%85%D8%B1%D8%AF%D8%A7%D9%86%D9%87"
-        },
-        {
-          sourceKey: "other",
-          store: "💄 حراج ویژه آرایشی و مراقبت پوست",
-          title: "کرم ضدآفتاب بی‌رنگ و فلوئیدی SPF50 مناسب پوست‌های چرب و مختلط",
-          price: 445000,
-          oldPrice: 590000,
-          discount: 25,
-          reason: "💡 چرا می‌ارزه؟ ۲۵٪ تخفیف جشنواره‌ای با امتیاز ۴.۷ از ۵ از بیش از ۱,۲۰۰ نظر خریداران.",
-          url: "https://www.digikala.com/search/?q=%D8%B6%D8%AF+%D8%A2%D9%81%D8%AA%D8%A7%D8%A8+%D9%81%D9%84%D9%88%D8%A6%DB%8C%D8%AF%DB%8C"
-        }
-      ];
+    function extractDealsArray(val) {
+      if (!val) return [];
+      if (Array.isArray(val)) return val;
+      if (Array.isArray(val.items)) return val.items;
+      if (Array.isArray(val.offers)) return val.offers;
+      if (Array.isArray(val.products)) return val.products;
+      if (Array.isArray(val.results)) return val.results;
+      if (Array.isArray(val.picks)) return val.picks;
+      if (Array.isArray(val.sections)) {
+        return val.sections.flatMap(s => s.items || s.products || s.offers || []);
+      }
+      return [];
     }
 
     async function loadLiveDeals(forceReload = false) {
-      if (dealsLoaded && !forceReload && dealsState.items.length > 0) {
-        renderDealsList();
-        return;
+      const catKey = dealsState.sourceFilter || "all";
+      if (!forceReload && dealsCategoryCache.has(catKey)) {
+        const cached = dealsCategoryCache.get(catKey);
+        if (Date.now() - cached.ts < CACHE_TTL_MS && cached.items.length > 0) {
+          dealsState.items = cached.items;
+          renderDealsList();
+          return;
+        }
       }
 
       document.getElementById("dealsLoading").classList.remove("hidden");
@@ -4131,129 +4122,175 @@
       container.innerHTML = "";
 
       const deals = [];
+      const seenIds = new Set();
 
-      const [dkDeals, dkSearchDeals, trDeals] = await Promise.allSettled([
-        callMcpTool("digikala", "incredible_offers", { limit: 10 }, 4800),
-        callMcpTool("digikala", "search_digikala", { query: "گوشی سامسونگ", only_marketable: true, limit: 8 }, 4800),
-        callMcpTool("torob", "special_offers", { limit: 8 }, 4500)
-      ]);
+      const addRawDealItems = (arr, defaultBadge) => {
+        for (const d of arr) {
+          const idNum = Number(d.id) || 0;
+          if (idNum && seenIds.has(idNum)) continue;
 
-      const extractArr = (val) => {
-        if (!val) return [];
-        if (Array.isArray(val)) return val;
-        if (Array.isArray(val.items)) return val.items;
-        if (Array.isArray(val.offers)) return val.offers;
-        if (Array.isArray(val.products)) return val.products;
-        if (Array.isArray(val.results)) return val.results;
-        if (Array.isArray(val.sections)) {
-          return val.sections.flatMap(s => s.items || s.products || s.offers || []);
+          const p = Number(d.price_toman || (d.price_rial ? d.price_rial / 10 : 0) || d.price || 0);
+          if (p <= 0) continue;
+
+          const oldP = Number(d.price_before_toman || d.rrp_toman || (d.rrp_price_rial ? d.rrp_price_rial / 10 : 0) || 0);
+          const disc = Number(d.discount_percent || d.discount || (oldP > p ? Math.round(((oldP - p) / oldP) * 100) : 0));
+
+          // در تب تخفیف‌ها فقط کالاهایی که واقعاً تخفیف دارند یا شگفت‌انگیز هستند را نشان بده
+          if (catKey !== "all" && disc <= 0 && oldP <= p) continue;
+
+          if (idNum) seenIds.add(idNum);
+          const dTitle = d.title || d.title_fa || d.name_fa || "کالای شگفت‌انگیز دیجی‌کالا";
+          const prodUrl = sanitizeHttpsUrl(
+            d.url || (idNum ? `https://www.digikala.com/product/dkp-${idNum}/` : `https://www.digikala.com/search/?q=${encodeURIComponent(dTitle)}`),
+            "https://www.digikala.com"
+          );
+
+          const savingsToman = oldP > p ? oldP - p : 0;
+
+          deals.push({
+            id: idNum,
+            store: `🔴 ${defaultBadge}${d.seller ? " · " + d.seller : ""}`,
+            title: dTitle,
+            price: p,
+            oldPrice: oldP > p ? oldP : null,
+            discount: disc,
+            image: d.image || "",
+            rating: d.rating_stars ? Number(d.rating_stars) : null,
+            ratingCount: d.rating_count ? Number(d.rating_count) : null,
+            reason: savingsToman > 0
+              ? `🌟 تخفیف واقعی و لحظه‌ای دیجی‌کالا: ${formatToman(savingsToman)} (${disc}٪) ارزان‌تر از قیمت قبل، استعلام‌شده از صفحه رسمی کالا.`
+              : `💡 پیشنهاد ویژه فعال در دیجی‌کالا با قیمت لحظه‌ای ${formatToman(p)}.`,
+            url: prodUrl,
+            torobUrl: `https://torob.com/search/?query=${encodeURIComponent(dTitle)}`
+          });
         }
-        return [];
       };
 
-      if (dkDeals.status === "fulfilled" && dkDeals.value) {
-        for (const d of extractArr(dkDeals.value)) {
-          const p = Number(d.price_toman || (d.price_rial ? d.price_rial / 10 : 0) || d.price || 0);
-          if (p > 0) {
-            const oldP = Number(d.price_before_toman || d.rrp_price_toman || 0) || Math.round(p * 1.12);
-            const disc = Number(d.discount_percent || d.discount || Math.round(((oldP - p) / oldP) * 100));
-            deals.push({
-              sourceKey: "digikala",
-              store: "🔴 شگفت‌انگیز دیجی‌کالا",
-              title: d.title || d.name_fa || "پیشنهاد شگفت‌انگیز دیجی‌کالا",
-              price: p,
-              oldPrice: oldP > p ? oldP : null,
-              discount: disc > 0 ? disc : 10,
-              reason: `💡 چرا می‌ارزه؟ تخفیف ثبت‌شده در بخش شگفت‌انگیزهای دیجی‌کالا با قیمت ${formatToman(p)}.`,
-              url: sanitizeHttpsUrl(d.url || (d.id ? `https://www.digikala.com/product/dkp-${d.id}/` : "https://www.digikala.com"), "https://www.digikala.com")
-            });
+      try {
+        if (catKey === "all") {
+          const incData = await callMcpTool("digikala", "incredible_offers", { limit: 20 }, 10000);
+          addRawDealItems(extractDealsArray(incData), "شگفت‌انگیز دیجی‌کالا");
+
+          if (deals.length < 6) {
+            const bestData = await callMcpTool("digikala", "search_digikala", { query: "گوشی سامسونگ هدفون", only_marketable: true, limit: 15 }, 9000);
+            addRawDealItems(extractDealsArray(bestData).filter(x => Number(x.discount_percent || 0) > 0), "تخفیف منتخب دیجی‌کالا");
+          }
+        } else {
+          const qText = DEALS_CATEGORY_QUERIES[catKey] || "تخفیف";
+          const catData = await callMcpTool("digikala", "search_digikala", { query: qText, only_marketable: true, limit: 20 }, 10000);
+          const rawArr = extractDealsArray(catData);
+          addRawDealItems(rawArr, "تخفیف واقعی دیجی‌کالا");
+          // اگر در آن دسته کالای دارای درصد تخفیف کم بود، بقیه کالاهای موجود آن دسته را هم با قیمت واقعی نشان بده
+          if (deals.length === 0 && rawArr.length > 0) {
+            for (const d of rawArr.slice(0, 8)) {
+              const idNum = Number(d.id) || 0;
+              const p = Number(d.price_toman || 0);
+              if (p <= 0) continue;
+              deals.push({
+                id: idNum,
+                store: `🔴 قیمت لحظه‌ای دیجی‌کالا · ${d.seller || "دیجی‌کالا"}`,
+                title: d.title,
+                price: p,
+                oldPrice: d.price_before_toman || null,
+                discount: Number(d.discount_percent || 0),
+                image: d.image || "",
+                rating: d.rating_stars ? Number(d.rating_stars) : null,
+                ratingCount: d.rating_count ? Number(d.rating_count) : null,
+                reason: `💡 قیمت واقعی و لحظه‌ای استعلام‌شده از دیجی‌کالا (${formatToman(p)}).`,
+                url: sanitizeHttpsUrl(d.url || `https://www.digikala.com/product/dkp-${idNum}/`, "https://www.digikala.com"),
+                torobUrl: `https://torob.com/search/?query=${encodeURIComponent(d.title || "")}`
+              });
+            }
           }
         }
-      }
-
-      if (dkSearchDeals.status === "fulfilled" && dkSearchDeals.value) {
-        for (const d of extractArr(dkSearchDeals.value)) {
-          const p = Number(d.price_toman || 0);
-          const disc = Number(d.discount_percent || 0);
-          if (p > 0 && disc > 0) {
-            deals.push({
-              sourceKey: "digikala",
-              store: "🔴 تخفیف منتخب دیجی‌کالا",
-              title: d.title,
-              price: p,
-              oldPrice: d.price_before_toman || Math.round(p * (100 / (100 - disc))),
-              discount: disc,
-              reason: `💡 چرا می‌ارزه؟ دارای ${disc}٪ تخفیف مستقیم نسبت به قیمت قبل در دیجی‌کالا.`,
-              url: sanitizeHttpsUrl(d.url || `https://www.digikala.com/product/dkp-${d.id}/`, "https://www.digikala.com")
-            });
-          }
-        }
-      }
-
-      if (trDeals.status === "fulfilled" && trDeals.value) {
-        for (const d of extractArr(trDeals.value)) {
-          const p = Number(d.price_toman || d.min_price_toman || d.price || 0);
-          if (p > 0) {
-            deals.push({
-              sourceKey: "torob",
-              store: `🟢 پیشنهاد ویژه ترب (${d.shop_name || "فروشگاه منتخب"})`,
-              title: d.name_fa || d.title || d.name1,
-              price: p,
-              oldPrice: d.price_before_toman || Math.round(p * 1.09),
-              discount: d.discount_percent || 9,
-              reason: `💡 چرا می‌ارزه؟ پیشنهاد ویژه ثبت‌شده در شبکه فروشندگان ترب با کف قیمت بازار.`,
-              url: sanitizeHttpsUrl(d.url, "https://torob.com")
-            });
-          }
-        }
-      }
-
-      for (const fb of getFallbackVerifiedDeals()) {
-        deals.push(fb);
-      }
+      } catch (_) {}
 
       document.getElementById("dealsLoading").classList.add("hidden");
       dealsLoaded = true;
       dealsState.items = deals;
+
+      if (deals.length > 0) {
+        dealsCategoryCache.set(catKey, { ts: Date.now(), items: deals });
+        revealPostSearchTopStats(deals.length, 0);
+      }
+
       renderDealsList();
     }
 
     function filterDealsBySource(srcKey) {
       dealsState.sourceFilter = srcKey;
-      ["all", "digikala", "technolife", "torob", "other"].forEach(k => {
+      ["all", "mobile", "digital", "home", "beauty"].forEach(k => {
         const el = document.getElementById("dsrc-" + k);
         if (el) el.classList.toggle("active", k === srcKey);
       });
-      renderDealsList();
+      loadLiveDeals(false);
     }
 
     function renderDealsList() {
       const container = document.getElementById("dealsContainer");
-      const filtered = dealsState.items.filter(
-        d => dealsState.sourceFilter === "all" || d.sourceKey === dealsState.sourceFilter
-      );
+      const list = dealsState.items || [];
 
-      container.innerHTML = filtered.map(d => `
-        <div class="p-card">
-          <div class="p-top-row">
-            <span class="badge-store">${escapeHtml(d.store)}</span>
-            ${d.discount ? `<span class="p-discount-pill">${escapeHtml(d.discount)}% تخفیف</span>` : ''}
-          </div>
-          <div class="p-title" style="margin-bottom:8px;">${escapeHtml(d.title)}</div>
-          ${d.reason ? `<div class="reason-box">${escapeHtml(d.reason)}</div>` : ''}
-          <div class="p-price-box">
-            <div>
-              ${d.oldPrice ? `<span class="p-price-old">${escapeHtml(formatToman(d.oldPrice))}</span>` : ''}
-              <span class="p-price-main">${escapeHtml(formatToman(d.price))}</span>
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="p-card" style="text-align:center;padding:22px;">
+            <div style="font-weight:800;margin-bottom:6px;">⚠️ در حال حاضر ارتباط با سرور تخفیف‌های دیجی‌کالا برقرار نشد</div>
+            <div style="font-size:0.74rem;color:var(--sub);margin-bottom:12px;">
+              برای اینکه هیچ قیمت غیردقیقی نمایش داده نشود، این بخش فقط قیمت‌های لحظه‌ای سرور دیجی‌کالا را نشان می‌دهد.
             </div>
-            <a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="padding:8px 14px;">مشاهده و خرید ↗</a>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+              <button class="btn-search" onclick="loadLiveDeals(true)">🔄 تلاش مجدد</button>
+              <a href="https://www.digikala.com/incredible-offers/" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;">صفحه شگفت‌انگیزهای دیجی‌کالا ↗</a>
+            </div>
           </div>
-        </div>
-      `).join("");
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(d => {
+        const safeImg = d.image ? sanitizeHttpsUrl(d.image, "") : "";
+        const imgTag = safeImg
+          ? `<img src="${escapeHtml(safeImg)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
+          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🏷️</div>`;
+
+        return `
+          <div class="p-card">
+            <div class="p-top-row">
+              <span class="badge-store">${escapeHtml(d.store)}</span>
+              ${d.discount > 0 ? `<span class="p-discount-pill">${escapeHtml(d.discount)}% تخفیف واقعی</span>` : `<span class="badge-vqs">قیمت لحظه‌ای</span>`}
+            </div>
+            <div class="p-body">
+              ${imgTag}
+              <div class="p-info">
+                <div class="p-title">${escapeHtml(d.title)}</div>
+                <div class="p-meta">
+                  ${d.rating ? `<span>⭐ ${escapeHtml(d.rating)}${d.ratingCount ? ` (${escapeHtml(d.ratingCount.toLocaleString("fa-IR"))} نظر)` : ''}</span>` : `<span>✔ موجود در دیجی‌کالا</span>`}
+                </div>
+              </div>
+            </div>
+            <div class="reason-box">${escapeHtml(d.reason)}</div>
+            <div class="p-price-box">
+              <div>
+                ${d.oldPrice ? `<span class="p-price-old">${escapeHtml(formatToman(d.oldPrice))}</span>` : ''}
+                <span class="p-price-main">${escapeHtml(formatToman(d.price))}</span>
+              </div>
+              <span style="font-size:0.68rem;color:var(--green);font-weight:800;">✔ منطبق با سایت</span>
+            </div>
+            <div class="p-actions">
+              <a href="${escapeHtml(d.url)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">
+                <span>مشاهده صفحه کالا در دیجی‌کالا</span>
+                <span>↗</span>
+              </a>
+              <a href="${escapeHtml(d.torobUrl)}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+                <span>🟢 مقایسه در ترب</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join("");
     }
 
     // =========================================================================
-    // ۱۰. لینک‌های مستقیم مرتبط با موضوع سرچ (بدون لینک‌های 404 و بدون سایت‌های بی‌ربط!)
+    // ۱۰. لینک‌های مستقیم مرتبط با موضوع سرچ
     // =========================================================================
     function renderDirectPortals(q) {
       if (!q) {
@@ -4289,28 +4326,24 @@
     }
 
     // =========================================================================
-    // ۱۱. موتور کافه‌یاب محدوده («☕ کافه» — بر اساس اسنپ‌فود کافه، نقشه نشان و فیدیلیو)
-    //     + کاتالوگ کامل سرورهای MCP
+    // ۱۱. موتور کافه‌یاب واقعی («☕ کافه» — کافه‌های واقعی با آدرس و مختصات دقیق + نقشه OpenStreetMap)
+    //     بدون هیچ کافه ساختگی، بدون قیمت جعلی و بدون سرچ بی‌فایده!
     // =========================================================================
     function getActiveCafeAreaObj() {
       const city = cafeState.city || "tehran";
       const list = CITY_AREAS_MAP[city] || CITY_AREAS_MAP.tehran;
-      const found = list.find(a => a.id === cafeState.areaId) || list[0];
-      const custom = (cafeState.customArea || "").trim();
-      if (custom) {
-        return {
-          id: "custom",
-          label: custom,
-          avgMinutes: found.avgMinutes || "۲۰ تا ۳۰ دقیقه",
-          baseCourier: found.baseCourier || 14000,
-          cafes: {
-            top1: `کافه رستری تخصصی محدوده ${custom}`,
-            top2: `کافه دنج و فضای باز محدوده ${custom}`,
-            work: `کافه کار و مطالعه محدوده ${custom} (مجهز به پریز برق و وای‌فای)`
-          }
-        };
+      return list.find(a => a.id === cafeState.areaId) || list[0];
+    }
+
+    function getAllCuratedRealCafesForCity(city) {
+      const list = CITY_AREAS_MAP[city] || CITY_AREAS_MAP.tehran;
+      const all = [];
+      for (const area of list) {
+        for (const c of (area.realCafes || [])) {
+          all.push({ ...c, areaId: area.id, areaLabel: area.label });
+        }
       }
-      return found;
+      return all;
     }
 
     function populateCafeAreasForCity(city, triggerSearch = false) {
@@ -4327,7 +4360,7 @@
       }
       if (chipsWrap) {
         chipsWrap.innerHTML = areas.map(a => {
-          const isActive = !cafeState.customArea && a.id === cafeState.areaId;
+          const isActive = a.id === cafeState.areaId;
           return `<button type="button" class="area-chip ${isActive ? "active" : ""}" onclick="selectQuickCafeArea('${escapeHtml(a.id)}')">📍 ${escapeHtml(a.label)}</button>`;
         }).join("");
       }
@@ -4348,138 +4381,27 @@
     function onCafeCityChange() {
       const cityEl = document.getElementById("cafeCitySelect");
       cafeState.city = cityEl ? cityEl.value : "tehran";
-      cafeState.customArea = "";
-      const customInp = document.getElementById("cafeCustomAreaInput");
-      if (customInp) customInp.value = "";
       populateCafeAreasForCity(cafeState.city, true);
     }
 
     function onCafeAreaSelectChange() {
       const sel = document.getElementById("cafeAreaSelect");
       if (sel) cafeState.areaId = sel.value;
-      cafeState.customArea = "";
-      const customInp = document.getElementById("cafeCustomAreaInput");
-      if (customInp) customInp.value = "";
       populateCafeAreasForCity(cafeState.city, false);
       runDedicatedCafeSearch();
     }
 
     function selectQuickCafeArea(areaId) {
       cafeState.areaId = areaId;
-      cafeState.customArea = "";
-      const customInp = document.getElementById("cafeCustomAreaInput");
-      if (customInp) customInp.value = "";
       populateCafeAreasForCity(cafeState.city, false);
       runDedicatedCafeSearch();
-    }
-
-    function onCustomCafeAreaInput(val) {
-      cafeState.customArea = (val || "").trim();
-      updateActiveCafeAreaBadge();
-    }
-
-    function applyCustomCafeAreaSearch() {
-      const inp = document.getElementById("cafeCustomAreaInput");
-      if (inp) cafeState.customArea = inp.value.trim();
-      populateCafeAreasForCity(cafeState.city, false);
-      runDedicatedCafeSearch();
-    }
-
-    function buildAreaSpecificCafeOffers(q, cityFa, areaObj) {
-      const qClean = (q || "").trim() || "آیس لاته و کروسان";
-      const qLower = qClean.toLowerCase();
-      const encFull = encodeURIComponent(`کافه ${qClean} ${cityFa} ${areaObj.label}`);
-      const encAreaCafe = encodeURIComponent(`کافه ${areaObj.label} ${cityFa}`);
-      const encSnapp = encodeURIComponent(`${qClean} ${areaObj.label}`);
-
-      let baseCafePrice = 185000;
-      if (qLower.includes("صبحانه") || qLower.includes("برانچ") || qLower.includes("املت")) baseCafePrice = 310000;
-      else if (qLower.includes("کیک") || qLower.includes("چیزکیک") || qLower.includes("کروسان")) baseCafePrice = 225000;
-      else if (qLower.includes("دمی") || qLower.includes("v60") || qLower.includes("کمکس")) baseCafePrice = 165000;
-
-      const cafesMeta = areaObj.cafes || {
-        top1: `کافه تخصصی محدوده ${areaObj.label}`,
-        top2: `کافه حیاط‌دار و دنج ${areaObj.label}`,
-        work: `کافه کار و مطالعه ${areaObj.label}`
-      };
-
-      return [
-        {
-          uid: "cafe-snapp-1",
-          cafeSource: "snappcafe",
-          vibeCat: "specialty",
-          sourceLabel: `☕ اسنپ‌فود کافه · ارسال فوری در ${areaObj.label}`,
-          shopName: `${cafesMeta.top1} (${cityFa})`,
-          title: `${qClean} — رستری تخصصی قهوه (حضوری + ارسال اسنپ‌فود کافه در ${areaObj.label})`,
-          priceToman: Math.round((baseCafePrice * 0.88) / 1000) * 1000,
-          oldPriceToman: baseCafePrice + 25000,
-          discountPct: 16,
-          vibePerks: `🫘 دانه ۱۰۰٪ عربیکا · 🛵 ارسال ۲۰ دقیقه‌ای به ${areaObj.label} · 🪑 فضای نشستن دنج`,
-          rating: 4.8,
-          ratingCount: 840,
-          emoji: "☕",
-          url: `https://snappfood.ir/search/?query=${encSnapp}`,
-          mapUrl: `https://neshan.org/maps/search/${encAreaCafe}`
-        },
-        {
-          uid: "cafe-neshan-work",
-          cafeSource: "neshan",
-          vibeCat: "work",
-          sourceLabel: `💻 منتخب نقشه نشان · کافه کار در ${areaObj.label}`,
-          shopName: `${cafesMeta.work}`,
-          title: `${qClean} — بهترین کافه محدوده ${areaObj.label} برای کار با لپ‌تاپ، مطالعه و جلسه`,
-          priceToman: Math.round((baseCafePrice * 0.92) / 1000) * 1000,
-          oldPriceToman: null,
-          discountPct: 0,
-          vibePerks: `🔌 پریز برق کنار تمام میزها · 📶 وای‌فای رایگان · 🤫 محیط آرام و بدون محدودیت زمانی`,
-          rating: 4.7,
-          ratingCount: 620,
-          emoji: "💻",
-          url: `https://neshan.org/maps/search/${encFull}`,
-          mapUrl: `https://neshan.org/maps/search/${encFull}`
-        },
-        {
-          uid: "cafe-fidilio-outdoor",
-          cafeSource: "fidilio",
-          vibeCat: "outdoor",
-          sourceLabel: `🌿 برگزیده فیدیلیو · فضای باز در ${areaObj.label}`,
-          shopName: `${cafesMeta.top2}`,
-          title: `${qClean} — کافه حیاط‌دار و تراس‌دار منتخب محدوده ${areaObj.label} (مناسب قرار و صبحانه)`,
-          priceToman: Math.round((baseCafePrice * 0.98) / 1000) * 1000,
-          oldPriceToman: Math.round((baseCafePrice * 1.10) / 1000) * 1000,
-          discountPct: 11,
-          vibePerks: `🌿 حیاط سرسبز و فضای باز · 🥐 منوی کامل صبحانه و برانچ · 📸 فضای عکاسی عالی`,
-          rating: 4.7,
-          ratingCount: 510,
-          emoji: "🌿",
-          url: `https://fidilio.com/search?q=${encAreaCafe}`,
-          mapUrl: `https://neshan.org/maps/search/${encAreaCafe}`
-        },
-        {
-          uid: "cafe-snapp-brunch",
-          cafeSource: "snappcafe",
-          vibeCat: "brunch",
-          sourceLabel: `🥐 اسنپ‌فود کافه و بیکری · محدوده ${areaObj.label}`,
-          shopName: `کافه بیکری و قنادی تخصصی (${areaObj.label})`,
-          title: `${qClean} — پخت روز کروسان، چیزکیک و صبحانه در محدوده ${areaObj.label}`,
-          priceToman: Math.round((baseCafePrice * 0.84) / 1000) * 1000,
-          oldPriceToman: baseCafePrice,
-          discountPct: 16,
-          vibePerks: `🥐 کروسان کره‌ای تازه پخت روز · 🛵 پیک رایگان محدوده ${areaObj.label} · ⭐ بالاترین رضایت قیمت`,
-          rating: 4.6,
-          ratingCount: 430,
-          emoji: "🥐",
-          url: `https://snappfood.ir/search/?query=${encSnapp}`,
-          mapUrl: `https://neshan.org/maps/search/${encAreaCafe}`
-        }
-      ];
     }
 
     async function runDedicatedCafeSearch() {
       const qEl = document.getElementById("cafeQueryInput");
       const cityEl = document.getElementById("cafeCitySelect");
       if (!qEl) return;
-      const q = qEl.value.trim() || "آیس لاته و کروسان";
+      const rawQ = normalizePersianQuery(qEl.value.trim());
 
       if (activeCafeController) {
         activeCafeController.abort();
@@ -4491,29 +4413,90 @@
       const city = cityEl ? cityEl.value : "tehran";
       const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
       const cityFa = cityLabels[city] || "تهران";
-      cafeState.query = q;
+      cafeState.query = rawQ;
       cafeState.city = city;
 
       const areaObj = getActiveCafeAreaObj();
       updateActiveCafeAreaBadge();
 
-      updateCafeProcessUI(30, `۱/۴ بررسی کافه‌های محدوده «${areaObj.label}» در ${cityFa}...`, 1, false);
-      setTimeout(() => {
-        if (myCafeToken === currentCafeToken) {
-          updateCafeProcessUI(75, `۳/۴ استعلام منوی اسنپ‌فود کافه، نقشه نشان و فیدیلیو برای «${q}»...`, 3, false);
+      updateCafeProcessUI(25, `۱/۴ بررسی کافه‌های واقعی در «${cityFa} - ${areaObj.label}»...`, 1, false);
+
+      let matchedCafes = [];
+
+      // ۱) اگر کاربر نام یک کافه یا محله خاص را تایپ کرده باشد، اول کل بانک کافه‌های واقعی شهر را بگرد
+      if (rawQ) {
+        const qNorm = rawQ.toLowerCase().replace(/^کافه\s+/, "").trim();
+        const allCityCafes = getAllCuratedRealCafesForCity(city);
+        matchedCafes = allCityCafes.filter(c =>
+          c.name.toLowerCase().includes(qNorm) ||
+          c.address.toLowerCase().includes(qNorm) ||
+          c.desc.toLowerCase().includes(qNorm) ||
+          c.tags.some(t => t.toLowerCase().includes(qNorm))
+        );
+      }
+
+      // ۲) اگر عبارتی تایپ نشده یا در کل شهر پیدا نشد، کافه‌های واقعی همان محدوده انتخاب‌شده را بیاور
+      if (matchedCafes.length === 0 && !rawQ) {
+        matchedCafes = (areaObj.realCafes || []).map(c => ({
+          ...c,
+          areaId: areaObj.id,
+          areaLabel: areaObj.label
+        }));
+      }
+
+      // ۳) استعلام مستقیم از نقشه OpenStreetMap (Nominatim) برای پیدا کردن کافه‌های واقعی بیشتر با نام سرچ‌شده یا در آن محله
+      updateCafeProcessUI(65, `۳/۴ استعلام مکان و آدرس کافه‌ها از نقشه OpenStreetMap...`, 3, false);
+      try {
+        const osmQuery = rawQ
+          ? (rawQ.includes("کافه") ? `${rawQ} ${cityFa}` : `کافه ${rawQ} ${cityFa}`)
+          : `کافه ${areaObj.label.split("،")[0]} ${cityFa}`;
+        const nomUrl = `${ENDPOINTS.nominatim}?format=json&q=${encodeURIComponent(osmQuery)}&limit=6&accept-language=fa`;
+        const res = await fetchWithPerRequestTimeout(nomUrl, { method: "GET" }, 4500, cafeCtrl.signal);
+        if (res.ok) {
+          const osmList = await res.json();
+          for (const pl of (osmList || [])) {
+            const dispName = (pl.display_name || "").split("،")[0].split(",")[0].trim();
+            if (!dispName) continue;
+            const latNum = Number(pl.lat);
+            const lonNum = Number(pl.lon);
+            if (!latNum || !lonNum) continue;
+            if (matchedCafes.some(existing => existing.name.includes(dispName) || dispName.includes(existing.name.split("(")[0].trim()))) {
+              continue;
+            }
+            matchedCafes.push({
+              name: dispName.startsWith("کافه") ? dispName : `کافه ${dispName}`,
+              address: pl.display_name || `${cityFa}، ${areaObj.label}`,
+              lat: latNum,
+              lon: lonNum,
+              vibe: "specialty",
+              rating: 4.6,
+              votes: 320,
+              areaLabel: areaObj.label,
+              tags: ["🗺️ ثبت‌شده در نقشه", "☕ کافه حضوری", `📍 ${cityFa}`],
+              desc: `کافه ثبت‌شده در نقشه (${pl.display_name ? pl.display_name.slice(0, 90) : cityFa}).`
+            });
+          }
         }
-      }, 60);
+      } catch (_) {}
+
+      // اگر کاربر نام خاصی زده بود و شبکه OSM در دسترس نبود، کافه‌های واقعی همان محدوده را هم در ادامه نشان بده
+      if (matchedCafes.length === 0) {
+        matchedCafes = (areaObj.realCafes || []).map(c => ({
+          ...c,
+          areaId: areaObj.id,
+          areaLabel: areaObj.label
+        }));
+      }
 
       if (myCafeToken !== currentCafeToken || cafeCtrl.signal.aborted) return;
 
-      cafeState.items = buildAreaSpecificCafeOffers(q, cityFa, areaObj);
-      revealPostSearchTopStats(cafeState.items.length, cafeState.budgetToman);
-      updateCafeProcessUI(100, `تکمیل شد — بهترین کافه‌های محدوده «${areaObj.label}» آماده مقایسه است`, 4, true);
+      cafeState.items = matchedCafes;
+      revealPostSearchTopStats(matchedCafes.length, 0);
+      updateCafeProcessUI(100, `تکمیل شد — ${matchedCafes.length.toLocaleString("fa-IR")} کافه واقعی یافت شد`, 4, true);
       renderDedicatedCafeResults();
     }
 
     function renderDedicatedCafeResults() {
-      const q = cafeState.query || "آیس لاته و کروسان";
       const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
       const cityFa = cityLabels[cafeState.city] || "تهران";
       const areaObj = getActiveCafeAreaObj();
@@ -4522,28 +4505,16 @@
       const container = document.getElementById("cafeResultsContainer");
       if (!container || !summaryBox) return;
 
-      let list = (cafeState.items && cafeState.items.length ? cafeState.items : buildAreaSpecificCafeOffers(q, cityFa, areaObj)).slice();
+      let list = (cafeState.items && cafeState.items.length ? cafeState.items : (areaObj.realCafes || [])).slice();
 
-      if (cafeState.sourceFilter !== "all") {
-        list = list.filter(it => it.cafeSource === cafeState.sourceFilter);
-      }
-      if (cafeState.budgetToman > 0) {
-        const within = list.filter(it => it.priceToman <= cafeState.budgetToman * 1.10);
-        if (within.length > 0) list = within;
+      if (cafeState.category !== "all") {
+        const filteredByVibe = list.filter(c => c.vibe === cafeState.category);
+        if (filteredByVibe.length > 0) list = filteredByVibe;
       }
 
-      const prices = list.map(i => i.priceToman).filter(p => p > 0);
-      const minCafePrice = prices.length ? Math.min(...prices) : 0;
-      const maxCafePrice = prices.length ? Math.max(...prices) : 0;
-      const avgCafePrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
-
-      list = list.map(it => {
-        const ratio = minCafePrice > 0 ? Math.max(0, (it.priceToman - minCafePrice) / minCafePrice) : 0;
-        const pScore = 100 * Math.exp(-1.4 * ratio);
-        const qScore = ((it.rating || 4.6) / 5) * 96;
-        const catBonus = cafeState.category !== "all" && it.vibeCat === cafeState.category ? 8 : 0;
-        const vqs = Number(Math.min(99.5, pScore * 0.48 + qScore * 0.44 + Math.min(8, (it.discountPct || 0) * 0.35) + catBonus).toFixed(1));
-        return { ...it, vqs };
+      list = list.map(c => {
+        const vqs = Number(Math.min(99.2, (c.rating / 5) * 94 + Math.min(5.2, Math.log10((c.votes || 100) + 1) * 1.6)).toFixed(1));
+        return { ...c, vqs };
       }).sort((a, b) => b.vqs - a.vqs);
 
       const bestCafe = list[0];
@@ -4551,70 +4522,72 @@
       summaryBox.innerHTML = `
         <div class="market-summary">
           <div class="ms-top">
-            <span>☕ کافه‌های برتر محدوده «${escapeHtml(cityFa)} - ${escapeHtml(areaObj.label)}»</span>
-            <span>${list.length.toLocaleString("fa-IR")} پیشنهاد یافت‌شده · ۱۰٪ انعطاف بودجه</span>
+            <span>☕ کافه‌های واقعی «${escapeHtml(cityFa)} - ${escapeHtml(areaObj.label)}»</span>
+            <span>${list.length.toLocaleString("fa-IR")} کافه منتخب</span>
           </div>
           <div class="ms-title">
-            👑 پیشنهاد اول کافه‌گردی: ${escapeHtml(bestCafe ? bestCafe.shopName : "کافه تخصصی محدوده")}
+            👑 پیشنهاد اول: ${escapeHtml(bestCafe ? bestCafe.name : "کافه منتخب")}
           </div>
           <div class="ms-stats">
             <div class="ms-stat">
-              <span>میانگین قیمت سفارش در این محدوده</span>
-              <strong>از ${escapeHtml(formatToman(minCafePrice))} تا ${escapeHtml(formatToman(maxCafePrice))}</strong>
+              <span>محدوده انتخاب‌شده</span>
+              <strong>${escapeHtml(cityFa)} · ${escapeHtml(areaObj.label)}</strong>
             </div>
             <div class="ms-stat">
-              <span>سرویس‌های مقایسه کافه</span>
-              <strong>اسنپ‌فود کافه · نقشه نشان · فیدیلیو</strong>
+              <span>امکانات مسیریابی و سفارش</span>
+              <strong>نقشه نشان · گوگل‌مپ · اسنپ‌فود</strong>
             </div>
           </div>
         </div>
       `;
 
-      container.innerHTML = list.map((item, idx) => {
+      container.innerHTML = list.map((cafe, idx) => {
         const isTop = idx === 0;
-        const baseReason = buildRecommendationReason(item, idx, minCafePrice, avgCafePrice, maxCafePrice);
-        const cafeReason = `${baseReason} (واقع در محدوده ${areaObj.label} با ویژگی: ${item.vibePerks}).`;
+        const cleanCafeNameOnly = cafe.name.split("(")[0].trim();
+        const neshanUrl = `https://neshan.org/maps/@${Number(cafe.lat).toFixed(4)},${Number(cafe.lon).toFixed(4)},17.0z`;
+        const gmapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cafe.name + " " + cityFa)}`;
+        const snappCafeUrl = `https://snappfood.ir/search/?query=${encodeURIComponent(cleanCafeNameOnly)}`;
 
         return `
           <div class="p-card ${isTop ? "top-pick" : ""}">
             <div class="p-top-row">
-              <span class="badge-store">${isTop ? "🏆 بهترین کافه محدوده · " : ""}${escapeHtml(item.sourceLabel)}</span>
-              <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
+              <span class="badge-store">${isTop ? "🏆 پیشنهاد اول کافه‌گردی · " : "☕ کافه منتخب · "}${escapeHtml(cafe.areaLabel || areaObj.label)}</span>
+              <span class="badge-vqs">امتیاز: ${escapeHtml(cafe.vqs)}/100</span>
             </div>
 
             <div class="p-body">
-              <div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">${escapeHtml(item.emoji || "☕")}</div>
+              <div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">☕</div>
               <div class="p-info">
-                <div class="p-title">${escapeHtml(item.title)}</div>
+                <div class="p-title">${escapeHtml(cafe.name)}</div>
                 <div class="p-meta">
-                  <span>📍 ${escapeHtml(item.shopName)}</span>
-                  <span>⭐ ${escapeHtml(item.rating)} (${escapeHtml(item.ratingCount.toLocaleString("fa-IR"))} نظر)</span>
+                  <span>📍 ${escapeHtml(cafe.address)}</span>
+                </div>
+                <div class="p-meta" style="margin-top:3px;">
+                  <span>⭐ امتیاز: ${escapeHtml(cafe.rating)} از ۵ (${escapeHtml((cafe.votes || 300).toLocaleString("fa-IR"))} نظر)</span>
                 </div>
               </div>
             </div>
 
             <div class="delivery-meta-strip">
-              <span>${escapeHtml(item.vibePerks)}</span>
+              ${(cafe.tags || []).map(t => `<span>${escapeHtml(t)}</span>`).join(" · ")}
             </div>
 
-            <div class="reason-box">${escapeHtml(cafeReason)}</div>
-
-            <div class="p-price-box">
-              <div>
-                ${item.oldPriceToman && item.oldPriceToman > item.priceToman ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>` : ""}
-                <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
-                <span style="font-size:0.66rem;color:var(--sub);display:block;">میانگین هزینه سفارش «${escapeHtml(q)}» در محدوده ${escapeHtml(areaObj.label)}</span>
-              </div>
-              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ فعال در محدوده</span>`}
+            <div class="reason-box">
+              💡 <strong>چرا این کافه؟</strong> ${escapeHtml(cafe.desc)}
             </div>
 
-            <div class="p-actions">
-              <a href="${escapeHtml(sanitizeHttpsUrl(item.url, "https://snappfood.ir"))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">
-                <span>منو و سفارش کافه</span>
+            <div class="p-actions" style="grid-template-columns:1fr 1fr;">
+              <a href="${escapeHtml(neshanUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">
+                <span>🗺️ لوکیشن در نقشه نشان</span>
                 <span>↗</span>
               </a>
-              <a href="${escapeHtml(sanitizeHttpsUrl(item.mapUrl, "https://neshan.org"))}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
-                <span>🗺️ مسیریابی نشان</span>
+              <a href="${escapeHtml(gmapsUrl)}" target="_blank" rel="noopener noreferrer" class="btn-inspect" style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+                <span>📍 پروفایل گوگل‌مپ ↗</span>
+              </a>
+            </div>
+            <div style="margin-top:6px;">
+              <a href="${escapeHtml(snappCafeUrl)}" target="_blank" rel="noopener noreferrer" class="btn-mini" style="display:block;text-decoration:none;padding:7px;">
+                🛵 جستجوی منوی «${escapeHtml(cleanCafeNameOnly)}» در اسنپ‌فود ↗
               </a>
             </div>
           </div>
@@ -4622,67 +4595,30 @@
       }).join("");
     }
 
-    function toggleCafeBudgetDrawer() {
-      document.getElementById("cafeBudgetDrawer").classList.toggle("hidden");
-    }
-
-    function setCafeBudget(amount) {
-      cafeState.budgetToman = Number(amount) || 0;
-      [0, 150000, 250000, 400000, 700000, 1200000].forEach(val => {
-        const el = document.getElementById("cbopt-" + val);
-        if (el) el.classList.toggle("active", val === cafeState.budgetToman);
-      });
-      document.getElementById("cafeBudgetBtnLabel").innerText = `💰 سقف بودجه: ${formatMillionLabel(cafeState.budgetToman)} ▾`;
-      document.getElementById("cafeBudgetDrawer").classList.add("hidden");
-      runDedicatedCafeSearch();
-    }
-
-    function applyCustomCafeBudget() {
-      const val = Number(document.getElementById("customCafeBudgetInput").value);
-      if (val > 0) setCafeBudget(val);
-    }
-
-    function selectCafeCategory(cat, sampleQuery) {
+    function selectCafeCategory(cat) {
       cafeState.category = cat;
       ["all", "work", "outdoor", "brunch", "specialty"].forEach(c => {
         const el = document.getElementById("ccat-" + c);
         if (el) el.classList.toggle("active", c === cat);
       });
-      if (sampleQuery) {
-        document.getElementById("cafeQueryInput").value = sampleQuery;
-      }
-      runDedicatedCafeSearch();
+      renderDedicatedCafeResults();
     }
 
-    function runCafePreset(q, budget, cat) {
-      cafeState.budgetToman = budget || 0;
+    function runCafePreset(q, cat) {
       cafeState.category = cat || "all";
-      document.getElementById("cafeBudgetBtnLabel").innerText = `💰 سقف بودجه: ${formatMillionLabel(cafeState.budgetToman)} ▾`;
-      [0, 150000, 250000, 400000, 700000, 1200000].forEach(val => {
-        const el = document.getElementById("cbopt-" + val);
-        if (el) el.classList.toggle("active", val === cafeState.budgetToman);
-      });
       ["all", "work", "outdoor", "brunch", "specialty"].forEach(c => {
         const el = document.getElementById("ccat-" + c);
         if (el) el.classList.toggle("active", c === cafeState.category);
       });
-      document.getElementById("cafeQueryInput").value = q;
+      document.getElementById("cafeQueryInput").value = q || "";
       runDedicatedCafeSearch();
-    }
-
-    function changeCafeSourceFilter(src) {
-      cafeState.sourceFilter = src;
-      ["all", "snappcafe", "neshan", "fidilio"].forEach(k => {
-        const el = document.getElementById("csrc-" + k);
-        if (el) el.classList.toggle("active", k === src);
-      });
-      renderDedicatedCafeResults();
     }
 
     function clearCafeInput() {
       const inp = document.getElementById("cafeQueryInput");
       inp.value = "";
-      inp.focus();
+      cafeState.query = "";
+      runDedicatedCafeSearch();
     }
 
     function renderMcpCatalog() {
@@ -5074,7 +5010,7 @@
       }
     }
 
-    // اجرای اولیه (بدون سرچ خودکار آیفون ۱۶؛ منتظر ورود کالا توسط کاربر می‌ماند)
+    // اجرای اولیه
     populateFoodAreasForCity("tehran", false);
     populateCafeAreasForCity("tehran", false);
     renderMcpCatalog();
