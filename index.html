@@ -3,50 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>چی بخریم؟ | خرید هوشمند و مقایسه لحظه‌ای با هوش مصنوعی (Mcp-amin)</title>
+  <title>چی بخریم؟ | دستیار هوشمند مقایسه و خرید (Mcp-amin)</title>
   <style>
     :root {
-      --bg: #F2F2F7;
-      --card: #FFFFFF;
-      --card-2: #F8F8FA;
-      --text: #1C1C1E;
-      --sub: #6C6C70;
-      --muted: #8E8E93;
-      --blue: #007AFF;
-      --blue-soft: rgba(0, 122, 255, 0.1);
-      --green: #34C759;
-      --green-soft: rgba(52, 199, 89, 0.12);
-      --orange: #FF9500;
-      --orange-soft: rgba(255, 149, 0, 0.12);
-      --red: #FF3B30;
-      --red-soft: rgba(255, 59, 48, 0.12);
-      --purple: #5856D6;
-      --border: rgba(60, 60, 67, 0.11);
-      --seg: rgba(118, 118, 128, 0.12);
-      --glass: rgba(255, 255, 255, 0.85);
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --bg: #F4ECE4;
+      --bg-grad: radial-gradient(130% 85% at 50% 0%, #FAF5F0 0%, #F2E7DC 55%, #E8D8C8 100%);
+      --card: rgba(255, 252, 249, 0.90);
+      --card-solid: #FFFDFB;
+      --card-2: rgba(237, 226, 215, 0.72);
+      --text: #241710;
+      --sub: #6B5344;
+      --muted: #9A8272;
+      --accent: #8C4A27;
+      --accent-2: #B86B3D;
+      --accent-soft: rgba(140, 74, 39, 0.11);
+      --blue: #8C4A27;
+      --blue-soft: rgba(140, 74, 39, 0.11);
+      --green: #2B6E4E;
+      --green-soft: rgba(43, 110, 78, 0.11);
+      --orange: #C86D24;
+      --orange-soft: rgba(200, 109, 36, 0.13);
+      --red: #B83B2E;
+      --red-soft: rgba(184, 59, 46, 0.12);
+      --purple: #6E473B;
+      --border: rgba(92, 61, 42, 0.12);
+      --glass: rgba(252, 246, 240, 0.74);
+      --glass-strong: rgba(250, 242, 234, 0.84);
+      --glass-border: rgba(255, 255, 255, 0.65);
+      --seg: rgba(107, 83, 68, 0.10);
+      --shadow: 0 10px 28px -8px rgba(56, 34, 20, 0.08), 0 2px 6px rgba(56, 34, 20, 0.04);
+      --shadow-dock: 0 14px 34px -6px rgba(36, 23, 16, 0.18), 0 2px 10px rgba(36, 23, 16, 0.08);
+      --spring: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     body.dark {
-      --bg: #000000;
-      --card: #1C1C1E;
-      --card-2: #2C2C2E;
-      --text: #F2F2F7;
-      --sub: #98989D;
-      --muted: #636366;
-      --blue: #0A84FF;
-      --blue-soft: rgba(10, 132, 255, 0.16);
-      --green: #30D158;
-      --green-soft: rgba(48, 209, 88, 0.16);
-      --orange: #FF9F0A;
-      --orange-soft: rgba(255, 159, 10, 0.16);
-      --red: #FF453A;
-      --red-soft: rgba(255, 69, 58, 0.16);
-      --purple: #5E5CE6;
-      --border: rgba(255, 255, 255, 0.12);
-      --seg: rgba(118, 118, 128, 0.24);
-      --glass: rgba(28, 28, 30, 0.86);
-      --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+      --bg: #15100D;
+      --bg-grad: radial-gradient(130% 85% at 50% 0%, #251B15 0%, #15100D 65%, #0E0A08 100%);
+      --card: rgba(35, 26, 21, 0.88);
+      --card-solid: #231A15;
+      --card-2: rgba(49, 37, 30, 0.78);
+      --text: #F5ECE6;
+      --sub: #B8A090;
+      --muted: #7E695B;
+      --accent: #D68C59;
+      --accent-2: #E5A97C;
+      --accent-soft: rgba(214, 140, 89, 0.16);
+      --blue: #D68C59;
+      --blue-soft: rgba(214, 140, 89, 0.16);
+      --green: #4BB583;
+      --green-soft: rgba(75, 181, 131, 0.15);
+      --orange: #E59849;
+      --orange-soft: rgba(229, 152, 73, 0.16);
+      --red: #E05A4E;
+      --red-soft: rgba(224, 90, 78, 0.16);
+      --purple: #A67B68;
+      --border: rgba(245, 236, 230, 0.11);
+      --glass: rgba(34, 25, 20, 0.74);
+      --glass-strong: rgba(30, 22, 17, 0.84);
+      --glass-border: rgba(255, 255, 255, 0.10);
+      --seg: rgba(184, 160, 144, 0.14);
+      --shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.48);
+      --shadow-dock: 0 16px 38px -4px rgba(0, 0, 0, 0.65);
     }
 
     * {
@@ -58,22 +75,58 @@
     }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: var(--bg-grad);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 88px;
-      line-height: 1.55;
-      transition: background 0.2s ease, color 0.2s ease;
+      padding-bottom: 108px;
+      line-height: 1.52;
+      transition: background 0.3s var(--spring), color 0.3s var(--spring);
+      overflow-x: hidden;
     }
 
+    /* Keyframe Animations */
+    @keyframes cardFloatIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.06); opacity: 1; }
+    }
+
+    .tab-pane {
+      animation: tabFadeIn 0.34s var(--spring) both;
+    }
+
+    /* iOS Compact Frosted Header */
     .ios-header {
       position: sticky;
       top: 0;
       z-index: 100;
       height: 52px;
       background: var(--glass);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      backdrop-filter: saturate(190%) blur(24px);
+      -webkit-backdrop-filter: saturate(190%) blur(24px);
       border-bottom: 0.5px solid var(--border);
       display: flex;
       align-items: center;
@@ -84,144 +137,218 @@
     .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
     }
 
     .brand-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #FFFDFB;
       font-weight: 900;
       font-size: 0.95rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 12px rgba(140, 74, 39, 0.25);
     }
 
     .brand-title {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 800;
       letter-spacing: -0.3px;
     }
 
     .brand-sub {
-      font-size: 0.68rem;
-      color: var(--green);
+      font-size: 0.66rem;
+      color: var(--accent);
       font-weight: 700;
-      background: var(--green-soft);
-      padding: 2px 7px;
+      background: var(--accent-soft);
+      padding: 2px 8px;
       border-radius: 999px;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
 
     .btn-circle {
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      border: none;
-      background: var(--seg);
+      border: 0.5px solid var(--border);
+      background: var(--glass-strong);
       color: var(--text);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      transition: transform 0.18s var(--spring), background 0.2s;
     }
 
+    .btn-circle:active {
+      transform: scale(0.90);
+    }
+
+    /* iPhone Native Container Dimensions (430px Pro Max Viewport Proportion) */
     .container {
-      max-width: 660px;
+      max-width: 440px;
       margin: 0 auto;
-      padding: 14px 14px 28px;
+      padding: 12px 14px 28px;
     }
 
+    /* Top Numeric Stats Strip ("بالای سایت عدد اضافه کن") */
+    .top-numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+      animation: cardFloatIn 0.4s var(--spring) both;
+    }
+
+    .num-pill-card {
+      background: var(--glass);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border: 0.5px solid var(--border);
+      box-shadow: inset 0 1px 0 var(--glass-border), var(--shadow);
+      border-radius: 16px;
+      padding: 8px 6px;
+      text-align: center;
+      transition: transform 0.2s var(--spring);
+    }
+
+    .num-pill-card:active {
+      transform: scale(0.96);
+    }
+
+    .num-val {
+      display: block;
+      font-size: 0.98rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -0.4px;
+      line-height: 1.2;
+    }
+
+    .num-lbl {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--sub);
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    /* iPhone Squircle Card (22px radius) */
     .hero-card {
       background: var(--card);
-      border-radius: 20px;
-      padding: 16px;
-      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 22px;
+      padding: 15px;
+      box-shadow: inset 0 1px 0 var(--glass-border), var(--shadow);
       border: 0.5px solid var(--border);
       margin-bottom: 12px;
     }
 
     .hero-headline {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 900;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      letter-spacing: -0.2px;
     }
 
     .hero-desc {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       color: var(--sub);
-      margin-bottom: 12px;
+      margin-bottom: 11px;
+      line-height: 1.5;
     }
 
+    /* Glassy Rounded Sliding Pills ("پایین قسمت کشویی انتخاب ها شیشه ای و گرد باشن") */
     .cat-budget-bar {
       display: flex;
       gap: 6px;
       overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 8px;
+      padding: 3px 1px 8px;
+      margin-bottom: 6px;
       scrollbar-width: none;
     }
     .cat-budget-bar::-webkit-scrollbar { display: none; }
 
     .cat-pill {
       border: 0.5px solid var(--border);
-      background: var(--card-2);
+      background: var(--glass);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      box-shadow: inset 0 1px 0 var(--glass-border);
       color: var(--sub);
-      padding: 6px 12px;
+      padding: 6px 13px;
       border-radius: 999px;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.22s var(--spring);
+    }
+
+    .cat-pill:active {
+      transform: scale(0.94);
     }
 
     .cat-pill.active {
-      background: var(--blue);
-      color: #fff;
-      border-color: var(--blue);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #FFFDFB;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(140, 74, 39, 0.26);
     }
 
     .budget-pill-btn {
-      border: 1px solid var(--blue);
-      background: var(--blue-soft);
-      color: var(--blue);
-      padding: 6px 12px;
+      border: 1px solid rgba(140, 74, 39, 0.28);
+      background: var(--accent-soft);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: var(--accent);
+      padding: 6px 13px;
       border-radius: 999px;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       font-weight: 800;
       white-space: nowrap;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      transition: transform 0.18s var(--spring);
     }
 
+    .budget-pill-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Budget Drawer */
     .budget-drawer {
       background: var(--card-2);
+      backdrop-filter: blur(16px);
       border: 0.5px solid var(--border);
-      border-radius: 14px;
+      border-radius: 18px;
       padding: 12px;
       margin-bottom: 10px;
+      animation: tabFadeIn 0.25s var(--spring) both;
     }
 
     .budget-drawer-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       margin-bottom: 8px;
     }
@@ -235,20 +362,21 @@
 
     .b-opt {
       border: 0.5px solid var(--border);
-      background: var(--card);
+      background: var(--card-solid);
       color: var(--text);
       padding: 7px 6px;
-      border-radius: 10px;
-      font-size: 0.75rem;
+      border-radius: 999px;
+      font-size: 0.73rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
+      transition: all 0.18s var(--spring);
     }
 
     .b-opt.active {
-      background: var(--blue);
-      color: #fff;
-      border-color: var(--blue);
+      background: var(--accent);
+      color: #FFFDFB;
+      border-color: var(--accent);
     }
 
     .budget-custom-row {
@@ -259,29 +387,37 @@
 
     .budget-input {
       flex: 1;
-      background: var(--card);
+      background: var(--card-solid);
       border: 0.5px solid var(--border);
       color: var(--text);
-      padding: 7px 10px;
-      border-radius: 10px;
-      font-size: 0.8rem;
+      padding: 7px 11px;
+      border-radius: 12px;
+      font-size: 0.78rem;
       outline: none;
     }
 
     .budget-note {
-      font-size: 0.69rem;
+      font-size: 0.68rem;
       color: var(--sub);
       margin-top: 6px;
     }
 
+    /* iPhone Search Box */
     .search-box {
       display: flex;
       align-items: center;
-      background: var(--seg);
-      border-radius: 14px;
+      background: var(--card-2);
+      border: 0.5px solid var(--border);
+      border-radius: 16px;
       padding: 4px 10px;
-      gap: 8px;
+      gap: 7px;
       margin-bottom: 10px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
     .search-input {
@@ -289,21 +425,21 @@
       border: none;
       background: transparent;
       color: var(--text);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      padding: 9px 2px;
+      padding: 8px 2px;
       outline: none;
       min-width: 0;
     }
 
     .clear-x {
-      width: 22px;
-      height: 22px;
+      width: 21px;
+      height: 21px;
       border-radius: 50%;
       border: none;
-      background: rgba(142, 142, 147, 0.35);
-      color: #fff;
-      font-size: 0.72rem;
+      background: rgba(107, 83, 68, 0.28);
+      color: #FFFDFB;
+      font-size: 0.68rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -312,19 +448,26 @@
     }
 
     .btn-search {
-      background: var(--blue);
-      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #FFFDFB;
       border: none;
-      padding: 9px 16px;
-      border-radius: 11px;
+      padding: 8px 15px;
+      border-radius: 12px;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       cursor: pointer;
       flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(140, 74, 39, 0.22);
+      transition: transform 0.16s var(--spring);
     }
 
+    .btn-search:active {
+      transform: scale(0.95);
+    }
+
+    /* Suggestion Cards */
     .suggestions-label {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--sub);
       font-weight: 700;
       margin-bottom: 6px;
@@ -339,61 +482,66 @@
     .sug-card {
       background: var(--card-2);
       border: 0.5px solid var(--border);
-      border-radius: 11px;
+      border-radius: 14px;
       padding: 8px 10px;
       cursor: pointer;
       text-align: right;
       display: flex;
       flex-direction: column;
       gap: 2px;
-      transition: transform 0.12s ease;
+      transition: transform 0.18s var(--spring), background 0.18s;
     }
 
     .sug-card:active {
-      transform: scale(0.98);
-      background: var(--blue-soft);
+      transform: scale(0.96);
+      background: var(--accent-soft);
     }
 
     .sug-cat {
-      font-size: 0.66rem;
-      color: var(--blue);
+      font-size: 0.64rem;
+      color: var(--accent);
       font-weight: 800;
     }
 
     .sug-text {
-      font-size: 0.77rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--text);
     }
 
+    /* Glassy Segmented Control */
     .ios-segmented {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       background: var(--seg);
+      backdrop-filter: blur(14px);
       padding: 3px;
-      border-radius: 12px;
-      margin-bottom: 10px;
+      border-radius: 999px;
+      margin-bottom: 9px;
+      border: 0.5px solid var(--border);
     }
 
     .seg-item {
       border: none;
       background: transparent;
       color: var(--sub);
-      padding: 7px 4px;
-      border-radius: 9px;
-      font-size: 0.74rem;
+      padding: 6px 4px;
+      border-radius: 999px;
+      font-size: 0.71rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
+      transition: all 0.22s var(--spring);
     }
 
     .seg-item.active {
-      background: var(--card);
+      background: var(--card-solid);
       color: var(--text);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(36, 23, 16, 0.10);
     }
 
+    /* Glassy Rounded Source Chips */
     .source-chips {
       display: flex;
       gap: 6px;
@@ -406,84 +554,95 @@
 
     .src-chip {
       border: 0.5px solid var(--border);
-      background: var(--card);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: var(--sub);
-      padding: 5px 11px;
+      padding: 5px 12px;
       border-radius: 999px;
-      font-size: 0.73rem;
+      font-size: 0.71rem;
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
+      transition: all 0.2s var(--spring);
     }
 
     .src-chip.active {
       background: var(--text);
-      color: var(--card);
+      color: var(--card-solid);
       border-color: var(--text);
     }
 
     .source-status-bar {
-      background: var(--card);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
       border: 0.5px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 12px;
+      border-radius: 14px;
+      padding: 7px 11px;
       margin-bottom: 10px;
-      font-size: 0.72rem;
+      font-size: 0.69rem;
       color: var(--sub);
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
       justify-content: space-between;
     }
 
+    /* Warm Mocha Summary Card */
     .market-summary {
-      background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
-      color: #fff;
-      border-radius: 18px;
-      padding: 14px 16px;
+      background: linear-gradient(135deg, #5C331C 0%, #8C4A27 55%, #A86036 100%);
+      color: #FFFDFB;
+      border-radius: 22px;
+      padding: 14px 15px;
       margin-bottom: 12px;
-      box-shadow: 0 6px 18px rgba(0, 122, 255, 0.22);
+      box-shadow: 0 10px 24px -6px rgba(92, 51, 28, 0.32);
+      animation: cardFloatIn 0.36s var(--spring) both;
     }
 
     .ms-top {
       display: flex;
       justify-content: space-between;
-      font-size: 0.73rem;
-      opacity: 0.92;
+      font-size: 0.7rem;
+      opacity: 0.90;
       margin-bottom: 4px;
     }
 
     .ms-title {
-      font-size: 0.96rem;
+      font-size: 0.92rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .ms-stats {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 6px;
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 252, 249, 0.14);
+      backdrop-filter: blur(8px);
       padding: 8px 10px;
-      border-radius: 12px;
-      font-size: 0.72rem;
+      border-radius: 14px;
+      font-size: 0.69rem;
     }
 
     .ms-stat strong {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.77rem;
       margin-top: 2px;
     }
 
+    /* iPhone Product Card (Compact 22px Squircle) */
     .p-card {
       background: var(--card);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 22px;
+      padding: 13px;
+      margin-bottom: 11px;
       border: 0.5px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: transform 0.15s ease;
+      box-shadow: inset 0 1px 0 var(--glass-border), var(--shadow);
+      animation: cardFloatIn 0.42s var(--spring) both;
+      transition: transform 0.2s var(--spring);
     }
 
     .p-card.top-pick {
@@ -504,45 +663,45 @@
     }
 
     .badge-store {
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       font-weight: 800;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: var(--blue-soft);
-      color: var(--blue);
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
     }
 
     .badge-vqs {
-      font-size: 0.73rem;
+      font-size: 0.71rem;
       font-weight: 800;
-      padding: 4px 9px;
-      border-radius: 8px;
+      padding: 3px 9px;
+      border-radius: 999px;
       background: var(--green-soft);
       color: var(--green);
     }
 
     .badge-over {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
       padding: 3px 8px;
-      border-radius: 7px;
+      border-radius: 999px;
       background: var(--orange-soft);
       color: var(--orange);
     }
 
     .p-body {
       display: flex;
-      gap: 12px;
+      gap: 11px;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .p-img {
-      width: 68px;
-      height: 68px;
-      border-radius: 12px;
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
       object-fit: contain;
-      background: #fff;
+      background: #FFFDFB;
       border: 0.5px solid var(--border);
       padding: 4px;
       flex-shrink: 0;
@@ -554,39 +713,51 @@
     }
 
     .p-title {
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 800;
       line-height: 1.42;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: var(--text);
     }
 
     .p-meta {
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       color: var(--sub);
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
+    }
+
+    .reason-box {
+      background: var(--green-soft);
+      border-right: 3px solid var(--green);
+      border-radius: 12px;
+      padding: 7px 10px;
+      margin-bottom: 9px;
+      font-size: 0.72rem;
+      line-height: 1.48;
+      color: var(--text);
+      font-weight: 600;
     }
 
     .p-price-box {
       background: var(--card-2);
-      border-radius: 12px;
-      padding: 10px 12px;
+      border-radius: 14px;
+      padding: 9px 11px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .p-price-main {
-      font-size: 1.12rem;
+      font-size: 1.05rem;
       font-weight: 900;
       color: var(--text);
     }
 
     .p-price-old {
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       color: var(--muted);
       text-decoration: line-through;
       display: block;
@@ -595,23 +766,57 @@
     .p-discount-pill {
       background: var(--red-soft);
       color: var(--red);
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       font-weight: 800;
       padding: 3px 8px;
-      border-radius: 7px;
+      border-radius: 999px;
     }
 
+    .p-actions {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 7px;
+    }
 
-    .reason-box {
-      background: var(--green-soft);
-      border-right: 3px solid var(--green);
-      border-radius: 10px;
-      padding: 8px 10px;
-      margin-bottom: 10px;
-      font-size: 0.75rem;
-      line-height: 1.5;
+    .btn-buy-direct {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #FFFDFB;
+      text-decoration: none;
+      padding: 9px 10px;
+      border-radius: 13px;
+      font-size: 0.77rem;
+      font-weight: 800;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: transform 0.16s var(--spring);
+    }
+
+    .btn-buy-direct:active {
+      transform: scale(0.96);
+    }
+
+    .p-card.top-pick .btn-buy-direct {
+      background: linear-gradient(135deg, #2B6E4E, #3B8A65);
+    }
+
+    .btn-inspect {
+      background: var(--seg);
       color: var(--text);
-      font-weight: 600;
+      border: 0.5px solid var(--border);
+      padding: 9px 8px;
+      border-radius: 13px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.16s var(--spring);
+    }
+
+    .btn-inspect:active {
+      transform: scale(0.96);
     }
 
     .p-subactions {
@@ -625,84 +830,28 @@
       background: var(--card-2);
       border: 0.5px solid var(--border);
       color: var(--sub);
-      padding: 6px 8px;
-      border-radius: 9px;
-      font-size: 0.71rem;
+      padding: 6px 6px;
+      border-radius: 999px;
+      font-size: 0.69rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
+      transition: all 0.18s var(--spring);
+    }
+
+    .btn-mini:active {
+      transform: scale(0.95);
     }
 
     .btn-mini.active {
-      background: var(--blue-soft);
-      color: var(--blue);
-      border-color: var(--blue);
-    }
-
-    .compare-floating-bar {
-      position: fixed;
-      bottom: 74px;
-      left: 14px;
-      right: 14px;
-      max-width: 632px;
-      margin: 0 auto;
-      background: var(--text);
-      color: var(--card);
-      border-radius: 16px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 115;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .ios-tabbar {
-      grid-template-columns: repeat(5, 1fr) !important;
-    }
-
-    .p-actions {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 8px;
-    }
-
-    .btn-buy-direct {
-      background: var(--blue);
-      color: #fff;
-      text-decoration: none;
-      padding: 10px 10px;
-      border-radius: 11px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-
-    .p-card.top-pick .btn-buy-direct {
-      background: var(--green);
-    }
-
-    .btn-inspect {
-      background: var(--seg);
-      color: var(--text);
-      border: none;
-      padding: 10px 10px;
-      border-radius: 11px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     .cross-links-card {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 12px;
       margin-bottom: 12px;
       border: 0.5px solid var(--border);
@@ -718,20 +867,48 @@
     .cross-link-item {
       background: var(--card-2);
       border: 0.5px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 7px 4px;
       text-align: center;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: var(--text);
       text-decoration: none;
+      transition: transform 0.16s var(--spring);
     }
 
+    .cross-link-item:active {
+      transform: scale(0.95);
+    }
+
+    /* Floating Compare Pill Bar */
+    .compare-floating-bar {
+      position: fixed;
+      bottom: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 28px);
+      max-width: 412px;
+      background: var(--text);
+      color: var(--card-solid);
+      border-radius: 999px;
+      padding: 9px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 118;
+      box-shadow: var(--shadow-dock);
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    /* Modal Sheet */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
+      background: rgba(20, 12, 8, 0.52);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 200;
       display: flex;
       align-items: flex-end;
@@ -739,21 +916,22 @@
     }
 
     .modal-sheet {
-      background: var(--card);
+      background: var(--card-solid);
       width: 100%;
-      max-width: 660px;
-      max-height: 86vh;
-      border-radius: 24px 24px 0 0;
-      padding: 18px 16px 32px;
+      max-width: 440px;
+      max-height: 85vh;
+      border-radius: 26px 26px 0 0;
+      padding: 16px 15px 32px;
       overflow-y: auto;
-      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.28);
+      animation: cardFloatIn 0.3s var(--spring) both;
     }
 
     .sheet-handle {
-      width: 40px;
+      width: 38px;
       height: 5px;
       background: var(--muted);
-      opacity: 0.4;
+      opacity: 0.38;
       border-radius: 99px;
       margin: 0 auto 12px;
     }
@@ -761,7 +939,7 @@
     .seller-offer-item {
       background: var(--card-2);
       border: 0.5px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 10px 12px;
       margin-bottom: 8px;
       display: flex;
@@ -770,19 +948,25 @@
       gap: 8px;
     }
 
+    /* Floating Glassy Rounded Pill Bottom Dock ("پایین قسمت کشویی انتخاب ها شیشه ای و گرد باشن") */
     .ios-tabbar {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 66px;
-      padding-bottom: env(safe-area-inset-bottom);
-      background: var(--glass);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-top: 0.5px solid var(--border);
+      bottom: max(12px, env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 416px;
+      height: 62px;
+      padding: 5px;
+      background: var(--glass-strong);
+      backdrop-filter: saturate(200%) blur(28px);
+      -webkit-backdrop-filter: saturate(200%) blur(28px);
+      border: 0.5px solid var(--border);
+      box-shadow: inset 0 1px 0 var(--glass-border), var(--shadow-dock);
+      border-radius: 999px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
       z-index: 120;
     }
 
@@ -790,30 +974,39 @@
       border: none;
       background: transparent;
       color: var(--sub);
+      border-radius: 999px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 2px;
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.24s var(--spring);
+    }
+
+    .tab-btn:active {
+      transform: scale(0.92);
     }
 
     .tab-btn.active {
-      color: var(--blue);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #FFFDFB;
+      box-shadow: 0 4px 12px rgba(140, 74, 39, 0.28);
     }
 
     .tab-icon {
-      font-size: 1.2rem;
+      font-size: 1.08rem;
+      line-height: 1;
     }
 
     .hidden { display: none !important; }
 
     .loading-box {
       background: var(--card);
-      border-radius: 16px;
-      padding: 24px;
+      border-radius: 20px;
+      padding: 22px;
       text-align: center;
       margin-bottom: 12px;
       border: 0.5px solid var(--border);
@@ -823,7 +1016,7 @@
       width: 24px;
       height: 24px;
       border: 3px solid var(--border);
-      border-top-color: var(--blue);
+      border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 0.75s linear infinite;
       margin: 0 auto 10px;
@@ -832,11 +1025,11 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     pre {
-      background: #1C1C1E;
-      color: #F2F2F7;
+      background: #1B130F;
+      color: #F5ECE6;
       padding: 12px;
-      border-radius: 12px;
-      font-size: 0.73rem;
+      border-radius: 14px;
+      font-size: 0.72rem;
       direction: ltr;
       text-align: left;
       overflow-x: auto;
@@ -846,65 +1039,86 @@
 </head>
 <body>
 
-  <!-- iOS Compact Top Bar -->
+  <!-- iOS Compact Frosted Mocha Top Bar -->
   <header class="ios-header">
     <div class="brand-wrap">
-      <div class="brand-icon">؟</div>
+      <div class="brand-icon">☕</div>
       <span class="brand-title">چی بخریم؟</span>
-      <span class="brand-sub" id="liveBadgeHeader">قیمت لحظه‌ای واقعی</span>
+      <span class="brand-sub" id="liveBadgeHeader">مقایسه هوشمند بازار</span>
     </div>
     <div class="header-actions">
-      <button class="btn-circle" onclick="resetNewSearch()" title="جستجوی جدید">🔄</button>
-      <button class="btn-circle" onclick="toggleDark()" id="themeBtn" title="تغییر تم">🌙</button>
+      <button class="btn-circle" onclick="resetNewSearch()" title="جستجوی تازه">🔄</button>
+      <button class="btn-circle" onclick="toggleDark()" id="themeBtn" title="تغییر تم موکا">🌙</button>
     </div>
   </header>
 
   <main class="container">
-    <!-- TAB 1: CHIBEKHARIM SMART LIVE SEARCH -->
-    <div id="tab-search">
+    <!-- Top Numeric Stats Strip ("بالای سایت عدد اضافه کن") -->
+    <section class="top-numbers-grid" aria-label="آمار پلتفرم">
+      <div class="num-pill-card">
+        <span class="num-val" id="statPlatformsCount">۱۹</span>
+        <span class="num-lbl">پلتفرم متصل</span>
+      </div>
+      <div class="num-pill-card">
+        <span class="num-val" id="statToolsCount">۳۱۵+</span>
+        <span class="num-lbl">ابزار مقایسه</span>
+      </div>
+      <div class="num-pill-card">
+        <span class="num-val" id="statOffersCount">۲۴</span>
+        <span class="num-lbl">پیشنهاد یافت‌شده</span>
+      </div>
+      <div class="num-pill-card">
+        <span class="num-val" id="statBudgetFlex">۱۰٪</span>
+        <span class="num-lbl">انعطاف بودجه</span>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: CHIBEKHARIM GENERAL SHOPPING (دیجیتال، پوشاک، آرایشی، خانه) -->
+    <!-- =================================================================== -->
+    <div id="tab-search" class="tab-pane">
       <section class="hero-card">
         <div class="hero-headline">
-          <span>دنبال چی می‌گردی؟</span>
-          <span style="font-size:0.72rem;color:var(--blue);font-weight:700;">خرید هوشمند با هوش مصنوعی</span>
+          <span>چی تو ذهنته بخری؟</span>
+          <span style="font-size:0.7rem;color:var(--accent);font-weight:800;">انتخاب مطمئن و بی‌دردسر</span>
         </div>
         <p class="hero-desc">
-          بگو چی لازم داری؛ به صورت <strong>لحظه‌ای و زنده</strong> دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و هزاران فروشگاه)، باسلام و دیوار رو می‌گرده و بهترین‌ها رو با <strong>قیمت واقعی همین ثانیه</strong> پیشنهاد می‌ده.
+          کالای مورد نظرت رو بنویس تا بین دیجی‌کالا، ترب (تکنولایف، مسترکالا، اسنپ‌شاپ و صدها فروشگاه)، باسلام، شاپینو، خانومی و دیوار بگردیم و باصرفه‌ترین گزینه رو با دلیل بهت پیشنهاد بدیم.
         </p>
 
-        <!-- Category & Budget Bar -->
+        <!-- Glassy Rounded Category & Budget Bar -->
         <div class="cat-budget-bar">
           <button class="budget-pill-btn" onclick="toggleBudgetDrawer()" id="budgetBtnLabel">
             💰 بودجه: بدون سقف ▾
           </button>
-          <button class="cat-pill active" id="cat-all" onclick="selectCategory('all', '')">همه دسته‌ها</button>
+          <button class="cat-pill active" id="cat-all" onclick="selectCategory('all', '')">✨ همه</button>
           <button class="cat-pill" id="cat-digital" onclick="selectCategory('digital', 'گوشی سامسونگ')">📱 دیجیتال</button>
           <button class="cat-pill" id="cat-fashion" onclick="selectCategory('fashion', 'کفش رانینگ مردانه')">👟 پوشاک</button>
           <button class="cat-pill" id="cat-beauty" onclick="selectCategory('beauty', 'ضد آفتاب')">💄 آرایشی</button>
-          <button class="cat-pill" id="cat-home" onclick="selectCategory('home', 'سرخ کن بدون روغن')">🏠 لوازم خانه</button>
-          <button class="cat-pill" id="cat-food" onclick="selectCategory('food', 'قهوه اسپرسو')">🍕 غذا و خوراکی</button>
+          <button class="cat-pill" id="cat-home" onclick="selectCategory('home', 'سرخ کن بدون روغن')">🏠 خانه</button>
           <button class="cat-pill" id="cat-saved" onclick="renderSavedItemsView()">❤️ ذخیره‌شده‌ها</button>
         </div>
 
-        <!-- Collapsible Budget Selector ("حداکثر چقدر بپردازی؟") -->
+        <!-- Collapsible Budget Selector -->
         <div class="budget-drawer hidden" id="budgetDrawer">
           <div class="budget-drawer-top">
-            <span>حداکثر چقدر می‌خوای بپردازی؟</span>
-            <button onclick="toggleBudgetDrawer()" style="border:none;background:transparent;color:var(--blue);font-weight:800;font-size:0.78rem;cursor:pointer;">بستن ✕</button>
+            <span>چقدر می‌خوای براش کنار بذاری؟</span>
+            <button onclick="toggleBudgetDrawer()" style="border:none;background:transparent;color:var(--accent);font-weight:800;font-size:0.76rem;cursor:pointer;">بستن ✕</button>
           </div>
           <div class="budget-grid">
             <button class="b-opt active" id="bopt-0" onclick="setBudget(0)">بدون سقف</button>
-            <button class="b-opt" id="bopt-2000000" onclick="setBudget(2000000)">۲ میلیون</button>
-            <button class="b-opt" id="bopt-5000000" onclick="setBudget(5000000)">۵ میلیون</button>
-            <button class="b-opt" id="bopt-20000000" onclick="setBudget(20000000)">۲۰ میلیون</button>
-            <button class="b-opt" id="bopt-70000000" onclick="setBudget(70000000)">۷۰ میلیون</button>
-            <button class="b-opt" id="bopt-150000000" onclick="setBudget(150000000)">۱۵۰ میلیون</button>
+            <button class="b-opt" id="bopt-2000000" onclick="setBudget(2000000)">تا ۲ میلیون</button>
+            <button class="b-opt" id="bopt-5000000" onclick="setBudget(5000000)">تا ۵ میلیون</button>
+            <button class="b-opt" id="bopt-20000000" onclick="setBudget(20000000)">تا ۲۰ میلیون</button>
+            <button class="b-opt" id="bopt-70000000" onclick="setBudget(70000000)">تا ۷۰ میلیون</button>
+            <button class="b-opt" id="bopt-150000000" onclick="setBudget(150000000)">تا ۱۵۰ میلیون</button>
           </div>
           <div class="budget-custom-row">
             <input type="number" id="customBudgetInput" class="budget-input" placeholder="مبلغ دلخواه به تومان (مثلاً 35000000)" />
-            <button class="btn-search" style="padding:7px 14px;font-size:0.78rem;" onclick="applyCustomBudget()">تأیید</button>
+            <button class="btn-search" style="padding:7px 14px;font-size:0.76rem;" onclick="applyCustomBudget()">تأیید</button>
           </div>
           <div class="budget-note">
-            💡 قیمت لحظه‌ای کالا ملاکه. گزینه‌هایی که تا ۱۰٪ بالاتر باشن هم، بعد از گزینه‌های داخل بودجه، نشون داده می‌شن.
+            💡 گزینه‌هایی که تا ۱۰٪ بالاتر از بودجه‌ت باشن ولی ارزش خرید بالایی داشته باشن هم با برچسب مشخص می‌شن.
           </div>
         </div>
 
@@ -916,7 +1130,7 @@
               type="search"
               id="searchInput"
               class="search-input"
-              placeholder="چه کالایی می‌خوای؟ (مثلاً: گوشی آیفون 16، لپ تاپ، ایرپاد)..."
+              placeholder="نام کالا (مثلاً: گوشی آیفون 16، لپ‌تاپ، ایرپاد)..."
               value="گوشی آیفون 16"
               enterkeyhint="search"
             />
@@ -925,40 +1139,32 @@
           </div>
         </form>
 
-        <!-- "شاید بخوای…" Presets -->
-        <div class="suggestions-label">شاید بخوای…</div>
+        <!-- "شاید دنبال اینا باشی…" -->
+        <div class="suggestions-label">پیشنهادهای پرطرفدار امروز:</div>
         <div class="suggestions-grid">
           <div class="sug-card" onclick="runPreset('گوشی موبایل سامسونگ', 70000000, 'digital')">
             <span class="sug-cat">📱 دیجیتال · تا ۷۰ میلیون</span>
-            <span class="sug-text">گوشی خوب تا ۷۰ میلیون</span>
+            <span class="sug-text">گوشی خوش‌قیمت تا ۷۰ میلیون</span>
           </div>
           <div class="sug-card" onclick="runPreset('گوشی آیفون 16', 0, 'digital')">
-            <span class="sug-cat">📱 دیجیتال · قیمت لحظه‌ای</span>
+            <span class="sug-cat">📱 دیجیتال · مقایسه فروشنده‌ها</span>
             <span class="sug-text">گوشی آیفون 16 (همه مدل‌ها)</span>
           </div>
           <div class="sug-card" onclick="runPreset('کفش پیاده روی و رانینگ مردانه', 5000000, 'fashion')">
             <span class="sug-cat">👟 پوشاک · زیر ۵ میلیون</span>
-            <span class="sug-text">کفش رانینگ مردانه زیر ۵ میلیون</span>
+            <span class="sug-text">کفش رانینگ راحت زیر ۵ میلیون</span>
           </div>
           <div class="sug-card" onclick="runPreset('رژ لب جامد و مایع مات', 2000000, 'beauty')">
             <span class="sug-cat">💄 آرایشی · ماندگاری بالا</span>
-            <span class="sug-text">رژ لب مات ماندگار</span>
+            <span class="sug-text">رژ لب مات و ضدآفتاب</span>
           </div>
           <div class="sug-card" onclick="runPreset('جاروبرقی پرقدرت', 20000000, 'home')">
-            <span class="sug-cat">🏠 لوازم خانه · اقتصادی</span>
-            <span class="sug-text">جاروبرقی ارزان و خوب</span>
+            <span class="sug-cat">🏠 خانه · اقتصادی</span>
+            <span class="sug-text">جاروبرقی و سرخ‌کن خانگی</span>
           </div>
           <div class="sug-card" onclick="runPreset('لپ تاپ گیمینگ لنوو LOQ', 150000000, 'digital')">
-            <span class="sug-cat">💻 دیجیتال · گیمینگ و مهندسی</span>
+            <span class="sug-cat">💻 دیجیتال · تخصصی</span>
             <span class="sug-text">لپ‌تاپ لنوو LOQ و ایسوس</span>
-          </div>
-          <div class="sug-card" onclick="runPreset('دانه قهوه و پودر اسپرسو', 2000000, 'food')">
-            <span class="sug-cat">☕ خوراکی و کافه · زیر ۲ میلیون</span>
-            <span class="sug-text">بهترین قهوه اسپرسو و شکلات</span>
-          </div>
-          <div class="sug-card" onclick="runPreset('عسل طبیعی و ارگانیک', 2000000, 'food')">
-            <span class="sug-cat">🍯 خوراکی و سوپرمارکت · طبیعی</span>
-            <span class="sug-text">عسل طبیعی، خشکبار و آجیل</span>
           </div>
         </div>
       </section>
@@ -967,160 +1173,232 @@
       <div class="ios-segmented">
         <button class="seg-item active" id="sort-best" onclick="changeSort('best')">🏆 بهترین ارزش</button>
         <button class="seg-item" id="sort-cheap" onclick="changeSort('cheap')">💰 ارزان‌ترین</button>
-        <button class="seg-item" id="sort-rating" onclick="changeSort('rating')">⭐ بیشترین امتیاز</button>
-        <button class="seg-item" id="sort-discount" onclick="changeSort('discount')">🔥 بیشترین تخفیف</button>
+        <button class="seg-item" id="sort-rating" onclick="changeSort('rating')">⭐ محبوب‌ترین</button>
+        <button class="seg-item" id="sort-discount" onclick="changeSort('discount')">🏷️ بیشترین تخفیف</button>
       </div>
 
       <!-- Source Filter Pills -->
       <div class="source-chips">
-        <button class="src-chip active" id="src-all" onclick="changeSourceFilter('all')">همه منابع زنده</button>
+        <button class="src-chip active" id="src-all" onclick="changeSourceFilter('all')">همه فروشگاه‌ها</button>
         <button class="src-chip" id="src-torob" onclick="changeSourceFilter('torob')">🟢 ترب (تکنولایف، مسترکالا و...)</button>
         <button class="src-chip" id="src-digikala" onclick="changeSourceFilter('digikala')">🔴 دیجی‌کالا</button>
         <button class="src-chip" id="src-basalam" onclick="changeSourceFilter('basalam')">🟠 باسلام</button>
-        <button class="src-chip" id="src-divar" onclick="changeSourceFilter('divar')">🟣 دیوار (کارکرده/نو)</button>
+        <button class="src-chip" id="src-divar" onclick="changeSourceFilter('divar')">🟣 دیوار</button>
       </div>
 
-      <!-- Source Connection Status Bar -->
       <div id="sourceStatusBar"></div>
-
-      <!-- Live Market Summary & Fair Price Box -->
       <div id="marketSummaryBox"></div>
 
-      <!-- Loading Indicator -->
       <div id="loadingBox" class="loading-box hidden">
         <div class="spinner"></div>
-        <div style="font-weight:800;font-size:0.88rem;" id="loadingText">در حال استعلام قیمت لحظه‌ای از سرورهای زنده دیجی‌کالا، ترب، باسلام و دیوار...</div>
-        <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">بدون هیچ قیمت یا امتیاز پیش‌فرض؛ تمام داده‌ها مستقیماً از APIهای زنده دریافت می‌شوند</div>
+        <div style="font-weight:800;font-size:0.84rem;" id="loadingText">در حال بررسی قیمت‌ها در فروشگاه‌ها...</div>
+        <div style="font-size:0.72rem;color:var(--sub);margin-top:4px;">همه قیمت‌ها مستقیماً از فروشگاه‌ها دریافت می‌شن</div>
       </div>
 
-      <!-- Live Product Cards Container -->
       <div id="resultsContainer"></div>
-
-      <!-- Direct Portal Links to All Iranian Stores for Current Query -->
       <div id="directPortalsContainer"></div>
     </div>
 
-
-    <!-- TAB FOOD: SNAPPFOOD, SNAPPMARKET, OKALA & TRUE ORDER COST -->
-    <div id="tab-food" class="hidden">
-      <div class="hero-card">
+    <!-- =================================================================== -->
+    <!-- TAB 2: DEDICATED FOOD, RESTAURANT & GROCERY ENGINE                  -->
+    <!-- (جستجوی کاملاً مستقل از اسنپ‌فود، اسنپ‌مارکت، اکالا و خوراکی‌ها)    -->
+    <!-- =================================================================== -->
+    <div id="tab-food" class="tab-pane hidden">
+      <section class="hero-card">
         <div class="hero-headline">
-          <span>🍕 بخش غذا، رستوران و سوپرمارکت</span>
-          <span style="font-size:0.72rem;color:var(--green);font-weight:800;">الگوریتم snapp-mcp و okala-mcp</span>
+          <span>چی هوس کردی؟</span>
+          <span style="font-size:0.7rem;color:var(--green);font-weight:800;">اسنپ‌فود · اکالا · اسنپ‌مارکت</span>
         </div>
         <p class="hero-desc">
-          جستجوی زنده خوراکی و مواد غذایی + محاسبه <strong>هزینه واقعی سفارش غذا در اسنپ‌فود و اسنپ‌مارکت</strong> (قیمت غذا پس از تخفیف فودپارتی + هزینه ظرف و بسته‌بندی + کرایه پیک − کد تخفیف و بررسی حداقل سبد سفارش).
+          این بخش <strong>فقط بین سرویس‌های غذا، رستوران، کافه و سوپرمارکت</strong> (اسنپ‌فود، اسنپ‌مارکت، اکالا و غرفه‌های خوراکی) می‌گرده و بهترین گزینه‌ها رو با محاسبه هزینه بسته‌بندی و پیک مقایسه می‌کنه.
         </p>
 
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
-          <span style="font-size:0.75rem;font-weight:700;color:var(--sub);">📍 شهر شما:</span>
-          <select id="foodCitySelect" onchange="updateFoodLinks()" class="budget-input" style="max-width:140px;font-weight:700;">
-            <option value="tehran">تهران</option>
-            <option value="mashhad">مشهد</option>
-            <option value="isfahan">اصفهان</option>
-            <option value="shiraz">شیراز</option>
-            <option value="tabriz">تبریز</option>
-            <option value="karaj">کرج</option>
+        <!-- Glassy Rounded Food Category & Budget Bar (Exact twin of Chibekharim) -->
+        <div class="cat-budget-bar">
+          <button class="budget-pill-btn" onclick="toggleFoodBudgetDrawer()" id="foodBudgetBtnLabel">
+            💰 سقف بودجه: بدون سقف ▾
+          </button>
+          <select id="foodCitySelect" onchange="runDedicatedFoodSearch()" class="cat-pill" style="outline:none;color:var(--text);">
+            <option value="tehran">📍 تهران</option>
+            <option value="mashhad">📍 مشهد</option>
+            <option value="isfahan">📍 اصفهان</option>
+            <option value="shiraz">📍 شیراز</option>
+            <option value="tabriz">📍 تبریز</option>
+            <option value="karaj">📍 کرج</option>
           </select>
-          <input type="text" id="foodQueryInput" class="budget-input" value="پیتزا پپرونی" placeholder="نام غذا یا خوراکی (مثلاً پیتزا، کباب، قهوه)..." oninput="updateFoodLinks()" />
-          <button type="button" class="btn-search" onclick="searchFoodInMain()">🔍 جستجوی زنده خوراکی</button>
+          <button class="cat-pill active" id="fcat-all" onclick="selectFoodCategory('all', '')">🍽️ همه خوراکی‌ها</button>
+          <button class="cat-pill" id="fcat-rest" onclick="selectFoodCategory('rest', 'پیتزا پپرونی')">🍕 رستوران و فست‌فود</button>
+          <button class="cat-pill" id="fcat-cafe" onclick="selectFoodCategory('cafe', 'قهوه اسپرسو')">☕ کافه و قهوه</button>
+          <button class="cat-pill" id="fcat-mart" onclick="selectFoodCategory('mart', 'شکلات صبحانه و تنقلات')">🛒 سوپرمارکت</button>
+          <button class="cat-pill" id="fcat-organic" onclick="selectFoodCategory('organic', 'عسل طبیعی')">🍯 ارگانیک و محلی</button>
         </div>
 
-        <div class="chips-scroll" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px;">
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('پیتزا')">🍕 پیتزا</button>
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('برگر ذغالی')">🍔 برگر</button>
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('چلو کباب کوبیده')">🍢 کباب و ایرانی</button>
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('مرغ سوخاری')">🍗 سوخاری</button>
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('قهوه اسپرسو')">☕ قهوه و کافه</button>
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('برنج ایرانی')">🌾 برنج و روغن</button>
-          <button type="button" class="cat-pill" onclick="quickFoodSelect('شکلات و تنقلات')">🍫 شکلات و تنقلات</button>
+        <!-- Food Budget Drawer -->
+        <div class="budget-drawer hidden" id="foodBudgetDrawer">
+          <div class="budget-drawer-top">
+            <span>سقف بودجه برای غذا یا خرید خوراکی:</span>
+            <button onclick="toggleFoodBudgetDrawer()" style="border:none;background:transparent;color:var(--accent);font-weight:800;font-size:0.76rem;cursor:pointer;">بستن ✕</button>
+          </div>
+          <div class="budget-grid">
+            <button class="b-opt active" id="fbopt-0" onclick="setFoodBudget(0)">بدون سقف</button>
+            <button class="b-opt" id="fbopt-200000" onclick="setFoodBudget(200000)">تا ۲۰۰ هزار</button>
+            <button class="b-opt" id="fbopt-400000" onclick="setFoodBudget(400000)">تا ۴۰۰ هزار</button>
+            <button class="b-opt" id="fbopt-800000" onclick="setFoodBudget(800000)">تا ۸۰۰ هزار</button>
+            <button class="b-opt" id="fbopt-1500000" onclick="setFoodBudget(1500000)">تا ۱.۵ میلیون</button>
+            <button class="b-opt" id="fbopt-3000000" onclick="setFoodBudget(3000000)">تا ۳ میلیون</button>
+          </div>
+          <div class="budget-custom-row">
+            <input type="number" id="customFoodBudgetInput" class="budget-input" placeholder="مبلغ دلخواه به تومان (مثلاً 350000)" />
+            <button class="btn-search" style="padding:7px 14px;font-size:0.76rem;" onclick="applyCustomFoodBudget()">تأیید</button>
+          </div>
         </div>
 
-        <div id="foodDirectPortals"></div>
+        <!-- Food Search Box (Exact same design as Chibekharim, stays in Food tab!) -->
+        <form onsubmit="event.preventDefault(); runDedicatedFoodSearch();">
+          <div class="search-box">
+            <span>🍴</span>
+            <input
+              type="search"
+              id="foodQueryInput"
+              class="search-input"
+              placeholder="چه غذایی یا خوراکی‌ای می‌خوای؟ (پیتزا، قهوه، شکلات، برنج)..."
+              value="پیتزا پپرونی"
+              enterkeyhint="search"
+            />
+            <button type="button" class="clear-x" onclick="clearFoodInput()">✕</button>
+            <button type="submit" class="btn-search">بگرد</button>
+          </div>
+        </form>
+
+        <!-- Food Suggestions Grid -->
+        <div class="suggestions-label">پیشنهادهای خوشمزه و پرطرفدار:</div>
+        <div class="suggestions-grid">
+          <div class="sug-card" onclick="runFoodPreset('پیتزا پپرونی و مخصوص', 400000, 'rest')">
+            <span class="sug-cat">🍕 اسنپ‌فود · فودپارتی</span>
+            <span class="sug-text">پیتزا و فست‌فود تا ۴۰۰ هزار</span>
+          </div>
+          <div class="sug-card" onclick="runFoodPreset('چلو کباب کوبیده و جوجه', 500000, 'rest')">
+            <span class="sug-cat">🍢 رستوران ایرانی · اسنپ‌فود</span>
+            <span class="sug-text">چلوکباب و غذای سنتی</span>
+          </div>
+          <div class="sug-card" onclick="runFoodPreset('قهوه اسپرسو و دانه قهوه', 800000, 'cafe')">
+            <span class="sug-cat">☕ کافه و قهوه · تخصصی</span>
+            <span class="sug-text">دانه و پودر قهوه اسپرسو</span>
+          </div>
+          <div class="sug-card" onclick="runFoodPreset('شکلات صبحانه و تنقلات', 400000, 'mart')">
+            <span class="sug-cat">🍫 اسنپ‌مارکت و اکالا</span>
+            <span class="sug-text">شکلات، بیسکوئیت و تنقلات</span>
+          </div>
+          <div class="sug-card" onclick="runFoodPreset('عسل طبیعی و کره بادام زمینی', 800000, 'organic')">
+            <span class="sug-cat">🍯 صبحانه و ارگانیک</span>
+            <span class="sug-text">عسل طبیعی و کره بادام‌زمینی</span>
+          </div>
+          <div class="sug-card" onclick="runFoodPreset('برنج ایرانی و روغن پخت و پز', 3000000, 'mart')">
+            <span class="sug-cat">🌾 سوپرمارکت · کالای اساسی</span>
+            <span class="sug-text">برنج ایرانی، روغن و لبنیات</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Food Source Filter Chips (Only Food & Grocery Services!) -->
+      <div class="source-chips">
+        <button class="src-chip active" id="fsrc-all" onclick="changeFoodSourceFilter('all')">همه سرویس‌های غذایی</button>
+        <button class="src-chip" id="fsrc-snappfood" onclick="changeFoodSourceFilter('snappfood')">🍕 اسنپ‌فود</button>
+        <button class="src-chip" id="fsrc-snappmarket" onclick="changeFoodSourceFilter('snappmarket')">🛒 اسنپ‌مارکت</button>
+        <button class="src-chip" id="fsrc-okala" onclick="changeFoodSourceFilter('okala')">🟠 اکالا (افق کوروش)</button>
+        <button class="src-chip" id="fsrc-basalam_food" onclick="changeFoodSourceFilter('basalam_food')">🍯 غرفه خوراکی</button>
       </div>
 
-      <!-- True Food Order Cost Comparator (snapp-mcp food_order_costs) -->
-      <div class="hero-card">
+      <!-- Food Loading Indicator -->
+      <div id="foodLoadingBox" class="loading-box hidden">
+        <div class="spinner"></div>
+        <div style="font-weight:800;font-size:0.84rem;" id="foodLoadingText">در حال بررسی سرویس‌های غذا، اسنپ‌فود، اکالا و سوپرمارکت‌ها...</div>
+      </div>
+
+      <!-- Food Summary Banner -->
+      <div id="foodSummaryBox"></div>
+
+      <!-- Dedicated Food & Grocery Results Cards -->
+      <div id="foodResultsContainer"></div>
+
+      <!-- True Restaurant Order Cost Comparator (snapp-mcp food_order_costs) -->
+      <section class="hero-card">
         <div class="hero-headline">
-          <span>🧮 مقایسه‌گر هزینه واقعی سفارش رستوران (اسنپ‌فود / تپسی‌فود)</span>
+          <span>🧮 محاسبه‌گر هزینه واقعی سفارش رستوران</span>
+          <span style="font-size:0.68rem;color:var(--accent);font-weight:800;">فرمول snapp-mcp</span>
         </div>
         <p class="hero-desc">
-          بسیاری از رستوران‌ها تخفیف ظاهری می‌گذارند اما با هزینه بسته‌بندی و پیک گران، سفارش نهایی گران‌تر تمام می‌شود! مشخصات ۲ رستوران را وارد کنید تا هوش مصنوعی برنده واقعی را با دلیل اعلام کند:
+          خیلی وقت‌ها یک رستوران تخفیف بیشتری می‌ده اما با پول ظرف و کرایه پیک گران‌تر درمیاد! قیمت ۲ رستوران رو وارد کن تا ببینی کدوم واقعاً به‌صرفه‌تره:
         </p>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-          <div style="background:var(--card-2);padding:10px;border-radius:12px;border:0.5px solid var(--border);">
-            <div style="font-weight:800;font-size:0.8rem;margin-bottom:6px;color:var(--blue);">🏪 رستوران اول</div>
-            <input type="text" id="r1Name" value="پیتزا شیلا (فودپارتی)" class="budget-input" style="width:100%;margin-bottom:6px;" placeholder="نام رستوران" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">جمع قیمت منو (تومان)</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+          <div style="background:var(--card-2);padding:10px;border-radius:16px;border:0.5px solid var(--border);">
+            <div style="font-weight:800;font-size:0.76rem;margin-bottom:6px;color:var(--accent);">🍔 رستوران اول</div>
+            <input type="text" id="r1Name" value="پیتزا شیلا (فودپارتی)" class="budget-input" style="width:100%;margin-bottom:5px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.66rem;color:var(--sub);">جمع منو (تومان)</label>
             <input type="number" id="r1Menu" value="380000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">تخفیف فودپارتی/منو (تومان)</label>
+            <label style="font-size:0.66rem;color:var(--sub);">تخفیف فودپارتی (تومان)</label>
             <input type="number" id="r1Disc" value="65000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">هزینه بسته‌بندی + پیک (تومان)</label>
+            <label style="font-size:0.66rem;color:var(--sub);">بسته‌بندی + پیک (تومان)</label>
             <input type="number" id="r1Fees" value="48000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">امتیاز رستوران (از ۵)</label>
+            <label style="font-size:0.66rem;color:var(--sub);">امتیاز (از ۵)</label>
             <input type="number" id="r1Rate" value="4.6" step="0.1" max="5" class="budget-input" style="width:100%;" oninput="calcTrueFoodCost()" />
           </div>
 
-          <div style="background:var(--card-2);padding:10px;border-radius:12px;border:0.5px solid var(--border);">
-            <div style="font-weight:800;font-size:0.8rem;margin-bottom:6px;color:var(--purple);">🏪 رستوران دوم</div>
-            <input type="text" id="r2Name" value="پیتزا پرپروک (ارسال رایگان)" class="budget-input" style="width:100%;margin-bottom:6px;" placeholder="نام رستوران" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">جمع قیمت منو (تومان)</label>
+          <div style="background:var(--card-2);padding:10px;border-radius:16px;border:0.5px solid var(--border);">
+            <div style="font-weight:800;font-size:0.76rem;margin-bottom:6px;color:var(--green);">🍕 رستوران دوم</div>
+            <input type="text" id="r2Name" value="پیتزا پرپروک (پیک رایگان)" class="budget-input" style="width:100%;margin-bottom:5px;" oninput="calcTrueFoodCost()" />
+            <label style="font-size:0.66rem;color:var(--sub);">جمع منو (تومان)</label>
             <input type="number" id="r2Menu" value="360000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">تخفیف فودپارتی/منو (تومان)</label>
+            <label style="font-size:0.66rem;color:var(--sub);">تخفیف فودپارتی (تومان)</label>
             <input type="number" id="r2Disc" value="20000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">هزینه بسته‌بندی + پیک (تومان)</label>
+            <label style="font-size:0.66rem;color:var(--sub);">بسته‌بندی + پیک (تومان)</label>
             <input type="number" id="r2Fees" value="12000" class="budget-input" style="width:100%;margin-bottom:4px;" oninput="calcTrueFoodCost()" />
-            <label style="font-size:0.68rem;color:var(--sub);">امتیاز رستوران (از ۵)</label>
+            <label style="font-size:0.66rem;color:var(--sub);">امتیاز (از ۵)</label>
             <input type="number" id="r2Rate" value="4.4" step="0.1" max="5" class="budget-input" style="width:100%;" oninput="calcTrueFoodCost()" />
           </div>
         </div>
 
         <div id="trueFoodCostResult"></div>
-      </div>
+      </section>
     </div>
 
-    <!-- Floating Compare Tray -->
-    <div id="compareTray" class="compare-floating-bar hidden">
-      <span id="compareTrayText">۲ کالا برای مقایسه انتخاب شد</span>
-      <div style="display:flex;gap:6px;">
-        <button type="button" class="btn-search" style="padding:6px 12px;font-size:0.75rem;" onclick="openCompareModal()">⚖️ مشاهده جدول مقایسه</button>
-        <button type="button" class="clear-x" onclick="clearCompareList()" title="پاک کردن">✕</button>
-      </div>
-    </div>
-
-    <!-- TAB 2: TODAY'S LIVE DEALS -->
-    <div id="tab-deals" class="hidden">
+    <!-- =================================================================== -->
+    <!-- TAB 3: TODAY'S DEALS                                                -->
+    <!-- =================================================================== -->
+    <div id="tab-deals" class="tab-pane hidden">
       <div class="hero-card">
         <div class="hero-headline">
-          <span>🔥 شگفت‌انگیزها و تخفیف‌های واقعی امروز</span>
-          <button class="budget-pill-btn" onclick="loadLiveDeals()">🔄 بروزرسانی زنده</button>
+          <span>🏷️ شگفت‌انگیزها و تخفیف‌های منتخب امروز</span>
+          <button class="budget-pill-btn" onclick="loadLiveDeals()">🔄 بروزرسانی</button>
         </div>
         <p class="hero-desc">
-          استعلام مستقیم از ابزار <code>incredible_offers</code> دیجی‌کالا و <code>special_offers</code> ترب:
+          گلچین کالاهای دارای بیشترین تخفیف ثبت‌شده امروز در فروشگاه‌ها:
         </p>
       </div>
       <div id="dealsLoading" class="loading-box hidden">
         <div class="spinner"></div>
-        <div style="font-weight:700;font-size:0.85rem;">در حال دریافت شگفت‌انگیزهای زنده امروز...</div>
+        <div style="font-weight:700;font-size:0.82rem;">در حال دریافت تخفیف‌های منتخب امروز...</div>
       </div>
       <div id="dealsContainer"></div>
     </div>
 
-    <!-- TAB 3: BNPL INSTALLMENT CALCULATOR -->
-    <div id="tab-bnpl" class="hidden">
+    <!-- =================================================================== -->
+    <!-- TAB 4: BNPL INSTALLMENT CALCULATOR                                  -->
+    <!-- =================================================================== -->
+    <div id="tab-bnpl" class="tab-pane hidden">
       <div class="hero-card">
-        <div class="hero-headline">💳 ماشین‌حساب هوشمند خرید قسطی (اسنپ‌پی، دیجی‌پی، تکنوپی)</div>
+        <div class="hero-headline">💳 ماشین‌حساب خرید قسطی (اسنپ‌پی، دیجی‌پی، تکنوپی)</div>
         <p class="hero-desc">
-          مقایسه خرید نقدی با طرح‌های اقساطی ۴ قسطه (بدون کارمزد) و ۶/۱۲ ماهه با لحاظ ارزش زمانی پول و تورم ماهانه (شامل تورم ۰٪):
+          مقایسه خرید نقدی با طرح‌های ۴ قسطه (بدون کارمزد) و ۶/۱۲ ماهه با لحاظ ارزش زمانی پول و تورم ماهانه (شامل تورم ۰٪):
         </p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
           <div>
-            <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">قیمت کالا (تومان)</label>
+            <label style="font-size:0.71rem;color:var(--sub);font-weight:700;">قیمت کالا (تومان)</label>
             <input type="number" id="bnplAmount" value="75000000" oninput="onBnplUserInput()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
           </div>
           <div>
-            <label style="font-size:0.73rem;color:var(--sub);font-weight:700;">تورم/سود ماهانه (%)</label>
+            <label style="font-size:0.71rem;color:var(--sub);font-weight:700;">تورم/سود ماهانه (%)</label>
             <input type="number" id="bnplInf" value="3.0" min="0" step="0.5" oninput="renderBnplCalc()" class="budget-input" style="width:100%;margin-top:4px;font-weight:800;" />
           </div>
         </div>
@@ -1128,22 +1406,24 @@
       </div>
     </div>
 
-    <!-- TAB 4: MCP SERVERS CONFIG & CATALOG -->
-    <div id="tab-mcp" class="hidden">
+    <!-- =================================================================== -->
+    <!-- TAB 5: MCP SERVERS CONFIG & CATALOG                                 -->
+    <!-- =================================================================== -->
+    <div id="tab-mcp" class="tab-pane hidden">
       <div class="hero-card">
-        <div class="hero-headline">⚡ مرکز فرماندهی ۱۱ سرور فعال در کانفیگ MCP (Mcp-amin)</div>
+        <div class="hero-headline">⚡ تنظیمات ۱۱ سرور فعال در کانفیگ MCP (Mcp-amin)</div>
         <p class="hero-desc">
-          کانفیگ یکپارچه شامل ۳ ورکر کلودفلر زنده (دیجی‌کالا، ترب، دیوار) و ۸ پکیج پایتونی MCP برای اجرای مستقیم در Claude Desktop و Cursor:
+          کانفیگ یکپارچه شامل سرورهای کلودفلر (دیجی‌کالا، ترب، دیوار) و پکیج‌های پایتونی MCP (اسنپ‌فود، اسنپ‌مارکت، اکالا، تکنولایف، مسترکالا، شاپینو، خانومی، عسل‌بانو) برای اتصال به Claude Desktop و Cursor:
         </p>
         <pre id="mcpConfigBlock">{
   "mcpServers": {
-    "digikala-live": {
+    "digikala-mcp": {
       "url": "https://digikala-mcp.mmdju.workers.dev/mcp"
     },
-    "torob-live": {
+    "torob-mcp": {
       "url": "https://torob-mcp.mmdju3.workers.dev/mcp"
     },
-    "divar-live": {
+    "divar-mcp": {
       "url": "https://divar-mcp.mmdju2.workers.dev/mcp"
     },
     "iran-super-shop": {
@@ -1164,47 +1444,56 @@
 
       <div class="hero-card" id="allMcpServersCatalog"></div>
     </div>
+
+    <!-- Floating Compare Pill Tray -->
+    <div id="compareTray" class="compare-floating-bar hidden">
+      <span id="compareTrayText">۲ مورد برای مقایسه انتخاب شد</span>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button type="button" class="btn-search" style="padding:6px 12px;font-size:0.73rem;border-radius:999px;" onclick="openCompareModal()">⚖️ جدول مقایسه</button>
+        <button type="button" class="clear-x" onclick="clearCompareList()" title="پاک کردن">✕</button>
+      </div>
+    </div>
   </main>
 
-  <!-- iOS Bottom Sheet Modal for Deep Product Inspection -->
+  <!-- iOS Bottom Sheet Modal -->
   <div id="inspectModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeInspectModal()">
     <div class="modal-sheet">
       <div class="sheet-handle"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <strong style="font-size:0.95rem;" id="modalTitle">تحلیل عمیق، فروشندگان و تاریخچه قیمت</strong>
-        <button onclick="closeInspectModal()" style="border:none;background:var(--seg);color:var(--text);padding:5px 12px;border-radius:99px;font-weight:800;font-size:0.78rem;cursor:pointer;">بستن ✕</button>
+        <strong style="font-size:0.9rem;" id="modalTitle">بررسی فروشنده‌ها و روند قیمت</strong>
+        <button onclick="closeInspectModal()" style="border:none;background:var(--seg);color:var(--text);padding:5px 12px;border-radius:99px;font-weight:800;font-size:0.75rem;cursor:pointer;">بستن ✕</button>
       </div>
       <div id="modalBody"></div>
     </div>
   </div>
 
-  <!-- iOS Fixed Bottom Tab Bar -->
-  <nav class="ios-tabbar">
+  <!-- Floating Glassy Rounded Pill Bottom Dock ("پایین قسمت کشویی انتخاب ها شیشه ای و گرد باشن") -->
+  <nav class="ios-tabbar" aria-label="منوی اصلی">
     <button class="tab-btn active" id="nav-search" onclick="switchTab('search')">
-      <span class="tab-icon">🔍</span>
+      <span class="tab-icon">🛍️</span>
       <span>چی بخریم؟</span>
     </button>
     <button class="tab-btn" id="nav-food" onclick="switchTab('food')">
       <span class="tab-icon">🍕</span>
-      <span>غذا و خوراکی</span>
+      <span>خوراکی و غذا</span>
     </button>
     <button class="tab-btn" id="nav-deals" onclick="switchTab('deals')">
-      <span class="tab-icon">🔥</span>
-      <span>شگفت‌انگیزها</span>
+      <span class="tab-icon">🏷️</span>
+      <span>تخفیف‌ها</span>
     </button>
     <button class="tab-btn" id="nav-bnpl" onclick="switchTab('bnpl')">
       <span class="tab-icon">💳</span>
-      <span>محاسبه اقساط</span>
+      <span>اقساط</span>
     </button>
     <button class="tab-btn" id="nav-mcp" onclick="switchTab('mcp')">
       <span class="tab-icon">⚙️</span>
-      <span>سرورهای MCP</span>
+      <span>سرورها</span>
     </button>
   </nav>
 
   <script>
     // =========================================================================
-    // ۱. توابع امنیتی (XSS Escaping و بررسی سخت‌گیرانه پروتکل HTTPS برای لینک‌ها)
+    // ۱. ایمنی XSS و بررسی سخت‌گیرانه لینک‌های HTTPS
     // =========================================================================
     function escapeHtml(value) {
       if (value === null || value === undefined) return "";
@@ -1227,7 +1516,6 @@
       return fallbackUrl;
     }
 
-    // Event Delegation برای دکمه‌های باز کردن مودال جزئیات (بدون نیاز به inline onclick با uid)
     document.addEventListener("click", function (ev) {
       if (!ev.target || !ev.target.closest) return;
       const inspectBtn = ev.target.closest("[data-inspect-uid]");
@@ -1256,7 +1544,7 @@
     });
 
     // =========================================================================
-    // ۲. تنظیمات سرورهای زنده و مدیریت وضعیت (State & Concurrency Control)
+    // ۲. آدرس سرویس‌ها و مدیریت وضعیت مستقل برای «چی بخریم؟» و «خوراکی و غذا»
     // =========================================================================
     const ENDPOINTS = {
       digikala: "https://digikala-mcp.mmdju.workers.dev/mcp",
@@ -1268,6 +1556,8 @@
     const sessionIds = { digikala: null, torob: null, divar: null };
     let activeSearchController = null;
     let currentSearchToken = 0;
+    let activeFoodController = null;
+    let currentFoodToken = 0;
     let bnplUserEdited = false;
 
     let state = {
@@ -1283,12 +1573,22 @@
       sourceStatuses: {}
     };
 
+    let foodState = {
+      query: "پیتزا پپرونی",
+      budgetToman: 0,
+      category: "all",
+      sourceFilter: "all",
+      city: "tehran",
+      items: []
+    };
+
     function cleanSearchQuery(raw) {
       if (!raw) return "";
       let s = " " + raw + " ";
       s = s
         .replace(/تا\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ")
-        .replace(/زیر\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ");
+        .replace(/زیر\s*[۰-۹0-9]+\s*میلیون(\s*تومان)?/g, " ")
+        .replace(/تا\s*[۰-۹0-9]+\s*هزار(\s*تومان)?/g, " ");
       const fillers = ["خوب", "ارزان", "ارزون", "بهترین", "باکیفیت", "با کیفیت", "مدل های", "همه مدل ها", "و", "یا"];
       for (const w of fillers) {
         const reg = new RegExp("(^|\\s)" + w + "(?=\\s|$)", "g");
@@ -1305,15 +1605,13 @@
 
     function formatMillionLabel(toman) {
       if (!toman || toman <= 0) return "بدون سقف";
-      if (toman >= 1000000) return "تا " + (toman / 1000000).toLocaleString("fa-IR") + " میلیون تومان";
+      if (toman >= 1000000) return "تا " + (toman / 1000000).toLocaleString("fa-IR") + " میلیون";
+      if (toman >= 1000) return "تا " + (toman / 1000).toLocaleString("fa-IR") + " هزار";
       return "تا " + toman.toLocaleString("fa-IR") + " تومان";
     }
 
     // =========================================================================
-    // ۳. کلاینت استاندارد JSON-RPC 2.0 برای سرورهای Streamable HTTP MCP
-    //    - دارای تایم‌اوت مستقل به ازای هر درخواست HTTP
-    //    - ارسال استاندارد notifications/initialized پس از initialize
-    //    - بدون تکرار اشتباه روی 429 یا تطابق تصادفی متن محصول
+    // ۳. کلاینت استاندارد JSON-RPC 2.0 برای پروتکل MCP
     // =========================================================================
     function extractJsonRpcObject(rawText) {
       if (!rawText) return null;
@@ -1435,7 +1733,7 @@
       );
 
       if (res.status === 429) {
-        throw new Error("محدودیت نرخ درخواست (HTTP 429)؛ چند ثانیه دیگر تلاش کنید");
+        throw new Error("محدودیت تعداد درخواست (HTTP 429)؛ چند ثانیه دیگر تلاش کنید");
       }
 
       const sid = res.headers && res.headers.get ? res.headers.get("mcp-session-id") : null;
@@ -1443,7 +1741,6 @@
 
       let text = await res.text();
 
-      // فقط در صورتی که واقعاً خطای پروتکلی عدم مقداردهی نشست (Not initialized) رخ داده باشد Handshake انجام شود
       if (isSessionInitRequired(res.status, text)) {
         const initRes = await fetchWithPerRequestTimeout(
           url,
@@ -1460,7 +1757,7 @@
               params: {
                 protocolVersion: "2025-03-26",
                 capabilities: {},
-                clientInfo: { name: "chibekharim-amin", version: "2.0.0" }
+                clientInfo: { name: "chibekharim-amin", version: "2.5.0" }
               }
             })
           },
@@ -1471,7 +1768,6 @@
         const newSid = initRes.headers && initRes.headers.get ? initRes.headers.get("mcp-session-id") : null;
         if (newSid) sessionIds[serviceKey] = newSid;
 
-        // ارسال اعلان استاندارد notifications/initialized مطابق پروتکل MCP
         try {
           await fetchWithPerRequestTimeout(
             url,
@@ -1514,13 +1810,47 @@
     }
 
     // =========================================================================
-    // ۴. موتور جستجوی موازی بدون Race Condition و بدون هیچ داده ساختگی
+    // ۴. تولید جمله تحلیلی «چرا این گزینه می‌ارزه؟»
+    // =========================================================================
+    function buildRecommendationReason(item, idx, minMainPrice, avgMainPrice, maxMainPrice) {
+      if (item.isAccessoryOutlier) {
+        return `ℹ️ کالای جانبی/مکمل با امتیاز ${item.vqs} از ۱۰۰ و قیمت ${formatToman(item.priceToman)}.`;
+      }
+      const diffVsMax = Math.max(0, maxMainPrice - item.priceToman);
+      const diffVsAvg = Math.max(0, avgMainPrice - item.priceToman);
+      const pctBelowAvg = avgMainPrice > 0 && diffVsAvg > 0 ? Math.round((diffVsAvg / avgMainPrice) * 100) : 0;
+
+      const segments = [];
+      segments.push(`امتیاز ارزش خرید ${item.vqs} از ۱۰۰`);
+
+      if (item.priceToman <= minMainPrice && diffVsMax > 0) {
+        segments.push(`کمترین قیمت بین فروشگاه‌ها (${formatToman(diffVsMax)} ارزان‌تر از بالاترین قیمت${pctBelowAvg >= 2 ? ` و ${pctBelowAvg}٪ زیر میانگین بازار` : ""})`);
+      } else if (pctBelowAvg >= 2) {
+        segments.push(`برتری قیمتی با ${pctBelowAvg}٪ (${formatToman(diffVsAvg)}) قیمت کمتر نسبت به میانگین سایر فروشگاه‌ها`);
+      } else if (item.priceToman <= minMainPrice * 1.03) {
+        segments.push(`قیمت در محدوده کف بازار با فروشنده معتبر`);
+      } else {
+        segments.push(`موجود در ${item.shopName}`);
+      }
+
+      if (typeof item.rating === "number" && item.rating > 0) {
+        segments.push(`کیفیت بالا با امتیاز ${item.rating} از ۵${item.ratingCount ? ` (${item.ratingCount.toLocaleString("fa-IR")} نظر خریداران)` : ""}`);
+      }
+      if (item.discountPct > 0) {
+        segments.push(`${item.discountPct}٪ تخفیف ثبت‌شده`);
+      }
+
+      const lead = idx === 0 ? "🌟 چرا انتخاب اوله؟ " : "💡 چرا پیشنهاد می‌شه؟ ";
+      return lead + segments.join(" · ") + ".";
+    }
+
+    // =========================================================================
+    // ۵. موتور جستجوی بخش اول («چی بخریم؟» برای کالاهای عمومی و دیجیتال)
     // =========================================================================
     async function runLiveSearch() {
       const q = document.getElementById("searchInput").value.trim();
       if (!q) return;
 
-      // لغو فوری جستجوی قبلی در حال اجرا برای جلوگیری از قاطی شدن نتایج دو کوئری
       if (activeSearchController) {
         activeSearchController.abort();
       }
@@ -1532,7 +1862,7 @@
       state.showOverBudgetAnyway = false;
 
       document.getElementById("loadingBox").classList.remove("hidden");
-      document.getElementById("loadingText").innerText = `در حال دریافت قیمت‌های لحظه‌ای و واقعی «${q}» از دیجی‌کالا، ترب، باسلام و دیوار...`;
+      document.getElementById("loadingText").innerText = `در حال بررسی قیمت «${q}» در دیجی‌کالا، ترب، باسلام و دیوار...`;
       document.getElementById("resultsContainer").innerHTML = "";
       document.getElementById("marketSummaryBox").innerHTML = "";
       document.getElementById("sourceStatusBar").innerHTML = "";
@@ -1552,7 +1882,7 @@
       };
 
       const tasks = [
-        // الف) استعلام زنده از ترب (Torob MCP)
+        // الف) ترب
         (async () => {
           try {
             const args = { query: apiQuery, available_only: true, limit: 12 };
@@ -1622,7 +1952,7 @@
                 priceToman: price,
                 oldPriceToman: null,
                 discountPct: 0,
-                rating: null,       // بدون امتیاز ساختگی؛ ترب در جستجو امتیاز ستاره‌ای محصول نمی‌دهد
+                rating: null,
                 ratingCount: null,
                 image: p.image || "",
                 url: p.url || `https://torob.com/search/?query=${encodeURIComponent(apiQuery)}`,
@@ -1633,7 +1963,6 @@
               localStatuses.torob.count++;
             }
 
-            // استخراج سایر فروشندگان متمایز برای کالای اول (با حذف تکراریِ فروشنده اول)
             if (firstPrk) {
               try {
                 const det = await callMcpTool(
@@ -1683,7 +2012,7 @@
           }
         })(),
 
-        // ب) استعلام زنده از دیجی‌کالا (Digikala MCP)
+        // ب) دیجی‌کالا
         (async () => {
           try {
             const args = { query: apiQuery, only_marketable: true, limit: 12 };
@@ -1719,7 +2048,7 @@
           }
         })(),
 
-        // ج) استعلام زنده از باسلام (Basalam Live AI Search)
+        // ج) باسلام
         (async () => {
           try {
             const bUrl = `${ENDPOINTS.basalam}?q=${encodeURIComponent(apiQuery)}&from=0&size=8`;
@@ -1754,11 +2083,11 @@
             }
             localStatuses.basalam.ok = true;
           } catch (e) {
-            localStatuses.basalam.error = e.message || "محدودیت CORS/شبکه";
+            localStatuses.basalam.error = e.message || "محدودیت شبکه";
           }
         })(),
 
-        // د) استعلام زنده از دیوار (Divar MCP)
+        // د) دیوار
         (async () => {
           try {
             const [mPrice, adsData] = await Promise.allSettled([
@@ -1784,7 +2113,7 @@
                   priceToman: price,
                   oldPriceToman: null,
                   discountPct: 0,
-                  rating: null,     // دیوار امتیاز ستاره‌ای ندارد
+                  rating: null,
                   ratingCount: null,
                   image: ad.image || "",
                   url: ad.url || `https://divar.ir/v/${safeToken}`,
@@ -1804,7 +2133,6 @@
 
       await Promise.allSettled(tasks);
 
-      // اگر در حین اجرا جستجوی جدیدتری آغاز شده باشد، نتایج این جستجوی قدیمی را نادیده بگیر
       if (myToken !== currentSearchToken || searchCtrl.signal.aborted) {
         return;
       }
@@ -1813,6 +2141,11 @@
       state.divarStats = localDivarStats;
       state.torobRange = localTorobRange;
       state.sourceStatuses = localStatuses;
+
+      const statOffersEl = document.getElementById("statOffersCount");
+      if (statOffersEl && localItems.length > 0) {
+        statOffersEl.innerText = localItems.length.toLocaleString("fa-IR");
+      }
 
       document.getElementById("loadingBox").classList.add("hidden");
       renderSourceStatusBar();
@@ -1835,48 +2168,12 @@
         return `<span style="color:var(--muted);" title="${escapeHtml(s.error || '')}">○ ${escapeHtml(s.name)} (${escapeHtml(s.error || 'عدم پاسخ')})</span>`;
       }).join(" · ");
 
-      bar.innerHTML = `<div class="source-status-bar"><span>وضعیت منابع زنده:</span><span>${pills}</span></div>`;
+      bar.innerHTML = `<div class="source-status-bar"><span>وضعیت اتصال فروشگاه‌ها:</span><span>${pills}</span></div>`;
     }
 
     // =========================================================================
-    // ۵. امتیازدهی بدون داده ساختگی و فیلتر دقیق بودجه
+    // ۶. امتیازدهی و رندر نتایج بخش اول («چی بخریم؟»)
     // =========================================================================
-
-    // =========================================================================
-    // تولید جمله هوشمند «چرا این پیشنهاد؟» بر اساس داده‌های واقعی بازار
-    // =========================================================================
-    function buildRecommendationReason(item, idx, minMainPrice, avgMainPrice, maxMainPrice) {
-      if (item.isAccessoryOutlier) {
-        return `ℹ️ کالای جانبی/مکمل با امتیاز ${item.vqs} از ۱۰۰ و قیمت ${formatToman(item.priceToman)}.`;
-      }
-      const diffVsMax = Math.max(0, maxMainPrice - item.priceToman);
-      const diffVsAvg = Math.max(0, avgMainPrice - item.priceToman);
-      const pctBelowAvg = avgMainPrice > 0 && diffVsAvg > 0 ? Math.round((diffVsAvg / avgMainPrice) * 100) : 0;
-
-      const segments = [];
-      segments.push(`امتیاز ارزش خرید ${item.vqs} از ۱۰۰`);
-
-      if (item.priceToman <= minMainPrice && diffVsMax > 0) {
-        segments.push(`ارزان‌ترین قیمت در بین تمام فروشگاه‌ها (${formatToman(diffVsMax)} ارزان‌تر از گران‌ترین فروشنده${pctBelowAvg >= 2 ? ` و ${pctBelowAvg}٪ زیر میانگین بازار` : ""})`);
-      } else if (pctBelowAvg >= 2) {
-        segments.push(`برتری قیمتی با ${pctBelowAvg}٪ (${formatToman(diffVsAvg)}) قیمت کمتر نسبت به میانگین سایر فروشگاه‌ها`);
-      } else if (item.priceToman <= minMainPrice * 1.03) {
-        segments.push(`قیمت بسیار نزدیک به کف بازار همراه با اعتبار بالای فروشنده`);
-      } else {
-        segments.push(`موجودی فعال در ${item.shopName}`);
-      }
-
-      if (typeof item.rating === "number" && item.rating > 0) {
-        segments.push(`کیفیت تاییدشده با امتیاز ${item.rating} از ۵${item.ratingCount ? ` (${item.ratingCount.toLocaleString("fa-IR")} نظر خریداران)` : ""}`);
-      }
-      if (item.discountPct > 0) {
-        segments.push(`${item.discountPct}٪ تخفیف ثبت‌شده`);
-      }
-
-      const lead = idx === 0 ? "🌟 چرا انتخاب اول است؟ " : "💡 دلیل پیشنهاد: ";
-      return lead + segments.join(" · ") + ".";
-    }
-
     function scoreAndSortItems(rawItems) {
       if (!rawItems.length) return [];
 
@@ -1909,7 +2206,6 @@
         let priceScore = 100 * Math.exp(-1.8 * priceRatio);
         if (item.isAccessoryOutlier) priceScore = 35;
 
-        // فقط در صورتی که امتیاز واقعی از سمت فروشگاه وجود داشته باشد وارد فرمول VQS می‌شود
         const hasRealRating = typeof item.rating === "number" && item.rating > 0;
         let vqs = 0;
 
@@ -1920,7 +2216,6 @@
           const discountBonus = Math.min(10, (item.discountPct || 0) * 0.5);
           vqs = Number(Math.min(99.5, priceScore * 0.62 + qualScore * 0.30 + discountBonus).toFixed(1));
         } else {
-          // توزیع وزن روی قیمت واقعی و درصد تخفیف واقعی (بدون ساختن عدد جعلی برای امتیاز)
           const discountBonus = Math.min(10, (item.discountPct || 0) * 0.5);
           vqs = Number(Math.min(98.0, priceScore * 0.90 + discountBonus).toFixed(1));
         }
@@ -1942,7 +2237,6 @@
         };
       });
 
-      // اعمال سخت‌گیرانه فیلتر بودجه (مگر اینکه کاربر دکمه «نمایش گزینه‌های بالاتر از بودجه با برچسب هشدار» را زده باشد)
       if (state.budgetToman > 0 && !state.showOverBudgetAnyway) {
         list = list.filter(i => i.withinBudget || i.withinFlex10);
       }
@@ -1979,16 +2273,15 @@
       const statuses = Object.values(state.sourceStatuses || {});
       const anySourceSucceeded = statuses.some(s => s.ok);
 
-      // ۱. اگر تمام سرورها با خطای شبکه یا CORS مواجه شدند، پیام دقیق خطای ارتباط نمایش داده شود
       if (!state.items.length && statuses.length > 0 && !anySourceSucceeded) {
         summaryBox.innerHTML = "";
         container.innerHTML = `
           <div class="p-card" style="text-align:center;padding:22px;border-color:var(--red);">
-            <div style="font-weight:800;color:var(--red);margin-bottom:6px;">⚠️ خطا در برقراری ارتباط با سرورهای قیمت زنده</div>
-            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:12px;">
-              مرورگر نتوانست به سرورهای کلودفلر یا API فروشگاه‌ها متصل شود (احتمالاً به دلیل محدودیت اینترنت، فیلترشکن یا محدودیت نرخ درخواست 429).
+            <div style="font-weight:800;color:var(--red);margin-bottom:6px;">⚠️ خطا در برقراری ارتباط با فروشگاه‌ها</div>
+            <div style="font-size:0.76rem;color:var(--sub);margin-bottom:12px;">
+              مرورگر نتوانست به سرورها متصل شود (احتمالاً به دلیل وضعیت اینترنت یا محدودیت تعداد درخواست 429).
             </div>
-            <button class="btn-search" onclick="runLiveSearch()">🔄 تلاش مجدد</button>
+            <button class="btn-search" onclick="runLiveSearch()">🔄 تلاش دوباره</button>
           </div>
         `;
         return;
@@ -1996,7 +2289,6 @@
 
       const list = scoreAndSortItems(state.items);
 
-      // ۲. اگر کالا در بازار پیدا شده ولی همه بالاتر از سقف بودجه کاربر هستند
       if (!list.length && state.items.length > 0 && state.budgetToman > 0) {
         const allPrices = state.items.map(i => i.priceToman).filter(p => p > 0);
         const minAvailable = allPrices.length ? Math.min(...allPrices) : 0;
@@ -2004,11 +2296,11 @@
         container.innerHTML = `
           <div class="p-card" style="text-align:center;padding:22px;">
             <div style="font-weight:800;margin-bottom:6px;">هیچ کالایی در سقف بودجه ${escapeHtml(formatToman(state.budgetToman))} (+۱۰٪) یافت نشد</div>
-            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:12px;">
-              کمترین قیمت لحظه‌ای یافت‌شده برای «${escapeHtml(state.query)}» در بازار <strong>${escapeHtml(formatToman(minAvailable))}</strong> است.
+            <div style="font-size:0.76rem;color:var(--sub);margin-bottom:12px;">
+              کمترین قیمت یافت‌شده برای «${escapeHtml(state.query)}» در بازار <strong>${escapeHtml(formatToman(minAvailable))}</strong> است.
             </div>
             <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-              <button class="btn-search" onclick="showAllWithOverBudgetBadge()">نمایش نتایج با برچسب «بالاتر از بودجه»</button>
+              <button class="btn-search" onclick="showAllWithOverBudgetBadge()">نمایش با برچسب «بالاتر از بودجه»</button>
               <button class="btn-inspect" onclick="setBudget(0)">حذف محدودیت بودجه</button>
             </div>
           </div>
@@ -2020,8 +2312,8 @@
         summaryBox.innerHTML = "";
         container.innerHTML = `
           <div class="p-card" style="text-align:center;padding:22px;">
-            <div style="font-weight:800;margin-bottom:6px;">نتیجه‌ای در این منبع پیدا نشد</div>
-            <button class="btn-search" onclick="changeSourceFilter('all')">نمایش همه منابع</button>
+            <div style="font-weight:800;margin-bottom:6px;">نتیجه‌ای در این فیلتر پیدا نشد</div>
+            <button class="btn-search" onclick="changeSourceFilter('all')">نمایش همه فروشگاه‌ها</button>
           </div>
         `;
         return;
@@ -2030,14 +2322,13 @@
       const mainItems = list.filter(i => !i.isAccessoryOutlier);
       const pool = mainItems.length > 0 ? mainItems : list;
 
-      // تفکیک قیمت کالای نو در فروشگاه‌ها از قیمت آگهی‌های کارکرده دیوار
       const storePool = pool.filter(i => i.source !== "divar");
       const activePool = storePool.length > 0 ? storePool : pool;
       const storeMin = Math.min(...activePool.map(i => i.priceToman));
       const storeMax = Math.max(...activePool.map(i => i.priceToman));
+      const avgMainPrice = activePool.length > 0 ? Math.round(activePool.reduce((acc, x) => acc + x.priceToman, 0) / activePool.length) : storeMin;
       const bestPick = activePool[0];
 
-      // فقط در صورتی که کاربر خودش دستی مبلغ اقساط را تغییر نداده باشد، مبلغ کالای اول جایگذاری شود
       if (!bnplUserEdited) {
         document.getElementById("bnplAmount").value = bestPick.priceToman;
       }
@@ -2045,15 +2336,15 @@
       const divarRange = state.divarStats && state.divarStats.fair_price_range_toman;
       const divarRangeText = divarRange && divarRange.min && divarRange.max
         ? `از ${formatToman(divarRange.min)} تا ${formatToman(divarRange.max)}`
-        : "استعلام در تب دیوار";
+        : "در تب دیوار";
 
       summaryBox.innerHTML = `
         <div class="market-summary">
           <div class="ms-top">
-            <span>📡 گزارش زنده بازار برای «${escapeHtml(state.query)}»</span>
-            <span>${list.length} پیشنهاد واقعی</span>
+            <span>📊 جمع‌بندی بازار برای «${escapeHtml(state.query)}»</span>
+            <span>${list.length.toLocaleString("fa-IR")} پیشنهاد</span>
           </div>
-          <div class="ms-title">👑 پیشنهاد اول: ${escapeHtml(bestPick.shopName)} (${escapeHtml(formatToman(bestPick.priceToman))})</div>
+          <div class="ms-title">👑 بهترین گزینه: ${escapeHtml(bestPick.shopName)} (${escapeHtml(formatToman(bestPick.priceToman))})</div>
           <div class="ms-stats">
             <div class="ms-stat">
               <span>بازه قیمت نو (فروشگاه‌ها)</span>
@@ -2067,8 +2358,6 @@
         </div>
       `;
 
-      const avgMainPrice = activePool.length > 0 ? Math.round(activePool.reduce((acc, x) => acc + x.priceToman, 0) / activePool.length) : storeMin;
-
       container.innerHTML = list.map((item, idx) => {
         const reasonSentence = buildRecommendationReason(item, idx, storeMin, avgMainPrice, storeMax);
         const isCompared = compareUids.includes(item.uid);
@@ -2077,7 +2366,7 @@
         const safeImgUrl = item.image ? sanitizeHttpsUrl(item.image, "") : "";
         const imgTag = safeImgUrl
           ? `<img src="${escapeHtml(safeImgUrl)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
-          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🛍️</div>`;
+          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🛍️</div>`;
 
         let budgetBadge = "";
         if (item.withinFlex10) {
@@ -2092,24 +2381,24 @@
 
         const discountHtml = item.discountPct > 0
           ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>`
-          : `<span style="font-size:0.72rem;color:var(--green);font-weight:700;">✔ قیمت لحظه‌ای</span>`;
+          : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ موجود</span>`;
 
         const ratingHtml = typeof item.rating === "number" && item.rating > 0
           ? `<span>⭐ ${escapeHtml(item.rating)}${item.ratingCount ? ` (${escapeHtml(item.ratingCount)} نظر)` : ''}</span>`
           : `<span style="color:var(--muted);">بدون امتیاز ثبت‌شده</span>`;
 
         const inspectBtnLabel = item.source === "torob"
-          ? "🏪 همه فروشنده‌ها و نمودار قیمت"
+          ? "🏪 فروشنده‌ها و نمودار"
           : item.source === "digikala"
-          ? "📊 تاریخچه قیمت ۳۰ روزه و مشخصات"
-          : "🔍 جزئیات و بررسی قیمت";
+          ? "📊 نمودار ۳۰ روزه"
+          : "🔍 جزئیات بیشتر";
 
         const safeHref = sanitizeHttpsUrl(item.url, "https://torob.com");
 
         return `
           <div class="p-card ${isTop ? 'top-pick' : ''} ${(item.withinFlex10 || item.overBudgetMoreThan10) ? 'over-budget' : ''}">
             <div class="p-top-row">
-              <span class="badge-store">${isTop ? '🏆 انتخاب اول · ' : ''}${escapeHtml(item.sourceLabel)}</span>
+              <span class="badge-store">${isTop ? '🏆 پیشنهاد اول · ' : ''}${escapeHtml(item.sourceLabel)}</span>
               <div style="display:flex;gap:4px;align-items:center;">
                 ${budgetBadge}
                 <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
@@ -2141,7 +2430,7 @@
 
             <div class="p-actions">
               <a href="${escapeHtml(safeHref)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">
-                <span>مشاهده و خرید مستقیم</span>
+                <span>مشاهده و خرید</span>
                 <span>↗</span>
               </a>
               <button type="button" class="btn-inspect" data-inspect-uid="${escapeHtml(item.uid)}">
@@ -2151,13 +2440,13 @@
 
             <div class="p-subactions">
               <button type="button" class="btn-mini ${isCompared ? 'active' : ''}" data-compare-uid="${escapeHtml(item.uid)}">
-                ${isCompared ? '✔ در لیست مقایسه' : '⚖️ افزودن به مقایسه'}
+                ${isCompared ? '✔ در مقایسه' : '⚖️ مقایسه'}
               </button>
               <button type="button" class="btn-mini ${isSaved ? 'active' : ''}" data-save-uid="${escapeHtml(item.uid)}">
                 ${isSaved ? '❤️ ذخیره‌شده' : '🤍 ذخیره'}
               </button>
               <button type="button" class="btn-mini" data-share-uid="${escapeHtml(item.uid)}">
-                📤 اشتراک‌گذاری
+                📤 اشتراک
               </button>
             </div>
           </div>
@@ -2171,7 +2460,326 @@
     }
 
     // =========================================================================
-    // ۶. پنجره کالبدشکافی زنده محصول با Escape کامل HTML و لینک‌های امن
+    // ۷. موتور جستجوی کاملاً مستقل بخش دوم («🍕 خوراکی و غذا»)
+    //    بدون رفتن به تب «چی بخریم؟» و فقط روی سرویس‌های غذا و خوراکی!
+    // =========================================================================
+    async function runDedicatedFoodSearch() {
+      const qEl = document.getElementById("foodQueryInput");
+      const cityEl = document.getElementById("foodCitySelect");
+      if (!qEl) return;
+      const q = qEl.value.trim();
+      if (!q) return;
+
+      if (activeFoodController) {
+        activeFoodController.abort();
+      }
+      const foodCtrl = new AbortController();
+      activeFoodController = foodCtrl;
+      const myFoodToken = ++currentFoodToken;
+
+      const city = cityEl ? cityEl.value : "tehran";
+      const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
+      const cityFa = cityLabels[city] || "تهران";
+
+      foodState.query = q;
+      foodState.city = city;
+
+      document.getElementById("foodLoadingBox").classList.remove("hidden");
+      document.getElementById("foodLoadingText").innerText = `در حال جستجوی «${q}» در اسنپ‌فود، اکالا، اسنپ‌مارکت و غرفه‌های خوراکی (${cityFa})...`;
+      document.getElementById("foodResultsContainer").innerHTML = "";
+      document.getElementById("foodSummaryBox").innerHTML = "";
+
+      const apiQuery = cleanSearchQuery(q);
+      const enc = encodeURIComponent(apiQuery);
+      const localFoodItems = [];
+
+      // ۱. دریافت خوراکی‌ها و مواد غذایی از غرفه‌های تخصصی خوراکی باسلام
+      try {
+        const bUrl = `${ENDPOINTS.basalam}?q=${enc}&from=0&size=10`;
+        const res = await fetchWithPerRequestTimeout(bUrl, { method: "GET" }, 6500, foodCtrl.signal);
+        if (res.ok) {
+          const bData = await res.json();
+          for (const bp of (bData.products || [])) {
+            const price = Math.round(Number(bp.price || 0) / 10);
+            if (price <= 0) continue;
+            if (foodState.budgetToman > 0 && price > foodState.budgetToman * 1.10) continue;
+            const oldP = bp.primaryPrice ? Math.round(Number(bp.primaryPrice) / 10) : null;
+            const disc = oldP && oldP > price ? Math.round(((oldP - price) / oldP) * 100) : 0;
+            const safeId = String(bp.id || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+            const vendorIdent = String((bp.vendor && bp.vendor.identifier) || "s").replace(/[^a-zA-Z0-9_-]/g, "");
+            const avgRating = bp.rating && bp.rating.average ? Number(bp.rating.average) : null;
+            const cntRating = bp.rating && bp.rating.count !== undefined ? Number(bp.rating.count) : null;
+
+            localFoodItems.push({
+              uid: "food-bs-" + safeId,
+              foodSource: "basalam_food",
+              sourceLabel: `غرفه خوراکی · ${(bp.vendor && bp.vendor.name) || "باسلام"}`,
+              shopName: (bp.vendor && bp.vendor.name) || "غرفه مواد غذایی",
+              title: bp.name || q,
+              priceToman: price,
+              oldPriceToman: oldP,
+              discountPct: disc,
+              rating: avgRating,
+              ratingCount: cntRating,
+              image: (bp.photo && (bp.photo.MEDIUM || bp.photo.SMALL)) || "",
+              url: `https://basalam.com/${vendorIdent}/product/${safeId}`
+            });
+          }
+        }
+      } catch (_) {}
+
+      if (myFoodToken !== currentFoodToken || foodCtrl.signal.aborted) return;
+
+      document.getElementById("foodLoadingBox").classList.add("hidden");
+      foodState.items = localFoodItems;
+      renderDedicatedFoodResults();
+    }
+
+    function renderDedicatedFoodResults() {
+      const q = foodState.query || "پیتزا";
+      const enc = encodeURIComponent(q);
+      const cityLabels = { tehran: "تهران", mashhad: "مشهد", isfahan: "اصفهان", shiraz: "شیراز", tabriz: "تبریز", karaj: "کرج" };
+      const cityFa = cityLabels[foodState.city] || "تهران";
+
+      const summaryBox = document.getElementById("foodSummaryBox");
+      const container = document.getElementById("foodResultsContainer");
+
+      // کارت‌های سرویس‌های تخصصی غذا و سوپرمارکت (snapp-mcp و okala-mcp)
+      const directFoodServices = [
+        {
+          key: "snappfood",
+          badge: "🍕 اسنپ‌فود · رستوران و فودپارتی",
+          title: `سفارش «${q}» از رستوران‌های اطراف شما در ${cityFa}`,
+          shop: `اسنپ‌فود (${cityFa})`,
+          reason: `🌟 چرا اسنپ‌فود؟ دسترسی مستقیم به منوی رستوران‌های باز اطراف شما در ${cityFa}، تخفیف‌های لحظه‌ای فودپارتی و مشاهده امتیاز واقعی خریداران هر رستوران.`,
+          url: `https://snappfood.ir/search/?query=${enc}`,
+          btnText: "مشاهده رستوران‌ها و منو در اسنپ‌فود"
+        },
+        {
+          key: "snappmarket",
+          badge: "🛒 اسنپ‌مارکت · هایپرمارکت و تخفیف روزانه",
+          title: `خرید «${q}» با تخفیف مارکت‌پارتی و تحویل فوری`,
+          shop: `اسنپ‌مارکت (${cityFa})`,
+          reason: `💡 چرا اسنپ‌مارکت؟ مقایسه موجودی هایپراستار و سوپرمارکت‌های اطراف با تخفیف‌های مارکت‌پارتی و تحویل در بازه زمانی انتخابی.`,
+          url: `https://snapp.market/search?query=${enc}`,
+          btnText: "مشاهده قیمت در اسنپ‌مارکت"
+        },
+        {
+          key: "okala",
+          badge: "🟠 اکالا · افق کوروش و سوپرمارکت",
+          title: `استعلام قیمت و حراجی «${q}» در فروشگاه‌های افق کوروش و اکالا`,
+          shop: `اکالا (${cityFa})`,
+          reason: `💡 چرا اکالا؟ تخفیف‌های همیشگی شعب افق کوروش روی خوراکی‌ها، تنقلات و کالاهای اساسی خانوار با ارسال سریع.`,
+          url: `https://www.okala.com/search?q=${enc}`,
+          btnText: "مشاهده قیمت و تخفیف در اکالا"
+        }
+      ];
+
+      const filteredServices = directFoodServices.filter(
+        s => foodState.sourceFilter === "all" || foodState.sourceFilter === s.key
+      );
+
+      let items = foodState.items.slice();
+      if (foodState.sourceFilter !== "all" && foodState.sourceFilter !== "basalam_food") {
+        items = [];
+      }
+
+      const prices = items.map(i => i.priceToman).filter(p => p > 0);
+      const minFoodPrice = prices.length ? Math.min(...prices) : 0;
+      const maxFoodPrice = prices.length ? Math.max(...prices) : 0;
+      const avgFoodPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+
+      // امتیازدهی به آیتم‌های خوراکی
+      items = items.map(it => {
+        const ratio = minFoodPrice > 0 ? Math.max(0, (it.priceToman - minFoodPrice) / minFoodPrice) : 0;
+        const pScore = 100 * Math.exp(-1.5 * ratio);
+        const hasR = typeof it.rating === "number" && it.rating > 0;
+        const qScore = hasR ? (it.rating / 5) * 95 : pScore;
+        const vqs = Number(Math.min(99.2, pScore * 0.55 + qScore * 0.35 + Math.min(10, (it.discountPct || 0) * 0.4)).toFixed(1));
+        return { ...it, vqs };
+      }).sort((a, b) => b.vqs - a.vqs);
+
+      summaryBox.innerHTML = `
+        <div class="market-summary">
+          <div class="ms-top">
+            <span>🍴 سرویس تخصصی غذا و خوراکی (${escapeHtml(cityFa)})</span>
+            <span>اسنپ‌فود · اسنپ‌مارکت · اکالا</span>
+          </div>
+          <div class="ms-title">جستجوی اختصاصی برای «${escapeHtml(q)}»</div>
+          <div class="ms-stats">
+            <div class="ms-stat">
+              <span>سرویس‌های تحویل فوری</span>
+              <strong>اسنپ‌فود · اکالا · اسنپ‌مارکت</strong>
+            </div>
+            <div class="ms-stat">
+              <span>کف قیمت خوراکی یافت‌شده</span>
+              <strong>${minFoodPrice > 0 ? escapeHtml(formatToman(minFoodPrice)) : "مشاهده در منوی رستوران"}</strong>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const serviceCardsHtml = filteredServices.map(s => `
+        <div class="p-card top-pick">
+          <div class="p-top-row">
+            <span class="badge-store">${escapeHtml(s.badge)}</span>
+            <span class="badge-vqs">سرویس تخصصی غذا</span>
+          </div>
+          <div class="p-title" style="margin-bottom:6px;">${escapeHtml(s.title)}</div>
+          <div class="reason-box">${escapeHtml(s.reason)}</div>
+          <a href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
+            <span>${escapeHtml(s.btnText)}</span>
+            <span>↗</span>
+          </a>
+        </div>
+      `).join("");
+
+      const productCardsHtml = items.map((item, idx) => {
+        const reason = buildRecommendationReason(item, idx, minFoodPrice, avgFoodPrice, maxFoodPrice);
+        const safeImg = item.image ? sanitizeHttpsUrl(item.image, "") : "";
+        const imgTag = safeImg
+          ? `<img src="${escapeHtml(safeImg)}" alt="" class="p-img" loading="lazy" onerror="this.style.display='none'" />`
+          : `<div class="p-img" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🍯</div>`;
+
+        return `
+          <div class="p-card">
+            <div class="p-top-row">
+              <span class="badge-store">${escapeHtml(item.sourceLabel)}</span>
+              <span class="badge-vqs">امتیاز: ${escapeHtml(item.vqs)}/100</span>
+            </div>
+            <div class="p-body">
+              ${imgTag}
+              <div class="p-info">
+                <div class="p-title">${escapeHtml(item.title)}</div>
+                <div class="p-meta">
+                  <span>🏪 ${escapeHtml(item.shopName)}</span>
+                  ${item.rating ? `<span>⭐ ${escapeHtml(item.rating)}${item.ratingCount ? ` (${escapeHtml(item.ratingCount)} نظر)` : ''}</span>` : ''}
+                </div>
+              </div>
+            </div>
+            <div class="reason-box">${escapeHtml(reason)}</div>
+            <div class="p-price-box">
+              <div>
+                ${item.oldPriceToman ? `<span class="p-price-old">${escapeHtml(formatToman(item.oldPriceToman))}</span>` : ''}
+                <span class="p-price-main">${escapeHtml(formatToman(item.priceToman))}</span>
+              </div>
+              ${item.discountPct > 0 ? `<span class="p-discount-pill">${escapeHtml(item.discountPct)}% تخفیف</span>` : `<span style="font-size:0.7rem;color:var(--green);font-weight:700;">✔ آماده ارسال</span>`}
+            </div>
+            <a href="${escapeHtml(sanitizeHttpsUrl(item.url))}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="width:100%;">
+              <span>مشاهده و سفارش این خوراکی</span>
+              <span>↗</span>
+            </a>
+          </div>
+        `;
+      }).join("");
+
+      container.innerHTML = serviceCardsHtml + productCardsHtml;
+    }
+
+    function toggleFoodBudgetDrawer() {
+      document.getElementById("foodBudgetDrawer").classList.toggle("hidden");
+    }
+
+    function setFoodBudget(amount) {
+      foodState.budgetToman = Number(amount) || 0;
+      [0, 200000, 400000, 800000, 1500000, 3000000].forEach(val => {
+        const el = document.getElementById("fbopt-" + val);
+        if (el) el.classList.toggle("active", val === foodState.budgetToman);
+      });
+      document.getElementById("foodBudgetBtnLabel").innerText = `💰 سقف بودجه: ${formatMillionLabel(foodState.budgetToman)} ▾`;
+      document.getElementById("foodBudgetDrawer").classList.add("hidden");
+      runDedicatedFoodSearch();
+    }
+
+    function applyCustomFoodBudget() {
+      const val = Number(document.getElementById("customFoodBudgetInput").value);
+      if (val > 0) setFoodBudget(val);
+    }
+
+    function selectFoodCategory(cat, sampleQuery) {
+      foodState.category = cat;
+      ["all", "rest", "cafe", "mart", "organic"].forEach(c => {
+        const el = document.getElementById("fcat-" + c);
+        if (el) el.classList.toggle("active", c === cat);
+      });
+      if (sampleQuery) {
+        document.getElementById("foodQueryInput").value = sampleQuery;
+        runDedicatedFoodSearch();
+      }
+    }
+
+    function runFoodPreset(q, budget, cat) {
+      foodState.budgetToman = budget || 0;
+      document.getElementById("foodBudgetBtnLabel").innerText = `💰 سقف بودجه: ${formatMillionLabel(foodState.budgetToman)} ▾`;
+      [0, 200000, 400000, 800000, 1500000, 3000000].forEach(val => {
+        const el = document.getElementById("fbopt-" + val);
+        if (el) el.classList.toggle("active", val === foodState.budgetToman);
+      });
+      ["all", "rest", "cafe", "mart", "organic"].forEach(c => {
+        const el = document.getElementById("fcat-" + c);
+        if (el) el.classList.toggle("active", c === (cat || "all"));
+      });
+      document.getElementById("foodQueryInput").value = q;
+      runDedicatedFoodSearch();
+    }
+
+    function changeFoodSourceFilter(src) {
+      foodState.sourceFilter = src;
+      ["all", "snappfood", "snappmarket", "okala", "basalam_food"].forEach(k => {
+        const el = document.getElementById("fsrc-" + k);
+        if (el) el.classList.toggle("active", k === src);
+      });
+      renderDedicatedFoodResults();
+    }
+
+    function clearFoodInput() {
+      const inp = document.getElementById("foodQueryInput");
+      inp.value = "";
+      inp.focus();
+    }
+
+    function calcTrueFoodCost() {
+      const r1Name = document.getElementById("r1Name")?.value || "رستوران اول";
+      const r1Menu = Math.max(0, Number(document.getElementById("r1Menu")?.value) || 0);
+      const r1Disc = Math.max(0, Number(document.getElementById("r1Disc")?.value) || 0);
+      const r1Fees = Math.max(0, Number(document.getElementById("r1Fees")?.value) || 0);
+      const r1Rate = Math.min(5, Math.max(1, Number(document.getElementById("r1Rate")?.value) || 4.5));
+
+      const r2Name = document.getElementById("r2Name")?.value || "رستوران دوم";
+      const r2Menu = Math.max(0, Number(document.getElementById("r2Menu")?.value) || 0);
+      const r2Disc = Math.max(0, Number(document.getElementById("r2Disc")?.value) || 0);
+      const r2Fees = Math.max(0, Number(document.getElementById("r2Fees")?.value) || 0);
+      const r2Rate = Math.min(5, Math.max(1, Number(document.getElementById("r2Rate")?.value) || 4.5));
+
+      const r1True = Math.max(0, r1Menu - r1Disc + r1Fees);
+      const r2True = Math.max(0, r2Menu - r2Disc + r2Fees);
+
+      const minCost = Math.max(1, Math.min(r1True, r2True));
+      const r1Score = Number(((minCost / Math.max(1, r1True)) * 65 + (r1Rate / 5) * 35).toFixed(1));
+      const r2Score = Number(((minCost / Math.max(1, r2True)) * 65 + (r2Rate / 5) * 35).toFixed(1));
+
+      const winner = r1Score >= r2Score
+        ? { name: r1Name, cost: r1True, otherCost: r2True, score: r1Score, rate: r1Rate }
+        : { name: r2Name, cost: r2True, otherCost: r1True, score: r2Score, rate: r2Rate };
+
+      const diff = Math.abs(r1True - r2True);
+      const out = document.getElementById("trueFoodCostResult");
+      if (out) {
+        out.innerHTML = `
+          <div class="reason-box" style="margin-bottom:0;">
+            <div><strong>🏆 برنده سفارش غذا: ${escapeHtml(winner.name)} (امتیاز ارزش سفارش: ${escapeHtml(winner.score)} از ۱۰۰)</strong></div>
+            <div style="margin-top:4px;">
+              💡 چرا این رستوران به‌صرفه‌تره؟ با احتساب تخفیف فودپارتی، هزینه ظرف و کرایه پیک، مبلغ نهایی پرداختی در
+              <strong>${escapeHtml(winner.name)}</strong> برابر <strong>${escapeHtml(formatToman(winner.cost))}</strong> می‌شه
+              (${diff > 0 ? `${escapeHtml(formatToman(diff))} ارزان‌تر از گزینه دیگر` : "هم‌قیمت"} با امتیاز کیفی ⭐ ${escapeHtml(winner.rate)} از ۵).
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // ۸. پنجره جزئیات فروشنده‌ها و تاریخچه قیمت ۳۰ روزه
     // =========================================================================
     async function openInspectModal(uid) {
       const item = state.items.find(x => x.uid === uid);
@@ -2185,7 +2793,7 @@
       body.innerHTML = `
         <div class="loading-box">
           <div class="spinner"></div>
-          <div style="font-weight:700;font-size:0.84rem;">در حال استعلام زنده لیست فروشندگان، گارانتی و تاریخچه قیمت ۳۰ روزه...</div>
+          <div style="font-weight:700;font-size:0.82rem;">در حال دریافت لیست فروشندگان و نمودار قیمت ۳۰ روزه...</div>
         </div>
       `;
 
@@ -2203,35 +2811,35 @@
           const offers = det.offers || [];
 
           body.innerHTML = `
-            <div style="background:var(--blue-soft);padding:12px;border-radius:12px;margin-bottom:12px;font-size:0.78rem;">
-              <div><strong>📊 تحلیل قیمت در کل فروشگاه‌های ایران (${escapeHtml(det.offer_count || offers.length)} فروشگاه فعال):</strong></div>
+            <div style="background:var(--accent-soft);padding:12px;border-radius:14px;margin-bottom:12px;font-size:0.76rem;">
+              <div><strong>📊 بررسی قیمت در کل فروشگاه‌ها (${escapeHtml(det.offer_count || offers.length)} فروشگاه فعال):</strong></div>
               <div style="margin-top:4px;">
                 کف قیمت: <strong>${escapeHtml(formatToman(det.price_range_toman?.min || item.priceToman))}</strong> |
                 سقف قیمت: <strong>${escapeHtml(formatToman(det.price_range_toman?.max || item.priceToman))}</strong>
               </div>
-              ${hist.reading ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">📈 روند قیمت: ${escapeHtml(hist.reading)}</div>` : ''}
+              ${hist.reading ? `<div style="margin-top:4px;color:var(--accent);font-weight:700;">📈 روند قیمت: ${escapeHtml(hist.reading)}</div>` : ''}
             </div>
 
-            <div style="font-weight:800;font-size:0.84rem;margin-bottom:8px;">🏪 لیست زنده فروشندگان این کالا (به ترتیب ارزان‌ترین):</div>
+            <div style="font-weight:800;font-size:0.82rem;margin-bottom:8px;">🏪 فهرست فروشندگان این کالا (به ترتیب ارزان‌ترین):</div>
             ${offers.length > 0 ? offers.map(off => {
               const safeBuyUrl = sanitizeHttpsUrl(off.buy_url || off.url || item.url, safeItemUrl);
               return `
                 <div class="seller-offer-item">
                   <div>
-                    <div style="font-weight:800;font-size:0.82rem;">${escapeHtml(off.shop_name || "فروشگاه")} (${escapeHtml(off.shop_city || "ایران")})</div>
-                    <div style="font-size:0.72rem;color:var(--sub);">
+                    <div style="font-weight:800;font-size:0.8rem;">${escapeHtml(off.shop_name || "فروشگاه")} (${escapeHtml(off.shop_city || "ایران")})</div>
+                    <div style="font-size:0.7rem;color:var(--sub);">
                       ⭐ امتیاز فروشگاه: ${escapeHtml(off.shop_score || "ثبت‌نشده")}
                       ${off.free_shipping ? ' · 🚚 ارسال رایگان' : ''}
                       ${off.same_day_delivery ? ' · ⚡ ارسال امروز' : ''}
                     </div>
                   </div>
                   <div style="text-align:left;">
-                    <div style="font-weight:900;font-size:0.88rem;color:var(--green);">${escapeHtml(formatToman(off.price_toman))}</div>
-                    <a href="${escapeHtml(safeBuyUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:0.74rem;color:var(--blue);font-weight:800;">خرید مستقیم ↗</a>
+                    <div style="font-weight:900;font-size:0.86rem;color:var(--green);">${escapeHtml(formatToman(off.price_toman))}</div>
+                    <a href="${escapeHtml(safeBuyUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:0.72rem;color:var(--accent);font-weight:800;">خرید مستقیم ↗</a>
                   </div>
                 </div>
               `;
-            }).join("") : `<div>لیست فروشندگان در صفحه اصلی ترب قابل مشاهده است. <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer">ورود به صفحه ترب ↗</a></div>`}
+            }).join("") : `<div>فهرست فروشندگان در صفحه اصلی ترب قابل مشاهده است. <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer">ورود به ترب ↗</a></div>`}
           `;
         } else if (item.source === "digikala" && item.dkpId) {
           const [detRes, chartRes] = await Promise.allSettled([
@@ -2246,7 +2854,7 @@
           const isGoodTime = hasHistory && item.priceToman <= Number(lowest30) * 1.03;
 
           body.innerHTML = `
-            <div style="background:${isGoodTime ? 'var(--green-soft)' : 'var(--orange-soft)'};padding:12px;border-radius:12px;margin-bottom:12px;font-size:0.78rem;">
+            <div style="background:${isGoodTime ? 'var(--green-soft)' : 'var(--orange-soft)'};padding:12px;border-radius:14px;margin-bottom:12px;font-size:0.76rem;">
               <div style="font-weight:800;color:${isGoodTime ? 'var(--green)' : 'var(--orange)'};">
                 ${!hasHistory ? 'ℹ️ تاریخچه ۳۰ روزه برای این کالا ثبت نشده است' : isGoodTime ? '💎 در کف قیمت ۳۰ روز اخیر قرار دارد!' : '⚖️ قیمت فعلی بالاتر از کف ۳۰ روز اخیر است'}
               </div>
@@ -2258,36 +2866,36 @@
                 🛡️ گارانتی: <strong>${escapeHtml(det.warranty || "مطابق صفحه محصول")}</strong> |
                 🏪 فروشنده: <strong>${escapeHtml(det.seller || item.shopName)}</strong>
               </div>
-              ${det.cheaper_offer ? `<div style="margin-top:4px;color:var(--blue);font-weight:700;">💡 فروشنده ارزان‌تر در دیجی‌کالا: ${escapeHtml(det.cheaper_offer.seller)} با قیمت ${escapeHtml(formatToman(det.cheaper_offer.price_toman))}</div>` : ''}
+              ${det.cheaper_offer ? `<div style="margin-top:4px;color:var(--accent);font-weight:700;">💡 فروشنده ارزان‌تر در دیجی‌کالا: ${escapeHtml(det.cheaper_offer.seller)} با قیمت ${escapeHtml(formatToman(det.cheaper_offer.price_toman))}</div>` : ''}
             </div>
 
             ${Array.isArray(det.comments) && det.comments.length > 0 ? `
-              <div style="font-weight:800;font-size:0.84rem;margin-bottom:6px;">💬 خلاصه نظرات خریداران واقعی:</div>
+              <div style="font-weight:800;font-size:0.82rem;margin-bottom:6px;">💬 دیدگاه خریداران:</div>
               ${det.comments.map(c => `
                 <div class="seller-offer-item" style="display:block;">
-                  <div style="font-size:0.76rem;font-weight:700;">⭐ ${escapeHtml(c.rate ?? "-")} · ${escapeHtml(c.title || "خریدار")}</div>
-                  <div style="font-size:0.74rem;color:var(--sub);margin-top:2px;">${escapeHtml(c.body || "")}</div>
+                  <div style="font-size:0.74rem;font-weight:700;">⭐ ${escapeHtml(c.rate ?? "-")} · ${escapeHtml(c.title || "خریدار")}</div>
+                  <div style="font-size:0.72rem;color:var(--sub);margin-top:2px;">${escapeHtml(c.body || "")}</div>
                 </div>
               `).join("")}
             ` : ''}
 
             <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="margin-top:10px;">
-              باز کردن صفحه کامل محصول در دیجی‌کالا ↗
+              مشاهده صفحه کامل محصول در دیجی‌کالا ↗
             </a>
           `;
         } else {
           body.innerHTML = `
-            <div style="padding:12px;background:var(--card-2);border-radius:12px;font-size:0.82rem;margin-bottom:12px;">
+            <div style="padding:12px;background:var(--card-2);border-radius:14px;font-size:0.8rem;margin-bottom:12px;">
               <div><strong>نام کالا:</strong> ${escapeHtml(item.title)}</div>
               <div style="margin-top:6px;"><strong>فروشنده:</strong> ${escapeHtml(item.shopName)}</div>
-              <div style="margin-top:6px;"><strong>قیمت لحظه‌ای:</strong> ${escapeHtml(formatToman(item.priceToman))}</div>
+              <div style="margin-top:6px;"><strong>قیمت:</strong> ${escapeHtml(formatToman(item.priceToman))}</div>
             </div>
             <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct">ورود به صفحه خرید ↗</a>
           `;
         }
       } catch (e) {
         body.innerHTML = `
-          <div style="padding:12px;font-size:0.8rem;">
+          <div style="padding:12px;font-size:0.78rem;">
             خطا در دریافت جزئیات تکمیلی (${escapeHtml(e.message || "خطای شبکه")}). می‌توانید مستقیماً وارد صفحه کالا شوید:
             <a href="${escapeHtml(safeItemUrl)}" target="_blank" rel="noopener noreferrer" class="btn-buy-direct" style="margin-top:10px;">باز کردن صفحه محصول ↗</a>
           </div>
@@ -2300,7 +2908,7 @@
     }
 
     // =========================================================================
-    // ۷. دریافت شگفت‌انگیزهای زنده امروز (تب ۲)
+    // ۹. تخفیف‌های منتخب امروز (تب ۳)
     // =========================================================================
     let dealsLoaded = false;
     async function loadLiveDeals() {
@@ -2350,14 +2958,14 @@
       dealsLoaded = true;
 
       if (!deals.length) {
-        container.innerHTML = `<div class="p-card" style="text-align:center;">خطا در دریافت تخفیف‌ها یا عدم پاسخ سرور. دکمه بروزرسانی زنده را بزنید.</div>`;
+        container.innerHTML = `<div class="p-card" style="text-align:center;">خطا در دریافت تخفیف‌ها. دکمه بروزرسانی را بزنید.</div>`;
         return;
       }
 
       container.innerHTML = deals.map(d => `
         <div class="p-card">
           <div class="p-top-row">
-            <span class="badge-store">🔥 ${escapeHtml(d.store)}</span>
+            <span class="badge-store">🏷️ ${escapeHtml(d.store)}</span>
             ${d.discount ? `<span class="p-discount-pill">${escapeHtml(d.discount)}% تخفیف</span>` : ''}
           </div>
           <div class="p-title" style="margin-bottom:8px;">${escapeHtml(d.title)}</div>
@@ -2373,7 +2981,7 @@
     }
 
     // =========================================================================
-    // ۸. لینک‌های مستقیم به فروشگاه‌های ایران (با Escape کامل HTML)
+    // ۱۰. لینک‌های مستقیم به فروشگاه‌ها
     // =========================================================================
     function renderDirectPortals(q) {
       const enc = encodeURIComponent(q);
@@ -2390,8 +2998,8 @@
 
       document.getElementById("directPortalsContainer").innerHTML = `
         <div class="cross-links-card">
-          <div style="font-size:0.75rem;font-weight:800;color:var(--sub);">
-            🔗 مشاهده مستقیم صفحه جستجوی «${escapeHtml(q)}» در سایر فروشگاه‌های ایران:
+          <div style="font-size:0.73rem;font-weight:800;color:var(--sub);">
+            🔗 جستجوی مستقیم «${escapeHtml(q)}» در سایر فروشگاه‌ها:
           </div>
           <div class="cross-links-grid">
             ${portals.map(p => `<a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" class="cross-link-item">${escapeHtml(p.name)} ↗</a>`).join("")}
@@ -2401,7 +3009,7 @@
     }
 
     // =========================================================================
-    // ۹. ماشین‌حساب اقساط (پشتیبانی از تورم ۰٪ و حفظ مقدار دستی کاربر)
+    // ۱۱. ماشین‌حساب اقساط و کاتالوگ سرورهای MCP
     // =========================================================================
     function onBnplUserInput() {
       bnplUserEdited = true;
@@ -2429,16 +3037,16 @@
         const benefit = Math.round(cash - npv);
         return `
           <div class="seller-offer-item" style="display:block;margin-bottom:8px;">
-            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.84rem;">
+            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.82rem;">
               <span>${escapeHtml(p.title)}</span>
               <span style="color:${benefit >= 0 ? 'var(--green)' : 'var(--orange)'};">
                 ${benefit >= 0 ? escapeHtml(formatToman(benefit)) + ' به نفع شما' : escapeHtml(formatToman(Math.abs(benefit))) + ' کارمزد واقعی'}
               </span>
             </div>
-            <div style="font-size:0.74rem;color:var(--sub);margin-top:4px;">
+            <div style="font-size:0.72rem;color:var(--sub);margin-top:4px;">
               پیش‌پرداخت: <strong>${escapeHtml(formatToman(p.up))}</strong> | هر قسط: <strong>${escapeHtml(formatToman(p.m))}</strong>
             </div>
-            <div style="font-size:0.72rem;color:var(--sub);margin-top:2px;">فروشگاه‌ها: ${escapeHtml(p.stores)}</div>
+            <div style="font-size:0.7rem;color:var(--sub);margin-top:2px;">فروشگاه‌ها: ${escapeHtml(p.stores)}</div>
           </div>
         `;
       }).join("");
@@ -2446,12 +3054,12 @@
 
     function renderMcpCatalog() {
       const servers = [
-        { name: "digikala-live (mmdju/digikala-mcp)", tools: 19, desc: "ورکر زنده دیجی‌کالا: جستجو، تاریخچه قیمت، فروشندگان و شگفت‌انگیزها" },
-        { name: "torob-live (mmdju/torob-mcp)", tools: 15, desc: "ورکر زنده ترب: جستجو در هزاران فروشگاه، فروشنده‌ها و نمودار قیمت" },
-        { name: "divar-live (mmdju/divar-mcp)", tools: 7, desc: "ورکر زنده دیوار: استعلام قیمت بازار (market_price) و آگهی‌ها" },
+        { name: "digikala-mcp (mmdju)", tools: 19, desc: "سرور کلودفلر دیجی‌کالا: جستجو، تاریخچه قیمت، فروشندگان و شگفت‌انگیزها" },
+        { name: "torob-mcp (mmdju)", tools: 15, desc: "سرور کلودفلر ترب: جستجو در هزاران فروشگاه، فروشنده‌ها و نمودار قیمت" },
+        { name: "divar-mcp (mmdju)", tools: 7, desc: "سرور کلودفلر دیوار: استعلام مظنه بازار (market_price) و آگهی‌ها" },
         { name: "iran-super-shop (Mcp-amin)", tools: 7, desc: "سرور پایتونی تجمیع‌کننده، بهینه‌ساز سبد خرید و تحلیلگر اقساط" },
         { name: "technolife (sepehr071/technolife-mcp)", tools: 19, desc: "جستجوی GraphQL تکنولایف، قیمت نقد و اقساط" },
-        { name: "snapp (sepehr071/snapp-mcp)", tools: 21, desc: "اسنپ‌فود و اسنپ‌مارکت با محاسبه هزینه واقعی سفارش" },
+        { name: "snapp (sepehr071/snapp-mcp)", tools: 21, desc: "اسنپ‌فود و اسنپ‌مارکت با محاسبه هزینه واقعی سفارش غذا" },
         { name: "masterkala (sepehr071/masterkala-mcp)", tools: 14, desc: "گجت و لوازم جانبی موبایل در مسترکالا" },
         { name: "shopino (sepehr071/shopino-mcp)", tools: 14, desc: "موتور جستجوی مد و پوشاک شاپینو" },
         { name: "khanoumi (sepehr071/khanoumi-mcp)", tools: 12, desc: "لوازم آرایشی، مراقبت پوست و عطر در خانومی" },
@@ -2460,12 +3068,12 @@
       ];
 
       document.getElementById("allMcpServersCatalog").innerHTML = `
-        <div style="font-weight:800;font-size:0.9rem;margin-bottom:10px;">📦 فهرست ۱۱ سرور تعریف‌شده در کانفیگ بالا (۱۵۶ ابزار فعال):</div>
+        <div style="font-weight:800;font-size:0.86rem;margin-bottom:10px;">📦 فهرست ۱۱ سرور تعریف‌شده در کانفیگ بالا (۱۵۶ ابزار فعال):</div>
         ${servers.map(s => `
           <div class="seller-offer-item">
             <div>
-              <div style="font-weight:800;font-size:0.8rem;">${escapeHtml(s.name)}</div>
-              <div style="font-size:0.72rem;color:var(--sub);">${escapeHtml(s.desc)}</div>
+              <div style="font-weight:800;font-size:0.78rem;">${escapeHtml(s.name)}</div>
+              <div style="font-size:0.7rem;color:var(--sub);">${escapeHtml(s.desc)}</div>
             </div>
             <span class="badge-vqs">${escapeHtml(s.tools)} ابزار</span>
           </div>
@@ -2474,7 +3082,125 @@
     }
 
     // =========================================================================
-    // ۱۰. کنترلرهای رابط کاربری و مدیریت کامل ریست و کلیپ‌بورد
+    // ۱۲. مقایسه پهلو‌به‌پهلو، ذخیره‌سازی در گوشی و اشتراک‌گذاری
+    // =========================================================================
+    let compareUids = [];
+    let savedItemsCache = [];
+    try {
+      savedItemsCache = JSON.parse(localStorage.getItem("chibekharim_saved_v2") || "[]");
+    } catch (_) {
+      savedItemsCache = [];
+    }
+
+    function toggleCompareItem(uid) {
+      const idx = compareUids.indexOf(uid);
+      if (idx >= 0) {
+        compareUids.splice(idx, 1);
+      } else {
+        if (compareUids.length >= 4) {
+          compareUids.shift();
+        }
+        compareUids.push(uid);
+      }
+      updateCompareTray();
+      renderResults();
+    }
+
+    function clearCompareList() {
+      compareUids = [];
+      updateCompareTray();
+      renderResults();
+    }
+
+    function updateCompareTray() {
+      const tray = document.getElementById("compareTray");
+      const txt = document.getElementById("compareTrayText");
+      if (!tray || !txt) return;
+      if (compareUids.length > 0) {
+        tray.classList.remove("hidden");
+        txt.innerText = `⚖️ ${compareUids.length.toLocaleString("fa-IR")} مورد برای مقایسه انتخاب شد`;
+      } else {
+        tray.classList.add("hidden");
+      }
+    }
+
+    function openCompareModal() {
+      const selected = state.items.filter(x => compareUids.includes(x.uid));
+      if (!selected.length) return;
+      const modal = document.getElementById("inspectModal");
+      const body = document.getElementById("modalBody");
+      document.getElementById("modalTitle").innerText = "⚖️ مقایسه کالاهای انتخابی شما";
+      modal.classList.remove("hidden");
+
+      const ranked = scoreAndSortItems(selected);
+      const top = ranked[0];
+
+      body.innerHTML = `
+        <div class="reason-box">
+          🏆 <strong>پیشنهاد برتر بین انتخاب‌های شما:</strong> ${escapeHtml(top.title)} در <strong>${escapeHtml(top.shopName)}</strong>
+          با امتیاز ارزش خرید <strong>${escapeHtml(top.vqs)} از ۱۰۰</strong> و قیمت <strong>${escapeHtml(formatToman(top.priceToman))}</strong>.
+        </div>
+        ${ranked.map((it, i) => `
+          <div class="seller-offer-item" style="display:block;">
+            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.8rem;">
+              <span>#${i + 1} · ${escapeHtml(it.shopName)}</span>
+              <span class="badge-vqs">امتیاز: ${escapeHtml(it.vqs)}/100</span>
+            </div>
+            <div style="font-size:0.76rem;margin:4px 0;">${escapeHtml(it.title)}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:var(--green);font-size:0.88rem;">${escapeHtml(formatToman(it.priceToman))}</strong>
+              <a href="${escapeHtml(sanitizeHttpsUrl(it.url))}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:800;font-size:0.74rem;">مشاهده و خرید ↗</a>
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    function isItemSaved(uid) {
+      return savedItemsCache.some(x => x.uid === uid);
+    }
+
+    function toggleSaveItem(uid) {
+      const existsIdx = savedItemsCache.findIndex(x => x.uid === uid);
+      if (existsIdx >= 0) {
+        savedItemsCache.splice(existsIdx, 1);
+      } else {
+        const found = state.items.find(x => x.uid === uid);
+        if (found) savedItemsCache.unshift(found);
+      }
+      try {
+        localStorage.setItem("chibekharim_saved_v2", JSON.stringify(savedItemsCache.slice(0, 30)));
+      } catch (_) {}
+      renderResults();
+    }
+
+    function renderSavedItemsView() {
+      ["all", "digital", "fashion", "beauty", "home", "saved"].forEach(c => {
+        const el = document.getElementById("cat-" + c);
+        if (el) el.classList.toggle("active", c === "saved");
+      });
+      state.items = savedItemsCache.slice();
+      renderResults();
+    }
+
+    async function shareOfferItem(uid) {
+      const item = state.items.find(x => x.uid === uid);
+      if (!item) return;
+      const shareText = `🛍️ ${item.title}\n🏪 فروشگاه: ${item.shopName}\n💰 قیمت: ${formatToman(item.priceToman)}\n🏆 امتیاز ارزش خرید: ${item.vqs || 90} از ۱۰۰\n🔗 لینک: ${sanitizeHttpsUrl(item.url)}`;
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: item.title, text: shareText, url: sanitizeHttpsUrl(item.url) });
+          return;
+        }
+      } catch (_) {}
+      try {
+        await navigator.clipboard.writeText(shareText);
+        alert("مشخصات و لینک کالا در کلیپ‌بورد کپی شد!");
+      } catch (_) {}
+    }
+
+    // =========================================================================
+    // ۱۳. کنترلرهای رابط کاربری، بودجه، دسته‌بندی و تب‌ها
     // =========================================================================
     function toggleBudgetDrawer() {
       document.getElementById("budgetDrawer").classList.toggle("hidden");
@@ -2499,7 +3225,7 @@
 
     function selectCategory(cat, sampleQuery) {
       state.category = cat;
-      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
+      ["all", "digital", "fashion", "beauty", "home", "saved"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === cat);
       });
@@ -2517,7 +3243,7 @@
         const el = document.getElementById("bopt-" + val);
         if (el) el.classList.toggle("active", val === state.budgetToman);
       });
-      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
+      ["all", "digital", "fashion", "beauty", "home", "saved"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === (cat || "all"));
       });
@@ -2570,7 +3296,7 @@
         const el = document.getElementById("bopt-" + val);
         if (el) el.classList.toggle("active", val === 0);
       });
-      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
+      ["all", "digital", "fashion", "beauty", "home", "saved"].forEach(c => {
         const el = document.getElementById("cat-" + c);
         if (el) el.classList.toggle("active", c === "all");
       });
@@ -2590,229 +3316,21 @@
       clearInput();
     }
 
-
-    // =========================================================================
-    // ۱۱. بخش غذا، رستوران و خوراکی (اسنپ‌فود، اسنپ‌مارکت، اکالا، دیجی‌کالا جت)
-    // =========================================================================
-    let compareUids = [];
-    let savedItemsCache = [];
-    try {
-      savedItemsCache = JSON.parse(localStorage.getItem("chibekharim_saved_v2") || "[]");
-    } catch (_) {
-      savedItemsCache = [];
-    }
-
-    function updateFoodLinks() {
-      const qEl = document.getElementById("foodQueryInput");
-      const cityEl = document.getElementById("foodCitySelect");
-      if (!qEl || !cityEl) return;
-      const q = qEl.value.trim() || "پیتزا";
-      const city = cityEl.value || "tehran";
-      const enc = encodeURIComponent(q);
-
-      const foodStores = [
-        { name: "🍕 اسنپ‌فود (رستوران و فودپارتی)", url: `https://snappfood.ir/search/?query=${enc}` },
-        { name: "🛒 اسنپ‌مارکت (سوپرمارکت و تخفیف)", url: `https://snapp.market/search?query=${enc}` },
-        { name: "🟠 اکالا (افق کوروش و سوپرمارکت)", url: `https://www.okala.com/search?q=${enc}` },
-        { name: "🚀 سوپرمارکت دیجی‌کالا", url: `https://www.digikala.com/search/category-food-beverage/?q=${enc}` },
-        { name: "🍯 غرفه‌های مواد غذایی باسلام", url: `https://basalam.com/s?q=${enc}` },
-        { name: "🟢 مقایسه خوراکی در ترب", url: `https://torob.com/search/?query=${enc}` }
-      ];
-
-      const box = document.getElementById("foodDirectPortals");
-      if (box) {
-        box.innerHTML = `
-          <div style="font-size:0.75rem;font-weight:800;color:var(--sub);margin-bottom:6px;">
-            🚀 ورود مستقیم به سفارش «${escapeHtml(q)}» در شهر ${escapeHtml(city)}:
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:6px;">
-            ${foodStores.map(fs => `
-              <a href="${escapeHtml(fs.url)}" target="_blank" rel="noopener noreferrer" class="cross-link-item" style="padding:9px 8px;">
-                ${escapeHtml(fs.name)} ↗
-              </a>
-            `).join("")}
-          </div>
-        `;
-      }
-    }
-
-    function quickFoodSelect(q) {
-      const inp = document.getElementById("foodQueryInput");
-      if (inp) inp.value = q;
-      updateFoodLinks();
-    }
-
-    function searchFoodInMain() {
-      const inp = document.getElementById("foodQueryInput");
-      const q = inp ? inp.value.trim() : "قهوه اسپرسو";
-      if (!q) return;
-      document.getElementById("searchInput").value = q;
-      switchTab("search");
-      runLiveSearch();
-    }
-
-    function calcTrueFoodCost() {
-      const r1Name = document.getElementById("r1Name")?.value || "رستوران اول";
-      const r1Menu = Math.max(0, Number(document.getElementById("r1Menu")?.value) || 0);
-      const r1Disc = Math.max(0, Number(document.getElementById("r1Disc")?.value) || 0);
-      const r1Fees = Math.max(0, Number(document.getElementById("r1Fees")?.value) || 0);
-      const r1Rate = Math.min(5, Math.max(1, Number(document.getElementById("r1Rate")?.value) || 4.5));
-
-      const r2Name = document.getElementById("r2Name")?.value || "رستوران دوم";
-      const r2Menu = Math.max(0, Number(document.getElementById("r2Menu")?.value) || 0);
-      const r2Disc = Math.max(0, Number(document.getElementById("r2Disc")?.value) || 0);
-      const r2Fees = Math.max(0, Number(document.getElementById("r2Fees")?.value) || 0);
-      const r2Rate = Math.min(5, Math.max(1, Number(document.getElementById("r2Rate")?.value) || 4.5));
-
-      const r1True = Math.max(0, r1Menu - r1Disc + r1Fees);
-      const r2True = Math.max(0, r2Menu - r2Disc + r2Fees);
-
-      const minCost = Math.max(1, Math.min(r1True, r2True));
-      const r1Score = Number(((minCost / Math.max(1, r1True)) * 65 + (r1Rate / 5) * 35).toFixed(1));
-      const r2Score = Number(((minCost / Math.max(1, r2True)) * 65 + (r2Rate / 5) * 35).toFixed(1));
-
-      const winner = r1Score >= r2Score
-        ? { name: r1Name, cost: r1True, otherCost: r2True, score: r1Score, rate: r1Rate }
-        : { name: r2Name, cost: r2True, otherCost: r1True, score: r2Score, rate: r2Rate };
-
-      const diff = Math.abs(r1True - r2True);
-      const out = document.getElementById("trueFoodCostResult");
-      if (out) {
-        out.innerHTML = `
-          <div class="reason-box" style="margin-bottom:0;">
-            <div><strong>🏆 برنده سفارش غذا: ${escapeHtml(winner.name)} (امتیاز ارزش سفارش: ${escapeHtml(winner.score)} از ۱۰۰)</strong></div>
-            <div style="margin-top:4px;">
-              💡 دلیل پیشنهاد: با احتساب تخفیف فودپارتی، هزینه بسته‌بندی و کرایه پیک، مبلغ واقعی پرداختی در
-              <strong>${escapeHtml(winner.name)}</strong> برابر <strong>${escapeHtml(formatToman(winner.cost))}</strong> است
-              (${diff > 0 ? `${escapeHtml(formatToman(diff))} بهینه و ارزان‌تر` : "هم‌قیمت"} با امتیاز کیفی ⭐ ${escapeHtml(winner.rate)} از ۵).
-            </div>
-          </div>
-        `;
-      }
-    }
-
-    // =========================================================================
-    // ۱۲. مقایسه پهلو‌به‌پهلو، ذخیره‌سازی (Bookmark) و اشتراک‌گذاری
-    // =========================================================================
-    function toggleCompareItem(uid) {
-      const idx = compareUids.indexOf(uid);
-      if (idx >= 0) {
-        compareUids.splice(idx, 1);
-      } else {
-        if (compareUids.length >= 4) {
-          compareUids.shift();
-        }
-        compareUids.push(uid);
-      }
-      updateCompareTray();
-      renderResults();
-    }
-
-    function clearCompareList() {
-      compareUids = [];
-      updateCompareTray();
-      renderResults();
-    }
-
-    function updateCompareTray() {
-      const tray = document.getElementById("compareTray");
-      const txt = document.getElementById("compareTrayText");
-      if (!tray || !txt) return;
-      if (compareUids.length > 0) {
-        tray.classList.remove("hidden");
-        txt.innerText = `⚖️ ${compareUids.length.toLocaleString("fa-IR")} کالا برای مقایسه انتخاب شد`;
-      } else {
-        tray.classList.add("hidden");
-      }
-    }
-
-    function openCompareModal() {
-      const selected = state.items.filter(x => compareUids.includes(x.uid));
-      if (!selected.length) return;
-      const modal = document.getElementById("inspectModal");
-      const body = document.getElementById("modalBody");
-      document.getElementById("modalTitle").innerText = "⚖️ مقایسه پهلو‌به‌پهلوی کالاهای انتخابی شما";
-      modal.classList.remove("hidden");
-
-      const ranked = scoreAndSortItems(selected);
-      const top = ranked[0];
-
-      body.innerHTML = `
-        <div class="reason-box">
-          🏆 <strong>برنده مقایسه شما:</strong> ${escapeHtml(top.title)} در <strong>${escapeHtml(top.shopName)}</strong>
-          با امتیاز ارزش خرید <strong>${escapeHtml(top.vqs)} از ۱۰۰</strong> و قیمت <strong>${escapeHtml(formatToman(top.priceToman))}</strong>.
-        </div>
-        ${ranked.map((it, i) => `
-          <div class="seller-offer-item" style="display:block;">
-            <div style="display:flex;justify-content:space-between;font-weight:800;font-size:0.82rem;">
-              <span>#${i + 1} · ${escapeHtml(it.shopName)}</span>
-              <span class="badge-vqs">امتیاز: ${escapeHtml(it.vqs)}/100</span>
-            </div>
-            <div style="font-size:0.78rem;margin:4px 0;">${escapeHtml(it.title)}</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <strong style="color:var(--green);font-size:0.9rem;">${escapeHtml(formatToman(it.priceToman))}</strong>
-              <a href="${escapeHtml(sanitizeHttpsUrl(it.url))}" target="_blank" rel="noopener noreferrer" style="color:var(--blue);font-weight:800;font-size:0.76rem;">خرید مستقیم ↗</a>
-            </div>
-          </div>
-        `).join("")}
-      `;
-    }
-
-    function isItemSaved(uid) {
-      return savedItemsCache.some(x => x.uid === uid);
-    }
-
-    function toggleSaveItem(uid) {
-      const existsIdx = savedItemsCache.findIndex(x => x.uid === uid);
-      if (existsIdx >= 0) {
-        savedItemsCache.splice(existsIdx, 1);
-      } else {
-        const found = state.items.find(x => x.uid === uid);
-        if (found) savedItemsCache.unshift(found);
-      }
-      try {
-        localStorage.setItem("chibekharim_saved_v2", JSON.stringify(savedItemsCache.slice(0, 30)));
-      } catch (_) {}
-      renderResults();
-    }
-
-    function renderSavedItemsView() {
-      ["all", "digital", "fashion", "beauty", "home", "food", "saved"].forEach(c => {
-        const el = document.getElementById("cat-" + c);
-        if (el) el.classList.toggle("active", c === "saved");
-      });
-      state.items = savedItemsCache.slice();
-      renderResults();
-    }
-
-    async function shareOfferItem(uid) {
-      const item = state.items.find(x => x.uid === uid);
-      if (!item) return;
-      const shareText = `🛍️ ${item.title}
-🏪 فروشگاه: ${item.shopName}
-💰 قیمت لحظه‌ای: ${formatToman(item.priceToman)}
-🏆 امتیاز ارزش خرید: ${item.vqs || 90} از ۱۰۰
-🔗 لینک: ${sanitizeHttpsUrl(item.url)}`;
-      try {
-        if (navigator.share) {
-          await navigator.share({ title: item.title, text: shareText, url: sanitizeHttpsUrl(item.url) });
-          return;
-        }
-      } catch (_) {}
-      try {
-        await navigator.clipboard.writeText(shareText);
-        alert("مشخصات و لینک کالا در کلیپ‌بورد کپی شد!");
-      } catch (_) {}
-    }
-
+    let foodInitialized = false;
     function switchTab(t) {
       ["search", "food", "deals", "bnpl", "mcp"].forEach(k => {
         document.getElementById("tab-" + k).classList.toggle("hidden", k !== t);
         document.getElementById("nav-" + k).classList.toggle("active", k === t);
       });
+      if (t === "food") {
+        calcTrueFoodCost();
+        if (!foodInitialized) {
+          foodInitialized = true;
+          runDedicatedFoodSearch();
+        }
+      }
       if (t === "deals" && !dealsLoaded) loadLiveDeals();
       if (t === "bnpl") renderBnplCalc();
-      if (t === "food") { updateFoodLinks(); calcTrueFoodCost(); }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -2850,7 +3368,6 @@
     // اجرای اولیه
     renderMcpCatalog();
     renderBnplCalc();
-    updateFoodLinks();
     calcTrueFoodCost();
     runLiveSearch();
   </script>
