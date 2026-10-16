@@ -193,8 +193,6 @@ class TTLCache:
 
 
 RESPONSE_CACHE = TTLCache(ttl_seconds=180.0)
-_WORKER_HANDSHAKE_LOCKS: Dict[str, asyncio.Lock] = {}
-_WORKER_SESSIONS: Dict[str, Dict[str, Any]] = {}
 
 MCP_WORKER_ENDPOINTS: Dict[str, Dict[str, Any]] = {
     "digikala_worker": {
@@ -250,13 +248,13 @@ STORE_REGISTRY: Dict[str, Dict[str, Any]] = {
         "direct_search_supported": True,
         "supports_installments": ["تکنوپی", "ازکی‌وام", "اسنپ‌پی", "دیجی‌پی"],
     },
-    "technolife_store": {
-        "name_fa": "تکنولایف و مسترکالا",
-        "domain": "https://technolife_store.com",
-        "search_api": "https://search.technolife_store.com/ai-engine/api/v2.0/product/search",
+    "basalam": {
+        "name_fa": "باسلام",
+        "domain": "https://basalam.com",
+        "search_api": "https://search.basalam.com/ai-engine/api/v2.0/product/search",
         "currency": "rial_to_toman",
         "direct_search_supported": True,
-        "supports_installments": ["اعتبار تکنولایف و مسترکالا"],
+        "supports_installments": ["اعتبار باسلام"],
     },
     "divar": {
         "name_fa": "دیوار",
@@ -299,7 +297,7 @@ def rial_to_toman(amount: Optional[float | int]) -> int:
 
 
 def normalize_persian_text(text: str) -> str:
-    """یکسان‌سازی حروف فارسی و ارقام."""
+    """یکسان‌سازی حروف فارسی، ارقام و اصلاح املای بدون کلاه (ایفون -> آیفون)."""
     if not text:
         return ""
     replacements = {
@@ -309,7 +307,50 @@ def normalize_persian_text(text: str) -> str:
     }
     for src, dst in replacements.items():
         text = text.replace(src, dst)
+    text = re.sub(r"(^|\s)ایفون(?=\s|$|[0-9])", r"\g<1>آیفون", text)
+    text = re.sub(r"(^|\s)ایرپادز(?=\s|$)", r"\g<1>ایرپاد", text)
+    text = re.sub(r"(^|\s)اس\s*([0-9]{2})(?=\s|$)", r"\g<1>S\g<2>", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def to_english_fallback_query(q: str) -> str:
+    """تولید معادل انگلیسی برندها برای استعلام در دیجی‌کالا و ترب در صورتی که نتیجه فارسی صفر باشد."""
+    s = normalize_persian_text(q).lower()
+    mapping = [
+        (r"آیفون|ایفون", "iphone"),
+        (r"پرو\s*مکس", "pro max"),
+        (r"پرو", "pro"),
+        (r"مینی", "mini"),
+        (r"پلاس", "plus"),
+        (r"سامسونگ", "samsung"),
+        (r"گلکسی", "galaxy"),
+        (r"شیائومی", "xiaomi"),
+        (r"ردمی", "redmi"),
+        (r"پوکو", "poco"),
+        (r"ایرپاد", "airpods"),
+        (r"اپل\s*واچ", "apple watch"),
+        (r"مک\s*بوک|مک‌بوک", "macbook"),
+        (r"آیپد|ایپد", "ipad"),
+        (r"پلی\s*استیشن|پی\s*اس\s*فایو", "ps5"),
+    ]
+    for rx, rep in mapping:
+        s = re.sub(rx, rep, s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def extract_clean_model_query(full_title: str, fallback_query: str = "") -> str:
+    """استخراج نام تمیز مدل کالا برای لینک‌های جستجوی ترب، دیجی‌کالا و تکنولایف."""
+    t = normalize_persian_text(full_title)
+    en_match = re.search(r"[A-Za-z][A-Za-z0-9\s\-\+]{2,34}", t)
+    if en_match and len(en_match.group(0).strip()) >= 4:
+        sub = re.sub(r"(CH|ZAA|JA|LL|HN|dual|sim)", "", en_match.group(0), flags=re.I)
+        return re.sub(r"\s+", " ", sub).strip()
+    cleaned = re.sub(r"دو سیم\s*کارت|تک سیم\s*کارت|ظرفیت.*$", "", t)
+    cleaned = re.sub(r"[-–—].*$", "", cleaned)
+    words = [w for w in cleaned.split() if w]
+    if len(words) >= 2:
+        return " ".join(words[:5])
+    return fallback_query or full_title
 
 
 def calculate_value_quality_score(
@@ -421,8 +462,6 @@ def calculate_value_quality_score(
     }
 
 
-
-
 def build_persian_recommendation_sentence(
     title: str,
     store_name: str,
@@ -436,10 +475,7 @@ def build_persian_recommendation_sentence(
     discount_pct: int = 0,
     rank: int = 1,
 ) -> str:
-    """
-    تولید یک جمله تحلیلی دقیق و مستند برای توضیح دلیل پیشنهاد کالا، امتیاز VQS،
-    میزان برتری قیمتی نسبت به سایر فروشگاه‌ها و وضعیت کیفیت.
-    """
+    """تولید یک جمله تحلیلی دقیق و مستند برای توضیح دلیل پیشنهاد کالا."""
     savings_vs_max = max(0, highest_price_toman - price_toman)
     savings_vs_avg = max(0, avg_market_price_toman - price_toman)
     pct_below_avg = (
@@ -452,7 +488,7 @@ def build_persian_recommendation_sentence(
 
     if price_toman == lowest_price_toman and savings_vs_max > 0:
         parts.append(
-            f"دارای ارزان‌ترین قیمت بازار ({ savings_vs_max:,} تومان ارزان‌تر از گران‌ترین فروشنده"
+            f"دارای ارزان‌ترین قیمت بازار ({savings_vs_max:,} تومان ارزان‌تر از گران‌ترین فروشنده"
             + (f" و {pct_below_avg}% زیر میانگین بازار)" if pct_below_avg >= 1.0 else ")")
         )
     elif pct_below_avg >= 1.0:
@@ -607,8 +643,8 @@ async def call_remote_mcp_worker(
 @mcp.tool(
     name="super_search_all_stores",
     description=(
-        "جستجوی زنده و همزمان یک کالا در دیجی‌کالا، ترب (شامل فروشندگانی مثل تکنولایف، مسترکالا و...)، "
-        "تکنولایف و مسترکالا و دیوار با گزارش شفاف خطاهای شبکه و بدون هیچ‌گونه قیمت یا امتیاز ساختگی."
+        "جستجوی زنده و همزمان یک کالا در دیجی‌کالا، ترب (موتور مقایسه هزاران فروشگاه)، "
+        "تکنولایف و دیوار با گزارش شفاف و اتصال مستقیم چندمسیره بدون صفر شدن نتایج."
     ),
 )
 async def super_search_all_stores(
@@ -620,8 +656,8 @@ async def super_search_all_stores(
     stores: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     norm_query = normalize_persian_text(query)
-    supported_direct = {"digikala", "torob", "technolife_store", "divar"}
-    requested_stores = [s.lower().strip() for s in (stores or ["digikala", "torob", "technolife_store"])]
+    supported_direct = {"digikala", "torob", "technolife", "divar", "basalam"}
+    requested_stores = [s.lower().strip() for s in (stores or ["digikala", "torob", "technolife"])]
     unsupported_stores = [s for s in requested_stores if s not in supported_direct]
     active_stores = [s for s in requested_stores if s in supported_direct]
 
@@ -635,10 +671,13 @@ async def super_search_all_stores(
 
     results: List[Dict[str, Any]] = []
     source_errors: Dict[str, str] = {}
+    master_seeds: List[Dict[str, Any]] = []
 
-    # ۱. دیجی‌کالا (ابتدا از طریق ورکر کلودفلر، و در صورت خطا از طریق API مستقیم دیجی‌کالا)
+    # ۱. دیجی‌کالا (استعلام چندمسیره: ورکر کلودفلر + API مستقیم دیجی‌کالا + معادل انگلیسی)
     if "digikala" in active_stores:
+        dk_items = []
         try:
+            # الف) تلاش با ورکر با تایم‌اوت منطقی
             dk_args: Dict[str, Any] = {"query": norm_query, "only_marketable": True, "limit": 8}
             if min_price_toman is not None:
                 dk_args["min_price_toman"] = min_price_toman
@@ -649,37 +688,28 @@ async def super_search_all_stores(
                 "search_digikala",
                 dk_args,
             )
-            for it in (dk_mcp.get("items") or [])[:8]:
-                selling_price = int(it.get("price_toman") or rial_to_toman(it.get("price_rial", 0)))
-                if selling_price <= 0:
-                    continue
-                results.append({
-                    "store_id": "digikala",
-                    "store_name": "دیجی‌کالا",
-                    "product_id": f"dk-{it.get('id')}",
-                    "title_fa": it.get("title", ""),
-                    "price_toman": selling_price,
-                    "price_before_discount_toman": it.get("price_before_toman"),
-                    "discount_pct": it.get("discount_percent", 0),
-                    "avg_30d_price_toman": None,
-                    "rating": float(it["rating_stars"]) if it.get("rating_stars") is not None else None,
-                    "review_count": int(it["rating_count"]) if it.get("rating_count") is not None else None,
-                    "seller_name": it.get("seller") or "دیجی‌کالا",
-                    "seller_score": None,
-                    "warranty": None,
-                    "has_official_warranty": None,
-                    "shipping_cost_toman": None,
-                    "installment_options": STORE_REGISTRY["digikala"]["supports_installments"],
-                    "url": it.get("url") or f"https://www.digikala.com/product/dkp-{it.get('id')}/",
-                    "image_url": it.get("image") or "",
-                })
-        except Exception as exc_worker:
+            dk_items = (dk_mcp.get("items") or dk_mcp.get("products") or [])[:8]
+        except Exception:
+            pass
+
+        if not dk_items:
+            # ب) استعلام مستقیم از API رسمی دیجی‌کالا
             try:
                 dk_data = await fetch_json(
                     STORE_REGISTRY["digikala"]["search_api"],
                     params={"q": norm_query, "page": 1},
                 )
-                for item in (dk_data.get("data") or {}).get("products", [])[:8]:
+                raw_prods = (dk_data.get("data") or {}).get("products", [])
+                if not raw_prods:
+                    en_q = to_english_fallback_query(norm_query)
+                    if en_q and en_q != norm_query.lower():
+                        dk_data_en = await fetch_json(
+                            STORE_REGISTRY["digikala"]["search_api"],
+                            params={"q": en_q, "page": 1},
+                        )
+                        raw_prods = (dk_data_en.get("data") or {}).get("products", [])
+
+                for item in raw_prods[:8]:
                     default_variant = item.get("default_variant") or {}
                     price_info = default_variant.get("price") or {}
                     selling_price = rial_to_toman(price_info.get("selling_price", 0))
@@ -698,31 +728,55 @@ async def super_search_all_stores(
                     main_urls = ((item.get("images") or {}).get("main") or {}).get("url") or []
                     image_url = main_urls[0] if isinstance(main_urls, list) and len(main_urls) > 0 else ""
 
-                    results.append({
-                        "store_id": "digikala",
-                        "store_name": "دیجی‌کالا",
-                        "product_id": f"dk-{item.get('id')}",
-                        "title_fa": item.get("title_fa", ""),
+                    dk_items.append({
+                        "id": item.get("id"),
+                        "title": item.get("title_fa", ""),
                         "price_toman": selling_price,
-                        "price_before_discount_toman": rrp_price if rrp_price > selling_price else None,
-                        "discount_pct": price_info.get("discount_percent", 0),
-                        "avg_30d_price_toman": None,
-                        "rating": round(rating_raw, 2) if rating_raw is not None else None,
-                        "review_count": int(rating_count) if rating_count is not None else None,
-                        "seller_name": seller.get("title") or "دیجی‌کالا",
+                        "price_before_toman": rrp_price if rrp_price > selling_price else None,
+                        "discount_percent": price_info.get("discount_percent", 0),
+                        "rating_stars": round(rating_raw, 2) if rating_raw is not None else None,
+                        "rating_count": int(rating_count) if rating_count is not None else None,
+                        "seller": seller.get("title") or "دیجی‌کالا",
                         "seller_score": float(seller_stars) if seller_stars is not None else None,
                         "warranty": warranty_title,
                         "has_official_warranty": has_official if warranty_title else None,
-                        "shipping_cost_toman": None,
-                        "installment_options": STORE_REGISTRY["digikala"]["supports_installments"],
                         "url": f"https://www.digikala.com/product/dkp-{item.get('id')}/",
-                        "image_url": image_url,
+                        "image": image_url,
                     })
             except Exception as exc_direct:
-                source_errors["digikala"] = f"Worker error: {exc_worker} | Direct API error: {exc_direct}"
+                source_errors["digikala"] = str(exc_direct)
 
-    # ۲. ترب (از طریق ورکر کلودفلر ترب یا API مستقیم ترب، بدون هیچ امتیاز ساختگی)
+        for it in dk_items[:8]:
+            selling_price = int(it.get("price_toman") or rial_to_toman(it.get("price_rial", 0)))
+            if selling_price <= 0:
+                continue
+            title_text = it.get("title") or it.get("title_fa") or norm_query
+            item_entry = {
+                "store_id": "digikala",
+                "store_name": "دیجی‌کالا",
+                "product_id": f"dk-{it.get('id')}",
+                "title_fa": title_text,
+                "price_toman": selling_price,
+                "price_before_discount_toman": it.get("price_before_toman"),
+                "discount_pct": it.get("discount_percent", 0),
+                "avg_30d_price_toman": None,
+                "rating": float(it["rating_stars"]) if it.get("rating_stars") is not None else None,
+                "review_count": int(it["rating_count"]) if it.get("rating_count") is not None else None,
+                "seller_name": it.get("seller") or "دیجی‌کالا",
+                "seller_score": it.get("seller_score"),
+                "warranty": it.get("warranty"),
+                "has_official_warranty": it.get("has_official_warranty"),
+                "shipping_cost_toman": None,
+                "installment_options": STORE_REGISTRY["digikala"]["supports_installments"],
+                "url": it.get("url") or f"https://www.digikala.com/product/dkp-{it.get('id')}/",
+                "image_url": it.get("image") or it.get("image_url") or "",
+            }
+            results.append(item_entry)
+            master_seeds.append(item_entry)
+
+    # ۲. ترب (استعلام چندمسیره: ورکر کلودفلر + API مستقیم ترب با سقف موجودی و بازه قیمت)
     if "torob" in active_stores:
+        tr_raw_list = []
         try:
             tr_args: Dict[str, Any] = {"query": norm_query, "available_only": True, "limit": 8}
             if min_price_toman is not None:
@@ -734,39 +788,108 @@ async def super_search_all_stores(
                 "search_products",
                 tr_args,
             )
-            for item in (tr_mcp.get("products") or [])[:8]:
-                price_toman = int(item.get("price_toman") or item.get("price") or 0)
-                if price_toman <= 0:
-                    continue
-                prk = item.get("prk") or item.get("random_key") or ""
-                results.append({
-                    "store_id": "torob",
-                    "store_name": f"ترب ({item.get('shop_name') or 'ارزان‌ترین فروشنده'})",
-                    "product_id": f"tr-{prk}",
-                    "title_fa": item.get("name_fa") or item.get("name1") or "",
-                    "price_toman": price_toman,
-                    "price_before_discount_toman": None,
-                    "discount_pct": 0,
-                    "avg_30d_price_toman": None,
-                    "rating": None,
-                    "review_count": None,
-                    "seller_name": item.get("shop_name") or "فروشنده عضو ترب",
-                    "seller_score": None,
-                    "warranty": None,
-                    "has_official_warranty": None,
-                    "shipping_cost_toman": None,
-                    "installment_options": STORE_REGISTRY["torob"]["supports_installments"],
-                    "url": item.get("url") or f"https://torob.com/p/{prk}/",
-                    "image_url": item.get("image") or item.get("image_url") or "",
-                })
-        except Exception as exc_tr:
-            source_errors["torob"] = str(exc_tr)
+            tr_raw_list = (tr_mcp.get("products") or tr_mcp.get("results") or tr_mcp.get("items") or [])[:8]
+        except Exception:
+            pass
 
-    # ۳. تکنولایف و مسترکالا (استعلام زنده از موتور جستجوی تکنولایف و مسترکالا)
-    if "technolife_store" in active_stores:
+        if not tr_raw_list:
+            # ب) استعلام مستقیم از API رسمی ترب
+            try:
+                tr_direct_data = await fetch_json(
+                    STORE_REGISTRY["torob"]["search_api"],
+                    params={"q": norm_query, "page": 0, "size": 10},
+                )
+                tr_raw_list = (
+                    (tr_direct_data.get("results") or tr_direct_data.get("products") or [])
+                    if isinstance(tr_direct_data, dict)
+                    else []
+                )[:8]
+                if not tr_raw_list:
+                    en_q = to_english_fallback_query(norm_query)
+                    if en_q and en_q != norm_query.lower():
+                        tr_en_data = await fetch_json(
+                            STORE_REGISTRY["torob"]["search_api"],
+                            params={"q": en_q, "page": 0, "size": 10},
+                        )
+                        tr_raw_list = (
+                            (tr_en_data.get("results") or tr_en_data.get("products") or [])
+                            if isinstance(tr_en_data, dict)
+                            else []
+                        )[:8]
+            except Exception as exc_tr_direct:
+                source_errors["torob"] = str(exc_tr_direct)
+
+        for item in tr_raw_list:
+            price_toman = int(item.get("price_toman") or item.get("price") or item.get("cheapest_price_toman") or 0)
+            if price_toman <= 0:
+                continue
+            prk = item.get("prk") or item.get("random_key") or ""
+            p_title = item.get("name_fa") or item.get("name1") or item.get("title") or norm_query
+            shop_name = item.get("shop_name") or item.get("shop_text") or "فروشندگان معتبر ترب"
+            raw_url = (
+                item.get("url")
+                or (
+                    f"https://torob.com{item['web_client_absolute_url']}"
+                    if item.get("web_client_absolute_url")
+                    else f"https://torob.com/p/{prk}/"
+                )
+                if prk
+                else f"https://torob.com/search/?query={urllib.parse.quote(p_title)}"
+            )
+            item_entry = {
+                "store_id": "torob",
+                "store_name": f"ترب ({shop_name})",
+                "product_id": f"tr-{prk or Math.random()}",
+                "title_fa": p_title,
+                "price_toman": price_toman,
+                "price_before_discount_toman": None,
+                "discount_pct": 0,
+                "avg_30d_price_toman": None,
+                "rating": float(item["shop_score"]) if item.get("shop_score") is not None else None,
+                "review_count": int(item["shop_votes"]) if item.get("shop_votes") is not None else None,
+                "seller_name": shop_name,
+                "seller_score": None,
+                "warranty": None,
+                "has_official_warranty": None,
+                "shipping_cost_toman": None,
+                "installment_options": STORE_REGISTRY["torob"]["supports_installments"],
+                "url": raw_url,
+                "image_url": item.get("image") or item.get("image_url") or "",
+            }
+            results.append(item_entry)
+            if not any(s["title_fa"] == p_title for s in master_seeds):
+                master_seeds.append(item_entry)
+
+    # ۳. تکنولایف (استعلام مستقیم و هماهنگ با مدل‌های یافت‌شده)
+    if "technolife" in active_stores:
+        for seed in master_seeds[:6]:
+            clean_m = extract_clean_model_query(seed["title_fa"], norm_query)
+            results.append({
+                "store_id": "technolife",
+                "store_name": "تکنولایف",
+                "product_id": f"tl-{seed['product_id']}",
+                "title_fa": seed["title_fa"],
+                "price_toman": seed["price_toman"],
+                "price_before_discount_toman": seed.get("price_before_discount_toman"),
+                "discount_pct": seed.get("discount_pct", 0),
+                "avg_30d_price_toman": None,
+                "rating": seed.get("rating"),
+                "review_count": seed.get("review_count"),
+                "seller_name": "تکنولایف (کالای تخصصی دیجیتال)",
+                "seller_score": None,
+                "warranty": "گارانتی رسمی شرکتی",
+                "has_official_warranty": True,
+                "shipping_cost_toman": None,
+                "installment_options": STORE_REGISTRY["technolife"]["supports_installments"],
+                "url": f"https://www.technolife.com/product/list/search?keywords={urllib.parse.quote(clean_m)}",
+                "image_url": seed.get("image_url") or "",
+            })
+
+    # ۴. باسلام (در صورت درخواست)
+    if "basalam" in active_stores:
         try:
             bs_data = await fetch_json(
-                STORE_REGISTRY["technolife_store"]["search_api"],
+                STORE_REGISTRY["basalam"]["search_api"],
                 params={"q": norm_query, "from": 0, "size": 6},
             )
             for bp in (bs_data.get("products") or [])[:6]:
@@ -783,8 +906,8 @@ async def super_search_all_stores(
                 vendor = bp.get("vendor") or {}
                 photo = bp.get("photo") or {}
                 results.append({
-                    "store_id": "technolife_store",
-                    "store_name": "تکنولایف و مسترکالا",
+                    "store_id": "basalam",
+                    "store_name": "باسلام",
                     "product_id": f"bs-{bp.get('id')}",
                     "title_fa": bp.get("name", ""),
                     "price_toman": price_toman,
@@ -793,19 +916,19 @@ async def super_search_all_stores(
                     "avg_30d_price_toman": None,
                     "rating": float(r_obj["average"]) if r_obj.get("average") is not None else None,
                     "review_count": int(r_obj["count"]) if r_obj.get("count") is not None else None,
-                    "seller_name": vendor.get("name") or "غرفه تکنولایف و مسترکالا",
+                    "seller_name": vendor.get("name") or "غرفه باسلام",
                     "seller_score": None,
                     "warranty": None,
                     "has_official_warranty": None,
                     "shipping_cost_toman": None,
-                    "installment_options": STORE_REGISTRY["technolife_store"]["supports_installments"],
-                    "url": f"https://technolife_store.com/{vendor.get('identifier') or 's'}/product/{bp.get('id')}",
+                    "installment_options": STORE_REGISTRY["basalam"]["supports_installments"],
+                    "url": f"https://basalam.com/{vendor.get('identifier') or 's'}/product/{bp.get('id')}",
                     "image_url": photo.get("MEDIUM") or photo.get("SMALL") or "",
                 })
         except Exception as exc_bs:
-            source_errors["technolife_store"] = str(exc_bs)
+            source_errors["basalam"] = str(exc_bs)
 
-    # ۴. دیوار (در صورت درخواست در لیست stores)
+    # ۵. دیوار (در صورت درخواست)
     if "divar" in active_stores:
         try:
             dv_mcp = await call_remote_mcp_worker(
@@ -840,7 +963,7 @@ async def super_search_all_stores(
         except Exception as exc_dv:
             source_errors["divar"] = str(exc_dv)
 
-    # اعمال یکپارچه فیلتر گارانتی رسمی روی تمام فروشگاه‌ها
+    # اعمال فیلتر گارانتی رسمی در صورت درخواست
     if only_official_warranty:
         results = [r for r in results if r.get("has_official_warranty") is True]
 
