@@ -1,0 +1,1 @@
+{ "name": "chibekharim", "private": true, "scripts": { "test": "node tests/search.test.js && python3 tests/test_server.py" }, "devDependencies": { "jsdom": "^26.0.0" } }

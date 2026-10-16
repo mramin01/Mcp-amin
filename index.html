@@ -2467,6 +2467,13 @@
       `;
     }
 
+    function stableUid(prefix, ...parts) {
+      const str = parts.map(p => String(p == null ? "" : p)).join("|");
+      let h = 5381;
+      for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) | 0;
+      return prefix + (h >>> 0).toString(36);
+    }
+
     function escapeHtml(value) {
       if (value === null || value === undefined) return "";
       return String(value)
@@ -2499,9 +2506,13 @@
         out = out.replace(new RegExp(arabicDigits[i], "g"), String(i));
       }
       out = out
-        .replace(/ي/g, "ی")
+        .replace(/[\u200B\u200D\u200E\u200F\u202A-\u202E\u2066-\u2069\uFEFF]/g, "")
+        .replace(/[\u064B-\u065F\u0670\u0640]/g, "")
+        .replace(/[يى]/g, "ی")
         .replace(/ك/g, "ک")
-        .replace(/ۀ/g, "ه")
+        .replace(/[ۀة]/g, "ه")
+        .replace(/[أإ]/g, "ا")
+        .replace(/\u00A0/g, " ")
         .replace(/(^|\s)ایفون(?=\s|$|[0-9])/g, "$1آیفون")
         .replace(/(^|\s)ایرپادز(?=\s|$)/g, "$1ایرپاد")
         .replace(/(^|\s)اس\s*([0-9]{2})(?=\s|$)/g, "$1S$2");
@@ -3397,7 +3408,7 @@
       return normalized;
     }
 
-    async function fetchRealDigikalaSearch(apiQuery, hardMax, signal) {
+    async function fetchDigikalaDetailed(apiQuery, hardMax, signal) {
       const trySingleQuery = async (qStr) => {
         const dkV1Url = `https://api.digikala.com/v1/search/?q=${encodeURIComponent(qStr)}&page=1`;
         const args = { query: qStr, only_marketable: true, limit: 14 };
@@ -3419,20 +3430,28 @@
         ];
 
         try {
-          return await Promise.any(subTasks);
-        } catch (_) {
-          return [];
+          return { list: await Promise.any(subTasks), responded: true, error: null };
+        } catch (agg) {
+          const errs = (agg && agg.errors) || [];
+          const responded = errs.some(e => /^Empty/.test(String(e && e.message)));
+          const firstReal = errs.find(e => !/^Empty/.test(String(e && e.message)));
+          return { list: [], responded, error: responded ? null : String((firstReal && firstReal.message) || "unreachable") };
         }
       };
 
-      let list = await trySingleQuery(apiQuery);
-      if (list.length === 0) {
+      let res = await trySingleQuery(apiQuery);
+      if (res.list.length === 0) {
         const enFallbackQ = toEnglishFallbackQuery(apiQuery);
         if (enFallbackQ && enFallbackQ !== apiQuery.toLowerCase()) {
-          list = await trySingleQuery(enFallbackQ);
+          const res2 = await trySingleQuery(enFallbackQ);
+          if (res2.list.length > 0 || res2.responded) res = res2;
         }
       }
-      return list;
+      return res;
+    }
+
+    async function fetchRealDigikalaSearch(apiQuery, hardMax, signal) {
+      return (await fetchDigikalaDetailed(apiQuery, hardMax, signal)).list;
     }
 
     async function fetchRealTorobSearch(apiQuery, hardMax, signal) {
@@ -3455,9 +3474,13 @@
           })()
         ];
         try {
-          return await Promise.any(subTasks);
-        } catch (_) {
-          return { data: null, list: [] };
+          const ok = await Promise.any(subTasks);
+          return { ...ok, responded: true, error: null };
+        } catch (agg) {
+          const errs = (agg && agg.errors) || [];
+          const responded = errs.some(e => /^Empty/.test(String(e && e.message)));
+          const firstReal = errs.find(e => !/^Empty/.test(String(e && e.message)));
+          return { data: null, list: [], responded, error: responded ? null : String((firstReal && firstReal.message) || "unreachable") };
         }
       };
 
@@ -3465,7 +3488,8 @@
       if (!res.list.length) {
         const enFallbackQ = toEnglishFallbackQuery(apiQuery);
         if (enFallbackQ && enFallbackQ !== apiQuery.toLowerCase()) {
-          res = await trySingleTorob(enFallbackQ);
+          const res2 = await trySingleTorob(enFallbackQ);
+          if (res2.list.length > 0 || res2.responded) res = res2;
         }
       }
       return res;
@@ -3527,10 +3551,10 @@
       let localDivarStats = null;
       let localTorobRange = null;
       const localStatuses = {
-        digikala: { name: "دیجی‌کالا", ok: false, count: 0, error: null },
-        torob: { name: "ترب و فروشندگان", ok: false, count: 0, error: null },
-        technolife: { name: "تکنولایف", ok: false, count: 0, error: null },
-        divar: { name: "دیوار", ok: false, count: 0, error: null }
+        digikala: { name: "دیجی‌کالا", ok: false, responded: false, count: 0, error: null },
+        torob: { name: "ترب و فروشندگان", ok: false, responded: false, count: 0, error: null },
+        technolife: { name: "تکنولایف", ok: false, responded: false, count: 0, error: null },
+        divar: { name: "دیوار", ok: false, responded: false, count: 0, error: null }
       };
 
       let completedTasks = 0;
@@ -3551,7 +3575,10 @@
         // الف) دیجی‌کالا (درگاه مستقیم + پراکسی + ورکر MCP)
         (async () => {
           try {
-            const rawList = await fetchRealDigikalaSearch(apiQuery, hardMax, searchCtrl.signal);
+            const dkRes = await fetchDigikalaDetailed(apiQuery, hardMax, searchCtrl.signal);
+            const rawList = dkRes.list;
+            localStatuses.digikala.responded = dkRes.responded || rawList.length > 0;
+            if (!localStatuses.digikala.responded) localStatuses.digikala.error = dkRes.error || "unreachable";
             const seenIds = new Set();
             for (const it of rawList) {
               const idNum = Number(it.id) || 0;
@@ -3562,7 +3589,7 @@
               if (price <= 0) continue;
 
               const itemTitle = it.title || q;
-              const safeId = String(idNum || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+              const safeId = String(idNum || stableUid("", itemTitle, price)).replace(/[^a-zA-Z0-9_-]/g, "");
               const hasRealRating = it.rating_stars !== null && it.rating_stars !== undefined && Number(it.rating_stars) > 0;
 
               if (topDigikalaSeeds.length < 6) {
@@ -3610,7 +3637,10 @@
         // ب) ترب
         (async () => {
           try {
-            const { data: searchData, list: rawProducts } = await fetchRealTorobSearch(apiQuery, hardMax, searchCtrl.signal);
+            const trRes = await fetchRealTorobSearch(apiQuery, hardMax, searchCtrl.signal);
+            const { data: searchData, list: rawProducts } = trRes;
+            localStatuses.torob.responded = trRes.responded || rawProducts.length > 0;
+            if (!localStatuses.torob.responded) localStatuses.torob.error = trRes.error || "unreachable";
             if (searchData && searchData.price_range_toman) {
               localTorobRange = searchData.price_range_toman;
             }
@@ -3627,7 +3657,7 @@
               const pTitle = p.name_fa || p.name1 || p.title || p.name_en || q;
               const shopName = p.shop_name || p.shop_text || "فروشگاه عضو ترب";
               const isTech = shopName.includes("تکنولایف");
-              const safeUid = "tr-" + String(prk || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+              const safeUid = "tr-" + String(prk || stableUid("", pTitle, shopName, price)).replace(/[^a-zA-Z0-9_-]/g, "");
               const imgUrl = p.image || p.image_url || "";
 
               if (topTorobSeeds.length < 8) {
@@ -3680,13 +3710,15 @@
         // ج) دیوار
         (async () => {
           try {
+            localStatuses.divar.error = null;
             const adsData = await callMcpTool("divar", "search_ads", { query: apiQuery, city: "tehran", has_photo: true, limit: 6 }, 5500, searchCtrl.signal);
             if (adsData && Array.isArray(adsData.items)) {
+              localStatuses.divar.responded = true;
               for (const ad of adsData.items) {
                 const price = Number(ad.price_toman || 0);
                 if (price <= 0) continue;
                 const adTitle = ad.title || q;
-                const safeToken = String(ad.token || Math.random()).replace(/[^a-zA-Z0-9_-]/g, "");
+                const safeToken = String(ad.token || stableUid("", adTitle, price)).replace(/[^a-zA-Z0-9_-]/g, "");
                 localItems.push({
                   uid: "dv-" + safeToken,
                   divarToken: safeToken,
@@ -3721,144 +3753,8 @@
         return;
       }
 
-      // تجمیع بذرهای کالای واقعی (از هر سرویسی که روی اینترنت کاربر پاسخ داده است: چه ترب و چه دیجی‌کالا)
-      const masterSeeds = topDigikalaSeeds.length > 0 ? topDigikalaSeeds : topTorobSeeds;
-
-      // ۱. اگر روی اینترنت موبایل کاربر (LTE)، ورکر دیجی‌کالا مسدود بود اما ترب کالاهای واقعی را برگرداند،
-      //    کارت‌های واقعی همان مدل‌ها را برای تب «🔴 دیجی‌کالا» هم بساز تا تب دیجی‌کالا هرگز خالی نماند!
-      if (localStatuses.digikala.count === 0 && topTorobSeeds.length > 0) {
-        for (const prod of topTorobSeeds.slice(0, 6)) {
-          const cleanM = extractCleanModelQuery(prod.title, q);
-          localItems.push({
-            uid: `dk-from-seed-${prod.id}`,
-            source: "digikala",
-            sourceLabel: `🔴 دیجی‌کالا · مشاهده این مدل در دیجی‌کالا`,
-            shopName: `دیجی‌کالا (${cleanM})`,
-            title: prod.title,
-            priceToman: prod.basePrice,
-            oldPriceToman: null,
-            discountPct: 0,
-            rating: prod.rating,
-            ratingCount: prod.ratingCount,
-            image: prod.image,
-            url: `https://www.digikala.com/search/?q=${encodeURIComponent(cleanM)}`,
-            torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(cleanM)}`,
-            badges: ["موجود در بازار"]
-          });
-          localStatuses.digikala.count++;
-          localStatuses.digikala.ok = true;
-        }
-      }
-
-      // ۲. اگر ترب خالی بود اما دیجی‌کالا پاسخ داده بود، فروشندگان و کارت‌های ترب را از روی مدل‌های واقعی دیجی‌کالا بساز
-      if (localStatuses.torob.count === 0 && topDigikalaSeeds.length > 0) {
-        const firstProd = topDigikalaSeeds[0];
-        if (typeof firstProd.id === "number" && firstProd.id > 0) {
-          try {
-            const sellersData = await callMcpTool("digikala", "product_sellers", { id: firstProd.id }, 4000, searchCtrl.signal);
-            const sellers = (sellersData && (sellersData.sellers || sellersData.items)) || [];
-            for (const s of sellers.slice(0, 4)) {
-              const sPrice = Number(s.price_toman || (s.price_rial ? s.price_rial / 10 : 0) || s.price || 0);
-              if (sPrice <= 0) continue;
-              const sName = s.seller_name || s.title || s.name || "فروشنده منتخب";
-              if (sName === firstProd.baseSeller && sPrice === firstProd.basePrice) continue;
-              const cleanM = extractCleanModelQuery(firstProd.title, q);
-              localItems.push({
-                uid: `dk-seller-${firstProd.id}-${Math.random().toString(36).slice(2, 7)}`,
-                dkpId: firstProd.id,
-                source: "torob",
-                sourceLabel: `🟢 فروشنده دیگر · ${sName}`,
-                shopName: sName,
-                title: firstProd.title,
-                priceToman: sPrice,
-                oldPriceToman: null,
-                discountPct: 0,
-                rating: firstProd.rating,
-                ratingCount: firstProd.ratingCount,
-                image: firstProd.image,
-                url: `https://www.digikala.com/product/dkp-${firstProd.id}/`,
-                torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(cleanM)}`,
-                badges: ["فروشنده منتخب"]
-              });
-              localStatuses.torob.count++;
-              localStatuses.torob.ok = true;
-            }
-          } catch (_) {}
-        }
-
-        for (const prod of topDigikalaSeeds.slice(0, 5)) {
-          const cleanM = extractCleanModelQuery(prod.title, q);
-          localItems.push({
-            uid: `tr-real-lookup-${prod.id}`,
-            dkpId: typeof prod.id === "number" ? prod.id : null,
-            source: "torob",
-            sourceLabel: `🟢 ترب · مقایسه فروشندگان در ترب`,
-            shopName: `موتور جستجوی ترب (${cleanM})`,
-            title: prod.title,
-            priceToman: prod.basePrice,
-            oldPriceToman: null,
-            discountPct: 0,
-            rating: prod.rating,
-            ratingCount: prod.ratingCount,
-            image: prod.image,
-            url: `https://torob.com/search/?query=${encodeURIComponent(cleanM)}`,
-            torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(cleanM)}`,
-            badges: ["مقایسه فروشندگان"]
-          });
-          localStatuses.torob.count++;
-          localStatuses.torob.ok = true;
-        }
-      }
-
-      // ۳. تضمین نتایج واقعی برای «🔵 تکنولایف» از روی masterSeeds (چه از ترب آمده باشد چه از دیجی‌کالا!)
-      if (localStatuses.technolife.count === 0 && masterSeeds.length > 0) {
-        for (const prod of masterSeeds.slice(0, 5)) {
-          const cleanM = extractCleanModelQuery(prod.title, q);
-          localItems.push({
-            uid: `tl-real-lookup-${prod.id}`,
-            dkpId: typeof prod.id === "number" ? prod.id : null,
-            source: "technolife",
-            sourceLabel: `🔵 تکنولایف · مشاهده این مدل در تکنولایف`,
-            shopName: `تکنولایف (${cleanM})`,
-            title: prod.title,
-            priceToman: prod.basePrice,
-            oldPriceToman: null,
-            discountPct: 0,
-            rating: prod.rating,
-            ratingCount: prod.ratingCount,
-            image: prod.image,
-            url: `https://www.technolife.com/product/list/search?keywords=${encodeURIComponent(cleanM)}`,
-            torobCompareUrl: `https://torob.com/search/?query=${encodeURIComponent(cleanM)}`,
-            badges: ["تکنولایف"]
-          });
-          localStatuses.technolife.count++;
-          localStatuses.technolife.ok = true;
-        }
-      }
-
-      // ۴. تضمین نتایج برای «🟣 دیوار» در صورتی که ورکر دیوار روی LTE مسدود باشد اما کاربر تیک دیوار را بزند
-      if (localStatuses.divar.count === 0 && masterSeeds.length > 0) {
-        for (const prod of masterSeeds.slice(0, 4)) {
-          const cleanM = extractCleanModelQuery(prod.title, q);
-          localItems.push({
-            uid: `dv-seed-${prod.id}`,
-            source: "divar",
-            sourceLabel: `🟣 دیوار · آگهی‌های این مدل در دیوار`,
-            shopName: `دیوار تهران (${cleanM})`,
-            title: prod.title,
-            priceToman: prod.basePrice,
-            oldPriceToman: null,
-            discountPct: 0,
-            rating: null,
-            ratingCount: null,
-            image: prod.image,
-            url: `https://divar.ir/s/tehran?q=${encodeURIComponent(cleanM)}`,
-            badges: ["مشاهده آگهی‌ها در دیوار"]
-          });
-          localStatuses.divar.count++;
-          localStatuses.divar.ok = true;
-        }
-      }
+      // نکته: برای هر منبعی که نتیجه یا پاسخ نداشت، هرگز کارت جعلی با قیمت منبع دیگر ساخته نمی‌شود.
+      // وضعیت واقعی (خطا / بدون نتیجه) در نوار وضعیت منابع و حالت خالی نمایش داده می‌شود.
 
       state.items = localItems;
       state.divarStats = localDivarStats;
@@ -3908,6 +3804,12 @@
         const s = st[k];
         if (s.ok && s.count > 0) {
           return `<span style="color:var(--green);font-weight:700;">● ${escapeHtml(s.name)} (${s.count.toLocaleString("fa-IR")})</span>`;
+        }
+        if (s.error && !s.responded) {
+          return `<span style="color:var(--red);font-weight:700;" title="${escapeHtml(String(s.error))}">✕ ${escapeHtml(s.name)} (پاسخ نداد)</span>`;
+        }
+        if (s.responded) {
+          return `<span style="color:var(--muted);">○ ${escapeHtml(s.name)} (بدون نتیجه)</span>`;
         }
         return `<span style="color:var(--muted);">○ ${escapeHtml(s.name)}</span>`;
       }).join(" · ");
@@ -4067,11 +3969,26 @@
       if (!list.length) {
         summaryBox.innerHTML = "";
         const encQ = encodeURIComponent(state.query || "");
+        const stt = state.sourceStatuses || {};
+        const core = ["digikala", "torob"].map(k => stt[k]).filter(Boolean);
+        const anyResponded = core.some(x => x.responded);
+        const allFailed = core.length > 0 && !anyResponded;
+        const filteredOut = state.items.length > 0;
+        const headline = allFailed
+          ? "⚠️ ارتباط با دیجی‌کالا و ترب برقرار نشد"
+          : filteredOut
+            ? "با فیلتر فعلی نتیجه‌ای وجود ندارد"
+            : `نتیجه‌ای برای «${escapeHtml(state.query)}» پیدا نشد`;
+        const sub = allFailed
+          ? "این یعنی «نبودن نتیجه» نیست؛ سرویس‌ها پاسخ ندادند (اینترنت، فیلتر یا محدودیت درخواست). دوباره تلاش کنید یا مستقیماً در فروشگاه جستجو کنید:"
+          : filteredOut
+            ? "فیلتر منبع یا دسته را تغییر دهید."
+            : "عبارت را ساده‌تر یا با املای دیگر امتحان کنید، یا مستقیماً در فروشگاه جستجو کنید:";
         container.innerHTML = `
-          <div class="p-card" style="text-align:center;padding:22px;">
-            <div style="font-weight:800;margin-bottom:6px;">⚠️ ارتباط با سرور جستجو به دلیل وضعیت اینترنت برقرار نشد یا نتیجه‌ای در این فیلتر نبود</div>
+          <div class="p-card" style="text-align:center;padding:22px;" role="status">
+            <div style="font-weight:800;margin-bottom:6px;">${headline}</div>
             <div style="font-size:0.74rem;color:var(--sub);margin-bottom:12px;">
-              می‌توانید دکمه تلاش مجدد را بزنید یا مستقیماً نتایج «${escapeHtml(state.query)}» را در فروشگاه باز کنید:
+              ${sub}
             </div>
             <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px;">
               <button class="btn-search" onclick="runLiveSearch()">🔄 تلاش مجدد</button>
